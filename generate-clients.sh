@@ -6,7 +6,11 @@
 CONTAINER=semtexzv/openapi-generator-cli:latest
 
 # For now, we skip the dateTime parsing because of incompatible formats ( inventory does not produce fully compliant
+<<<<<<< HEAD
 # RFC 3339 datetimes )
+=======
+# RFC 3339 datetimes
+>>>>>>> Note
 
 function generate_client() {
   NAME=$1
