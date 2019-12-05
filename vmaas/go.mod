@@ -1,4 +1,4 @@
-module github.com/semtexzv/patchman-clients/vmaas
+module github.com/RedHatInsights/patchman-clients/vmaas
 
 require (
 	github.com/antihax/optional v1.0.0

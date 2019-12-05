@@ -1,4 +1,4 @@
-module github.com/semtexzv/patchman-clients/inventory
+module github.com/RedHatInsights/patchman-clients/inventory
 
 require (
 	github.com/antihax/optional v1.0.0

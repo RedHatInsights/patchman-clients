@@ -6,11 +6,6 @@
 CONTAINER=semtexzv/openapi-generator-cli:latest
 
 # For now, we skip the dateTime parsing because of incompatible formats ( inventory does not produce fully compliant
-<<<<<<< HEAD
-# RFC 3339 datetimes )
-=======
-# RFC 3339 datetimes
->>>>>>> Note
 
 function generate_client() {
   NAME=$1
@@ -24,7 +19,7 @@ function generate_client() {
       -g go \
       --api-package $NAME \
       -p packageName=$NAME,isGoSubmodule=true \
-      --git-host "github.com" --git-user-id semtexzv --git-repo-id patchman-clients \
+      --git-host "github.com" --git-user-id RedHatInsights --git-repo-id patchman-clients \
       --type-mappings DateTime=string \
       -o /local/$NAME
 }
