@@ -33,7 +33,7 @@ Name | Type | Description | Notes
 **SatelliteManaged** | **bool** |  | [optional] 
 **SubscriptionAutoAttach** | **string** |  | [optional] 
 **SubscriptionStatus** | **string** |  | [optional] 
-**SystemMemoryBytes** | **int32** |  | [optional] 
+**SystemMemoryBytes** | **int64** |  | [optional] 
 **YumRepos** | [**[]YumRepo**](YumRepo.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

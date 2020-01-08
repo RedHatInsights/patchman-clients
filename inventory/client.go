@@ -48,6 +48,8 @@ type APIClient struct {
 	// API Services
 
 	HostsApi *HostsApiService
+
+	TagsApi *TagsApiService
 }
 
 type service struct {
@@ -67,6 +69,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 
 	// API Services
 	c.HostsApi = (*HostsApiService)(&c.common)
+	c.TagsApi = (*TagsApiService)(&c.common)
 
 	return c
 }

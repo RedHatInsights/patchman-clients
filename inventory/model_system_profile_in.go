@@ -39,6 +39,6 @@ type SystemProfileIn struct {
 	SatelliteManaged bool `json:"satellite_managed,omitempty"`
 	SubscriptionAutoAttach string `json:"subscription_auto_attach,omitempty"`
 	SubscriptionStatus string `json:"subscription_status,omitempty"`
-	SystemMemoryBytes int32 `json:"system_memory_bytes,omitempty"`
+	SystemMemoryBytes int64 `json:"system_memory_bytes,omitempty"`
 	YumRepos []YumRepo `json:"yum_repos,omitempty"`
 }

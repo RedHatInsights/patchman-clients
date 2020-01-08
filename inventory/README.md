@@ -42,10 +42,13 @@ Class | Method | HTTP request | Description
 *HostsApi* | [**ApiHostMergeFacts**](docs/HostsApi.md#apihostmergefacts) | **Patch** /hosts/{host_id_list}/facts/{namespace} | Merge facts under a namespace
 *HostsApi* | [**ApiHostPatchById**](docs/HostsApi.md#apihostpatchbyid) | **Patch** /hosts/{host_id_list} | Update a host
 *HostsApi* | [**ApiHostReplaceFacts**](docs/HostsApi.md#apihostreplacefacts) | **Put** /hosts/{host_id_list}/facts/{namespace} | Replace facts under a namespace
+*TagsApi* | [**ApiTagGetTags**](docs/TagsApi.md#apitaggettags) | **Get** /tags | Get the active host tags for a given account
 
 
 ## Documentation For Models
 
+ - [ActiveTag](docs/ActiveTag.md)
+ - [ActiveTags](docs/ActiveTags.md)
  - [BulkHostOut](docs/BulkHostOut.md)
  - [BulkHostOutDetails](docs/BulkHostOutDetails.md)
  - [CreateHostIn](docs/CreateHostIn.md)

@@ -44,17 +44,6 @@ paths:
           format: uuid
           type: string
         style: form
-      - description: search for a host by the tags on the system
-        explode: true
-        in: query
-        name: tags
-        required: false
-        schema:
-          items:
-            pattern: ^[\w.\-%~]+\/[\w.\-%~]+=[\w.\-%~]+$|^[\w.\-%~]+\/[[\w.\-%~]+$
-            type: string
-          type: array
-        style: form
       - description: Filter by branch_id
         explode: true
         in: query
@@ -123,6 +112,17 @@ paths:
             - stale
             - stale_warning
             - unknown
+            type: string
+          type: array
+        style: form
+      - description: filters out hosts not tagged by the given tags
+        explode: true
+        in: query
+        name: tags
+        required: false
+        schema:
+          items:
+            pattern: ^[\w.\-%~]+\/[\w.\-%~]+=[\w.\-%~]+$|^[\w.\-%~]+\/[[\w.\-%~]+$
             type: string
           type: array
         style: form
@@ -678,6 +678,110 @@ paths:
       summary: Get the number of tags on a host
       tags:
       - hosts
+  /tags:
+    get:
+      operationId: api.tag.get_tags
+      parameters:
+      - description: filters out hosts not tagged by the given tags
+        explode: true
+        in: query
+        name: tags
+        required: false
+        schema:
+          items:
+            pattern: ^[\w.\-%~]+\/[\w.\-%~]+=[\w.\-%~]+$|^[\w.\-%~]+\/[[\w.\-%~]+$
+            type: string
+          type: array
+        style: form
+      - description: Ordering field name
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          default: tag
+          enum:
+          - tag
+          - count
+          type: string
+        style: form
+      - description: Direction of the ordering. Default to ASC
+        explode: true
+        in: query
+        name: order_how
+        required: false
+        schema:
+          default: ASC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      - description: A number of items to return per page.
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          default: 50
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: A page number of the items to return.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: 'Culling states of the hosts. Default: fresh,stale,unknown'
+        explode: true
+        in: query
+        name: staleness
+        required: false
+        schema:
+          default:
+          - fresh
+          - stale
+          - unknown
+          items:
+            enum:
+            - fresh
+            - stale
+            - stale_warning
+            - unknown
+            type: string
+          type: array
+        style: form
+      - description: Only include tags that match the given search string. The value
+          is matched against namespace, key and value.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActiveTags'
+          description: Tags
+        400:
+          description: Invalid request.
+        404:
+          description: Requested page is outside of the range of available pages
+      security:
+      - ApiKeyAuth: []
+      summary: Get the active host tags for a given account
+      tags:
+      - tags
 components:
   parameters:
     branchId:
@@ -778,7 +882,95 @@ components:
           type: string
         type: array
       style: form
+    tagsOrderBy:
+      description: Ordering field name
+      explode: true
+      in: query
+      name: order_by
+      required: false
+      schema:
+        default: tag
+        enum:
+        - tag
+        - count
+        type: string
+      style: form
+    tagsOrderHow:
+      description: Direction of the ordering. Default to ASC
+      explode: true
+      in: query
+      name: order_how
+      required: false
+      schema:
+        default: ASC
+        enum:
+        - ASC
+        - DESC
+        type: string
+      style: form
+    tagsParam:
+      description: filters out hosts not tagged by the given tags
+      explode: true
+      in: query
+      name: tags
+      required: false
+      schema:
+        items:
+          pattern: ^[\w.\-%~]+\/[\w.\-%~]+=[\w.\-%~]+$|^[\w.\-%~]+\/[[\w.\-%~]+$
+          type: string
+        type: array
+      style: form
+  responses:
+    PageOutOfBounds:
+      description: Requested page is outside of the range of available pages
   schemas:
+    ActiveTags:
+      example:
+        count: 3
+        page: 1
+        per_page: 50
+        results:
+        - count: 3
+          tag:
+            key: env
+            namespace: Sat
+            value: prod
+        - count: 1
+          tag:
+            key: region
+            namespace: aws
+            value: us-east-1
+        - count: -1
+          tag:
+            key: web
+            namespace: insights-client
+            value: null
+        total: 3
+      properties:
+        count:
+          description: The number of items on the current page
+          type: integer
+        page:
+          description: The page number
+          type: integer
+        per_page:
+          description: The number of items to return per page
+          type: integer
+        results:
+          items:
+            $ref: '#/components/schemas/ActiveTag'
+          type: array
+        total:
+          description: Total number of items
+          type: integer
+      required:
+      - count
+      - page
+      - per_page
+      - results
+      - total
+      title: Host data
+      type: object
     BulkHostOut:
       example:
         total: 1
@@ -938,6 +1130,9 @@ components:
           description: Short description of why a host failed to be created or updated.
           type: string
       type: object
+    Count:
+      description: The number of items on the current page
+      type: integer
     CreateHostIn:
       description: Data of a single host belonging to an account. Represents the hosts
         without its Inventory metadata.
@@ -1606,6 +1801,9 @@ components:
           example: ether
           type: string
       title: Network Interface
+    Page:
+      description: The page number
+      type: integer
     PatchHostIn:
       description: Data of a single host to be updated.
       example:
@@ -1623,6 +1821,9 @@ components:
           type: string
       title: Host data
       type: object
+    PerPage:
+      description: The number of items to return per page
+      type: integer
     StructuredTag:
       example:
         namespace: namespace
@@ -2049,6 +2250,7 @@ components:
         subscription_status:
           type: string
         system_memory_bytes:
+          format: int64
           type: integer
         yum_repos:
           items:
@@ -2118,6 +2320,9 @@ components:
           description: Total number of items in the "data" list.
           type: integer
       type: object
+    Total:
+      description: Total number of items
+      type: integer
     YumRepo:
       description: Representation of one yum repository
       example:
@@ -2139,6 +2344,19 @@ components:
         name:
           type: string
       title: Yum Repository
+    ActiveTag:
+      description: Information about a host tag
+      properties:
+        count:
+          description: The number of hosts with the given tag. If the value is null
+            this indicates that the count is unknown.
+          nullable: true
+          type: integer
+        tag:
+          $ref: '#/components/schemas/StructuredTag'
+      required:
+      - count
+      - tag
     DiskDevice_options:
       description: mount options
       example: '{"ro":true,"uid":"0"}'

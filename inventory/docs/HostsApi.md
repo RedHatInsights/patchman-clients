@@ -172,13 +172,13 @@ Name | Type | Description  | Notes
  **fqdn** | **optional.String**| Filter by a host&#39;s FQDN | 
  **hostnameOrId** | **optional.String**| Search for a host by display_name, fqdn, id | 
  **insightsId** | [**optional.Interface of string**](.md)| Search for a host by insights_id | 
- **tags** | [**optional.Interface of []string**](string.md)| search for a host by the tags on the system | 
  **branchId** | **optional.String**| Filter by branch_id | 
  **perPage** | **optional.Int32**| A number of items to return per page. | [default to 50]
  **page** | **optional.Int32**| A page number of the items to return. | [default to 1]
  **orderBy** | **optional.String**| Ordering field name | 
  **orderHow** | **optional.String**| Direction of the ordering, defaults to ASC for display_name and to DESC for updated | 
  **staleness** | [**optional.Interface of []string**](string.md)| Culling states of the hosts. Default: fresh,stale,unknown | [default to [&quot;fresh&quot;,&quot;stale&quot;,&quot;unknown&quot;]]
+ **tags** | [**optional.Interface of []string**](string.md)| filters out hosts not tagged by the given tags | 
 
 ### Return type
 

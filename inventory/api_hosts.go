@@ -352,13 +352,13 @@ type ApiHostGetHostListOpts struct {
     Fqdn optional.String
     HostnameOrId optional.String
     InsightsId optional.Interface
-    Tags optional.Interface
     BranchId optional.String
     PerPage optional.Int32
     Page optional.Int32
     OrderBy optional.String
     OrderHow optional.String
     Staleness optional.Interface
+    Tags optional.Interface
 }
 
 /*
@@ -370,13 +370,13 @@ Read the entire list of all hosts available to the account.
  * @param "Fqdn" (optional.String) -  Filter by a host's FQDN
  * @param "HostnameOrId" (optional.String) -  Search for a host by display_name, fqdn, id
  * @param "InsightsId" (optional.Interface of string) -  Search for a host by insights_id
- * @param "Tags" (optional.Interface of []string) -  search for a host by the tags on the system
  * @param "BranchId" (optional.String) -  Filter by branch_id
  * @param "PerPage" (optional.Int32) -  A number of items to return per page.
  * @param "Page" (optional.Int32) -  A page number of the items to return.
  * @param "OrderBy" (optional.String) -  Ordering field name
  * @param "OrderHow" (optional.String) -  Direction of the ordering, defaults to ASC for display_name and to DESC for updated
  * @param "Staleness" (optional.Interface of []string) -  Culling states of the hosts. Default: fresh,stale,unknown
+ * @param "Tags" (optional.Interface of []string) -  filters out hosts not tagged by the given tags
 @return HostQueryOutput
 */
 func (a *HostsApiService) ApiHostGetHostList(ctx _context.Context, localVarOptionals *ApiHostGetHostListOpts) (HostQueryOutput, *_nethttp.Response, error) {
@@ -407,17 +407,6 @@ func (a *HostsApiService) ApiHostGetHostList(ctx _context.Context, localVarOptio
 	if localVarOptionals != nil && localVarOptionals.InsightsId.IsSet() {
 		localVarQueryParams.Add("insights_id", parameterToString(localVarOptionals.InsightsId.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Tags.IsSet() {
-		t:=localVarOptionals.Tags.Value()
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("tags", parameterToString(s.Index(i), "multi"))
-			}
-		} else {
-			localVarQueryParams.Add("tags", parameterToString(t, "multi"))
-		}
-	}
 	if localVarOptionals != nil && localVarOptionals.BranchId.IsSet() {
 		localVarQueryParams.Add("branch_id", parameterToString(localVarOptionals.BranchId.Value(), ""))
 	}
@@ -442,6 +431,17 @@ func (a *HostsApiService) ApiHostGetHostList(ctx _context.Context, localVarOptio
 			}
 		} else {
 			localVarQueryParams.Add("staleness", parameterToString(t, "multi"))
+		}
+	}
+	if localVarOptionals != nil && localVarOptionals.Tags.IsSet() {
+		t:=localVarOptionals.Tags.Value()
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("tags", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("tags", parameterToString(t, "multi"))
 		}
 	}
 	// to determine the Content-Type header
