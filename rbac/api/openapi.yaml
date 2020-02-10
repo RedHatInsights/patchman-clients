@@ -1,0 +1,1744 @@
+openapi: 3.0.0
+info:
+  description: The API for Role Based Access Control.
+  license:
+    name: AGPL-3.0
+    url: https://opensource.org/licenses/AGPL-3.0
+  title: Role Based Access Control
+  version: 1.0.0
+servers:
+- url: /api/rbac/v1
+security:
+- basic_auth: []
+tags:
+- description: Operations about principals
+  name: Principal
+- description: Operations about groups
+  name: Group
+- description: Operations about roles
+  name: Role
+- description: Operations about policies
+  name: Policy
+- description: Operations about access
+  name: Access
+- description: Operations about status
+  name: Status
+paths:
+  /status/:
+    get:
+      operationId: getStatus
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+          description: An object describing the server status
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Obtain server status
+      tags:
+      - Status
+  /principals/:
+    get:
+      operationId: listPrincipals
+      parameters:
+      - description: Parameter for selecting the amount of data returned.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: Parameter for selecting the offset of data.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+        style: form
+      - description: Usernames of principals to get
+        explode: true
+        in: query
+        name: usernames
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrincipalPagination'
+          description: A paginated list of principals
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to list principals
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: List the principals for a tenant
+      tags:
+      - Principal
+  /groups/:
+    get:
+      operationId: listGroups
+      parameters:
+      - description: Parameter for selecting the amount of data returned.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: Parameter for selecting the offset of data.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+        style: form
+      - description: Parameter for filtering resource by name using string contains
+          search.
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Parameter for filtering resource by scope.
+        explode: true
+        in: query
+        name: scope
+        required: false
+        schema:
+          default: account
+          enum:
+          - account
+          - principal
+          type: string
+        style: form
+      - description: A username for a principal to filter for groups
+        explode: true
+        in: query
+        name: username
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Parameter for ordering resource by value.
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupPagination'
+          description: A paginated list of group objects
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to list groups
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: List the groups for a tenant
+      tags:
+      - Group
+    post:
+      operationId: createGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+        description: Group to create in tenant
+        required: true
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupOut'
+          description: An object describing the group
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to create group
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Create a group in a tenant
+      tags:
+      - Group
+  /groups/{uuid}/:
+    delete:
+      operationId: deleteGroup
+      parameters:
+      - description: ID of group to delete
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        204:
+          description: Group deleted
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to delete group
+        404:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Delete a group in the tenant
+      tags:
+      - Group
+    get:
+      operationId: getGroup
+      parameters:
+      - description: ID of group to get
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupWithPrincipalsAndRoles'
+          description: A Group object
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to get group
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Get a group in the tenant
+      tags:
+      - Group
+    put:
+      operationId: updateGroup
+      parameters:
+      - description: ID of group to update
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+        description: Group to update in tenant
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupOut'
+          description: Group updated
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to update group
+        404:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Udate a group in the tenant
+      tags:
+      - Group
+  /groups/{uuid}/principals/:
+    delete:
+      operationId: deletePrincipalFromGroup
+      parameters:
+      - description: ID of group to update
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: A comma separated list of usernames for principals to remove
+          from the group
+        explode: true
+        in: query
+        name: usernames
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        204:
+          description: Principals removed from group
+        400:
+          description: Bad Input
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to remove principals from group
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Remove a principal from a group in the tenant
+      tags:
+      - Group
+    post:
+      operationId: addPrincipalToGroup
+      parameters:
+      - description: ID of group to update
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/GroupPrincipalIn'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupWithPrincipalsAndRoles'
+          description: Group updated
+        400:
+          description: Bad Input
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to update principals in group
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Add a principal to a group in the tenant
+      tags:
+      - Group
+  /groups/{uuid}/roles/:
+    delete:
+      operationId: deleteRoleFromGroup
+      parameters:
+      - description: ID of group to update
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: A comma separated list of role UUIDs for roles to remove from
+          the group
+        explode: true
+        in: query
+        name: roles
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        204:
+          description: Roles removed from group
+        400:
+          description: Bad Input
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to remove roles from group
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Remove a role from a group in the tenant
+      tags:
+      - Group
+    get:
+      operationId: listRolesForGroup
+      parameters:
+      - description: ID of group
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: If this is set to true, the result would be roles excluding the
+          ones in the group
+        explode: true
+        in: query
+        name: exclude
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: Parameter for selecting the amount of data returned.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: Parameter for selecting the offset of data.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupRolesPagination'
+          description: A list of roles for a group
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to list roles for group
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: List the roles for a group in the tenant
+      tags:
+      - Group
+    post:
+      operationId: addRoleToGroup
+      parameters:
+      - description: ID of group to update
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/GroupRoleIn'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+          description: Group updated
+        400:
+          description: Bad Input
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to update roles for group
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Add a role to a group in the tenant
+      tags:
+      - Group
+  /roles/:
+    get:
+      operationId: listRoles
+      parameters:
+      - description: Parameter for selecting the amount of data returned.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: Parameter for selecting the offset of data.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+        style: form
+      - description: Parameter for filtering resource by name using string contains
+          search.
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Parameter for filtering resource by scope.
+        explode: true
+        in: query
+        name: scope
+        required: false
+        schema:
+          default: account
+          enum:
+          - account
+          - principal
+          type: string
+        style: form
+      - description: Parameter for ordering resource by value.
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RolePagination'
+          description: A paginated list of role objects
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to list roles
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: List the roles for a tenant
+      tags:
+      - Role
+    post:
+      operationId: createRoles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleIn'
+        description: Role to create
+        required: true
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleWithAccess'
+          description: An object describing the role
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to create role
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Create a roles for a tenant
+      tags:
+      - Role
+  /roles/{uuid}/:
+    delete:
+      operationId: deleteRole
+      parameters:
+      - description: ID of role to delete
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        204:
+          description: Role deleted
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to delete role
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Delete a role in the tenant
+      tags:
+      - Role
+    get:
+      operationId: getRole
+      parameters:
+      - description: ID of role to get
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleWithAccess'
+          description: A Role object
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to get role
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Get a role in the tenant
+      tags:
+      - Role
+    put:
+      operationId: updateRole
+      parameters:
+      - description: ID of role to update
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleWithAccess'
+        description: Update to a Role
+        required: true
+      responses:
+        200:
+          description: Role updated
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to update role
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Update a Role in the tenant
+      tags:
+      - Role
+  /policies/:
+    get:
+      operationId: listPolicies
+      parameters:
+      - description: Parameter for selecting the amount of data returned.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: Parameter for selecting the offset of data.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+        style: form
+      - description: Parameter for filtering resource by name using string contains
+          search.
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Parameter for filtering resource by scope.
+        explode: true
+        in: query
+        name: scope
+        required: false
+        schema:
+          default: account
+          enum:
+          - account
+          - principal
+          type: string
+        style: form
+      - description: Parameter for filtering resource by group name using string contains
+          search.
+        explode: true
+        in: query
+        name: group_name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Parameter for filtering resource by group uuid using UUID exact
+          match.
+        explode: true
+        in: query
+        name: group_uuid
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      - description: Parameter for ordering resource by value.
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyPagination'
+          description: A paginated list of policy objects
+        401:
+          description: Unauthorized
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: List the policies in the tenant
+      tags:
+      - Policy
+    post:
+      operationId: createPolicies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyIn'
+        description: Policy to create
+        required: true
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyExtended'
+          description: An object describing the policy
+        401:
+          description: Unauthorized
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Create a policy in a tenant
+      tags:
+      - Policy
+  /policies/{uuid}/:
+    delete:
+      operationId: deletePolicy
+      parameters:
+      - description: ID of policy to delete
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        204:
+          description: Policy deleted
+        401:
+          description: Unauthorized
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Delete a policy in the tenant
+      tags:
+      - Policy
+    get:
+      operationId: getPolicy
+      parameters:
+      - description: ID of policy to get
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyExtended'
+          description: A Policy object
+        401:
+          description: Unauthorized
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Get a policy in the tenant
+      tags:
+      - Policy
+    put:
+      operationId: updatePolicy
+      parameters:
+      - description: ID of policy to update
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyIn'
+        description: Policy to update
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyExtended'
+          description: A Policy object
+        401:
+          description: Unauthorized
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Update a policy in the tenant
+      tags:
+      - Policy
+  /access/:
+    get:
+      operationId: getPrincipalAccess
+      parameters:
+      - description: The application name to obtain access for the principal
+        explode: true
+        in: query
+        name: application
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Unique username of the principal to obtain access for (only available
+          for admins, and if supplied, takes precedence over the identity header).
+        explode: true
+        in: query
+        name: username
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Parameter for selecting the amount of data returned.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: Parameter for selecting the offset of data.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              examples:
+                AccessNoPagination:
+                  $ref: '#/components/examples/AccessNoPagination'
+                AccessPagination:
+                  $ref: '#/components/examples/AccessPagination'
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/AccessNoPagination'
+                - $ref: '#/components/schemas/AccessPagination'
+          description: A list of access objects. By default, this request will not
+            be paginated. To received a paginated response, include the `/?limit=`
+            query parameter.
+        401:
+          description: Unauthorized
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Get the permitted access for a principal in the tenant (defaults to
+        principal from the identity header)
+      tags:
+      - Access
+components:
+  examples:
+    AccessNoPagination:
+      value:
+        data:
+        - permission: app-name:*:*
+          resourceDefinitions: []
+    AccessPagination:
+      value:
+        meta:
+          count: 1
+          limit: 10
+          offset: 0
+        links:
+          first: /access/?application=app-name&limit=10
+          next: null
+          previous: null
+          last: /access/?application=app-name&limit=10
+        data:
+        - permission: app-name:*:*
+          resourceDefinitions: []
+  parameters:
+    QueryOffset:
+      description: Parameter for selecting the offset of data.
+      explode: true
+      in: query
+      name: offset
+      required: false
+      schema:
+        default: 0
+        minimum: 0
+        type: integer
+      style: form
+    QueryLimit:
+      description: Parameter for selecting the amount of data returned.
+      explode: true
+      in: query
+      name: limit
+      required: false
+      schema:
+        default: 10
+        maximum: 1000
+        minimum: 1
+        type: integer
+      style: form
+    QueryLimitNoDefault:
+      description: Parameter for selecting the amount of data returned.
+      explode: true
+      in: query
+      name: limit
+      required: false
+      schema:
+        maximum: 1000
+        minimum: 1
+        type: integer
+      style: form
+    NameFilter:
+      description: Parameter for filtering resource by name using string contains
+        search.
+      explode: true
+      in: query
+      name: name
+      required: false
+      schema:
+        type: string
+      style: form
+    GroupNameFilter:
+      description: Parameter for filtering resource by group name using string contains
+        search.
+      explode: true
+      in: query
+      name: group_name
+      required: false
+      schema:
+        type: string
+      style: form
+    GroupUUIDFilter:
+      description: Parameter for filtering resource by group uuid using UUID exact
+        match.
+      explode: true
+      in: query
+      name: group_uuid
+      required: false
+      schema:
+        format: uuid
+        type: string
+      style: form
+    OrderByFilter:
+      description: Parameter for ordering resource by value.
+      explode: true
+      in: query
+      name: order_by
+      required: false
+      schema:
+        type: string
+      style: form
+    ScopeFilter:
+      description: Parameter for filtering resource by scope.
+      explode: true
+      in: query
+      name: scope
+      required: false
+      schema:
+        default: account
+        enum:
+        - account
+        - principal
+        type: string
+      style: form
+  requestBodies:
+    GroupPrincipalIn:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GroupPrincipalIn'
+      description: Principal to add to a group
+      required: true
+    GroupRoleIn:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GroupRoleIn'
+      description: Role to add to a group
+      required: true
+  schemas:
+    Error:
+      properties:
+        errors:
+          items:
+            example:
+              detail: Not Found.
+              status: 404
+            type: object
+          type: array
+      required:
+      - errors
+    Error403:
+      properties:
+        errors:
+          items:
+            example:
+              detail: You do not have permission to perform this action.
+              source: detail
+              status: 403
+            type: object
+          type: array
+      required:
+      - errors
+    UUID:
+      properties:
+        uuid:
+          example: 57e60f90-8c0c-4bd1-87a0-2143759aae1c
+          format: uuid
+          type: string
+      required:
+      - uuid
+      type: object
+    Timestamped:
+      properties:
+        created:
+          example: 2019-01-21T17:32:28Z
+          format: date-time
+          type: string
+        modified:
+          example: 2019-03-04T07:25:58Z
+          format: date-time
+          type: string
+      required:
+      - created
+      - modified
+      type: object
+    PaginationMeta:
+      properties:
+        count:
+          example: 30
+          format: int64
+          type: integer
+    PaginationLinks:
+      properties:
+        first:
+          example: /api/v1/(resources)/?offset=0&limit=10
+          format: uri
+          type: string
+        previous:
+          example: /api/v1/(resources)/?offset=20&limit=10
+          format: uri
+          type: string
+        next:
+          example: /api/v1/(resources)/?offset=40&limit=10
+          format: uri
+          type: string
+        last:
+          example: /api/v1/(resources)/?offset=90&limit=10
+          format: uri
+          type: string
+    ListPagination:
+      properties:
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    Principal:
+      properties:
+        username:
+          example: smithj
+          type: string
+        email:
+          example: smithj@mytechco.com
+          format: email
+          type: string
+        first_name:
+          example: John
+          type: string
+        last_name:
+          example: Smith
+          type: string
+      required:
+      - email
+      - username
+    PrincipalIn:
+      example:
+        username: smithj
+      properties:
+        username:
+          example: smithj
+          type: string
+      required:
+      - username
+    PrincipalOut:
+      allOf:
+      - $ref: '#/components/schemas/Principal'
+      - $ref: '#/components/schemas/UUID'
+    PrincipalPagination:
+      allOf:
+      - $ref: '#/components/schemas/ListPagination'
+      - $ref: '#/components/schemas/PrincipalPagination_allOf'
+    Group:
+      example:
+        name: GroupA
+        description: A description of GroupA
+      properties:
+        name:
+          example: GroupA
+          type: string
+        description:
+          example: A description of GroupA
+          type: string
+      required:
+      - name
+    GroupOut:
+      allOf:
+      - $ref: '#/components/schemas/Group'
+      - $ref: '#/components/schemas/UUID'
+      - $ref: '#/components/schemas/Timestamped'
+      - properties:
+          principalCount:
+            minimum: 0
+            type: integer
+          roleCount:
+            minimum: 0
+            type: integer
+          system:
+            default: false
+            type: boolean
+          platform_default:
+            default: false
+            type: boolean
+    GroupPrincipalIn:
+      example:
+        principals:
+        - username: smithj
+        - username: smithj
+      properties:
+        principals:
+          items:
+            $ref: '#/components/schemas/PrincipalIn'
+          type: array
+      required:
+      - principals
+    GroupRoleIn:
+      example:
+        roles:
+        - 94846f2f-cced-474f-b7f3-47e2ec51dd11
+        - 94846f2f-cced-474f-b7f3-47e2ec51dd11
+      properties:
+        roles:
+          items:
+            example: 94846f2f-cced-474f-b7f3-47e2ec51dd11
+            format: uuid
+            type: string
+          type: array
+      required:
+      - roles
+    GroupWithPrincipals:
+      allOf:
+      - $ref: '#/components/schemas/Group'
+      - $ref: '#/components/schemas/UUID'
+      - $ref: '#/components/schemas/Timestamped'
+      - $ref: '#/components/schemas/GroupWithPrincipals_allOf'
+    GroupWithPrincipalsAndRoles:
+      allOf:
+      - $ref: '#/components/schemas/Group'
+      - $ref: '#/components/schemas/UUID'
+      - $ref: '#/components/schemas/Timestamped'
+      - $ref: '#/components/schemas/GroupWithPrincipalsAndRoles_allOf'
+    GroupRolesPagination:
+      allOf:
+      - $ref: '#/components/schemas/ListPagination'
+      - $ref: '#/components/schemas/inline_response_200'
+    GroupPagination:
+      allOf:
+      - $ref: '#/components/schemas/ListPagination'
+      - $ref: '#/components/schemas/GroupPagination_allOf'
+    ResourceDefinitionFilter:
+      properties:
+        key:
+          example: cost-management.aws.account
+          type: string
+        operation:
+          enum:
+          - equal
+          - in
+          type: string
+        value:
+          example: "123456"
+          type: string
+      required:
+      - key
+      - operation
+      - value
+    ResourceDefinition:
+      properties:
+        attributeFilter:
+          $ref: '#/components/schemas/ResourceDefinitionFilter'
+      required:
+      - attributeFilter
+    Access:
+      properties:
+        permission:
+          example: cost-management:*:read
+          type: string
+        resourceDefinitions:
+          items:
+            $ref: '#/components/schemas/ResourceDefinition'
+          type: array
+      required:
+      - permission
+      - resourceDefinitions
+    Role:
+      properties:
+        name:
+          example: RoleA
+          type: string
+        description:
+          example: A description of RoleA
+          type: string
+      required:
+      - name
+    RoleIn:
+      allOf:
+      - $ref: '#/components/schemas/Role'
+      - $ref: '#/components/schemas/RoleIn_allOf'
+    RolePagination:
+      allOf:
+      - $ref: '#/components/schemas/ListPagination'
+      - $ref: '#/components/schemas/inline_response_200'
+    RoleOut:
+      allOf:
+      - $ref: '#/components/schemas/Role'
+      - $ref: '#/components/schemas/UUID'
+      - $ref: '#/components/schemas/Timestamped'
+      - properties:
+          policyCount:
+            minimum: 0
+            type: integer
+          accessCount:
+            minimum: 0
+            type: integer
+          applications:
+            items:
+              example: catalog
+              type: string
+            type: array
+          system:
+            default: false
+            type: boolean
+          platform_default:
+            default: false
+            type: boolean
+    RoleWithAccess:
+      allOf:
+      - $ref: '#/components/schemas/RoleOut'
+      - $ref: '#/components/schemas/RoleIn_allOf'
+    Policy:
+      properties:
+        name:
+          example: PolicyA
+          type: string
+        description:
+          example: A description of PolicyA
+          type: string
+      required:
+      - name
+    PolicyIn:
+      allOf:
+      - $ref: '#/components/schemas/Policy'
+      - $ref: '#/components/schemas/PolicyIn_allOf'
+    PolicyExtended:
+      allOf:
+      - $ref: '#/components/schemas/Policy'
+      - $ref: '#/components/schemas/UUID'
+      - $ref: '#/components/schemas/Timestamped'
+      - $ref: '#/components/schemas/PolicyExtended_allOf'
+    PolicyPagination:
+      allOf:
+      - $ref: '#/components/schemas/ListPagination'
+      - $ref: '#/components/schemas/PolicyPagination_allOf'
+    AccessPagination:
+      allOf:
+      - $ref: '#/components/schemas/ListPagination'
+      - $ref: '#/components/schemas/AccessPagination_allOf'
+    AccessNoPagination:
+      allOf:
+      - $ref: '#/components/schemas/AccessPagination_allOf'
+    Status:
+      example:
+        platform_info:
+          system: Darwin
+          node: node-1.example.com
+          release: 17.5.0
+          version: Darwin Kernel Version 17.5.0
+          machine: x86_64
+          processor: i386
+        python_version: 3.6.1
+        commit: 178d2ea
+        server_address: 127.0.0.1:8000
+        api_version: 1
+        modules:
+          coverage: 4.5.1
+          coverage.version: 4.5.1
+          coverage.xmlreport: 4.5.1
+          cryptography: 2.0.3
+          ctypes: 1.1.0
+          ctypes.macholib: "1.0"
+          decimal: "1.70"
+          django: 1.11.5
+          django.utils.six: 1.10.0
+          django_filters: 1.0.4
+          http.server: "0.6"
+      properties:
+        api_version:
+          example: 1
+          format: int64
+          type: integer
+        commit:
+          example: 178d2ea
+          type: string
+        server_address:
+          example: 127.0.0.1:8000
+          type: string
+        platform_info:
+          example:
+            system: Darwin
+            node: node-1.example.com
+            release: 17.5.0
+            version: Darwin Kernel Version 17.5.0
+            machine: x86_64
+            processor: i386
+          type: object
+        python_version:
+          example: 3.6.1
+          type: string
+        modules:
+          example:
+            coverage: 4.5.1
+            coverage.version: 4.5.1
+            coverage.xmlreport: 4.5.1
+            cryptography: 2.0.3
+            ctypes: 1.1.0
+            ctypes.macholib: "1.0"
+            decimal: "1.70"
+            django: 1.11.5
+            django.utils.six: 1.10.0
+            django_filters: 1.0.4
+            http.server: "0.6"
+          type: object
+      required:
+      - api_version
+    inline_response_200:
+      example:
+        data:
+        - null
+        - null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/RoleOut'
+          type: array
+      required:
+      - data
+    PrincipalPagination_allOf:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Principal'
+          type: array
+      required:
+      - data
+    GroupWithPrincipals_allOf:
+      properties:
+        principals:
+          items:
+            $ref: '#/components/schemas/Principal'
+          type: array
+      required:
+      - principals
+    GroupWithPrincipalsAndRoles_allOf:
+      properties:
+        principals:
+          items:
+            $ref: '#/components/schemas/Principal'
+          type: array
+        roles:
+          items:
+            $ref: '#/components/schemas/RoleOut'
+          type: array
+      required:
+      - principals
+      - roles
+    GroupPagination_allOf:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/GroupOut'
+          type: array
+      required:
+      - data
+    RoleIn_allOf:
+      properties:
+        access:
+          items:
+            $ref: '#/components/schemas/Access'
+          type: array
+      required:
+      - access
+    PolicyIn_allOf:
+      properties:
+        group:
+          example: 83ee048e-3c1d-43ef-b945-108225ae52f4
+          format: uuid
+          type: string
+        roles:
+          items:
+            example: 94846f2f-cced-474f-b7f3-47e2ec51dd11
+            format: uuid
+            type: string
+          type: array
+      required:
+      - group
+      - roles
+    PolicyExtended_allOf:
+      properties:
+        group:
+          $ref: '#/components/schemas/GroupOut'
+        roles:
+          items:
+            $ref: '#/components/schemas/RoleOut'
+          type: array
+      required:
+      - group
+      - roles
+    PolicyPagination_allOf:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PolicyExtended'
+          type: array
+      required:
+      - data
+    AccessPagination_allOf:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Access'
+          type: array
+      required:
+      - data
+  securitySchemes:
+    basic_auth:
+      description: The userid/password is needed when accessing this API externally
+      scheme: basic
+      type: http
