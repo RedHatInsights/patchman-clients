@@ -78,6 +78,7 @@ Class | Method | HTTP request | Description
  - [GroupWithPrincipalsAndRolesAllOf](docs/GroupWithPrincipalsAndRolesAllOf.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [ListPagination](docs/ListPagination.md)
+ - [OneOfAccessPagination](docs/OneOfAccessPagination.md)
  - [PaginationLinks](docs/PaginationLinks.md)
  - [PaginationMeta](docs/PaginationMeta.md)
  - [Policy](docs/Policy.md)

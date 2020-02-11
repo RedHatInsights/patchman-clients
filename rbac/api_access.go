@@ -40,16 +40,16 @@ GetPrincipalAccess Get the permitted access for a principal in the tenant (defau
  * @param "Username" (optional.String) -  Unique username of the principal to obtain access for (only available for admins, and if supplied, takes precedence over the identity header).
  * @param "Limit" (optional.Int32) -  Parameter for selecting the amount of data returned.
  * @param "Offset" (optional.Int32) -  Parameter for selecting the offset of data.
-@return OneOfAccessNoPaginationAccessPagination
+@return OneOfAccessPagination
 */
-func (a *AccessApiService) GetPrincipalAccess(ctx _context.Context, application string, localVarOptionals *GetPrincipalAccessOpts) (OneOfAccessNoPaginationAccessPagination, *_nethttp.Response, error) {
+func (a *AccessApiService) GetPrincipalAccess(ctx _context.Context, application string, localVarOptionals *GetPrincipalAccessOpts) (OneOfAccessPagination, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  OneOfAccessNoPaginationAccessPagination
+		localVarReturnValue  OneOfAccessPagination
 	)
 
 	// create path and map variables
@@ -107,7 +107,7 @@ func (a *AccessApiService) GetPrincipalAccess(ctx _context.Context, application 
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v OneOfAccessNoPaginationAccessPagination
+			var v OneOfAccessPagination
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

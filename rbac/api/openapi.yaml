@@ -1126,9 +1126,7 @@ paths:
                 AccessPagination:
                   $ref: '#/components/examples/AccessPagination'
               schema:
-                oneOf:
-                - $ref: '#/components/schemas/AccessNoPagination'
-                - $ref: '#/components/schemas/AccessPagination'
+                $ref: '#/components/schemas/OneOfAccessPagination'
           description: A list of access objects. By default, this request will not
             be paginated. To received a paginated response, include the `/?limit=`
             query parameter.
@@ -1574,6 +1572,10 @@ components:
     AccessNoPagination:
       allOf:
       - $ref: '#/components/schemas/AccessPagination_allOf'
+    OneOfAccessPagination:
+      oneOf:
+      - $ref: '#/components/schemas/AccessNoPagination'
+      - $ref: '#/components/schemas/AccessPagination'
     Status:
       example:
         platform_info:

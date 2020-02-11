@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#CONTAINER=openapitools/openapi-generator-cli
+#CONTAINER=openapitools/openapi-generator-cli:latest
 # We temporarily use image built from https://github.com/semtexzv/openapi-generator
 # until the https://github.com/OpenAPITools/openapi-generator/pull/4664 is merged
 CONTAINER=semtexzv/openapi-generator-cli:latest
@@ -24,7 +24,7 @@ function generate_client() {
       -o /local/$NAME
 }
 
+
 generate_client inventory "https://ci.cloud.redhat.com/api/inventory/v1/openapi.json"
-#generate_client remediations "https://ci.cloud.redhat.com/api/remediations/v1/openapi.json"
 generate_client vmaas "https://webapp-vmaas-ci.5a9f.insights-dev.openshiftapps.com/api/openapi.json"
 generate_client rbac "https://ci.cloud.redhat.com/api/rbac/v1/openapi.json"

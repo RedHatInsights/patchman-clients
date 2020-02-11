@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## GetPrincipalAccess
 
-> OneOfAccessNoPaginationAccessPagination GetPrincipalAccess(ctx, application, optional)
+> OneOfAccessPagination GetPrincipalAccess(ctx, application, optional)
 
 Get the permitted access for a principal in the tenant (defaults to principal from the identity header)
 
@@ -37,7 +37,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OneOfAccessNoPaginationAccessPagination**](oneOf&lt;AccessNoPagination,AccessPagination&gt;.md)
+[**OneOfAccessPagination**](OneOfAccessPagination.md)
 
 ### Authorization
 
