@@ -14,10 +14,10 @@ Name | Type | Description | Notes
 **InsightsId** | **string** | An ID defined in /etc/insights-client/machine-id. This field is considered a canonical fact. | [optional] 
 **IpAddresses** | **[]string** | Host’s network IP addresses.  This field is considered to be a canonical fact. | [optional] 
 **MacAddresses** | **[]string** | Host’s network interfaces MAC addresses.  This field is considered to be a canonical fact. | [optional] 
-**Reporter** | **string** | Reporting source of the host. Used when updating the stale_timestamp. | [optional] 
+**Reporter** | **string** | Reporting source of the host. Used when updating the stale_timestamp. | 
 **RhelMachineId** | **string** | A Machine ID of a RHEL host.  This field is considered to be a canonical fact. | [optional] 
 **SatelliteId** | **string** | A Red Hat Satellite ID of a RHEL host.  This field is considered to be a canonical fact. | [optional] 
-**StaleTimestamp** | **string** | Timestamp from which the host is considered stale. | [optional] 
+**StaleTimestamp** | **string** | Timestamp from which the host is considered stale. | 
 **SubscriptionManagerId** | **string** | A Red Hat Subcription Manager ID of a RHEL host.  This field is considered to be a canonical fact. | [optional] 
 **SystemProfile** | [**SystemProfileIn**](SystemProfileIn.md) |  | [optional] 
 **Tags** | [**[]StructuredTag**](StructuredTag.md) | The tags on a host | [optional] 

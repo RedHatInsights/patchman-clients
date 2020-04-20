@@ -122,9 +122,19 @@ paths:
         required: false
         schema:
           items:
-            pattern: ^[\w.\-%~]+\/[\w.\-%~]+=[\w.\-%~]+$|^[\w.\-%~]+\/[[\w.\-%~]+$
+            pattern: ^([^=/]+/)?[^=/]+(=[^=/]+)?$
             type: string
           type: array
+        style: form
+      - description: Filters out any host not registered with the specified service
+        explode: true
+        in: query
+        name: registered_with
+        required: false
+        schema:
+          enum:
+          - insights
+          type: string
         style: form
       responses:
         200:
@@ -590,6 +600,15 @@ paths:
           - DESC
           type: string
         style: form
+      - description: Only include tags that match the given search string. The value
+          is matched against namespace, key and value.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         200:
           content:
@@ -689,7 +708,7 @@ paths:
         required: false
         schema:
           items:
-            pattern: ^[\w.\-%~]+\/[\w.\-%~]+=[\w.\-%~]+$|^[\w.\-%~]+\/[[\w.\-%~]+$
+            pattern: ^([^=/]+/)?[^=/]+(=[^=/]+)?$
             type: string
           type: array
         style: form
@@ -764,6 +783,16 @@ paths:
         name: search
         required: false
         schema:
+          type: string
+        style: form
+      - description: Filters out any host not registered with the specified service
+        explode: true
+        in: query
+        name: registered_with
+        required: false
+        schema:
+          enum:
+          - insights
           type: string
         style: form
       responses:
@@ -862,6 +891,27 @@ components:
         minimum: 1
         type: integer
       style: form
+    registered_with:
+      description: Filters out any host not registered with the specified service
+      explode: true
+      in: query
+      name: registered_with
+      required: false
+      schema:
+        enum:
+        - insights
+        type: string
+      style: form
+    searchParam:
+      description: Only include tags that match the given search string. The value
+        is matched against namespace, key and value.
+      explode: true
+      in: query
+      name: search
+      required: false
+      schema:
+        type: string
+      style: form
     stalenessParam:
       description: 'Culling states of the hosts. Default: fresh,stale,unknown'
       explode: true
@@ -916,7 +966,7 @@ components:
       required: false
       schema:
         items:
-          pattern: ^[\w.\-%~]+\/[\w.\-%~]+=[\w.\-%~]+$|^[\w.\-%~]+\/[[\w.\-%~]+$
+          pattern: ^([^=/]+/)?[^=/]+(=[^=/]+)?$
           type: string
         type: array
       style: form
@@ -1203,6 +1253,7 @@ components:
           cloud_provider: cloud_provider
           bios_version: bios_version
           os_kernel_version: os_kernel_version
+          captured_date: captured_date
           cpu_flags:
           - cpu_flags
           - cpu_flags
@@ -1353,6 +1404,8 @@ components:
           type: array
       required:
       - account
+      - reporter
+      - stale_timestamp
       title: Host data
       type: object
     CreateHostOut:
@@ -1701,6 +1754,7 @@ components:
           cloud_provider: cloud_provider
           bios_version: bios_version
           os_kernel_version: os_kernel_version
+          captured_date: captured_date
           cpu_flags:
           - cpu_flags
           - cpu_flags
@@ -1913,6 +1967,7 @@ components:
             cloud_provider: cloud_provider
             bios_version: bios_version
             os_kernel_version: os_kernel_version
+            captured_date: captured_date
             cpu_flags:
             - cpu_flags
             - cpu_flags
@@ -2010,6 +2065,7 @@ components:
             cloud_provider: cloud_provider
             bios_version: bios_version
             os_kernel_version: os_kernel_version
+            captured_date: captured_date
             cpu_flags:
             - cpu_flags
             - cpu_flags
@@ -2135,6 +2191,7 @@ components:
         cloud_provider: cloud_provider
         bios_version: bios_version
         os_kernel_version: os_kernel_version
+        captured_date: captured_date
         cpu_flags:
         - cpu_flags
         - cpu_flags
@@ -2173,6 +2230,8 @@ components:
         bios_vendor:
           type: string
         bios_version:
+          type: string
+        captured_date:
           type: string
         cloud_provider:
           type: string

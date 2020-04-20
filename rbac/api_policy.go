@@ -326,6 +326,7 @@ type ListPoliciesOpts struct {
 
 /*
 ListPolicies List the policies in the tenant
+By default, responses are sorted in ascending order by policy name
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *ListPoliciesOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  Parameter for selecting the amount of data returned.
@@ -334,7 +335,7 @@ ListPolicies List the policies in the tenant
  * @param "Scope" (optional.String) -  Parameter for filtering resource by scope.
  * @param "GroupName" (optional.String) -  Parameter for filtering resource by group name using string contains search.
  * @param "GroupUuid" (optional.Interface of string) -  Parameter for filtering resource by group uuid using UUID exact match.
- * @param "OrderBy" (optional.String) -  Parameter for ordering resource by value.
+ * @param "OrderBy" (optional.String) -  Parameter for ordering resource by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-name
 @return PolicyPagination
 */
 func (a *PolicyApiService) ListPolicies(ctx _context.Context, localVarOptionals *ListPoliciesOpts) (PolicyPagination, *_nethttp.Response, error) {

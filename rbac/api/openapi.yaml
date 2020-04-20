@@ -45,6 +45,7 @@ paths:
       - Status
   /principals/:
     get:
+      description: By default, responses are sorted in ascending order by username
       operationId: listPrincipals
       parameters:
       - description: Parameter for selecting the amount of data returned.
@@ -76,6 +77,17 @@ paths:
         schema:
           type: string
         style: form
+      - description: The sort order of the query, either ascending or descending
+        explode: true
+        in: query
+        name: sort_order
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
       responses:
         200:
           content:
@@ -102,6 +114,7 @@ paths:
       - Principal
   /groups/:
     get:
+      description: By default, responses are sorted in ascending order by group name
       operationId: listGroups
       parameters:
       - description: Parameter for selecting the amount of data returned.
@@ -154,7 +167,41 @@ paths:
         schema:
           type: string
         style: form
-      - description: Parameter for ordering resource by value.
+      - description: A list of UUIDs to filter listed groups.
+        explode: false
+        in: query
+        name: uuid
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: List of role name to filter for groups. It is exact match but
+          case-insensitive
+        explode: false
+        in: query
+        name: role_names
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Discriminator that works with role_names to indicate matching
+          all/any of the role names
+        explode: true
+        in: query
+        name: role_discriminator
+        required: false
+        schema:
+          enum:
+          - all
+          - any
+          type: string
+        style: form
+      - description: 'Parameter for ordering resource by value. For inverse ordering,
+          supply ''-'' before the param value, such as: ?order_by=-name'
         explode: true
         in: query
         name: order_by
@@ -399,6 +446,65 @@ paths:
       summary: Remove a principal from a group in the tenant
       tags:
       - Group
+    get:
+      description: By default, responses are sorted in ascending order by username
+      operationId: getPrincipalsFromGroup
+      parameters:
+      - description: ID of group from which to get principals
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Parameter for filtering group principals by principal `username`
+          using string contains search.
+        explode: true
+        in: query
+        name: principal_username
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: 'Parameter for ordering principals by value. For inverse ordering,
+          supply ''-'' before the param value, such as: ?order_by=-username'
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          enum:
+          - username
+          type: string
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrincipalPagination'
+          description: List of principals attached to group
+        400:
+          description: Bad Input
+        401:
+          description: Unauthorized
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Get a list of principals from a group in the tenant
+      tags:
+      - Group
     post:
       operationId: addPrincipalToGroup
       parameters:
@@ -496,6 +602,7 @@ paths:
       tags:
       - Group
     get:
+      description: By default, responses are sorted in ascending order by role name
       operationId: listRolesForGroup
       parameters:
       - description: ID of group
@@ -517,6 +624,24 @@ paths:
           default: false
           type: boolean
         style: form
+      - description: Parameter for filtering group roles by role `name` using string
+          contains search.
+        explode: true
+        in: query
+        name: role_name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Parameter for filtering group roles by role `description` using
+          string contains search.
+        explode: true
+        in: query
+        name: role_description
+        required: false
+        schema:
+          type: string
+        style: form
       - description: Parameter for selecting the amount of data returned.
         explode: true
         in: query
@@ -537,6 +662,19 @@ paths:
           default: 0
           minimum: 0
           type: integer
+        style: form
+      - description: 'Parameter for ordering resource by value. For inverse ordering,
+          supply ''-'' before the param value, such as: ?order_by=-name'
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          enum:
+          - name
+          - modified
+          - policyCount
+          type: string
         style: form
       responses:
         200:
@@ -610,6 +748,7 @@ paths:
       - Group
   /roles/:
     get:
+      description: By default, responses are sorted in ascending order by role name
       operationId: listRoles
       parameters:
       - description: Parameter for selecting the amount of data returned.
@@ -654,10 +793,33 @@ paths:
           - principal
           type: string
         style: form
-      - description: Parameter for ordering resource by value.
+      - description: 'Parameter for ordering resource by value. For inverse ordering,
+          supply ''-'' before the param value, such as: ?order_by=-name'
         explode: true
         in: query
         name: order_by
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Parameter for add list of fields to display for roles.
+        explode: false
+        in: query
+        name: add_fields
+        required: false
+        schema:
+          items:
+            enum:
+            - groups_in
+            - groups_in_count
+            type: string
+          type: array
+        style: form
+      - description: Unique username of the principal to obtain roles for (only available
+          for admins, and if supplied, takes precedence over the identity header).
+        explode: true
+        in: query
+        name: username
         required: false
         schema:
           type: string
@@ -667,7 +829,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RolePagination'
+                $ref: '#/components/schemas/RolePaginationDynamic'
           description: A paginated list of role objects
         401:
           description: Unauthorized
@@ -845,8 +1007,73 @@ paths:
       summary: Update a Role in the tenant
       tags:
       - Role
+  /roles/{uuid}/access/:
+    get:
+      operationId: getRoleAccess
+      parameters:
+      - description: ID of the role
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Parameter for selecting the amount of data returned.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: Parameter for selecting the offset of data.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessPagination'
+          description: A paginated list of the access objects for a role
+        401:
+          description: Unauthorized
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to get access for role
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Get access for a role in the tenant
+      tags:
+      - Role
   /policies/:
     get:
+      description: By default, responses are sorted in ascending order by policy name
       operationId: listPolicies
       parameters:
       - description: Parameter for selecting the amount of data returned.
@@ -910,7 +1137,8 @@ paths:
           format: uuid
           type: string
         style: form
-      - description: Parameter for ordering resource by value.
+      - description: 'Parameter for ordering resource by value. For inverse ordering,
+          supply ''-'' before the param value, such as: ?order_by=-name'
         explode: true
         in: query
         name: order_by
@@ -1077,9 +1305,14 @@ paths:
       - Policy
   /access/:
     get:
+      description: Access responses are sorted in ascending order by an ID internal
+        to the database
       operationId: getPrincipalAccess
       parameters:
-      - description: The application name to obtain access for the principal
+      - description: The application name(s) to obtain access for the principal. This
+          is an exact match. When no application is supplied, all permissions for
+          the principal are returned. You may also use a comma-separated list to match
+          on multiple applications.
         explode: true
         in: query
         name: application
@@ -1102,6 +1335,7 @@ paths:
         name: limit
         required: false
         schema:
+          default: 10
           maximum: 1000
           minimum: 1
           type: integer
@@ -1120,16 +1354,9 @@ paths:
         200:
           content:
             application/json:
-              examples:
-                AccessNoPagination:
-                  $ref: '#/components/examples/AccessNoPagination'
-                AccessPagination:
-                  $ref: '#/components/examples/AccessPagination'
               schema:
-                $ref: '#/components/schemas/OneOfAccessPagination'
-          description: A list of access objects. By default, this request will not
-            be paginated. To received a paginated response, include the `/?limit=`
-            query parameter.
+                $ref: '#/components/schemas/AccessPagination'
+          description: A paginated list of access objects
         401:
           description: Unauthorized
         404:
@@ -1149,26 +1376,6 @@ paths:
       tags:
       - Access
 components:
-  examples:
-    AccessNoPagination:
-      value:
-        data:
-        - permission: app-name:*:*
-          resourceDefinitions: []
-    AccessPagination:
-      value:
-        meta:
-          count: 1
-          limit: 10
-          offset: 0
-        links:
-          first: /access/?application=app-name&limit=10
-          next: null
-          previous: null
-          last: /access/?application=app-name&limit=10
-        data:
-        - permission: app-name:*:*
-          resourceDefinitions: []
   parameters:
     QueryOffset:
       description: Parameter for selecting the offset of data.
@@ -1189,17 +1396,6 @@ components:
       required: false
       schema:
         default: 10
-        maximum: 1000
-        minimum: 1
-        type: integer
-      style: form
-    QueryLimitNoDefault:
-      description: Parameter for selecting the amount of data returned.
-      explode: true
-      in: query
-      name: limit
-      required: false
-      schema:
         maximum: 1000
         minimum: 1
         type: integer
@@ -1236,7 +1432,8 @@ components:
         type: string
       style: form
     OrderByFilter:
-      description: Parameter for ordering resource by value.
+      description: 'Parameter for ordering resource by value. For inverse ordering,
+        supply ''-'' before the param value, such as: ?order_by=-name'
       explode: true
       in: query
       name: order_by
@@ -1364,6 +1561,8 @@ components:
         last_name:
           example: Smith
           type: string
+        is_active:
+          type: boolean
       required:
       - email
       - username
@@ -1397,6 +1596,14 @@ components:
           type: string
       required:
       - name
+    AdditionalGroup:
+      properties:
+        name:
+          example: GroupA
+          type: string
+        uuid:
+          example: 234df936-abb4-4238-a1c9-d91fc540c702
+          type: string
     GroupOut:
       allOf:
       - $ref: '#/components/schemas/Group'
@@ -1514,6 +1721,10 @@ components:
       allOf:
       - $ref: '#/components/schemas/ListPagination'
       - $ref: '#/components/schemas/inline_response_200'
+    RolePaginationDynamic:
+      allOf:
+      - $ref: '#/components/schemas/ListPagination'
+      - $ref: '#/components/schemas/RolePaginationDynamic_allOf'
     RoleOut:
       allOf:
       - $ref: '#/components/schemas/Role'
@@ -1537,6 +1748,12 @@ components:
           platform_default:
             default: false
             type: boolean
+    RoleOutDynamic:
+      allOf:
+      - $ref: '#/components/schemas/Role'
+      - $ref: '#/components/schemas/UUID'
+      - $ref: '#/components/schemas/Timestamped'
+      - $ref: '#/components/schemas/RoleOutDynamic_allOf'
     RoleWithAccess:
       allOf:
       - $ref: '#/components/schemas/RoleOut'
@@ -1569,13 +1786,6 @@ components:
       allOf:
       - $ref: '#/components/schemas/ListPagination'
       - $ref: '#/components/schemas/AccessPagination_allOf'
-    AccessNoPagination:
-      allOf:
-      - $ref: '#/components/schemas/AccessPagination_allOf'
-    OneOfAccessPagination:
-      oneOf:
-      - $ref: '#/components/schemas/AccessNoPagination'
-      - $ref: '#/components/schemas/AccessPagination'
     Status:
       example:
         platform_info:
@@ -1697,6 +1907,46 @@ components:
           type: array
       required:
       - access
+    RolePaginationDynamic_allOf:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/RoleOutDynamic'
+          type: array
+      required:
+      - data
+    RoleOutDynamic_allOf:
+      properties:
+        policyCount:
+          minimum: 0
+          type: integer
+        accessCount:
+          minimum: 0
+          type: integer
+        applications:
+          items:
+            example: catalog
+            type: string
+          type: array
+        system:
+          default: false
+          type: boolean
+        platform_default:
+          default: false
+          type: boolean
+        groups_in_count:
+          minimum: 0
+          type: integer
+        groups_in:
+          items:
+            $ref: '#/components/schemas/AdditionalGroup'
+          type: array
+      required:
+      - accessCount
+      - applications
+      - platform_default
+      - policyCount
+      - system
     PolicyIn_allOf:
       properties:
         group:

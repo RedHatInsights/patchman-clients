@@ -35,6 +35,7 @@ type ApiTagGetTagsOpts struct {
     Page optional.Int32
     Staleness optional.Interface
     Search optional.String
+    RegisteredWith optional.String
 }
 
 /*
@@ -48,6 +49,7 @@ ApiTagGetTags Get the active host tags for a given account
  * @param "Page" (optional.Int32) -  A page number of the items to return.
  * @param "Staleness" (optional.Interface of []string) -  Culling states of the hosts. Default: fresh,stale,unknown
  * @param "Search" (optional.String) -  Only include tags that match the given search string. The value is matched against namespace, key and value.
+ * @param "RegisteredWith" (optional.String) -  Filters out any host not registered with the specified service
 @return ActiveTags
 */
 func (a *TagsApiService) ApiTagGetTags(ctx _context.Context, localVarOptionals *ApiTagGetTagsOpts) (ActiveTags, *_nethttp.Response, error) {
@@ -102,6 +104,9 @@ func (a *TagsApiService) ApiTagGetTags(ctx _context.Context, localVarOptionals *
 	}
 	if localVarOptionals != nil && localVarOptionals.Search.IsSet() {
 		localVarQueryParams.Add("search", parameterToString(localVarOptionals.Search.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.RegisteredWith.IsSet() {
+		localVarQueryParams.Add("registered_with", parameterToString(localVarOptionals.RegisteredWith.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

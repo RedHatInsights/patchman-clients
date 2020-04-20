@@ -775,6 +775,128 @@ func (a *GroupApiService) GetGroup(ctx _context.Context, uuid string) (GroupWith
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+// GetPrincipalsFromGroupOpts Optional parameters for the method 'GetPrincipalsFromGroup'
+type GetPrincipalsFromGroupOpts struct {
+    PrincipalUsername optional.String
+    OrderBy optional.String
+}
+
+/*
+GetPrincipalsFromGroup Get a list of principals from a group in the tenant
+By default, responses are sorted in ascending order by username
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param uuid ID of group from which to get principals
+ * @param optional nil or *GetPrincipalsFromGroupOpts - Optional Parameters:
+ * @param "PrincipalUsername" (optional.String) -  Parameter for filtering group principals by principal `username` using string contains search.
+ * @param "OrderBy" (optional.String) -  Parameter for ordering principals by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-username
+@return PrincipalPagination
+*/
+func (a *GroupApiService) GetPrincipalsFromGroup(ctx _context.Context, uuid string, localVarOptionals *GetPrincipalsFromGroupOpts) (PrincipalPagination, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  PrincipalPagination
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/groups/{uuid}/principals/"
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")) , -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	if localVarOptionals != nil && localVarOptionals.PrincipalUsername.IsSet() {
+		localVarQueryParams.Add("principal_username", parameterToString(localVarOptionals.PrincipalUsername.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.OrderBy.IsSet() {
+		localVarQueryParams.Add("order_by", parameterToString(localVarOptionals.OrderBy.Value(), ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 200 {
+			var v PrincipalPagination
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 // ListGroupsOpts Optional parameters for the method 'ListGroups'
 type ListGroupsOpts struct {
     Limit optional.Int32
@@ -782,11 +904,15 @@ type ListGroupsOpts struct {
     Name optional.String
     Scope optional.String
     Username optional.String
+    Uuid optional.Interface
+    RoleNames optional.Interface
+    RoleDiscriminator optional.String
     OrderBy optional.String
 }
 
 /*
 ListGroups List the groups for a tenant
+By default, responses are sorted in ascending order by group name
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *ListGroupsOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  Parameter for selecting the amount of data returned.
@@ -794,7 +920,10 @@ ListGroups List the groups for a tenant
  * @param "Name" (optional.String) -  Parameter for filtering resource by name using string contains search.
  * @param "Scope" (optional.String) -  Parameter for filtering resource by scope.
  * @param "Username" (optional.String) -  A username for a principal to filter for groups
- * @param "OrderBy" (optional.String) -  Parameter for ordering resource by value.
+ * @param "Uuid" (optional.Interface of []string) -  A list of UUIDs to filter listed groups.
+ * @param "RoleNames" (optional.Interface of []string) -  List of role name to filter for groups. It is exact match but case-insensitive
+ * @param "RoleDiscriminator" (optional.String) -  Discriminator that works with role_names to indicate matching all/any of the role names
+ * @param "OrderBy" (optional.String) -  Parameter for ordering resource by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-name
 @return GroupPagination
 */
 func (a *GroupApiService) ListGroups(ctx _context.Context, localVarOptionals *ListGroupsOpts) (GroupPagination, *_nethttp.Response, error) {
@@ -827,6 +956,15 @@ func (a *GroupApiService) ListGroups(ctx _context.Context, localVarOptionals *Li
 	}
 	if localVarOptionals != nil && localVarOptionals.Username.IsSet() {
 		localVarQueryParams.Add("username", parameterToString(localVarOptionals.Username.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Uuid.IsSet() {
+		localVarQueryParams.Add("uuid", parameterToString(localVarOptionals.Uuid.Value(), "csv"))
+	}
+	if localVarOptionals != nil && localVarOptionals.RoleNames.IsSet() {
+		localVarQueryParams.Add("role_names", parameterToString(localVarOptionals.RoleNames.Value(), "csv"))
+	}
+	if localVarOptionals != nil && localVarOptionals.RoleDiscriminator.IsSet() {
+		localVarQueryParams.Add("role_discriminator", parameterToString(localVarOptionals.RoleDiscriminator.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.OrderBy.IsSet() {
 		localVarQueryParams.Add("order_by", parameterToString(localVarOptionals.OrderBy.Value(), ""))
@@ -916,18 +1054,25 @@ func (a *GroupApiService) ListGroups(ctx _context.Context, localVarOptionals *Li
 // ListRolesForGroupOpts Optional parameters for the method 'ListRolesForGroup'
 type ListRolesForGroupOpts struct {
     Exclude optional.Bool
+    RoleName optional.String
+    RoleDescription optional.String
     Limit optional.Int32
     Offset optional.Int32
+    OrderBy optional.String
 }
 
 /*
 ListRolesForGroup List the roles for a group in the tenant
+By default, responses are sorted in ascending order by role name
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param uuid ID of group
  * @param optional nil or *ListRolesForGroupOpts - Optional Parameters:
  * @param "Exclude" (optional.Bool) -  If this is set to true, the result would be roles excluding the ones in the group
+ * @param "RoleName" (optional.String) -  Parameter for filtering group roles by role `name` using string contains search.
+ * @param "RoleDescription" (optional.String) -  Parameter for filtering group roles by role `description` using string contains search.
  * @param "Limit" (optional.Int32) -  Parameter for selecting the amount of data returned.
  * @param "Offset" (optional.Int32) -  Parameter for selecting the offset of data.
+ * @param "OrderBy" (optional.String) -  Parameter for ordering resource by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-name
 @return GroupRolesPagination
 */
 func (a *GroupApiService) ListRolesForGroup(ctx _context.Context, uuid string, localVarOptionals *ListRolesForGroupOpts) (GroupRolesPagination, *_nethttp.Response, error) {
@@ -951,11 +1096,20 @@ func (a *GroupApiService) ListRolesForGroup(ctx _context.Context, uuid string, l
 	if localVarOptionals != nil && localVarOptionals.Exclude.IsSet() {
 		localVarQueryParams.Add("exclude", parameterToString(localVarOptionals.Exclude.Value(), ""))
 	}
+	if localVarOptionals != nil && localVarOptionals.RoleName.IsSet() {
+		localVarQueryParams.Add("role_name", parameterToString(localVarOptionals.RoleName.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.RoleDescription.IsSet() {
+		localVarQueryParams.Add("role_description", parameterToString(localVarOptionals.RoleDescription.Value(), ""))
+	}
 	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
 		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.Offset.IsSet() {
 		localVarQueryParams.Add("offset", parameterToString(localVarOptionals.Offset.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.OrderBy.IsSet() {
+		localVarQueryParams.Add("order_by", parameterToString(localVarOptionals.OrderBy.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

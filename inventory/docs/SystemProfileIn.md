@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **BiosReleaseDate** | **string** |  | [optional] 
 **BiosVendor** | **string** |  | [optional] 
 **BiosVersion** | **string** |  | [optional] 
+**CapturedDate** | **string** |  | [optional] 
 **CloudProvider** | **string** |  | [optional] 
 **CoresPerSocket** | **int32** |  | [optional] 
 **CpuFlags** | **[]string** |  | [optional] 

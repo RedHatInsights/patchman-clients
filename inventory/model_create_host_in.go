@@ -31,13 +31,13 @@ type CreateHostIn struct {
 	// Host’s network interfaces MAC addresses.  This field is considered to be a canonical fact.
 	MacAddresses []string `json:"mac_addresses,omitempty"`
 	// Reporting source of the host. Used when updating the stale_timestamp.
-	Reporter string `json:"reporter,omitempty"`
+	Reporter string `json:"reporter"`
 	// A Machine ID of a RHEL host.  This field is considered to be a canonical fact.
 	RhelMachineId string `json:"rhel_machine_id,omitempty"`
 	// A Red Hat Satellite ID of a RHEL host.  This field is considered to be a canonical fact.
 	SatelliteId string `json:"satellite_id,omitempty"`
 	// Timestamp from which the host is considered stale.
-	StaleTimestamp string `json:"stale_timestamp,omitempty"`
+	StaleTimestamp string `json:"stale_timestamp"`
 	// A Red Hat Subcription Manager ID of a RHEL host.  This field is considered to be a canonical fact.
 	SubscriptionManagerId string `json:"subscription_manager_id,omitempty"`
 	SystemProfile SystemProfileIn `json:"system_profile,omitempty"`

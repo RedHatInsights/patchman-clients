@@ -14,6 +14,8 @@ Method | HTTP request | Description
 
 List the principals for a tenant
 
+By default, responses are sorted in ascending order by username
+
 ### Required Parameters
 
 
@@ -32,6 +34,7 @@ Name | Type | Description  | Notes
  **limit** | **optional.Int32**| Parameter for selecting the amount of data returned. | [default to 10]
  **offset** | **optional.Int32**| Parameter for selecting the offset of data. | [default to 0]
  **usernames** | **optional.String**| Usernames of principals to get | 
+ **sortOrder** | **optional.String**| The sort order of the query, either ascending or descending | 
 
 ### Return type
 

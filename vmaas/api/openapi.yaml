@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: VMaaS Webapp
-  version: 1.4.1
+  version: 1.12.2
 servers:
 - url: /api
 paths:
@@ -350,6 +350,50 @@ paths:
           description: Return details about single package NEVRA
       tags:
       - packages
+  /v1/pkgtree:
+    post:
+      description: Get package NEVRAs trees for package names. "package_name_list"
+        must be a list of package names.
+      operationId: app.PkgtreeHandlerPost.post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PkgtreeRequest'
+      responses:
+        400:
+          description: Invalid input json format
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PkgtreeResponse'
+          description: Return package NEVRAs about list of package names
+      tags:
+      - pkgtree
+  /v1/pkgtree/{package_name}:
+    get:
+      description: Get package NEVRAs tree for a single package name.
+      operationId: app.PkgtreeHandlerGet.get
+      parameters:
+      - description: Package name
+        explode: false
+        in: path
+        name: package_name
+        required: true
+        schema:
+          type: string
+        style: simple
+        x-example: kernel-rt
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PkgtreeResponse'
+          description: Return package NEVRAs about single package name
+      tags:
+      - pkgtree
   /v1/vulnerabilities:
     post:
       description: List of applicable CVEs to a package list.
@@ -393,6 +437,49 @@ paths:
           description: Return list of applicable CVEs for a single NEVRA
       tags:
       - vulnerabilities
+  /v1/patches:
+    post:
+      description: List of applicable errata to a package list.
+      operationId: app.PatchesHandlerPost.post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchesRequest'
+      responses:
+        400:
+          description: Invalid input json format
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchesResponse'
+          description: List of applicable errata to a package list.
+      tags:
+      - patches
+  /v1/patches/{nevra}:
+    get:
+      description: List of applicable CVEs for a single package NEVRA
+      operationId: app.PatchesHandlerGet.get
+      parameters:
+      - description: Package NEVRA
+        explode: false
+        in: path
+        name: nevra
+        required: true
+        schema:
+          type: string
+        style: simple
+        x-example: kernel-2.6.32-696.20.1.el6.x86_64
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchesResponse'
+          description: Return list of applicable errata for a single NEVRA
+      tags:
+      - patches
 components:
   schemas:
     UpdatesRequest:
@@ -841,6 +928,99 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/PackagesResponse_package_list'
           type: object
+    PkgtreeRequest:
+      example:
+        package_name_list:
+        - kernel-rt
+        - kernel-rt
+      properties:
+        package_name_list:
+          items:
+            example: kernel-rt
+            type: string
+          minItems: 1
+          type: array
+      required:
+      - package_name_list
+      type: object
+    PkgtreeResponse:
+      example:
+        last_change: 2020-04-16 20:07:58.500192+00
+        package_name_list:
+          key:
+          - '{}'
+          - '{}'
+      properties:
+        last_change:
+          example: 2020-04-16 20:07:58.500192+00
+        package_name_list:
+          additionalProperties:
+            items:
+              properties:
+                nevra:
+                  example: kernel-rt-4.18.0-147.rt24.93.el8.x86_64
+                  type: string
+                first_published:
+                  example: 2020-01-13T17:31:41+00:00
+                  type: string
+                repositories:
+                  items:
+                    properties:
+                      label:
+                        example: rhel-8-for-s390x-appstream-rpms
+                        type: string
+                      name:
+                        example: Red Hat Enterprise Linux 8 for IBM z Systems - AppStream
+                          (RPMs)
+                        type: string
+                      basearch:
+                        example: x86_64
+                        type: string
+                      releasever:
+                        example: "6.9"
+                        type: string
+                      revision:
+                        example: 2019-11-19T09:41:05+00:00
+                        type: string
+                      module_name:
+                        example: postgresql
+                        type: string
+                      module_stream:
+                        example: "9.6"
+                        type: string
+                    required:
+                    - basearch
+                    - label
+                    - name
+                    - releasever
+                    - revision
+                    type: object
+                  type: array
+                errata:
+                  items:
+                    properties:
+                      name:
+                        example: RHSA-2019:2730
+                        type: string
+                      issued:
+                        example: 2019-11-19T09:41:05+00:00
+                        type: string
+                      cve_list:
+                        items:
+                          example: CVE-2018-13405
+                          type: string
+                        type: array
+                    required:
+                    - issued
+                    - name
+                    type: object
+                  type: array
+              required:
+              - first_published
+              - nevra
+              type: object
+            type: array
+          type: object
     DBChangeResponse:
       example:
         dbchange:
@@ -900,6 +1080,56 @@ components:
         cve_list:
           items:
             example: CVE-2016-0800
+            type: string
+          type: array
+    PatchesRequest:
+      example:
+        modules_list:
+        - module_stream: "1"
+          module_name: rhn-tools
+        - module_stream: "1"
+          module_name: rhn-tools
+        package_list:
+        - kernel-2.6.32-696.20.1.el6.x86_64
+        - kernel-2.6.32-696.20.1.el6.x86_64
+        repository_list:
+        - rhel-6-server-rpms
+        - rhel-6-server-rpms
+        basearch: x86_64
+        releasever: 6Server
+      properties:
+        package_list:
+          items:
+            example: kernel-2.6.32-696.20.1.el6.x86_64
+            type: string
+          type: array
+        repository_list:
+          items:
+            example: rhel-6-server-rpms
+            type: string
+          type: array
+        modules_list:
+          items:
+            $ref: '#/components/schemas/UpdatesRequest_modules_list'
+          type: array
+        releasever:
+          example: 6Server
+          type: string
+        basearch:
+          example: x86_64
+          type: string
+      required:
+      - package_list
+      type: object
+    PatchesResponse:
+      example:
+        errata_list:
+        - RHSA-2018:0151
+        - RHSA-2018:0151
+      properties:
+        errata_list:
+          items:
+            example: RHSA-2018:0151
             type: string
           type: array
     UpdatesRequest_modules_list:
@@ -1094,6 +1324,7 @@ components:
           type: string
         severity:
           example: Important
+          nullable: true
           type: string
         reference_list:
           items:

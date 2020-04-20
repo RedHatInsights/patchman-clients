@@ -30,15 +30,18 @@ type ListPrincipalsOpts struct {
     Limit optional.Int32
     Offset optional.Int32
     Usernames optional.String
+    SortOrder optional.String
 }
 
 /*
 ListPrincipals List the principals for a tenant
+By default, responses are sorted in ascending order by username
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *ListPrincipalsOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  Parameter for selecting the amount of data returned.
  * @param "Offset" (optional.Int32) -  Parameter for selecting the offset of data.
  * @param "Usernames" (optional.String) -  Usernames of principals to get
+ * @param "SortOrder" (optional.String) -  The sort order of the query, either ascending or descending
 @return PrincipalPagination
 */
 func (a *PrincipalApiService) ListPrincipals(ctx _context.Context, localVarOptionals *ListPrincipalsOpts) (PrincipalPagination, *_nethttp.Response, error) {
@@ -65,6 +68,9 @@ func (a *PrincipalApiService) ListPrincipals(ctx _context.Context, localVarOptio
 	}
 	if localVarOptionals != nil && localVarOptionals.Usernames.IsSet() {
 		localVarQueryParams.Add("usernames", parameterToString(localVarOptionals.Usernames.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.SortOrder.IsSet() {
+		localVarQueryParams.Add("sort_order", parameterToString(localVarOptionals.SortOrder.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

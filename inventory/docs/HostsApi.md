@@ -179,6 +179,7 @@ Name | Type | Description  | Notes
  **orderHow** | **optional.String**| Direction of the ordering, defaults to ASC for display_name and to DESC for updated | 
  **staleness** | [**optional.Interface of []string**](string.md)| Culling states of the hosts. Default: fresh,stale,unknown | [default to [&quot;fresh&quot;,&quot;stale&quot;,&quot;unknown&quot;]]
  **tags** | [**optional.Interface of []string**](string.md)| filters out hosts not tagged by the given tags | 
+ **registeredWith** | **optional.String**| Filters out any host not registered with the specified service | 
 
 ### Return type
 
@@ -324,6 +325,7 @@ Name | Type | Description  | Notes
  **page** | **optional.Int32**| A page number of the items to return. | [default to 1]
  **orderBy** | **optional.String**| Ordering field name | 
  **orderHow** | **optional.String**| Direction of the ordering, defaults to ASC for display_name and to DESC for updated | 
+ **search** | **optional.String**| Only include tags that match the given search string. The value is matched against namespace, key and value. | 
 
 ### Return type
 

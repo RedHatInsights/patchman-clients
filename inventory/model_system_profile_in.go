@@ -14,6 +14,7 @@ type SystemProfileIn struct {
 	BiosReleaseDate string `json:"bios_release_date,omitempty"`
 	BiosVendor string `json:"bios_vendor,omitempty"`
 	BiosVersion string `json:"bios_version,omitempty"`
+	CapturedDate string `json:"captured_date,omitempty"`
 	CloudProvider string `json:"cloud_provider,omitempty"`
 	CoresPerSocket int32 `json:"cores_per_socket,omitempty"`
 	CpuFlags []string `json:"cpu_flags,omitempty"`

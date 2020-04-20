@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**DeletePrincipalFromGroup**](GroupApi.md#DeletePrincipalFromGroup) | **Delete** /groups/{uuid}/principals/ | Remove a principal from a group in the tenant
 [**DeleteRoleFromGroup**](GroupApi.md#DeleteRoleFromGroup) | **Delete** /groups/{uuid}/roles/ | Remove a role from a group in the tenant
 [**GetGroup**](GroupApi.md#GetGroup) | **Get** /groups/{uuid}/ | Get a group in the tenant
+[**GetPrincipalsFromGroup**](GroupApi.md#GetPrincipalsFromGroup) | **Get** /groups/{uuid}/principals/ | Get a list of principals from a group in the tenant
 [**ListGroups**](GroupApi.md#ListGroups) | **Get** /groups/ | List the groups for a tenant
 [**ListRolesForGroup**](GroupApi.md#ListRolesForGroup) | **Get** /groups/{uuid}/roles/ | List the roles for a group in the tenant
 [**UpdateGroup**](GroupApi.md#UpdateGroup) | **Put** /groups/{uuid}/ | Udate a group in the tenant
@@ -245,11 +246,59 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetPrincipalsFromGroup
+
+> PrincipalPagination GetPrincipalsFromGroup(ctx, uuid, optional)
+
+Get a list of principals from a group in the tenant
+
+By default, responses are sorted in ascending order by username
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**uuid** | [**string**](.md)| ID of group from which to get principals | 
+ **optional** | ***GetPrincipalsFromGroupOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a GetPrincipalsFromGroupOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **principalUsername** | **optional.String**| Parameter for filtering group principals by principal &#x60;username&#x60; using string contains search. | 
+ **orderBy** | **optional.String**| Parameter for ordering principals by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-username | 
+
+### Return type
+
+[**PrincipalPagination**](PrincipalPagination.md)
+
+### Authorization
+
+[basic_auth](../README.md#basic_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListGroups
 
 > GroupPagination ListGroups(ctx, optional)
 
 List the groups for a tenant
+
+By default, responses are sorted in ascending order by group name
 
 ### Required Parameters
 
@@ -271,7 +320,10 @@ Name | Type | Description  | Notes
  **name** | **optional.String**| Parameter for filtering resource by name using string contains search. | 
  **scope** | **optional.String**| Parameter for filtering resource by scope. | [default to account]
  **username** | **optional.String**| A username for a principal to filter for groups | 
- **orderBy** | **optional.String**| Parameter for ordering resource by value. | 
+ **uuid** | [**optional.Interface of []string**](string.md)| A list of UUIDs to filter listed groups. | 
+ **roleNames** | [**optional.Interface of []string**](string.md)| List of role name to filter for groups. It is exact match but case-insensitive | 
+ **roleDiscriminator** | **optional.String**| Discriminator that works with role_names to indicate matching all/any of the role names | 
+ **orderBy** | **optional.String**| Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name | 
 
 ### Return type
 
@@ -297,6 +349,8 @@ Name | Type | Description  | Notes
 
 List the roles for a group in the tenant
 
+By default, responses are sorted in ascending order by role name
+
 ### Required Parameters
 
 
@@ -315,8 +369,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **exclude** | **optional.Bool**| If this is set to true, the result would be roles excluding the ones in the group | [default to false]
+ **roleName** | **optional.String**| Parameter for filtering group roles by role &#x60;name&#x60; using string contains search. | 
+ **roleDescription** | **optional.String**| Parameter for filtering group roles by role &#x60;description&#x60; using string contains search. | 
  **limit** | **optional.Int32**| Parameter for selecting the amount of data returned. | [default to 10]
  **offset** | **optional.Int32**| Parameter for selecting the offset of data. | [default to 0]
+ **orderBy** | **optional.String**| Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name | 
 
 ### Return type
 

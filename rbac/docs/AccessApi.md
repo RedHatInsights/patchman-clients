@@ -10,9 +10,11 @@ Method | HTTP request | Description
 
 ## GetPrincipalAccess
 
-> OneOfAccessPagination GetPrincipalAccess(ctx, application, optional)
+> AccessPagination GetPrincipalAccess(ctx, application, optional)
 
 Get the permitted access for a principal in the tenant (defaults to principal from the identity header)
+
+Access responses are sorted in ascending order by an ID internal to the database
 
 ### Required Parameters
 
@@ -20,7 +22,7 @@ Get the permitted access for a principal in the tenant (defaults to principal fr
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**application** | **string**| The application name to obtain access for the principal | 
+**application** | **string**| The application name(s) to obtain access for the principal. This is an exact match. When no application is supplied, all permissions for the principal are returned. You may also use a comma-separated list to match on multiple applications. | 
  **optional** | ***GetPrincipalAccessOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -32,12 +34,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **username** | **optional.String**| Unique username of the principal to obtain access for (only available for admins, and if supplied, takes precedence over the identity header). | 
- **limit** | **optional.Int32**| Parameter for selecting the amount of data returned. | 
+ **limit** | **optional.Int32**| Parameter for selecting the amount of data returned. | [default to 10]
  **offset** | **optional.Int32**| Parameter for selecting the offset of data. | [default to 0]
 
 ### Return type
 
-[**OneOfAccessPagination**](OneOfAccessPagination.md)
+[**AccessPagination**](AccessPagination.md)
 
 ### Authorization
 

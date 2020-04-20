@@ -114,6 +114,8 @@ Name | Type | Description  | Notes
 
 List the policies in the tenant
 
+By default, responses are sorted in ascending order by policy name
+
 ### Required Parameters
 
 
@@ -135,7 +137,7 @@ Name | Type | Description  | Notes
  **scope** | **optional.String**| Parameter for filtering resource by scope. | [default to account]
  **groupName** | **optional.String**| Parameter for filtering resource by group name using string contains search. | 
  **groupUuid** | [**optional.Interface of string**](.md)| Parameter for filtering resource by group uuid using UUID exact match. | 
- **orderBy** | **optional.String**| Parameter for ordering resource by value. | 
+ **orderBy** | **optional.String**| Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name | 
 
 ### Return type
 

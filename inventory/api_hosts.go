@@ -359,6 +359,7 @@ type ApiHostGetHostListOpts struct {
     OrderHow optional.String
     Staleness optional.Interface
     Tags optional.Interface
+    RegisteredWith optional.String
 }
 
 /*
@@ -377,6 +378,7 @@ Read the entire list of all hosts available to the account.
  * @param "OrderHow" (optional.String) -  Direction of the ordering, defaults to ASC for display_name and to DESC for updated
  * @param "Staleness" (optional.Interface of []string) -  Culling states of the hosts. Default: fresh,stale,unknown
  * @param "Tags" (optional.Interface of []string) -  filters out hosts not tagged by the given tags
+ * @param "RegisteredWith" (optional.String) -  Filters out any host not registered with the specified service
 @return HostQueryOutput
 */
 func (a *HostsApiService) ApiHostGetHostList(ctx _context.Context, localVarOptionals *ApiHostGetHostListOpts) (HostQueryOutput, *_nethttp.Response, error) {
@@ -443,6 +445,9 @@ func (a *HostsApiService) ApiHostGetHostList(ctx _context.Context, localVarOptio
 		} else {
 			localVarQueryParams.Add("tags", parameterToString(t, "multi"))
 		}
+	}
+	if localVarOptionals != nil && localVarOptionals.RegisteredWith.IsSet() {
+		localVarQueryParams.Add("registered_with", parameterToString(localVarOptionals.RegisteredWith.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -779,6 +784,7 @@ type ApiHostGetHostTagsOpts struct {
     Page optional.Int32
     OrderBy optional.String
     OrderHow optional.String
+    Search optional.String
 }
 
 /*
@@ -791,6 +797,7 @@ Get the tags on a host
  * @param "Page" (optional.Int32) -  A page number of the items to return.
  * @param "OrderBy" (optional.String) -  Ordering field name
  * @param "OrderHow" (optional.String) -  Direction of the ordering, defaults to ASC for display_name and to DESC for updated
+ * @param "Search" (optional.String) -  Only include tags that match the given search string. The value is matched against namespace, key and value.
 @return TagsOut
 */
 func (a *HostsApiService) ApiHostGetHostTags(ctx _context.Context, hostIdList []string, localVarOptionals *ApiHostGetHostTagsOpts) (TagsOut, *_nethttp.Response, error) {
@@ -822,6 +829,9 @@ func (a *HostsApiService) ApiHostGetHostTags(ctx _context.Context, hostIdList []
 	}
 	if localVarOptionals != nil && localVarOptionals.OrderHow.IsSet() {
 		localVarQueryParams.Add("order_how", parameterToString(localVarOptionals.OrderHow.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Search.IsSet() {
+		localVarQueryParams.Add("search", parameterToString(localVarOptionals.Search.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

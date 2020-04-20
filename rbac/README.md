@@ -40,6 +40,7 @@ Class | Method | HTTP request | Description
 *GroupApi* | [**DeletePrincipalFromGroup**](docs/GroupApi.md#deleteprincipalfromgroup) | **Delete** /groups/{uuid}/principals/ | Remove a principal from a group in the tenant
 *GroupApi* | [**DeleteRoleFromGroup**](docs/GroupApi.md#deleterolefromgroup) | **Delete** /groups/{uuid}/roles/ | Remove a role from a group in the tenant
 *GroupApi* | [**GetGroup**](docs/GroupApi.md#getgroup) | **Get** /groups/{uuid}/ | Get a group in the tenant
+*GroupApi* | [**GetPrincipalsFromGroup**](docs/GroupApi.md#getprincipalsfromgroup) | **Get** /groups/{uuid}/principals/ | Get a list of principals from a group in the tenant
 *GroupApi* | [**ListGroups**](docs/GroupApi.md#listgroups) | **Get** /groups/ | List the groups for a tenant
 *GroupApi* | [**ListRolesForGroup**](docs/GroupApi.md#listrolesforgroup) | **Get** /groups/{uuid}/roles/ | List the roles for a group in the tenant
 *GroupApi* | [**UpdateGroup**](docs/GroupApi.md#updategroup) | **Put** /groups/{uuid}/ | Udate a group in the tenant
@@ -52,6 +53,7 @@ Class | Method | HTTP request | Description
 *RoleApi* | [**CreateRoles**](docs/RoleApi.md#createroles) | **Post** /roles/ | Create a roles for a tenant
 *RoleApi* | [**DeleteRole**](docs/RoleApi.md#deleterole) | **Delete** /roles/{uuid}/ | Delete a role in the tenant
 *RoleApi* | [**GetRole**](docs/RoleApi.md#getrole) | **Get** /roles/{uuid}/ | Get a role in the tenant
+*RoleApi* | [**GetRoleAccess**](docs/RoleApi.md#getroleaccess) | **Get** /roles/{uuid}/access/ | Get access for a role in the tenant
 *RoleApi* | [**ListRoles**](docs/RoleApi.md#listroles) | **Get** /roles/ | List the roles for a tenant
 *RoleApi* | [**UpdateRole**](docs/RoleApi.md#updaterole) | **Put** /roles/{uuid}/ | Update a Role in the tenant
 *StatusApi* | [**GetStatus**](docs/StatusApi.md#getstatus) | **Get** /status/ | Obtain server status
@@ -60,9 +62,9 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [Access](docs/Access.md)
- - [AccessNoPagination](docs/AccessNoPagination.md)
  - [AccessPagination](docs/AccessPagination.md)
  - [AccessPaginationAllOf](docs/AccessPaginationAllOf.md)
+ - [AdditionalGroup](docs/AdditionalGroup.md)
  - [Error](docs/Error.md)
  - [Error403](docs/Error403.md)
  - [Group](docs/Group.md)
@@ -78,7 +80,6 @@ Class | Method | HTTP request | Description
  - [GroupWithPrincipalsAndRolesAllOf](docs/GroupWithPrincipalsAndRolesAllOf.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [ListPagination](docs/ListPagination.md)
- - [OneOfAccessPagination](docs/OneOfAccessPagination.md)
  - [PaginationLinks](docs/PaginationLinks.md)
  - [PaginationMeta](docs/PaginationMeta.md)
  - [Policy](docs/Policy.md)
@@ -99,7 +100,11 @@ Class | Method | HTTP request | Description
  - [RoleIn](docs/RoleIn.md)
  - [RoleInAllOf](docs/RoleInAllOf.md)
  - [RoleOut](docs/RoleOut.md)
+ - [RoleOutDynamic](docs/RoleOutDynamic.md)
+ - [RoleOutDynamicAllOf](docs/RoleOutDynamicAllOf.md)
  - [RolePagination](docs/RolePagination.md)
+ - [RolePaginationDynamic](docs/RolePaginationDynamic.md)
+ - [RolePaginationDynamicAllOf](docs/RolePaginationDynamicAllOf.md)
  - [RoleWithAccess](docs/RoleWithAccess.md)
  - [Status](docs/Status.md)
  - [Timestamped](docs/Timestamped.md)

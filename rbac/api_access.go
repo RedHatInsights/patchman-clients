@@ -34,22 +34,23 @@ type GetPrincipalAccessOpts struct {
 
 /*
 GetPrincipalAccess Get the permitted access for a principal in the tenant (defaults to principal from the identity header)
+Access responses are sorted in ascending order by an ID internal to the database
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param application The application name to obtain access for the principal
+ * @param application The application name(s) to obtain access for the principal. This is an exact match. When no application is supplied, all permissions for the principal are returned. You may also use a comma-separated list to match on multiple applications.
  * @param optional nil or *GetPrincipalAccessOpts - Optional Parameters:
  * @param "Username" (optional.String) -  Unique username of the principal to obtain access for (only available for admins, and if supplied, takes precedence over the identity header).
  * @param "Limit" (optional.Int32) -  Parameter for selecting the amount of data returned.
  * @param "Offset" (optional.Int32) -  Parameter for selecting the offset of data.
-@return OneOfAccessPagination
+@return AccessPagination
 */
-func (a *AccessApiService) GetPrincipalAccess(ctx _context.Context, application string, localVarOptionals *GetPrincipalAccessOpts) (OneOfAccessPagination, *_nethttp.Response, error) {
+func (a *AccessApiService) GetPrincipalAccess(ctx _context.Context, application string, localVarOptionals *GetPrincipalAccessOpts) (AccessPagination, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  OneOfAccessPagination
+		localVarReturnValue  AccessPagination
 	)
 
 	// create path and map variables
@@ -107,7 +108,7 @@ func (a *AccessApiService) GetPrincipalAccess(ctx _context.Context, application 
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
-			var v OneOfAccessPagination
+			var v AccessPagination
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

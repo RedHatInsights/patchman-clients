@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Updated** | **string** |  | [optional] 
-**Severity** | **string** |  | [optional] 
+**Severity** | Pointer to **string** |  | [optional] 
 **ReferenceList** | **[]string** |  | [optional] 
 **Issued** | **string** |  | [optional] 
 **Description** | **string** |  | [optional] 
