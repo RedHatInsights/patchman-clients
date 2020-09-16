@@ -1,9 +1,6 @@
 #!/bin/bash
 
-#CONTAINER=openapitools/openapi-generator-cli:latest
-# We temporarily use image built from https://github.com/semtexzv/openapi-generator
-# until the https://github.com/OpenAPITools/openapi-generator/pull/4664 is merged
-CONTAINER=semtexzv/openapi-generator-cli:latest
+CONTAINER=openapitools/openapi-generator-cli:latest
 CONTAINER_TOOL=$([ -x /usr/bin/podman ] && echo podman || echo docker)
 
 # For now, we skip the dateTime parsing because of incompatible formats ( inventory does not produce fully compliant
