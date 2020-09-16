@@ -1,270 +1,257 @@
-openapi: 3.0.0
+openapi: '3.0.0'
+
+
 info:
   title: VMaaS Webapp
-  version: 1.12.2
-servers:
-- url: /api
+
+
+x-format-resps: &format_resps
+  400:
+    description: Invalid input json format
+
+
 paths:
   /v1/monitoring/health:
     get:
+      summary: Return API liveness status
       operationId: app.HealthHandler.get
       responses:
-        200:
+        '200':
           description: Application is alive
-      summary: Return API status
+
+  /v1/monitoring/ready:
+    get:
+      summary: Return API readiness status
+      operationId: app.ReadyHandler.get
+      responses:
+        '200':
+          description: Application is ready
+        '503':
+          description: Application is not ready
+
   /v1/version:
     get:
       description: Get version of application
       operationId: app.VersionHandler.get
       responses:
-        200:
+        '200':
           description: Version of application returned
+
   /v1/dbchange:
     get:
       description: Get last-updated-times for VMaaS DB
       operationId: app.DBChangeHandler.get
       responses:
-        200:
+        '200':
+          description: 'Return last-update timestamps for errata, repos, cves and the db as a whole'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DBChangeResponse'
-          description: Return last-update timestamps for errata, repos, cves and the
-            db as a whole
-      tags:
-      - dbchange
+
   /v1/updates:
     post:
       deprecated: true
       description: List security updates for list of package NEVRAs
       operationId: app.UpdatesHandlerPost.post
       requestBody:
+        description: Input json
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdatesRequest'
-        description: Input json
+
       responses:
-        400:
-          description: Invalid input json format
-        200:
+        '200':
+          description: Return list of security updates for list of package NEVRAs
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdatesResponse'
-          description: Return list of security updates for list of package NEVRAs
-      tags:
-      - updates
-  /v1/updates/{nevra}:
+        <<: *format_resps
+
+  '/v1/updates/{nevra}':
     get:
       deprecated: true
       description: List security updates for single package NEVRA
       operationId: app.UpdatesHandlerGet.get
       parameters:
-      - description: Package NEVRA
-        explode: false
-        in: path
-        name: nevra
-        required: true
-        schema:
-          type: string
-        style: simple
-        x-example: kernel-2.6.32-696.20.1.el6.x86_64
+        - name: nevra
+          description: Package NEVRA
+          required: true
+          schema:
+            type: string
+          in: path
+          x-example: kernel-2.6.32-696.20.1.el6.x86_64
       responses:
-        200:
+        '200':
+          description: Return list of security updates for single package NEVRA
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdatesResponse'
-          description: Return list of security updates for single package NEVRA
-      tags:
-      - updates
+
   /v2/updates:
     post:
       deprecated: true
       description: List security updates for list of package NEVRAs
       operationId: app.UpdatesHandlerV2Post.post
       requestBody:
+        description: Input json
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdatesRequest'
-        description: Input json
       responses:
-        400:
-          description: Invalid input json format
-        200:
+        '200':
+          description: Return list of security updates for single package NEVRA
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdatesV2Response'
-          description: Return list of security updates for single package NEVRA
-      tags:
-      - updates
-  /v2/updates/{nevra}:
+        <<: *format_resps
+
+  '/v2/updates/{nevra}':
     get:
       deprecated: true
       description: List security updates for single package NEVRA
       operationId: app.UpdatesHandlerV2Get.get
       parameters:
-      - description: Package NEVRA
-        explode: false
-        in: path
-        name: nevra
-        required: true
-        schema:
-          type: string
-        style: simple
-        x-example: kernel-2.6.32-696.20.1.el6.x86_64
+        - name: nevra
+          description: Package NEVRA
+          required: true
+          schema:
+            type: string
+          in: path
+          x-example: kernel-2.6.32-696.20.1.el6.x86_64
       responses:
-        200:
+        '200':
+          description: Return list of security updates for single package NEVRA
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdatesV2Response'
-          description: Return list of security updates for single package NEVRA
-      tags:
-      - updates
+
   /v3/updates:
     post:
       description: List all updates for list of package NEVRAs
       operationId: app.UpdatesHandlerV3Post.post
       requestBody:
+        description: Input json
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdatesV3Request'
-        description: Input json
       responses:
-        400:
-          description: Invalid input json format
-        200:
+        '200':
+          description: Return list of all updates for single package NEVRA
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdatesV2Response'
-          description: Return list of all updates for single package NEVRA
-      tags:
-      - updates
-  /v3/updates/{nevra}:
+        <<: *format_resps
+
+  '/v3/updates/{nevra}':
     get:
       description: List all updates for single package NEVRA
       operationId: app.UpdatesHandlerV3Get.get
       parameters:
-      - description: Package NEVRA
-        explode: false
-        in: path
-        name: nevra
-        required: true
-        schema:
-          type: string
-        style: simple
-        x-example: kernel-2.6.32-696.20.1.el6.x86_64
+        - name: nevra
+          description: Package NEVRA
+          required: true
+          schema:
+            type: string
+          in: path
+          x-example: kernel-2.6.32-696.20.1.el6.x86_64
       responses:
-        200:
+        '200':
+          description: Return list of all updates for single package NEVRA
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/UpdatesV2Response'
-          description: Return list of all updates for single package NEVRA
-      tags:
-      - updates
+
   /v1/cves:
     post:
-      description: Get details about CVEs with additional parameters. As a "cve_list"
-        parameter a complete list of CVE names can be provided OR one POSIX regular
-        expression.
+      description: Get details about CVEs with additional parameters. As a "cve_list" parameter a complete list of CVE names can be provided OR one POSIX regular expression.
       operationId: app.CVEHandlerPost.post
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CvesRequest'
+
       responses:
-        400:
-          description: Invalid input json format
-        200:
+        '200':
+          description: Return details about list of CVEs
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CvesResponse'
-          description: Return details about list of CVEs
-      tags:
-      - cves
-  /v1/cves/{cve}:
+        <<: *format_resps
+
+  '/v1/cves/{cve}':
     get:
-      description: Get details about CVEs. It is possible to use POSIX regular expression
-        as a pattern for CVE names.
+      description: Get details about CVEs. It is possible to use POSIX regular expression as a pattern for CVE names.
       operationId: app.CVEHandlerGet.get
       parameters:
-      - description: CVE name or POSIX regular expression pattern
-        explode: false
-        in: path
-        name: cve
-        required: true
-        schema:
-          type: string
-        style: simple
-        x-example: CVE-2017-5715, CVE-2017-571[1-5], CVE-2017-5.*
+        - name: cve
+          description: CVE name or POSIX regular expression pattern
+          required: true
+          schema:
+            type: string
+          in: path
+          x-example: 'CVE-2017-5715, CVE-2017-571[1-5], CVE-2017-5.*'
       responses:
-        200:
+        '200':
+          description: Return details about CVEs
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CvesResponse'
-          description: Return details about CVEs
-      tags:
-      - cves
+
   /v1/repos:
     post:
-      description: Get details about list of repositories. "repository_list" can be
-        either a list of repository names, OR a single POSIX regular expression.
+      description: 'Get details about list of repositories. "repository_list" can be either a list of repository names, OR a single POSIX regular expression.'
       operationId: app.ReposHandlerPost.post
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ReposRequest'
+
       responses:
-        400:
-          description: Invalid input json format
-        200:
+        '200':
+          description: Return details about list of repositories
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReposResponse'
-          description: Return details about list of repositories
-      tags:
-      - repos
-  /v1/repos/{repo}:
+        <<: *format_resps
+
+  '/v1/repos/{repo}':
     get:
-      description: Get details about a repository or repository-expression. It is
-        allowed to use POSIX regular expression as a pattern for repository names.
+      description: Get details about a repository or repository-expression. It is allowed to use POSIX regular expression as a pattern for repository names.
       operationId: app.ReposHandlerGet.get
       parameters:
-      - description: Repository name or POSIX regular expression pattern
-        explode: false
-        in: path
-        name: repo
-        required: true
-        schema:
-          type: string
-        style: simple
-        x-example: rhel-6-server-rpms OR rhel-[4567]-.*-rpms OR rhel-\d-server-rpms
+        - name: repo
+          description: Repository name or POSIX regular expression pattern
+          required: true
+          schema:
+            type: string
+          in: path
+          x-example: 'rhel-6-server-rpms OR rhel-[4567]-.*-rpms OR rhel-\d-server-rpms'
       responses:
-        200:
+        '200':
+          description: Return details about repository or repositories that match the expression
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReposResponse'
-          description: Return details about repository or repositories that match
-            the expression
-      tags:
-      - repos
+
   /v1/errata:
     post:
-      description: Get details about errata with additional parameters. "errata_list"
-        parameter can be either a list of errata names OR a single POSIX regular expression.
+      description: Get details about errata with additional parameters. "errata_list" parameter can be either a list of errata names OR a single POSIX regular expression.
       operationId: app.ErrataHandlerPost.post
       requestBody:
         content:
@@ -272,128 +259,112 @@ paths:
             schema:
               $ref: '#/components/schemas/ErrataRequest'
       responses:
-        400:
-          description: Invalid input json format
-        200:
+        '200':
+          description: Return details about list of errata
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrataResponse'
-          description: Return details about list of errata
-      tags:
-      - errata
-  /v1/errata/{erratum}:
+        <<: *format_resps
+
+  '/v1/errata/{erratum}':
     get:
-      description: Get details about errata. It is possible to use POSIX regular expression
-        as a pattern for errata names.
+      description: Get details about errata. It is possible to use POSIX regular expression as a pattern for errata names.
       operationId: app.ErrataHandlerGet.get
       parameters:
-      - description: Errata advisory name or POSIX regular expression pattern
-        explode: false
-        in: path
-        name: erratum
-        required: true
-        schema:
-          type: string
-        style: simple
-        x-example: RHSA-2018:0512, RHSA-2018:051[1-5], RH.*
+        - name: erratum
+          description: Errata advisory name or POSIX regular expression pattern
+          required: true
+          schema:
+            type: string
+          in: path
+          x-example: 'RHSA-2018:0512, RHSA-2018:051[1-5], RH.*'
       responses:
-        200:
+        '200':
+          description: Return details about errata
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrataResponse'
-          description: Return details about errata
-      tags:
-      - errata
+
   /v1/packages:
     post:
-      description: Get details about packages. "package_list" must be a list of package
-        NEVRAs.
+      description: Get details about packages. "package_list" must be a list of package NEVRAs.
       operationId: app.PackagesHandlerPost.post
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PackagesRequest'
+
       responses:
-        400:
-          description: Invalid input json format
-        200:
+        '200':
+          description: Return details about list of package NEVRAs
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PackagesResponse'
-          description: Return details about list of package NEVRAs
-      tags:
-      - packages
-  /v1/packages/{nevra}:
+        <<: *format_resps
+
+  '/v1/packages/{nevra}':
     get:
       description: Get details about packages.
       operationId: app.PackagesHandlerGet.get
       parameters:
-      - description: Package NEVRA
-        explode: false
-        in: path
-        name: nevra
-        required: true
-        schema:
-          type: string
-        style: simple
-        x-example: kernel-2.6.32-696.20.1.el6.x86_64
+        - name: nevra
+          description: Package NEVRA
+          required: true
+          schema:
+            type: string
+          in: path
+          x-example: kernel-2.6.32-696.20.1.el6.x86_64
       responses:
-        200:
+        '200':
+          description: Return details about single package NEVRA
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PackagesResponse'
-          description: Return details about single package NEVRA
-      tags:
-      - packages
+
   /v1/pkgtree:
     post:
-      description: Get package NEVRAs trees for package names. "package_name_list"
-        must be a list of package names.
+      description: Get package NEVRAs trees for package names. "package_name_list" must be a list of package names.
       operationId: app.PkgtreeHandlerPost.post
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PkgtreeRequest'
+
       responses:
-        400:
-          description: Invalid input json format
-        200:
+        '200':
+          description: Return package NEVRAs about list of package names
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PkgtreeResponse'
-          description: Return package NEVRAs about list of package names
-      tags:
-      - pkgtree
-  /v1/pkgtree/{package_name}:
+        <<: *format_resps
+
+  '/v1/pkgtree/{package_name}':
     get:
       description: Get package NEVRAs tree for a single package name.
       operationId: app.PkgtreeHandlerGet.get
       parameters:
-      - description: Package name
-        explode: false
-        in: path
-        name: package_name
-        required: true
-        schema:
-          type: string
-        style: simple
-        x-example: kernel-rt
+        - name: package_name
+          description: Package name
+          required: true
+          schema:
+            type: string
+          in: path
+          x-example: kernel-rt
       responses:
-        200:
+        '200':
+          description: Return package NEVRAs about single package name
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PkgtreeResponse'
-          description: Return package NEVRAs about single package name
-      tags:
-      - pkgtree
+
   /v1/vulnerabilities:
     post:
       description: List of applicable CVEs to a package list.
@@ -404,39 +375,34 @@ paths:
             schema:
               $ref: '#/components/schemas/VulnerabilitiesRequest'
       responses:
-        400:
-          description: Invalid input json format
-        200:
+        '200':
+          description: List of applicable CVEs to a package list.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/VulnerabilitiesResponse'
-          description: List of applicable CVEs to a package list.
-      tags:
-      - vulnerabilities
-  /v1/vulnerabilities/{nevra}:
+        <<: *format_resps
+
+  '/v1/vulnerabilities/{nevra}':
     get:
       description: List of applicable CVEs for a single package NEVRA
       operationId: app.VulnerabilitiesHandlerGet.get
       parameters:
-      - description: Package NEVRA
-        explode: false
-        in: path
-        name: nevra
-        required: true
-        schema:
-          type: string
-        style: simple
-        x-example: kernel-2.6.32-696.20.1.el6.x86_64
+        - name: nevra
+          description: Package NEVRA
+          required: true
+          schema:
+            type: string
+          in: path
+          x-example: kernel-2.6.32-696.20.1.el6.x86_64
       responses:
-        200:
+        '200':
+          description: Return list of applicable CVEs for a single NEVRA
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/VulnerabilitiesResponse'
-          description: Return list of applicable CVEs for a single NEVRA
-      tags:
-      - vulnerabilities
+
   /v1/patches:
     post:
       description: List of applicable errata to a package list.
@@ -447,1025 +413,889 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchesRequest'
       responses:
-        400:
-          description: Invalid input json format
-        200:
+        '200':
+          description: List of applicable errata to a package list.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PatchesResponse'
-          description: List of applicable errata to a package list.
-      tags:
-      - patches
-  /v1/patches/{nevra}:
+        <<: *format_resps
+
+  '/v1/patches/{nevra}':
     get:
       description: List of applicable CVEs for a single package NEVRA
       operationId: app.PatchesHandlerGet.get
       parameters:
-      - description: Package NEVRA
-        explode: false
-        in: path
-        name: nevra
-        required: true
-        schema:
-          type: string
-        style: simple
-        x-example: kernel-2.6.32-696.20.1.el6.x86_64
+        - name: nevra
+          description: Package NEVRA
+          required: true
+          schema:
+            type: string
+          in: path
+          x-example: kernel-2.6.32-696.20.1.el6.x86_64
       responses:
-        200:
+        '200':
+          description: Return list of applicable errata for a single NEVRA
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PatchesResponse'
-          description: Return list of applicable errata for a single NEVRA
+
+  /v1/package_names/srpms:
+    post:
+      description: List of content sets with associated rpm names by given srpm and content set.
+      operationId: app.SRPMPkgNamesHandlerPost.post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SRPMPkgNamesRequest'
+      responses:
+        '200':
+          description: List of content sets with associated rpm names by given srpm names and content set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SRPMPkgNamesResponse'
+        <<: *format_resps
       tags:
-      - patches
+        - experimental
+
+  /v1/package_names/srpms/{srpm}:
+    get:
+      description: List of content sets with associated rpm names by given srpm.
+      operationId: app.SRPMPkgNamesHandlerGet.get
+      parameters:
+        - name: srpm
+          description: Source package name
+          required: true
+          schema:
+            type: string
+          in: path
+          x-example: openssl
+      responses:
+        '200':
+          description: List of content sets with associated rpm names by given srpm names and content set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SRPMPkgNamesResponse'
+        <<: *format_resps
+      tags:
+        - experimental
+
+  /v1/package_names/rpms:
+    post:
+      description: List of content sets by given rpm name and content set.
+      operationId: app.RPMPkgNamesHandlerPost.post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RPMPkgNamesRequest'
+      responses:
+        '200':
+          description: List of content sets by given rpm names and content set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RPMPkgNamesResponse'
+        <<: *format_resps
+      tags:
+        - experimental
+
+  /v1/package_names/rpms/{rpm}:
+    get:
+      description: List of content sets by given rpm name.
+      operationId: app.RPMPkgNamesHandlerGet.get
+      parameters:
+        - name: rpm
+          description: Package name
+          required: true
+          schema:
+            type: string
+          in: path
+          x-example: openssl-libs
+      responses:
+        '200':
+          description: List of content sets by given rpm names.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RPMPkgNamesResponse'
+        <<: *format_resps
+      tags:
+        - experimental
+
+tags:
+  - name: default
+  - name: experimental
+    description: Endpoints with preview functionality
+
+x-paging-info: &req_paging
+  page:
+    type: number
+    example: 0
+  page_size:
+    type: number
+    example: 10
+
+x-paging-resp: &resp_paging
+  <<: *req_paging
+  pages:
+    type: number
+
 components:
   schemas:
     UpdatesRequest:
-      example:
-        modules_list:
-        - module_stream: "1"
-          module_name: rhn-tools
-        - module_stream: "1"
-          module_name: rhn-tools
-        package_list:
-        - kernel-2.6.32-696.20.1.el6.x86_64
-        - kernel-2.6.32-696.20.1.el6.x86_64
-        repository_list:
-        - rhel-6-server-rpms
-        - rhel-6-server-rpms
-        basearch: x86_64
-        releasever: 6Server
+      type: object
       properties:
         package_list:
+          type: array
           items:
+            type: string
             example: kernel-2.6.32-696.20.1.el6.x86_64
-            type: string
           minItems: 1
-          type: array
         repository_list:
+          type: array
           items:
-            example: rhel-6-server-rpms
             type: string
-          type: array
+            example: rhel-6-server-rpms
         modules_list:
-          items:
-            $ref: '#/components/schemas/UpdatesRequest_modules_list'
           type: array
+          items:
+            type: object
+            properties:
+              module_name:
+                type: string
+                example: rhn-tools
+              module_stream:
+                type: string
+                example: '1'
+            required:
+              - module_name
+              - module_stream
         releasever:
+          type: string
           example: 6Server
-          type: string
         basearch:
-          example: x86_64
           type: string
+          example: x86_64
+        latest_only:
+          type: boolean
+          enum: [true, false]
       required:
-      - package_list
-      type: object
+        - package_list
+
     UpdatesV3Request:
-      example:
-        modules_list:
-        - module_stream: "1"
-          module_name: rhn-tools
-        - module_stream: "1"
-          module_name: rhn-tools
-        package_list:
-        - kernel-2.6.32-696.20.1.el6.x86_64
-        - kernel-2.6.32-696.20.1.el6.x86_64
-        repository_list:
-        - rhel-6-server-rpms
-        - rhel-6-server-rpms
-        basearch: x86_64
-        releasever: 6Server
-        security_only: true
+      type: object
       properties:
         package_list:
+          type: array
           items:
+            type: string
             example: kernel-2.6.32-696.20.1.el6.x86_64
-            type: string
           minItems: 1
-          type: array
         repository_list:
+          type: array
           items:
-            example: rhel-6-server-rpms
             type: string
-          type: array
+            example: rhel-6-server-rpms
         modules_list:
-          items:
-            $ref: '#/components/schemas/UpdatesRequest_modules_list'
           type: array
+          items:
+            type: object
+            properties:
+              module_name:
+                type: string
+                example: rhn-tools
+              module_stream:
+                type: string
+                example: '1'
+            required:
+              - module_name
+              - module_stream
         releasever:
+          type: string
           example: 6Server
-          type: string
         basearch:
-          example: x86_64
           type: string
+          example: x86_64
         security_only:
-          example: true
           type: boolean
+          enum: [true, false]
+        latest_only:
+          type: boolean
+          enum: [true, false]
       required:
-      - package_list
-      type: object
+        - package_list
+
     UpdatesResponse:
-      example:
-        modules_list:
-        - module_stream: "1"
-          module_name: rhn-tools
-        - module_stream: "1"
-          module_name: rhn-tools
-        update_list:
-          key:
-            summary: package summary
-            description: package description
-            available_updates:
-            - erratum: RHSA-2018:0512
-              package: kernel-2.6.32-696.23.1.el6.x86_64
-              repository: rhel-6-server-rpms
-              basearch: x86_64
-              releasever: 6Server
-            - erratum: RHSA-2018:0512
-              package: kernel-2.6.32-696.23.1.el6.x86_64
-              repository: rhel-6-server-rpms
-              basearch: x86_64
-              releasever: 6Server
-        repository_list:
-        - rhel-6-server-rpms
-        - rhel-6-server-rpms
-        basearch: x86_64
-        releasever: 6Server
       properties:
         update_list:
-          additionalProperties:
-            $ref: '#/components/schemas/UpdatesResponse_update_list'
           type: object
+          additionalProperties:
+            type: object
+            properties:
+              available_updates:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    repository:
+                      type: string
+                      example: rhel-6-server-rpms
+                    releasever:
+                      type: string
+                      example: 6Server
+                    basearch:
+                      type: string
+                      example: x86_64
+                    erratum:
+                      type: string
+                      example: 'RHSA-2018:0512'
+                    package:
+                      type: string
+                      example: kernel-2.6.32-696.23.1.el6.x86_64
+              description:
+                type: string
+                example: package description
+              summary:
+                type: string
+                example: package summary
         repository_list:
+          type: array
           items:
-            example: rhel-6-server-rpms
             type: string
-          type: array
+            example: rhel-6-server-rpms
         modules_list:
-          items:
-            $ref: '#/components/schemas/UpdatesRequest_modules_list'
           type: array
+          items:
+            type: object
+            properties:
+              module_name:
+                type: string
+                example: rhn-tools
+              module_stream:
+                type: string
+                example: '1'
+            required:
+              - module_name
+              - module_stream
         releasever:
+          type: string
           example: 6Server
-          type: string
         basearch:
-          example: x86_64
           type: string
+          example: x86_64
     UpdatesV2Response:
-      example:
-        modules_list:
-        - module_stream: "1"
-          module_name: rhn-tools
-        - module_stream: "1"
-          module_name: rhn-tools
-        update_list:
-          key:
-            available_updates:
-            - erratum: RHSA-2018:0512
-              package: kernel-2.6.32-696.23.1.el6.x86_64
-              repository: rhel-6-server-rpms
-              basearch: x86_64
-              releasever: 6Server
-            - erratum: RHSA-2018:0512
-              package: kernel-2.6.32-696.23.1.el6.x86_64
-              repository: rhel-6-server-rpms
-              basearch: x86_64
-              releasever: 6Server
-        repository_list:
-        - rhel-6-server-rpms
-        - rhel-6-server-rpms
-        basearch: x86_64
-        releasever: 6Server
       properties:
         update_list:
-          additionalProperties:
-            $ref: '#/components/schemas/UpdatesV2Response_update_list'
           type: object
+          additionalProperties:
+            type: object
+            properties:
+              available_updates:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    repository:
+                      type: string
+                      example: rhel-6-server-rpms
+                    releasever:
+                      type: string
+                      example: 6Server
+                    basearch:
+                      type: string
+                      example: x86_64
+                    erratum:
+                      type: string
+                      example: 'RHSA-2018:0512'
+                    package:
+                      type: string
+                      example: kernel-2.6.32-696.23.1.el6.x86_64
         repository_list:
+          type: array
           items:
-            example: rhel-6-server-rpms
             type: string
-          type: array
+            example: rhel-6-server-rpms
         modules_list:
-          items:
-            $ref: '#/components/schemas/UpdatesRequest_modules_list'
           type: array
+          items:
+            type: object
+            properties:
+              module_name:
+                type: string
+                example: rhn-tools
+              module_stream:
+                type: string
+                example: '1'
+            required:
+              - module_name
+              - module_stream
         releasever:
+          type: string
           example: 6Server
-          type: string
         basearch:
+          type: string
           example: x86_64
-          type: string
+
     CvesRequest:
-      example:
-        cve_list:
-        - CVE-2017-57.*
-        - CVE-2017-57.*
-        rh_only: true
-        modified_since: 2018-04-05T01:23:45+02:00
-        page: 0
-        page_size: 10
-        published_since: 2018-04-05T01:23:45+02:00
+      type: object
       properties:
-        page:
-          example: 0
-          type: number
-        page_size:
-          example: 10
-          type: number
         cve_list:
+          type: array
           items:
+            type: string
             example: CVE-2017-57.*
-            type: string
           minItems: 1
-          type: array
         modified_since:
-          example: 2018-04-05T01:23:45+02:00
           type: string
+          example: '2018-04-05T01:23:45+02:00'
+          format: date-time
         published_since:
-          example: 2018-04-05T01:23:45+02:00
           type: string
+          example: '2018-04-05T01:23:45+02:00'
+          format: date-time
         rh_only:
-          example: true
           type: boolean
+          enum: [true, false]
+        errata_associated:
+          type: boolean
+          enum: [true, false]
+          description: Return only those CVEs which are associated with at least one errata. Defaults to false.
+        <<: *req_paging
       required:
-      - cve_list
-      type: object
+        - cve_list
+
     CvesResponse:
-      example:
-        cve_list:
-          key:
-            source_package_list:
-            - nss-devel-3.16.1-9.el6_5.src
-            - nss-devel-3.16.1-9.el6_5.src
-            impact: Medium
-            description: description text
-            synopsis: CVE-2017-5715
-            modified_date: 2018-03-31T01:29:00+00:00
-            cwe_list:
-            - CWE-20
-            - CWE-20
-            package_list:
-            - nss-devel-3.16.1-9.el6_5.x86_64
-            - nss-devel-3.16.1-9.el6_5.x86_64
-            cvss2_metrics: AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N
-            errata_list:
-            - RHSA-2015:1981
-            - RHSA-2015:1981
-            cvss2_score: "5.600"
-            cvss3_metrics: AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N
-            secondary_url: https://seconday.url.com
-            public_date: 2018-01-04T13:29:00+00:00
-            redhat_url: https://access.redhat.com/security/cve/cve-2017-5715
-            cvss3_score: "5.1"
-        pages: 0.8008281904610115
-        modified_since: 2018-04-05T01:23:45+02:00
-        page: 0
-        page_size: 10
       properties:
-        page:
-          example: 0
-          type: number
-        page_size:
-          example: 10
-          type: number
-        pages:
-          type: number
         cve_list:
-          additionalProperties:
-            $ref: '#/components/schemas/CvesResponse_cve_list'
           type: object
-        modified_since:
-          example: 2018-04-05T01:23:45+02:00
-          type: string
-    ReposRequest:
-      example:
-        modified_since: 2018-04-05T01:23:45+02:00
-        page: 0
-        repository_list:
-        - rhel-6-server-rpms
-        - rhel-6-server-rpms
-        page_size: 10
-      properties:
-        page:
-          example: 0
-          type: number
-        page_size:
-          example: 10
-          type: number
-        repository_list:
-          items:
-            example: rhel-6-server-rpms
-            type: string
-          minItems: 1
-          type: array
-        modified_since:
-          description: Return only repositories changed after the given date
-          example: 2018-04-05T01:23:45+02:00
-          type: string
-      required:
-      - repository_list
-      type: object
-    ReposResponse:
-      example:
-        pages: 0.8008281904610115
-        page: 0
-        repository_list:
-          key:
-          - '{}'
-          - '{}'
-        page_size: 10
-      properties:
-        page:
-          example: 0
-          type: number
-        page_size:
-          example: 10
-          type: number
-        pages:
-          type: number
-        repository_list:
           additionalProperties:
+            type: object
+            properties:
+              impact:
+                type: string
+                enum: [NotSet, None, Low, Medium, Moderate, Important, High, Critical]
+              public_date:
+                type: string
+                example: '2018-01-04T13:29:00+00:00'
+                format: date-time
+              synopsis:
+                type: string
+                example: CVE-2017-5715
+              description:
+                type: string
+                example: description text
+              modified_date:
+                type: string
+                example: '2018-03-31T01:29:00+00:00'
+                format: date-time
+              redhat_url:
+                type: string
+                example: 'https://access.redhat.com/security/cve/cve-2017-5715'
+              secondary_url:
+                type: string
+                example: 'https://seconday.url.com'
+              cvss2_score:
+                type: string
+                example: '5.600'
+              cvss2_metrics:
+                type: string
+                example: 'AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N'
+              cvss3_score:
+                type: string
+                example: '5.1'
+              cvss3_metrics:
+                type: string
+                example: 'AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N'
+              cwe_list:
+                type: array
+                items:
+                  type: string
+                  example: CWE-20
+              errata_list:
+                type: array
+                items:
+                  type: string
+                  example: 'RHSA-2015:1981'
+              package_list:
+                type: array
+                items:
+                  type: string
+                  example: nss-devel-3.16.1-9.el6_5.x86_64
+              source_package_list:
+                type: array
+                items:
+                  type: string
+                  example: nss-devel-3.16.1-9.el6_5.src
+        modified_since:
+          type: string
+          example: '2018-04-05T01:23:45+02:00'
+          format: date-time
+        <<: *resp_paging
+
+    ReposRequest:
+      type: object
+      properties:
+        repository_list:
+          type: array
+          items:
+            type: string
+            example: rhel-6-server-rpms
+          minItems: 1
+        modified_since:
+          type: string
+          example: '2018-04-05T01:23:45+02:00'
+          format: date-time
+          description: Return only repositories changed after the given date
+        <<: *req_paging
+      required:
+        - repository_list
+
+    ReposResponse:
+      properties:
+        repository_list:
+          type: object
+          additionalProperties:
+            type: array
             items:
+              type: object
               properties:
                 product:
+                  type: string
                   example: Red Hat Enterprise Linux Server
-                  type: string
                 releasever:
+                  type: string
                   example: 6Server
-                  type: string
                 name:
+                  type: string
                   example: Red Hat Enterprise Linux 6 Server (RPMs)
-                  type: string
                 url:
-                  example: https://cdn.redhat.com/content/dist/rhel/server/6/6Server/x86_64/os/
                   type: string
+                  example: 'https://cdn.redhat.com/content/dist/rhel/server/6/6Server/x86_64/os/'
                 basearch:
+                  type: string
                   example: x86_64
-                  type: string
                 revision:
-                  example: 2018-03-27T10:55:16+00:00
                   type: string
+                  example: '2018-03-27T10:55:16+00:00'
                 label:
-                  example: rhel-6-server-rpms
                   type: string
-              type: object
-            type: array
-          type: object
+                  example: rhel-6-server-rpms
+        <<: *resp_paging
+
     ErrataRequest:
-      example:
-        errata_list:
-        - RHSA-2018:05.*
-        - RHSA-2018:05.*
-        modified_since: 2018-04-05T01:23:45+02:00
-        page: 0
-        page_size: 10
-      properties:
-        page:
-          example: 0
-          type: number
-        page_size:
-          example: 10
-          type: number
-        errata_list:
-          items:
-            example: RHSA-2018:05.*
-            type: string
-          minItems: 1
-          type: array
-        modified_since:
-          example: 2018-04-05T01:23:45+02:00
-          type: string
-      required:
-      - errata_list
       type: object
+      properties:
+        errata_list:
+          type: array
+          items:
+            type: string
+            example: 'RHSA-2018:05.*'
+          minItems: 1
+        modified_since:
+          type: string
+          example: '2018-04-05T01:23:45+02:00'
+          format: date-time
+        type:
+          oneOf:
+            - type: string
+              example: 'security'
+            - type: array
+              items:
+                type: string
+                example: security
+        severity:
+          oneOf:
+            - type: string
+              enum: [Low, Moderate, Important, Critical, null]
+              nullable: true
+            - type: array
+              items:
+                type: string
+                enum: [Low, Moderate, Important, Critical, null]
+                nullable: true
+        <<: *req_paging
+      required:
+        - errata_list
+
     ErrataResponse:
-      example:
-        pages: 0.8008281904610115
-        errata_list:
-          key:
-            severity: Important
-            summary: summary text
-            source_package_list:
-            - kernel-2.6.32-696.23.1.el6.src
-            - kernel-2.6.32-696.23.1.el6.src
-            description: description text
-            synopsis: 'Important: kernel security and bug fix update'
-            package_list:
-            - kernel-2.6.32-696.23.1.el6.x86_64
-            - kernel-2.6.32-696.23.1.el6.x86_64
-            type: security
-            url: https://access.redhat.com/errata/RHSA-2018:0512
-            reference_list:
-            - classification-RHSA-2018:0512
-            - classification-RHSA-2018:0512
-            cve_list:
-            - CVE-2017-5715
-            - CVE-2017-5715
-            solution: solution text
-            issued: 2018-03-13T17:31:28+00:00
-            updated: 2018-03-13T17:31:41+00:00
-            bugzilla_list:
-            - "1519778"
-            - "1519778"
-        modified_since: 2018-04-05T01:23:45+02:00
-        page: 0
-        page_size: 10
       properties:
-        page:
-          example: 0
-          type: number
-        page_size:
-          example: 10
-          type: number
-        pages:
-          type: number
         errata_list:
-          additionalProperties:
-            $ref: '#/components/schemas/ErrataResponse_errata_list'
           type: object
+          additionalProperties:
+            type: object
+            properties:
+              updated:
+                type: string
+                example: '2018-03-13T17:31:41+00:00'
+              severity:
+                type: string
+                enum: [Low, Moderate, Important, Critical, null]
+                nullable: true
+              reference_list:
+                type: array
+                items:
+                  type: string
+                  example: 'classification-RHSA-2018:0512'
+              issued:
+                type: string
+                example: '2018-03-13T17:31:28+00:00'
+                format: date-time
+              description:
+                type: string
+                example: description text
+              solution:
+                type: string
+                example: solution text
+              summary:
+                type: string
+                example: summary text
+              url:
+                type: string
+                example: 'https://access.redhat.com/errata/RHSA-2018:0512'
+              synopsis:
+                type: string
+                example: 'Important: kernel security and bug fix update'
+              cve_list:
+                type: array
+                items:
+                  type: string
+                  example: CVE-2017-5715
+              bugzilla_list:
+                type: array
+                items:
+                  type: string
+                  example: '1519778'
+              package_list:
+                type: array
+                items:
+                  type: string
+                  example: kernel-2.6.32-696.23.1.el6.x86_64
+              source_package_list:
+                type: array
+                items:
+                  type: string
+                  example: kernel-2.6.32-696.23.1.el6.src
+              type:
+                type: string
+                example: security
         modified_since:
-          example: 2018-04-05T01:23:45+02:00
           type: string
+          example: '2018-04-05T01:23:45+02:00'
+          format: date-time
+        type:
+          type: array
+          items:
+            type: string
+            example: security
+        severity:
+          type: array
+          items:
+            type: string
+            enum: [Low, Moderate, Important, Critical, null]
+            nullable: true
+        <<: *resp_paging
+
     PackagesRequest:
-      example:
-        package_list:
-        - kernel-2.6.32-696.20.1.el6.x86_64
-        - kernel-2.6.32-696.20.1.el6.x86_64
+      type: object
       properties:
         package_list:
+          type: array
           items:
+            type: string
             example: kernel-2.6.32-696.20.1.el6.x86_64
-            type: string
           minItems: 1
-          type: array
       required:
-      - package_list
-      type: object
+        - package_list
     PackagesResponse:
-      example:
-        package_list:
-          key:
-            summary: package summary
-            repositories:
-            - name: Red Hat Enterprise Linux 6 Server (RPMs)
-              label: rhel-6-server-rpms
-              basearch: x86_64
-              releasever: "6.9"
-            - name: Red Hat Enterprise Linux 6 Server (RPMs)
-              label: rhel-6-server-rpms
-              basearch: x86_64
-              releasever: "6.9"
-            source_package: kernel-2.6.32-696.23.1.el6.src
-            description: package description
-            package_list:
-            - kernel-2.6.32-696.23.1.el6.x86_64
-            - kernel-2.6.32-696.23.1.el6.x86_64
       properties:
         package_list:
-          additionalProperties:
-            $ref: '#/components/schemas/PackagesResponse_package_list'
           type: object
+          additionalProperties:
+            type: object
+            properties:
+              summary:
+                type: string
+                example: package summary
+              description:
+                type: string
+                example: package description
+              source_package:
+                type: string
+                example: kernel-2.6.32-696.23.1.el6.src
+              package_list:
+                type: array
+                items:
+                  type: string
+                  example: kernel-2.6.32-696.23.1.el6.x86_64
+              repositories:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    label:
+                      type: string
+                      example: rhel-6-server-rpms
+                    name:
+                      type: string
+                      example: Red Hat Enterprise Linux 6 Server (RPMs)
+                    basearch:
+                      type: string
+                      example: x86_64
+                    releasever:
+                      type: string
+                      example: '6.9'
+
     PkgtreeRequest:
-      example:
-        package_name_list:
-        - kernel-rt
-        - kernel-rt
+      type: object
       properties:
         package_name_list:
-          items:
-            example: kernel-rt
-            type: string
-          minItems: 1
           type: array
+          items:
+            type: string
+            example: kernel-rt
+          minItems: 1
       required:
-      - package_name_list
-      type: object
+        - package_name_list
     PkgtreeResponse:
-      example:
-        last_change: 2020-04-16 20:07:58.500192+00
-        package_name_list:
-          key:
-          - '{}'
-          - '{}'
       properties:
         last_change:
-          example: 2020-04-16 20:07:58.500192+00
+          example: '2020-04-16 20:07:58.500192+00'
         package_name_list:
+          type: object
           additionalProperties:
+            type: array
             items:
+              type: object
               properties:
                 nevra:
+                  type: string
                   example: kernel-rt-4.18.0-147.rt24.93.el8.x86_64
-                  type: string
                 first_published:
-                  example: 2020-01-13T17:31:41+00:00
                   type: string
+                  example: '2020-01-13T17:31:41+00:00'
+                  format: date-time
                 repositories:
+                  type: array
                   items:
+                    type: object
                     properties:
                       label:
+                        type: string
                         example: rhel-8-for-s390x-appstream-rpms
-                        type: string
                       name:
-                        example: Red Hat Enterprise Linux 8 for IBM z Systems - AppStream
-                          (RPMs)
                         type: string
+                        example: Red Hat Enterprise Linux 8 for IBM z Systems - AppStream (RPMs)
                       basearch:
+                        type: string
                         example: x86_64
-                        type: string
                       releasever:
-                        example: "6.9"
                         type: string
+                        example: '6.9'
                       revision:
-                        example: 2019-11-19T09:41:05+00:00
                         type: string
+                        example: '2019-11-19T09:41:05+00:00'
+                        format: date-time
                       module_name:
+                        type: string
                         example: postgresql
-                        type: string
                       module_stream:
-                        example: "9.6"
                         type: string
+                        example: '9.6'
                     required:
-                    - basearch
-                    - label
-                    - name
-                    - releasever
-                    - revision
-                    type: object
-                  type: array
+                      - label
+                      - name
+                      - basearch
+                      - releasever
+                      - revision
                 errata:
+                  type: array
                   items:
+                    type: object
                     properties:
                       name:
-                        example: RHSA-2019:2730
                         type: string
+                        example: 'RHSA-2019:2730'
                       issued:
-                        example: 2019-11-19T09:41:05+00:00
                         type: string
+                        example: '2019-11-19T09:41:05+00:00'
+                        format: date-time
                       cve_list:
-                        items:
-                          example: CVE-2018-13405
-                          type: string
                         type: array
+                        items:
+                          type: string
+                          example: 'CVE-2018-13405'
                     required:
-                    - issued
-                    - name
-                    type: object
-                  type: array
+                      - name
+                      - issued
               required:
-              - first_published
-              - nevra
-              type: object
-            type: array
-          type: object
+                - nevra
+                - first_published
+
     DBChangeResponse:
-      example:
-        dbchange:
-          errata_changes: 2018-04-16 20:07:58.500192+00
-          cve_changes: 2018-04-16 20:06:47.214266+00
-          repository_changes: 2018-04-16 20:07:55.01395+00
-          exported: 2018-04-16 20:07:59.235962+00
-          last_change: 2018-04-16 20:07:58.500192+00
       properties:
         dbchange:
-          $ref: '#/components/schemas/DBChangeResponse_dbchange'
+          type: object
+          properties:
+            errata_changes:
+              type: string
+              example: '2018-04-16 20:07:58.500192+00'
+            cve_changes:
+              type: string
+              example: '2018-04-16 20:06:47.214266+00'
+            repository_changes:
+              type: string
+              example: '2018-04-16 20:07:55.01395+00'
+            last_change:
+              type: string
+              example: '2018-04-16 20:07:58.500192+00'
+            exported:
+              type: string
+              example: '2018-04-16 20:07:59.235962+00'
     VulnerabilitiesRequest:
-      example:
-        modules_list:
-        - module_stream: "1"
-          module_name: rhn-tools
-        - module_stream: "1"
-          module_name: rhn-tools
-        package_list:
-        - kernel-2.6.32-696.20.1.el6.x86_64
-        - kernel-2.6.32-696.20.1.el6.x86_64
-        repository_list:
-        - rhel-6-server-rpms
-        - rhel-6-server-rpms
-        basearch: x86_64
-        releasever: 6Server
+      type: object
       properties:
         package_list:
+          type: array
           items:
+            type: string
             example: kernel-2.6.32-696.20.1.el6.x86_64
-            type: string
-          type: array
         repository_list:
+          type: array
           items:
-            example: rhel-6-server-rpms
             type: string
-          type: array
+            example: rhel-6-server-rpms
         modules_list:
-          items:
-            $ref: '#/components/schemas/UpdatesRequest_modules_list'
           type: array
+          items:
+            type: object
+            properties:
+              module_name:
+                type: string
+                example: rhn-tools
+              module_stream:
+                type: string
+                example: '1'
+            required:
+              - module_name
+              - module_stream
         releasever:
+          type: string
           example: 6Server
-          type: string
         basearch:
-          example: x86_64
           type: string
+          example: x86_64
       required:
-      - package_list
-      type: object
+        - package_list
     VulnerabilitiesResponse:
-      example:
-        cve_list:
-        - CVE-2016-0800
-        - CVE-2016-0800
       properties:
         cve_list:
+          type: array
           items:
+            type: string
             example: CVE-2016-0800
-            type: string
-          type: array
+
     PatchesRequest:
-      example:
-        modules_list:
-        - module_stream: "1"
-          module_name: rhn-tools
-        - module_stream: "1"
-          module_name: rhn-tools
-        package_list:
-        - kernel-2.6.32-696.20.1.el6.x86_64
-        - kernel-2.6.32-696.20.1.el6.x86_64
-        repository_list:
-        - rhel-6-server-rpms
-        - rhel-6-server-rpms
-        basearch: x86_64
-        releasever: 6Server
-      properties:
-        package_list:
-          items:
-            example: kernel-2.6.32-696.20.1.el6.x86_64
-            type: string
-          type: array
-        repository_list:
-          items:
-            example: rhel-6-server-rpms
-            type: string
-          type: array
-        modules_list:
-          items:
-            $ref: '#/components/schemas/UpdatesRequest_modules_list'
-          type: array
-        releasever:
-          example: 6Server
-          type: string
-        basearch:
-          example: x86_64
-          type: string
-      required:
-      - package_list
       type: object
-    PatchesResponse:
-      example:
-        errata_list:
-        - RHSA-2018:0151
-        - RHSA-2018:0151
       properties:
-        errata_list:
-          items:
-            example: RHSA-2018:0151
-            type: string
+        package_list:
           type: array
-    UpdatesRequest_modules_list:
-      example:
-        module_stream: "1"
-        module_name: rhn-tools
-      properties:
-        module_name:
-          example: rhn-tools
-          type: string
-        module_stream:
-          example: "1"
-          type: string
-      required:
-      - module_name
-      - module_stream
-    UpdatesResponse_available_updates:
-      example:
-        erratum: RHSA-2018:0512
-        package: kernel-2.6.32-696.23.1.el6.x86_64
-        repository: rhel-6-server-rpms
-        basearch: x86_64
-        releasever: 6Server
-      properties:
-        repository:
-          example: rhel-6-server-rpms
-          type: string
+          items:
+            type: string
+            example: kernel-2.6.32-696.20.1.el6.x86_64
+        repository_list:
+          type: array
+          items:
+            type: string
+            example: rhel-6-server-rpms
+        modules_list:
+          type: array
+          items:
+            type: object
+            properties:
+              module_name:
+                type: string
+                example: rhn-tools
+              module_stream:
+                type: string
+                example: '1'
+            required:
+              - module_name
+              - module_stream
         releasever:
+          type: string
           example: 6Server
-          type: string
         basearch:
+          type: string
           example: x86_64
-          type: string
-        erratum:
-          example: RHSA-2018:0512
-          type: string
-        package:
-          example: kernel-2.6.32-696.23.1.el6.x86_64
-          type: string
-    UpdatesResponse_update_list:
-      example:
-        summary: package summary
-        description: package description
-        available_updates:
-        - erratum: RHSA-2018:0512
-          package: kernel-2.6.32-696.23.1.el6.x86_64
-          repository: rhel-6-server-rpms
-          basearch: x86_64
-          releasever: 6Server
-        - erratum: RHSA-2018:0512
-          package: kernel-2.6.32-696.23.1.el6.x86_64
-          repository: rhel-6-server-rpms
-          basearch: x86_64
-          releasever: 6Server
+      required:
+        - package_list
+    PatchesResponse:
       properties:
-        available_updates:
-          items:
-            $ref: '#/components/schemas/UpdatesResponse_available_updates'
-          type: array
-        description:
-          example: package description
-          type: string
-        summary:
-          example: package summary
-          type: string
-    UpdatesV2Response_update_list:
-      example:
-        available_updates:
-        - erratum: RHSA-2018:0512
-          package: kernel-2.6.32-696.23.1.el6.x86_64
-          repository: rhel-6-server-rpms
-          basearch: x86_64
-          releasever: 6Server
-        - erratum: RHSA-2018:0512
-          package: kernel-2.6.32-696.23.1.el6.x86_64
-          repository: rhel-6-server-rpms
-          basearch: x86_64
-          releasever: 6Server
-      properties:
-        available_updates:
-          items:
-            $ref: '#/components/schemas/UpdatesResponse_available_updates'
-          type: array
-    CvesResponse_cve_list:
-      example:
-        source_package_list:
-        - nss-devel-3.16.1-9.el6_5.src
-        - nss-devel-3.16.1-9.el6_5.src
-        impact: Medium
-        description: description text
-        synopsis: CVE-2017-5715
-        modified_date: 2018-03-31T01:29:00+00:00
-        cwe_list:
-        - CWE-20
-        - CWE-20
-        package_list:
-        - nss-devel-3.16.1-9.el6_5.x86_64
-        - nss-devel-3.16.1-9.el6_5.x86_64
-        cvss2_metrics: AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N
         errata_list:
-        - RHSA-2015:1981
-        - RHSA-2015:1981
-        cvss2_score: "5.600"
-        cvss3_metrics: AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N
-        secondary_url: https://seconday.url.com
-        public_date: 2018-01-04T13:29:00+00:00
-        redhat_url: https://access.redhat.com/security/cve/cve-2017-5715
-        cvss3_score: "5.1"
+          type: array
+          items:
+            type: string
+            example: RHSA-2018:0151
+
+    SRPMPkgNamesRequest:
+      type: object
       properties:
-        impact:
-          example: Medium
-          type: string
-        public_date:
-          example: 2018-01-04T13:29:00+00:00
-          type: string
-        synopsis:
-          example: CVE-2017-5715
-          type: string
-        description:
-          example: description text
-          type: string
-        modified_date:
-          example: 2018-03-31T01:29:00+00:00
-          type: string
-        redhat_url:
-          example: https://access.redhat.com/security/cve/cve-2017-5715
-          type: string
-        secondary_url:
-          example: https://seconday.url.com
-          type: string
-        cvss2_score:
-          example: "5.600"
-          type: string
-        cvss2_metrics:
-          example: AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N
-          type: string
-        cvss3_score:
-          example: "5.1"
-          type: string
-        cvss3_metrics:
-          example: AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N
-          type: string
-        cwe_list:
-          items:
-            example: CWE-20
-            type: string
+        srpm_name_list:
           type: array
-        errata_list:
           items:
-            example: RHSA-2015:1981
             type: string
+            example: openssl
+        content_set_list:
           type: array
-        package_list:
           items:
-            example: nss-devel-3.16.1-9.el6_5.x86_64
             type: string
-          type: array
-        source_package_list:
-          items:
-            example: nss-devel-3.16.1-9.el6_5.src
-            type: string
-          type: array
-    ErrataResponse_errata_list:
-      example:
-        severity: Important
-        summary: summary text
-        source_package_list:
-        - kernel-2.6.32-696.23.1.el6.src
-        - kernel-2.6.32-696.23.1.el6.src
-        description: description text
-        synopsis: 'Important: kernel security and bug fix update'
-        package_list:
-        - kernel-2.6.32-696.23.1.el6.x86_64
-        - kernel-2.6.32-696.23.1.el6.x86_64
-        type: security
-        url: https://access.redhat.com/errata/RHSA-2018:0512
-        reference_list:
-        - classification-RHSA-2018:0512
-        - classification-RHSA-2018:0512
-        cve_list:
-        - CVE-2017-5715
-        - CVE-2017-5715
-        solution: solution text
-        issued: 2018-03-13T17:31:28+00:00
-        updated: 2018-03-13T17:31:41+00:00
-        bugzilla_list:
-        - "1519778"
-        - "1519778"
+            example: rhel-7-desktop-rpms
+      required:
+        - srpm_name_list
+
+    SRPMPkgNamesResponse:
+        properties:
+          last_change:
+            example: '2020-04-16 20:07:58.500192+00'
+          srpm_name_list:
+            type: object
+            additionalProperties:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  type: string
+                  example: 'openssl-libs'
+
+    RPMPkgNamesRequest:
+      type: object
       properties:
-        updated:
-          example: 2018-03-13T17:31:41+00:00
-          type: string
-        severity:
-          example: Important
-          nullable: true
-          type: string
-        reference_list:
-          items:
-            example: classification-RHSA-2018:0512
-            type: string
+        rpm_name_list:
           type: array
-        issued:
-          example: 2018-03-13T17:31:28+00:00
-          type: string
-        description:
-          example: description text
-          type: string
-        solution:
-          example: solution text
-          type: string
-        summary:
-          example: summary text
-          type: string
-        url:
-          example: https://access.redhat.com/errata/RHSA-2018:0512
-          type: string
-        synopsis:
-          example: 'Important: kernel security and bug fix update'
-          type: string
-        cve_list:
           items:
-            example: CVE-2017-5715
             type: string
+            example: openssl-libs
+        content_set_list:
           type: array
-        bugzilla_list:
           items:
-            example: "1519778"
             type: string
-          type: array
-        package_list:
-          items:
-            example: kernel-2.6.32-696.23.1.el6.x86_64
-            type: string
-          type: array
-        source_package_list:
-          items:
-            example: kernel-2.6.32-696.23.1.el6.src
-            type: string
-          type: array
-        type:
-          example: security
-          type: string
-    PackagesResponse_repositories:
-      example:
-        name: Red Hat Enterprise Linux 6 Server (RPMs)
-        label: rhel-6-server-rpms
-        basearch: x86_64
-        releasever: "6.9"
+            example: rhel-7-desktop-rpms
+      required:
+        - rpm_name_list
+
+    RPMPkgNamesResponse:
       properties:
-        label:
-          example: rhel-6-server-rpms
-          type: string
-        name:
-          example: Red Hat Enterprise Linux 6 Server (RPMs)
-          type: string
-        basearch:
-          example: x86_64
-          type: string
-        releasever:
-          example: "6.9"
-          type: string
-    PackagesResponse_package_list:
-      example:
-        summary: package summary
-        repositories:
-        - name: Red Hat Enterprise Linux 6 Server (RPMs)
-          label: rhel-6-server-rpms
-          basearch: x86_64
-          releasever: "6.9"
-        - name: Red Hat Enterprise Linux 6 Server (RPMs)
-          label: rhel-6-server-rpms
-          basearch: x86_64
-          releasever: "6.9"
-        source_package: kernel-2.6.32-696.23.1.el6.src
-        description: package description
-        package_list:
-        - kernel-2.6.32-696.23.1.el6.x86_64
-        - kernel-2.6.32-696.23.1.el6.x86_64
-      properties:
-        summary:
-          example: package summary
-          type: string
-        description:
-          example: package description
-          type: string
-        source_package:
-          example: kernel-2.6.32-696.23.1.el6.src
-          type: string
-        package_list:
-          items:
-            example: kernel-2.6.32-696.23.1.el6.x86_64
-            type: string
-          type: array
-        repositories:
-          items:
-            $ref: '#/components/schemas/PackagesResponse_repositories'
-          type: array
-    DBChangeResponse_dbchange:
-      example:
-        errata_changes: 2018-04-16 20:07:58.500192+00
-        cve_changes: 2018-04-16 20:06:47.214266+00
-        repository_changes: 2018-04-16 20:07:55.01395+00
-        exported: 2018-04-16 20:07:59.235962+00
-        last_change: 2018-04-16 20:07:58.500192+00
-      properties:
-        errata_changes:
-          example: 2018-04-16 20:07:58.500192+00
-          type: string
-        cve_changes:
-          example: 2018-04-16 20:06:47.214266+00
-          type: string
-        repository_changes:
-          example: 2018-04-16 20:07:55.01395+00
-          type: string
         last_change:
-          example: 2018-04-16 20:07:58.500192+00
-          type: string
-        exported:
-          example: 2018-04-16 20:07:59.235962+00
-          type: string
-x-format-resps:
-  400:
-    description: Invalid input json format
-x-paging-info:
-  page:
-    type: number
-    example: 0
-  page_size:
-    type: number
-    example: 10
-x-paging-resp:
-  page:
-    type: number
-    example: 0
-  page_size:
-    type: number
-    example: 10
-  pages:
-    type: number
+          example: '2020-04-16 20:07:58.500192+00'
+        rpm_name_list:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+              example: 'rhel-7-desktop-rpms'
