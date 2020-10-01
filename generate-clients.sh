@@ -1,9 +1,7 @@
 #!/bin/bash
 
-#CONTAINER=openapitools/openapi-generator-cli:latest
-# We temporarily use image built from https://github.com/semtexzv/openapi-generator
-# until the https://github.com/OpenAPITools/openapi-generator/pull/4664 is merged
-CONTAINER=semtexzv/openapi-generator-cli:latest
+CONTAINER=openapitools/openapi-generator-cli:latest
+CONTAINER_TOOL=$([ -x /usr/bin/podman ] && echo podman || echo docker)
 
 # For now, we skip the dateTime parsing because of incompatible formats ( inventory does not produce fully compliant
 
@@ -14,7 +12,7 @@ function generate_client() {
   curl $SPEC_URL > /tmp/openapi.json
 
   HERE=$(pwd)
-  docker run --rm -v ${HERE}:/local:z -v /tmp:/tmp -v /etc/passwd:/etc/passwd -u `id -u`:`id -g` $CONTAINER generate \
+  $CONTAINER_TOOL run --rm -v ${HERE}:/local:z -v /tmp:/tmp -v /etc/passwd:/etc/passwd -u `id -u`:`id -g` $CONTAINER generate \
       -i /tmp/openapi.json \
       -g go \
       --api-package $NAME \
