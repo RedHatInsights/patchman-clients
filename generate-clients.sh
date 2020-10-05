@@ -12,7 +12,7 @@ function generate_client() {
   curl $SPEC_URL > /tmp/openapi.json
 
   HERE=$(pwd)
-  $CONTAINER_TOOL run --rm -v ${HERE}:/local:z -v /tmp:/tmp -v /etc/passwd:/etc/passwd -u `id -u`:`id -g` $CONTAINER generate \
+  $CONTAINER_TOOL run --rm -v ${HERE}:/local:z -v /tmp:/tmp --security-opt=label=disable $CONTAINER generate \
       -i /tmp/openapi.json \
       -g go \
       --api-package $NAME \
