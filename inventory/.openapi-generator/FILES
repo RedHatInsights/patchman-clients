@@ -11,6 +11,7 @@ docs/ActiveTag.md
 docs/ActiveTags.md
 docs/BulkHostOut.md
 docs/BulkHostOutDetails.md
+docs/CreateCheckIn.md
 docs/CreateHostIn.md
 docs/CreateHostOut.md
 docs/FactSet.md
@@ -40,6 +41,7 @@ model_active_tag.go
 model_active_tags.go
 model_bulk_host_out.go
 model_bulk_host_out_details.go
+model_create_check_in.go
 model_create_host_in.go
 model_create_host_out.go
 model_fact_set.go

@@ -32,7 +32,7 @@ import (
 )
 
 func main() {
-    roleIn := openapiclient.RoleIn{Name: "Name_example", DisplayName: "DisplayName_example", Description: "Description_example", Access: []Access{openapiclient.Access{Permission: "Permission_example", ResourceDefinitions: []ResourceDefinition{openapiclient.ResourceDefinition{AttributeFilter: openapiclient.ResourceDefinitionFilter{Key: "Key_example", Operation: "Operation_example", Value: "Value_example"}})})} // RoleIn | Role to create
+    roleIn := *openapiclient.NewRoleIn("Name_example", []Access{*openapiclient.NewAccess("Permission_example", []ResourceDefinition{*openapiclient.NewResourceDefinition(*openapiclient.NewResourceDefinitionFilter("Key_example", "Operation_example", "Value_example")))))) // RoleIn | Role to create
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -389,7 +389,7 @@ import (
 
 func main() {
     uuid := TODO // string | ID of role to update
-    roleWithAccess := openapiclient.RoleWithAccess{Name: "Name_example", DisplayName: "DisplayName_example", Description: "Description_example", Uuid: "Uuid_example", Created: time.Now(), Modified: time.Now(), PolicyCount: 123, AccessCount: 123, Applications: []string{"Applications_example"), System: false, PlatformDefault: false, Access: []Access{openapiclient.Access{Permission: "Permission_example", ResourceDefinitions: []ResourceDefinition{openapiclient.ResourceDefinition{AttributeFilter: openapiclient.ResourceDefinitionFilter{Key: "Key_example", Operation: "Operation_example", Value: "Value_example"}})})} // RoleWithAccess | Update to a Role
+    roleWithAccess := *openapiclient.NewRoleWithAccess("Name_example", "Uuid_example", time.Now(), time.Now(), []Access{*openapiclient.NewAccess("Permission_example", []ResourceDefinition{*openapiclient.NewResourceDefinition(*openapiclient.NewResourceDefinitionFilter("Key_example", "Operation_example", "Value_example")))))) // RoleWithAccess | Update to a Role
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

@@ -102,7 +102,7 @@ import (
 )
 
 func main() {
-    rPMPkgNamesRequest := openapiclient.RPMPkgNamesRequest{RpmNameList: []string{"RpmNameList_example"), ContentSetList: []string{"ContentSetList_example")} // RPMPkgNamesRequest |  (optional)
+    rPMPkgNamesRequest := *openapiclient.NewRPMPkgNamesRequest([]string{"RpmNameList_example")) // RPMPkgNamesRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -238,7 +238,7 @@ import (
 )
 
 func main() {
-    sRPMPkgNamesRequest := openapiclient.SRPMPkgNamesRequest{SrpmNameList: []string{"SrpmNameList_example"), ContentSetList: []string{"ContentSetList_example")} // SRPMPkgNamesRequest |  (optional)
+    sRPMPkgNamesRequest := *openapiclient.NewSRPMPkgNamesRequest([]string{"SrpmNameList_example")) // SRPMPkgNamesRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

@@ -122,7 +122,7 @@ import (
 )
 
 func main() {
-    cvesRequest := openapiclient.CvesRequest{Page: 123, PageSize: 123, CveList: []string{"CveList_example"), ModifiedSince: time.Now(), PublishedSince: time.Now(), RhOnly: false, ErrataAssociated: false} // CvesRequest |  (optional)
+    cvesRequest := *openapiclient.NewCvesRequest([]string{"CveList_example")) // CvesRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -319,7 +319,7 @@ import (
 )
 
 func main() {
-    errataRequest := openapiclient.ErrataRequest{Page: 123, PageSize: 123, ErrataList: []string{"ErrataList_example"), ModifiedSince: time.Now(), Type: "TODO", Severity: "TODO"} // ErrataRequest |  (optional)
+    errataRequest := *openapiclient.NewErrataRequest([]string{"ErrataList_example")) // ErrataRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -512,7 +512,7 @@ import (
 )
 
 func main() {
-    packagesRequest := openapiclient.PackagesRequest{PackageList: []string{"PackageList_example")} // PackagesRequest |  (optional)
+    packagesRequest := *openapiclient.NewPackagesRequest([]string{"PackageList_example")) // PackagesRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -648,7 +648,7 @@ import (
 )
 
 func main() {
-    patchesRequest := openapiclient.PatchesRequest{PackageList: []string{"PackageList_example"), RepositoryList: []string{"RepositoryList_example"), ModulesList: []UpdatesRequestModulesList{openapiclient.UpdatesRequest_modules_list{ModuleName: "ModuleName_example", ModuleStream: "ModuleStream_example"}), Releasever: "Releasever_example", Basearch: "Basearch_example"} // PatchesRequest |  (optional)
+    patchesRequest := *openapiclient.NewPatchesRequest([]string{"PackageList_example")) // PatchesRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -784,7 +784,7 @@ import (
 )
 
 func main() {
-    pkgtreeRequest := openapiclient.PkgtreeRequest{PackageNameList: []string{"PackageNameList_example")} // PkgtreeRequest |  (optional)
+    pkgtreeRequest := *openapiclient.NewPkgtreeRequest([]string{"PackageNameList_example")) // PkgtreeRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -977,7 +977,7 @@ import (
 )
 
 func main() {
-    reposRequest := openapiclient.ReposRequest{Page: 123, PageSize: 123, RepositoryList: []string{"RepositoryList_example"), ModifiedSince: time.Now()} // ReposRequest |  (optional)
+    reposRequest := *openapiclient.NewReposRequest([]string{"RepositoryList_example")) // ReposRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -1113,7 +1113,7 @@ import (
 )
 
 func main() {
-    updatesRequest := openapiclient.UpdatesRequest{PackageList: []string{"PackageList_example"), RepositoryList: []string{"RepositoryList_example"), ModulesList: []UpdatesRequestModulesList{openapiclient.UpdatesRequest_modules_list{ModuleName: "ModuleName_example", ModuleStream: "ModuleStream_example"}), Releasever: "Releasever_example", Basearch: "Basearch_example", LatestOnly: false} // UpdatesRequest | Input json (optional)
+    updatesRequest := *openapiclient.NewUpdatesRequest([]string{"PackageList_example")) // UpdatesRequest | Input json (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -1249,7 +1249,7 @@ import (
 )
 
 func main() {
-    updatesRequest := openapiclient.UpdatesRequest{PackageList: []string{"PackageList_example"), RepositoryList: []string{"RepositoryList_example"), ModulesList: []UpdatesRequestModulesList{), Releasever: "Releasever_example", Basearch: "Basearch_example", LatestOnly: false} // UpdatesRequest | Input json (optional)
+    updatesRequest := *openapiclient.NewUpdatesRequest([]string{"PackageList_example")) // UpdatesRequest | Input json (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -1385,7 +1385,7 @@ import (
 )
 
 func main() {
-    updatesV3Request := openapiclient.UpdatesV3Request{PackageList: []string{"PackageList_example"), RepositoryList: []string{"RepositoryList_example"), ModulesList: []UpdatesRequestModulesList{), Releasever: "Releasever_example", Basearch: "Basearch_example", SecurityOnly: false, LatestOnly: false} // UpdatesV3Request | Input json (optional)
+    updatesV3Request := *openapiclient.NewUpdatesV3Request([]string{"PackageList_example")) // UpdatesV3Request | Input json (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -1580,7 +1580,7 @@ import (
 )
 
 func main() {
-    vulnerabilitiesRequest := openapiclient.VulnerabilitiesRequest{PackageList: []string{"PackageList_example"), RepositoryList: []string{"RepositoryList_example"), ModulesList: []UpdatesRequestModulesList{), Releasever: "Releasever_example", Basearch: "Basearch_example"} // VulnerabilitiesRequest |  (optional)
+    vulnerabilitiesRequest := *openapiclient.NewVulnerabilitiesRequest([]string{"PackageList_example")) // VulnerabilitiesRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

@@ -31,7 +31,7 @@ import (
 )
 
 func main() {
-    policyIn := openapiclient.PolicyIn{Name: "Name_example", Description: "Description_example", Group: "Group_example", Roles: []string{"Roles_example")} // PolicyIn | Policy to create
+    policyIn := *openapiclient.NewPolicyIn("Name_example", "Group_example", []string{"Roles_example")) // PolicyIn | Policy to create
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -308,7 +308,7 @@ import (
 
 func main() {
     uuid := TODO // string | ID of policy to update
-    policyIn := openapiclient.PolicyIn{Name: "Name_example", Description: "Description_example", Group: "Group_example", Roles: []string{"Roles_example")} // PolicyIn | Policy to update
+    policyIn := *openapiclient.NewPolicyIn("Name_example", "Group_example", []string{"Roles_example")) // PolicyIn | Policy to update
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

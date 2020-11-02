@@ -25,6 +25,12 @@ Put the package under your project folder and add the following in import:
 import sw "./inventory"
 ```
 
+To use a proxy, set the environment variable `HTTP_PROXY`:
+
+```golang
+os.Setenv("HTTP_PROXY", "http://proxy_name:proxy_port")
+```
+
 ## Configuration of Server URL
 
 Default configuration comes with `Servers` field that contains server objects as defined in the OpenAPI specification.
@@ -79,6 +85,7 @@ Class | Method | HTTP request | Description
 *HostsApi* | [**ApiHostGetHostSystemProfileById**](docs/HostsApi.md#apihostgethostsystemprofilebyid) | **Get** /hosts/{host_id_list}/system_profile | Return one or more hosts system profile
 *HostsApi* | [**ApiHostGetHostTagCount**](docs/HostsApi.md#apihostgethosttagcount) | **Get** /hosts/{host_id_list}/tags/count | Get the number of tags on a host
 *HostsApi* | [**ApiHostGetHostTags**](docs/HostsApi.md#apihostgethosttags) | **Get** /hosts/{host_id_list}/tags | Get the tags on a host
+*HostsApi* | [**ApiHostHostCheckin**](docs/HostsApi.md#apihosthostcheckin) | **Put** /hosts/checkin | Update staleness timestamps for a host matching the provided facts
 *HostsApi* | [**ApiHostMergeFacts**](docs/HostsApi.md#apihostmergefacts) | **Patch** /hosts/{host_id_list}/facts/{namespace} | Merge facts under a namespace
 *HostsApi* | [**ApiHostPatchById**](docs/HostsApi.md#apihostpatchbyid) | **Patch** /hosts/{host_id_list} | Update a host
 *HostsApi* | [**ApiHostReplaceFacts**](docs/HostsApi.md#apihostreplacefacts) | **Put** /hosts/{host_id_list}/facts/{namespace} | Replace facts under a namespace
@@ -93,6 +100,7 @@ Class | Method | HTTP request | Description
  - [ActiveTags](docs/ActiveTags.md)
  - [BulkHostOut](docs/BulkHostOut.md)
  - [BulkHostOutDetails](docs/BulkHostOutDetails.md)
+ - [CreateCheckIn](docs/CreateCheckIn.md)
  - [CreateHostIn](docs/CreateHostIn.md)
  - [CreateHostOut](docs/CreateHostOut.md)
  - [FactSet](docs/FactSet.md)
