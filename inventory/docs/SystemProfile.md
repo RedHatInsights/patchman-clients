@@ -31,9 +31,13 @@ Name | Type | Description | Notes
 **OsKernelVersion** | Pointer to **string** |  | [optional] 
 **OsRelease** | Pointer to **string** |  | [optional] 
 **RunningProcesses** | Pointer to **[]string** |  | [optional] 
+**SapInstanceNumber** | Pointer to **string** | The instance number of the SAP HANA system | [optional] 
 **SapSids** | Pointer to **[]string** | List of SAP SIDs | [optional] 
 **SapSystem** | Pointer to **bool** | Indicates if SAP is installed on the system | [optional] 
+**SapVersion** | Pointer to **string** | The version of the SAP HANA lifecycle management program | [optional] 
 **SatelliteManaged** | Pointer to **bool** |  | [optional] 
+**SelinuxConfigFile** | Pointer to **string** | The SELinux mode provided in the config file | [optional] 
+**SelinuxCurrentMode** | Pointer to **string** | The current SELinux mode, either enforcing, permissive, or disabled | [optional] 
 **SubscriptionAutoAttach** | Pointer to **string** |  | [optional] 
 **SubscriptionStatus** | Pointer to **string** |  | [optional] 
 **SystemMemoryBytes** | Pointer to **int64** |  | [optional] 
@@ -734,6 +738,31 @@ SetRunningProcesses sets RunningProcesses field to given value.
 
 HasRunningProcesses returns a boolean if a field has been set.
 
+### GetSapInstanceNumber
+
+`func (o *SystemProfile) GetSapInstanceNumber() string`
+
+GetSapInstanceNumber returns the SapInstanceNumber field if non-nil, zero value otherwise.
+
+### GetSapInstanceNumberOk
+
+`func (o *SystemProfile) GetSapInstanceNumberOk() (*string, bool)`
+
+GetSapInstanceNumberOk returns a tuple with the SapInstanceNumber field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSapInstanceNumber
+
+`func (o *SystemProfile) SetSapInstanceNumber(v string)`
+
+SetSapInstanceNumber sets SapInstanceNumber field to given value.
+
+### HasSapInstanceNumber
+
+`func (o *SystemProfile) HasSapInstanceNumber() bool`
+
+HasSapInstanceNumber returns a boolean if a field has been set.
+
 ### GetSapSids
 
 `func (o *SystemProfile) GetSapSids() []string`
@@ -784,6 +813,31 @@ SetSapSystem sets SapSystem field to given value.
 
 HasSapSystem returns a boolean if a field has been set.
 
+### GetSapVersion
+
+`func (o *SystemProfile) GetSapVersion() string`
+
+GetSapVersion returns the SapVersion field if non-nil, zero value otherwise.
+
+### GetSapVersionOk
+
+`func (o *SystemProfile) GetSapVersionOk() (*string, bool)`
+
+GetSapVersionOk returns a tuple with the SapVersion field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSapVersion
+
+`func (o *SystemProfile) SetSapVersion(v string)`
+
+SetSapVersion sets SapVersion field to given value.
+
+### HasSapVersion
+
+`func (o *SystemProfile) HasSapVersion() bool`
+
+HasSapVersion returns a boolean if a field has been set.
+
 ### GetSatelliteManaged
 
 `func (o *SystemProfile) GetSatelliteManaged() bool`
@@ -808,6 +862,56 @@ SetSatelliteManaged sets SatelliteManaged field to given value.
 `func (o *SystemProfile) HasSatelliteManaged() bool`
 
 HasSatelliteManaged returns a boolean if a field has been set.
+
+### GetSelinuxConfigFile
+
+`func (o *SystemProfile) GetSelinuxConfigFile() string`
+
+GetSelinuxConfigFile returns the SelinuxConfigFile field if non-nil, zero value otherwise.
+
+### GetSelinuxConfigFileOk
+
+`func (o *SystemProfile) GetSelinuxConfigFileOk() (*string, bool)`
+
+GetSelinuxConfigFileOk returns a tuple with the SelinuxConfigFile field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSelinuxConfigFile
+
+`func (o *SystemProfile) SetSelinuxConfigFile(v string)`
+
+SetSelinuxConfigFile sets SelinuxConfigFile field to given value.
+
+### HasSelinuxConfigFile
+
+`func (o *SystemProfile) HasSelinuxConfigFile() bool`
+
+HasSelinuxConfigFile returns a boolean if a field has been set.
+
+### GetSelinuxCurrentMode
+
+`func (o *SystemProfile) GetSelinuxCurrentMode() string`
+
+GetSelinuxCurrentMode returns the SelinuxCurrentMode field if non-nil, zero value otherwise.
+
+### GetSelinuxCurrentModeOk
+
+`func (o *SystemProfile) GetSelinuxCurrentModeOk() (*string, bool)`
+
+GetSelinuxCurrentModeOk returns a tuple with the SelinuxCurrentMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSelinuxCurrentMode
+
+`func (o *SystemProfile) SetSelinuxCurrentMode(v string)`
+
+SetSelinuxCurrentMode sets SelinuxCurrentMode field to given value.
+
+### HasSelinuxCurrentMode
+
+`func (o *SystemProfile) HasSelinuxCurrentMode() bool`
+
+HasSelinuxCurrentMode returns a boolean if a field has been set.
 
 ### GetSubscriptionAutoAttach
 

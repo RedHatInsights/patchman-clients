@@ -38,7 +38,7 @@ import (
 
 func main() {
     uuid := TODO // string | ID of group to update
-    groupPrincipalIn := openapiclient.GroupPrincipalIn{Principals: []PrincipalIn{openapiclient.PrincipalIn{Username: "Username_example"})} // GroupPrincipalIn | Principal to add to a group
+    groupPrincipalIn := *openapiclient.NewGroupPrincipalIn([]PrincipalIn{*openapiclient.NewPrincipalIn("Username_example"))) // GroupPrincipalIn | Principal to add to a group
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -108,7 +108,7 @@ import (
 
 func main() {
     uuid := TODO // string | ID of group to update
-    groupRoleIn := openapiclient.GroupRoleIn{Roles: []string{"Roles_example")} // GroupRoleIn | Role to add to a group
+    groupRoleIn := *openapiclient.NewGroupRoleIn([]string{"Roles_example")) // GroupRoleIn | Role to add to a group
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -177,7 +177,7 @@ import (
 )
 
 func main() {
-    group := openapiclient.Group{Name: "Name_example", Description: "Description_example"} // Group | Group to create in tenant
+    group := *openapiclient.NewGroup("Name_example") // Group | Group to create in tenant
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -756,7 +756,7 @@ import (
 
 func main() {
     uuid := TODO // string | ID of group to update
-    group := openapiclient.Group{Name: "Name_example", Description: "Description_example"} // Group | Group to update in tenant
+    group := *openapiclient.NewGroup("Name_example") // Group | Group to update in tenant
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

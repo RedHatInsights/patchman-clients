@@ -207,6 +207,41 @@ paths:
       summary: Create/update multiple host and add them to the host list
       tags:
       - hosts
+  /hosts/checkin:
+    put:
+      description: 'Finds a host and updates its staleness timestamps. It uses the
+        supplied canonical facts to determine which host to update. By default, the
+        staleness timestamp is set to 1 hour from when the request is received; however,
+        this can be overridden by supplying the interval. <br /><br /> Required permissions:
+        inventory:hosts:write'
+      operationId: api.host.host_checkin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCheckIn'
+        description: A list of host objects to be added to the host list
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              examples:
+                update:
+                  value:
+                    host: Host details
+                    status: 201
+              schema:
+                $ref: '#/components/schemas/BulkHostOut'
+          description: Successfully updated host's timestamps.
+        "400":
+          description: Invalid request.
+      security:
+      - ApiKeyAuth: []
+      - BearerAuth: []
+      summary: Update staleness timestamps for a host matching the provided facts
+      tags:
+      - hosts
   /hosts/{host_id_list}:
     delete:
       description: 'Delete hosts by IDs <br /><br /> Required permissions: inventory:hosts:write'
@@ -1382,6 +1417,32 @@ components:
     Count:
       description: The number of items on the current page
       type: integer
+    CreateCheckIn:
+      description: Data required to create a check-in record for a host.
+      example:
+        canonical_facts:
+          fact1: value1
+          fact2: value2
+        checkin_frequency: 1440
+      properties:
+        canonical_facts:
+          description: A set of string facts about a host.
+          example:
+            fact1: value1
+            fact2: value2
+          title: Host facts
+          type: object
+        checkin_frequency:
+          default: 1440
+          description: Defines how far in the future the host becomes stale (in minutes).
+          example: 1440
+          maximum: 2880
+          minimum: 1
+          type: integer
+      required:
+      - canonical_facts
+      title: Check-in data
+      type: object
     CreateHostIn:
       description: Data of a single host belonging to an account. Represents the hosts
         without its Inventory metadata.
@@ -1433,11 +1494,13 @@ components:
           subscription_status: subscription_status
           system_memory_bytes: 5
           katello_agent_running: true
+          selinux_current_mode: enforcing
           enabled_services:
           - enabled_services
           - enabled_services
           last_boot_time: 2000-01-23T04:56:07.000+00:00
           number_of_sockets: 5
+          sap_instance_number: "42"
           running_processes:
           - running_processes
           - running_processes
@@ -1458,6 +1521,7 @@ components:
             type: ext3
             device: /dev/fdd0
           cloud_provider: cloud_provider
+          selinux_config_file: permissive
           bios_version: bios_version
           os_kernel_version: os_kernel_version
           captured_date: captured_date
@@ -1492,6 +1556,7 @@ components:
           arch: arch
           infrastructure_vendor: infrastructure_vendor
           satellite_managed: true
+          sap_version: 1.00.122.04.1478575636
         fqdn: my.host.example.com
         satellite_id: 3f01b55457674041b75e41829bcee1dc
         ip_addresses:
@@ -1882,11 +1947,13 @@ components:
           subscription_status: subscription_status
           system_memory_bytes: 5
           katello_agent_running: true
+          selinux_current_mode: enforcing
           enabled_services:
           - enabled_services
           - enabled_services
           last_boot_time: 2000-01-23T04:56:07.000+00:00
           number_of_sockets: 5
+          sap_instance_number: "42"
           running_processes:
           - running_processes
           - running_processes
@@ -1907,6 +1974,7 @@ components:
             type: ext3
             device: /dev/fdd0
           cloud_provider: cloud_provider
+          selinux_config_file: permissive
           bios_version: bios_version
           os_kernel_version: os_kernel_version
           captured_date: captured_date
@@ -1941,6 +2009,7 @@ components:
           arch: arch
           infrastructure_vendor: infrastructure_vendor
           satellite_managed: true
+          sap_version: 1.00.122.04.1478575636
         id: id
       properties:
         id:
@@ -2035,11 +2104,13 @@ components:
         subscription_status: subscription_status
         system_memory_bytes: 5
         katello_agent_running: true
+        selinux_current_mode: enforcing
         enabled_services:
         - enabled_services
         - enabled_services
         last_boot_time: 2000-01-23T04:56:07.000+00:00
         number_of_sockets: 5
+        sap_instance_number: "42"
         running_processes:
         - running_processes
         - running_processes
@@ -2060,6 +2131,7 @@ components:
           type: ext3
           device: /dev/fdd0
         cloud_provider: cloud_provider
+        selinux_config_file: permissive
         bios_version: bios_version
         os_kernel_version: os_kernel_version
         captured_date: captured_date
@@ -2094,6 +2166,7 @@ components:
         arch: arch
         infrastructure_vendor: infrastructure_vendor
         satellite_managed: true
+        sap_version: 1.00.122.04.1478575636
       properties:
         arch:
           maxLength: 50
@@ -2193,6 +2266,12 @@ components:
             maxLength: 1000
             type: string
           type: array
+        sap_instance_number:
+          description: The instance number of the SAP HANA system
+          example: "42"
+          maxLength: 2
+          pattern: (?!99)(?!98)^[0-9]{2}$
+          type: string
         sap_sids:
           description: List of SAP SIDs
           items:
@@ -2205,8 +2284,33 @@ components:
         sap_system:
           description: Indicates if SAP is installed on the system
           type: boolean
+        sap_version:
+          description: The version of the SAP HANA lifecycle management program
+          example: 1.00.122.04.1478575636
+          maxLength: 22
+          pattern: ^[0-9].[0-9]{2}.[0-9]{3}.[0-9]{2}.[0-9]{10}$
+          type: string
         satellite_managed:
           type: boolean
+        selinux_config_file:
+          description: The SELinux mode provided in the config file
+          enum:
+          - enforcing
+          - permissive
+          - disabled
+          example: permissive
+          maxLength: 10
+          type: string
+        selinux_current_mode:
+          description: The current SELinux mode, either enforcing, permissive, or
+            disabled
+          enum:
+          - enforcing
+          - permissive
+          - disabled
+          example: enforcing
+          maxLength: 10
+          type: string
         subscription_auto_attach:
           maxLength: 100
           type: string
@@ -2281,11 +2385,13 @@ components:
             subscription_status: subscription_status
             system_memory_bytes: 5
             katello_agent_running: true
+            selinux_current_mode: enforcing
             enabled_services:
             - enabled_services
             - enabled_services
             last_boot_time: 2000-01-23T04:56:07.000+00:00
             number_of_sockets: 5
+            sap_instance_number: "42"
             running_processes:
             - running_processes
             - running_processes
@@ -2306,6 +2412,7 @@ components:
               type: ext3
               device: /dev/fdd0
             cloud_provider: cloud_provider
+            selinux_config_file: permissive
             bios_version: bios_version
             os_kernel_version: os_kernel_version
             captured_date: captured_date
@@ -2340,6 +2447,7 @@ components:
             arch: arch
             infrastructure_vendor: infrastructure_vendor
             satellite_managed: true
+            sap_version: 1.00.122.04.1478575636
           id: id
         - system_profile:
             insights_egg_version: insights_egg_version
@@ -2388,11 +2496,13 @@ components:
             subscription_status: subscription_status
             system_memory_bytes: 5
             katello_agent_running: true
+            selinux_current_mode: enforcing
             enabled_services:
             - enabled_services
             - enabled_services
             last_boot_time: 2000-01-23T04:56:07.000+00:00
             number_of_sockets: 5
+            sap_instance_number: "42"
             running_processes:
             - running_processes
             - running_processes
@@ -2413,6 +2523,7 @@ components:
               type: ext3
               device: /dev/fdd0
             cloud_provider: cloud_provider
+            selinux_config_file: permissive
             bios_version: bios_version
             os_kernel_version: os_kernel_version
             captured_date: captured_date
@@ -2447,6 +2558,7 @@ components:
             arch: arch
             infrastructure_vendor: infrastructure_vendor
             satellite_managed: true
+            sap_version: 1.00.122.04.1478575636
           id: id
       properties:
         count:

@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**ApiHostGetHostSystemProfileById**](HostsApi.md#ApiHostGetHostSystemProfileById) | **Get** /hosts/{host_id_list}/system_profile | Return one or more hosts system profile
 [**ApiHostGetHostTagCount**](HostsApi.md#ApiHostGetHostTagCount) | **Get** /hosts/{host_id_list}/tags/count | Get the number of tags on a host
 [**ApiHostGetHostTags**](HostsApi.md#ApiHostGetHostTags) | **Get** /hosts/{host_id_list}/tags | Get the tags on a host
+[**ApiHostHostCheckin**](HostsApi.md#ApiHostHostCheckin) | **Put** /hosts/checkin | Update staleness timestamps for a host matching the provided facts
 [**ApiHostMergeFacts**](HostsApi.md#ApiHostMergeFacts) | **Patch** /hosts/{host_id_list}/facts/{namespace} | Merge facts under a namespace
 [**ApiHostPatchById**](HostsApi.md#ApiHostPatchById) | **Patch** /hosts/{host_id_list} | Update a host
 [**ApiHostReplaceFacts**](HostsApi.md#ApiHostReplaceFacts) | **Put** /hosts/{host_id_list}/facts/{namespace} | Replace facts under a namespace
@@ -38,7 +39,7 @@ import (
 )
 
 func main() {
-    createHostIn := []CreateHostIn{openapiclient.CreateHostIn{Account: "Account_example", AnsibleHost: "AnsibleHost_example", BiosUuid: "BiosUuid_example", DisplayName: "DisplayName_example", ExternalId: "ExternalId_example", Facts: []FactSet{openapiclient.FactSet{Facts: 123, Namespace: "Namespace_example"}), Fqdn: "Fqdn_example", InsightsId: "InsightsId_example", IpAddresses: []string{"IpAddresses_example"), MacAddresses: []string{"MacAddresses_example"), Reporter: "Reporter_example", RhelMachineId: "RhelMachineId_example", SatelliteId: "SatelliteId_example", StaleTimestamp: time.Now(), SubscriptionManagerId: "SubscriptionManagerId_example", SystemProfile: openapiclient.SystemProfile{Arch: "Arch_example", BiosReleaseDate: "BiosReleaseDate_example", BiosVendor: "BiosVendor_example", BiosVersion: "BiosVersion_example", CapturedDate: "CapturedDate_example", CloudProvider: "CloudProvider_example", CoresPerSocket: 123, CpuFlags: []string{"CpuFlags_example"), DiskDevices: []SystemProfileDiskDevices{openapiclient.SystemProfile_disk_devices{Device: "Device_example", Label: "Label_example", MountPoint: "MountPoint_example", Options: 123, Type: "Type_example"}), DnfModules: []SystemProfileDnfModules{openapiclient.SystemProfile_dnf_modules{Name: "Name_example", Stream: "Stream_example"}), EnabledServices: []string{"EnabledServices_example"), InfrastructureType: "InfrastructureType_example", InfrastructureVendor: "InfrastructureVendor_example", InsightsClientVersion: "InsightsClientVersion_example", InsightsEggVersion: "InsightsEggVersion_example", InstalledPackages: []string{"InstalledPackages_example"), InstalledProducts: []SystemProfileInstalledProducts{openapiclient.SystemProfile_installed_products{Id: "Id_example", Name: "Name_example", Status: "Status_example"}), InstalledServices: []string{"InstalledServices_example"), KatelloAgentRunning: false, KernelModules: []string{"KernelModules_example"), LastBootTime: time.Now(), NetworkInterfaces: []SystemProfileNetworkInterfaces{openapiclient.SystemProfile_network_interfaces{Ipv4Addresses: []string{"Ipv4Addresses_example"), Ipv6Addresses: []string{"Ipv6Addresses_example"), MacAddress: "MacAddress_example", Mtu: 123, Name: "Name_example", State: "State_example", Type: "Type_example"}), NumberOfCpus: 123, NumberOfSockets: 123, OsKernelVersion: "OsKernelVersion_example", OsRelease: "OsRelease_example", RunningProcesses: []string{"RunningProcesses_example"), SapSids: []string{"SapSids_example"), SapSystem: false, SatelliteManaged: false, SubscriptionAutoAttach: "SubscriptionAutoAttach_example", SubscriptionStatus: "SubscriptionStatus_example", SystemMemoryBytes: int64(123), TunedProfile: "TunedProfile_example", YumRepos: []SystemProfileYumRepos{openapiclient.SystemProfile_yum_repos{BaseUrl: "BaseUrl_example", Enabled: false, Gpgcheck: false, Id: "Id_example", Name: "Name_example"})}}} // []CreateHostIn | A list of host objects to be added to the host list
+    createHostIn := []CreateHostIn{*openapiclient.NewCreateHostIn("Account_example", "Reporter_example", time.Now())} // []CreateHostIn | A list of host objects to be added to the host list
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -561,6 +562,72 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ApiHostHostCheckin
+
+> BulkHostOut ApiHostHostCheckin(ctx).CreateCheckIn(createCheckIn).Execute()
+
+Update staleness timestamps for a host matching the provided facts
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createCheckIn := *openapiclient.NewCreateCheckIn(123) // CreateCheckIn | A list of host objects to be added to the host list
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.HostsApi.ApiHostHostCheckin(context.Background()).CreateCheckIn(createCheckIn).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `HostsApi.ApiHostHostCheckin``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ApiHostHostCheckin`: BulkHostOut
+    fmt.Fprintf(os.Stdout, "Response from `HostsApi.ApiHostHostCheckin`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiApiHostHostCheckinRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createCheckIn** | [**CreateCheckIn**](CreateCheckIn.md) | A list of host objects to be added to the host list | 
+
+### Return type
+
+[**BulkHostOut**](BulkHostOut.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ApiHostMergeFacts
 
 > ApiHostMergeFacts(ctx, hostIdList, namespace).Body(body).BranchId(branchId).Execute()
@@ -658,7 +725,7 @@ import (
 
 func main() {
     hostIdList := []string{"Inner_example"} // []string | A comma separated list of host IDs.
-    patchHostIn := openapiclient.PatchHostIn{AnsibleHost: "AnsibleHost_example", DisplayName: "DisplayName_example"} // PatchHostIn | A group of fields to be updated on the host
+    patchHostIn := *openapiclient.NewPatchHostIn() // PatchHostIn | A group of fields to be updated on the host
     branchId := "branchId_example" // string | Filter by branch_id (optional)
 
     configuration := openapiclient.NewConfiguration()

@@ -43,11 +43,19 @@ type SystemProfile struct {
 	OsKernelVersion *string `json:"os_kernel_version,omitempty"`
 	OsRelease *string `json:"os_release,omitempty"`
 	RunningProcesses *[]string `json:"running_processes,omitempty"`
+	// The instance number of the SAP HANA system
+	SapInstanceNumber *string `json:"sap_instance_number,omitempty"`
 	// List of SAP SIDs
 	SapSids *[]string `json:"sap_sids,omitempty"`
 	// Indicates if SAP is installed on the system
 	SapSystem *bool `json:"sap_system,omitempty"`
+	// The version of the SAP HANA lifecycle management program
+	SapVersion *string `json:"sap_version,omitempty"`
 	SatelliteManaged *bool `json:"satellite_managed,omitempty"`
+	// The SELinux mode provided in the config file
+	SelinuxConfigFile *string `json:"selinux_config_file,omitempty"`
+	// The current SELinux mode, either enforcing, permissive, or disabled
+	SelinuxCurrentMode *string `json:"selinux_current_mode,omitempty"`
 	SubscriptionAutoAttach *string `json:"subscription_auto_attach,omitempty"`
 	SubscriptionStatus *string `json:"subscription_status,omitempty"`
 	SystemMemoryBytes *int64 `json:"system_memory_bytes,omitempty"`
@@ -937,6 +945,38 @@ func (o *SystemProfile) SetRunningProcesses(v []string) {
 	o.RunningProcesses = &v
 }
 
+// GetSapInstanceNumber returns the SapInstanceNumber field value if set, zero value otherwise.
+func (o *SystemProfile) GetSapInstanceNumber() string {
+	if o == nil || o.SapInstanceNumber == nil {
+		var ret string
+		return ret
+	}
+	return *o.SapInstanceNumber
+}
+
+// GetSapInstanceNumberOk returns a tuple with the SapInstanceNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SystemProfile) GetSapInstanceNumberOk() (*string, bool) {
+	if o == nil || o.SapInstanceNumber == nil {
+		return nil, false
+	}
+	return o.SapInstanceNumber, true
+}
+
+// HasSapInstanceNumber returns a boolean if a field has been set.
+func (o *SystemProfile) HasSapInstanceNumber() bool {
+	if o != nil && o.SapInstanceNumber != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSapInstanceNumber gets a reference to the given string and assigns it to the SapInstanceNumber field.
+func (o *SystemProfile) SetSapInstanceNumber(v string) {
+	o.SapInstanceNumber = &v
+}
+
 // GetSapSids returns the SapSids field value if set, zero value otherwise.
 func (o *SystemProfile) GetSapSids() []string {
 	if o == nil || o.SapSids == nil {
@@ -1001,6 +1041,38 @@ func (o *SystemProfile) SetSapSystem(v bool) {
 	o.SapSystem = &v
 }
 
+// GetSapVersion returns the SapVersion field value if set, zero value otherwise.
+func (o *SystemProfile) GetSapVersion() string {
+	if o == nil || o.SapVersion == nil {
+		var ret string
+		return ret
+	}
+	return *o.SapVersion
+}
+
+// GetSapVersionOk returns a tuple with the SapVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SystemProfile) GetSapVersionOk() (*string, bool) {
+	if o == nil || o.SapVersion == nil {
+		return nil, false
+	}
+	return o.SapVersion, true
+}
+
+// HasSapVersion returns a boolean if a field has been set.
+func (o *SystemProfile) HasSapVersion() bool {
+	if o != nil && o.SapVersion != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSapVersion gets a reference to the given string and assigns it to the SapVersion field.
+func (o *SystemProfile) SetSapVersion(v string) {
+	o.SapVersion = &v
+}
+
 // GetSatelliteManaged returns the SatelliteManaged field value if set, zero value otherwise.
 func (o *SystemProfile) GetSatelliteManaged() bool {
 	if o == nil || o.SatelliteManaged == nil {
@@ -1031,6 +1103,70 @@ func (o *SystemProfile) HasSatelliteManaged() bool {
 // SetSatelliteManaged gets a reference to the given bool and assigns it to the SatelliteManaged field.
 func (o *SystemProfile) SetSatelliteManaged(v bool) {
 	o.SatelliteManaged = &v
+}
+
+// GetSelinuxConfigFile returns the SelinuxConfigFile field value if set, zero value otherwise.
+func (o *SystemProfile) GetSelinuxConfigFile() string {
+	if o == nil || o.SelinuxConfigFile == nil {
+		var ret string
+		return ret
+	}
+	return *o.SelinuxConfigFile
+}
+
+// GetSelinuxConfigFileOk returns a tuple with the SelinuxConfigFile field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SystemProfile) GetSelinuxConfigFileOk() (*string, bool) {
+	if o == nil || o.SelinuxConfigFile == nil {
+		return nil, false
+	}
+	return o.SelinuxConfigFile, true
+}
+
+// HasSelinuxConfigFile returns a boolean if a field has been set.
+func (o *SystemProfile) HasSelinuxConfigFile() bool {
+	if o != nil && o.SelinuxConfigFile != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSelinuxConfigFile gets a reference to the given string and assigns it to the SelinuxConfigFile field.
+func (o *SystemProfile) SetSelinuxConfigFile(v string) {
+	o.SelinuxConfigFile = &v
+}
+
+// GetSelinuxCurrentMode returns the SelinuxCurrentMode field value if set, zero value otherwise.
+func (o *SystemProfile) GetSelinuxCurrentMode() string {
+	if o == nil || o.SelinuxCurrentMode == nil {
+		var ret string
+		return ret
+	}
+	return *o.SelinuxCurrentMode
+}
+
+// GetSelinuxCurrentModeOk returns a tuple with the SelinuxCurrentMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SystemProfile) GetSelinuxCurrentModeOk() (*string, bool) {
+	if o == nil || o.SelinuxCurrentMode == nil {
+		return nil, false
+	}
+	return o.SelinuxCurrentMode, true
+}
+
+// HasSelinuxCurrentMode returns a boolean if a field has been set.
+func (o *SystemProfile) HasSelinuxCurrentMode() bool {
+	if o != nil && o.SelinuxCurrentMode != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSelinuxCurrentMode gets a reference to the given string and assigns it to the SelinuxCurrentMode field.
+func (o *SystemProfile) SetSelinuxCurrentMode(v string) {
+	o.SelinuxCurrentMode = &v
 }
 
 // GetSubscriptionAutoAttach returns the SubscriptionAutoAttach field value if set, zero value otherwise.
@@ -1276,14 +1412,26 @@ func (o SystemProfile) MarshalJSON() ([]byte, error) {
 	if o.RunningProcesses != nil {
 		toSerialize["running_processes"] = o.RunningProcesses
 	}
+	if o.SapInstanceNumber != nil {
+		toSerialize["sap_instance_number"] = o.SapInstanceNumber
+	}
 	if o.SapSids != nil {
 		toSerialize["sap_sids"] = o.SapSids
 	}
 	if o.SapSystem != nil {
 		toSerialize["sap_system"] = o.SapSystem
 	}
+	if o.SapVersion != nil {
+		toSerialize["sap_version"] = o.SapVersion
+	}
 	if o.SatelliteManaged != nil {
 		toSerialize["satellite_managed"] = o.SatelliteManaged
+	}
+	if o.SelinuxConfigFile != nil {
+		toSerialize["selinux_config_file"] = o.SelinuxConfigFile
+	}
+	if o.SelinuxCurrentMode != nil {
+		toSerialize["selinux_current_mode"] = o.SelinuxCurrentMode
 	}
 	if o.SubscriptionAutoAttach != nil {
 		toSerialize["subscription_auto_attach"] = o.SubscriptionAutoAttach
