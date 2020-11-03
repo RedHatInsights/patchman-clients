@@ -20,8 +20,8 @@ type ErrataRequest struct {
 	PageSize *float32 `json:"page_size,omitempty"`
 	ErrataList []string `json:"errata_list"`
 	ModifiedSince *string `json:"modified_since,omitempty"`
-	Type *OneOfstringarray `json:"type,omitempty"`
-	Severity *OneOfstringarray `json:"severity,omitempty"`
+	Type *[]string `json:"type,omitempty"`
+	Severity *[]string `json:"severity,omitempty"`
 }
 
 // NewErrataRequest instantiates a new ErrataRequest object
@@ -163,9 +163,9 @@ func (o *ErrataRequest) SetModifiedSince(v string) {
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *ErrataRequest) GetType() OneOfstringarray {
+func (o *ErrataRequest) GetType() []string {
 	if o == nil || o.Type == nil {
-		var ret OneOfstringarray
+		var ret []string
 		return ret
 	}
 	return *o.Type
@@ -173,7 +173,7 @@ func (o *ErrataRequest) GetType() OneOfstringarray {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ErrataRequest) GetTypeOk() (*OneOfstringarray, bool) {
+func (o *ErrataRequest) GetTypeOk() (*[]string, bool) {
 	if o == nil || o.Type == nil {
 		return nil, false
 	}
@@ -189,15 +189,15 @@ func (o *ErrataRequest) HasType() bool {
 	return false
 }
 
-// SetType gets a reference to the given OneOfstringarray and assigns it to the Type field.
-func (o *ErrataRequest) SetType(v OneOfstringarray) {
+// SetType gets a reference to the given []string and assigns it to the Type field.
+func (o *ErrataRequest) SetType(v []string) {
 	o.Type = &v
 }
 
 // GetSeverity returns the Severity field value if set, zero value otherwise.
-func (o *ErrataRequest) GetSeverity() OneOfstringarray {
+func (o *ErrataRequest) GetSeverity() []string {
 	if o == nil || o.Severity == nil {
-		var ret OneOfstringarray
+		var ret []string
 		return ret
 	}
 	return *o.Severity
@@ -205,7 +205,7 @@ func (o *ErrataRequest) GetSeverity() OneOfstringarray {
 
 // GetSeverityOk returns a tuple with the Severity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ErrataRequest) GetSeverityOk() (*OneOfstringarray, bool) {
+func (o *ErrataRequest) GetSeverityOk() (*[]string, bool) {
 	if o == nil || o.Severity == nil {
 		return nil, false
 	}
@@ -221,8 +221,8 @@ func (o *ErrataRequest) HasSeverity() bool {
 	return false
 }
 
-// SetSeverity gets a reference to the given OneOfstringarray and assigns it to the Severity field.
-func (o *ErrataRequest) SetSeverity(v OneOfstringarray) {
+// SetSeverity gets a reference to the given []string and assigns it to the Severity field.
+func (o *ErrataRequest) SetSeverity(v []string) {
 	o.Severity = &v
 }
 

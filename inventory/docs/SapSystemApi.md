@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## ApiSystemProfileGetSapSids
 
-> SystemProfileSapSystemOut ApiSystemProfileGetSapSids(ctx).Tags(tags).PerPage(perPage).Page(page).Staleness(staleness).RegisteredWith(registeredWith).Filter(filter).Execute()
+> SystemProfileSapSystemOut ApiSystemProfileGetSapSids(ctx).Search(search).Tags(tags).PerPage(perPage).Page(page).Staleness(staleness).RegisteredWith(registeredWith).Filter(filter).Execute()
 
 get sap system values
 
@@ -30,6 +30,7 @@ import (
 )
 
 func main() {
+    search := "search_example" // string | Only include tags that match the given search string. The value is matched against namespace, key and value. (optional)
     tags := []string{"Inner_example"} // []string | filters out hosts not tagged by the given tags (optional)
     perPage := 987 // int32 | A number of items to return per page. (optional) (default to 50)
     page := 987 // int32 | A page number of the items to return. (optional) (default to 1)
@@ -39,7 +40,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SapSystemApi.ApiSystemProfileGetSapSids(context.Background()).Tags(tags).PerPage(perPage).Page(page).Staleness(staleness).RegisteredWith(registeredWith).Filter(filter).Execute()
+    resp, r, err := api_client.SapSystemApi.ApiSystemProfileGetSapSids(context.Background()).Search(search).Tags(tags).PerPage(perPage).Page(page).Staleness(staleness).RegisteredWith(registeredWith).Filter(filter).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SapSystemApi.ApiSystemProfileGetSapSids``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -60,6 +61,7 @@ Other parameters are passed through a pointer to a apiApiSystemProfileGetSapSids
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **search** | **string** | Only include tags that match the given search string. The value is matched against namespace, key and value. | 
  **tags** | [**[]string**](string.md) | filters out hosts not tagged by the given tags | 
  **perPage** | **int32** | A number of items to return per page. | [default to 50]
  **page** | **int32** | A page number of the items to return. | [default to 1]
