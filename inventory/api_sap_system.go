@@ -29,6 +29,7 @@ type SapSystemApiService service
 type ApiApiSystemProfileGetSapSidsRequest struct {
 	ctx _context.Context
 	ApiService *SapSystemApiService
+	search *string
 	tags *[]string
 	perPage *int32
 	page *int32
@@ -37,6 +38,10 @@ type ApiApiSystemProfileGetSapSidsRequest struct {
 	filter *map[string]interface{}
 }
 
+func (r ApiApiSystemProfileGetSapSidsRequest) Search(search string) ApiApiSystemProfileGetSapSidsRequest {
+	r.search = &search
+	return r
+}
 func (r ApiApiSystemProfileGetSapSidsRequest) Tags(tags []string) ApiApiSystemProfileGetSapSidsRequest {
 	r.tags = &tags
 	return r
@@ -104,6 +109,9 @@ func (a *SapSystemApiService) ApiSystemProfileGetSapSidsExecute(r ApiApiSystemPr
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if r.search != nil {
+		localVarQueryParams.Add("search", parameterToString(*r.search, ""))
+	}
 	if r.tags != nil {
 		t := *r.tags
 		if reflect.TypeOf(t).Kind() == reflect.Slice {

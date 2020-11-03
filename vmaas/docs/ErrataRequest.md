@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **PageSize** | Pointer to **float32** |  | [optional] 
 **ErrataList** | **[]string** |  | 
 **ModifiedSince** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to [**OneOfstringarray**](oneOf&lt;string,array&gt;.md) |  | [optional] 
-**Severity** | Pointer to [**OneOfstringarray**](oneOf&lt;string,array&gt;.md) |  | [optional] 
+**Type** | Pointer to **[]string** |  | [optional] 
+**Severity** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
@@ -127,20 +127,20 @@ HasModifiedSince returns a boolean if a field has been set.
 
 ### GetType
 
-`func (o *ErrataRequest) GetType() OneOfstringarray`
+`func (o *ErrataRequest) GetType() []string`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *ErrataRequest) GetTypeOk() (*OneOfstringarray, bool)`
+`func (o *ErrataRequest) GetTypeOk() (*[]string, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *ErrataRequest) SetType(v OneOfstringarray)`
+`func (o *ErrataRequest) SetType(v []string)`
 
 SetType sets Type field to given value.
 
@@ -152,20 +152,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetSeverity
 
-`func (o *ErrataRequest) GetSeverity() OneOfstringarray`
+`func (o *ErrataRequest) GetSeverity() []string`
 
 GetSeverity returns the Severity field if non-nil, zero value otherwise.
 
 ### GetSeverityOk
 
-`func (o *ErrataRequest) GetSeverityOk() (*OneOfstringarray, bool)`
+`func (o *ErrataRequest) GetSeverityOk() (*[]string, bool)`
 
 GetSeverityOk returns a tuple with the Severity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSeverity
 
-`func (o *ErrataRequest) SetSeverity(v OneOfstringarray)`
+`func (o *ErrataRequest) SetSeverity(v []string)`
 
 SetSeverity sets Severity field to given value.
 

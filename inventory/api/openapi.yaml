@@ -755,6 +755,15 @@ paths:
       description: 'Required permissions: inventory:hosts:read'
       operationId: api.system_profile.get_sap_sids
       parameters:
+      - description: Only include tags that match the given search string. The value
+          is matched against namespace, key and value.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        style: form
       - description: filters out hosts not tagged by the given tags
         explode: true
         in: query

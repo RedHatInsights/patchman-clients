@@ -908,13 +908,17 @@ components:
           type: object
     ErrataRequest:
       example:
-        severity: ""
+        severity:
+        - Low
+        - Low
         errata_list:
         - RHSA-2018:05.*
         - RHSA-2018:05.*
         modified_since: 2018-04-05T01:23:45+02:00
         page: 0
-        type: ""
+        type:
+        - security
+        - security
         page_size: 10
       properties:
         page:
@@ -934,16 +938,13 @@ components:
           format: date-time
           type: string
         type:
-          oneOf:
-          - example: security
+          items:
+            example: security
             type: string
-          - items:
-              example: security
-              type: string
-            type: array
+          type: array
         severity:
-          oneOf:
-          - enum:
+          items:
+            enum:
             - Low
             - Moderate
             - Important
@@ -951,16 +952,7 @@ components:
             - null
             nullable: true
             type: string
-          - items:
-              enum:
-              - Low
-              - Moderate
-              - Important
-              - Critical
-              - null
-              nullable: true
-              type: string
-            type: array
+          type: array
       required:
       - errata_list
       type: object
