@@ -1823,11 +1823,11 @@ components:
       properties:
         created:
           example: 2019-01-21T17:32:28Z
-          format: date-time
+          format: '-'
           type: string
         modified:
           example: 2019-03-04T07:25:58Z
-          format: date-time
+          format: '-'
           type: string
       required:
       - created

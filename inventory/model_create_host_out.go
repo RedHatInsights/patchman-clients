@@ -25,7 +25,7 @@ type CreateHostOut struct {
 	// A timestamp when the entry was created.
 	Created *string `json:"created,omitempty"`
 	// Timestamp from which the host is considered deleted.
-	CulledTimestamp NullableTime `json:"culled_timestamp,omitempty"`
+	CulledTimestamp NullableString `json:"culled_timestamp,omitempty"`
 	// A host’s human-readable display name, e.g. in a form of a domain name.
 	DisplayName NullableString `json:"display_name,omitempty"`
 	// Host’s reference in the external source e.g. AWS EC2, Azure, OpenStack, etc. This field is considered to be a canonical fact.
@@ -49,9 +49,9 @@ type CreateHostOut struct {
 	// A Red Hat Satellite ID of a RHEL host.  This field is considered to be a canonical fact.
 	SatelliteId NullableString `json:"satellite_id,omitempty"`
 	// Timestamp from which the host is considered stale.
-	StaleTimestamp NullableTime `json:"stale_timestamp,omitempty"`
+	StaleTimestamp NullableString `json:"stale_timestamp,omitempty"`
 	// Timestamp from which the host is considered too stale to be listed without an explicit toggle.
-	StaleWarningTimestamp NullableTime `json:"stale_warning_timestamp,omitempty"`
+	StaleWarningTimestamp NullableString `json:"stale_warning_timestamp,omitempty"`
 	// A Red Hat Subcription Manager ID of a RHEL host.  This field is considered to be a canonical fact.
 	SubscriptionManagerId NullableString `json:"subscription_manager_id,omitempty"`
 	// A timestamp when the entry was last updated.
@@ -244,7 +244,7 @@ func (o *CreateHostOut) HasCulledTimestamp() bool {
 	return false
 }
 
-// SetCulledTimestamp gets a reference to the given NullableTime and assigns it to the CulledTimestamp field.
+// SetCulledTimestamp gets a reference to the given NullableString and assigns it to the CulledTimestamp field.
 func (o *CreateHostOut) SetCulledTimestamp(v string) {
 	o.CulledTimestamp.Set(&v)
 }
@@ -710,7 +710,7 @@ func (o *CreateHostOut) HasStaleTimestamp() bool {
 	return false
 }
 
-// SetStaleTimestamp gets a reference to the given NullableTime and assigns it to the StaleTimestamp field.
+// SetStaleTimestamp gets a reference to the given NullableString and assigns it to the StaleTimestamp field.
 func (o *CreateHostOut) SetStaleTimestamp(v string) {
 	o.StaleTimestamp.Set(&v)
 }
@@ -752,7 +752,7 @@ func (o *CreateHostOut) HasStaleWarningTimestamp() bool {
 	return false
 }
 
-// SetStaleWarningTimestamp gets a reference to the given NullableTime and assigns it to the StaleWarningTimestamp field.
+// SetStaleWarningTimestamp gets a reference to the given NullableString and assigns it to the StaleWarningTimestamp field.
 func (o *CreateHostOut) SetStaleWarningTimestamp(v string) {
 	o.StaleWarningTimestamp.Set(&v)
 }

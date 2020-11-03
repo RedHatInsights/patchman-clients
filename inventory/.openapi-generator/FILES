@@ -30,6 +30,7 @@ docs/SystemProfileDnfModules.md
 docs/SystemProfileInstalledProducts.md
 docs/SystemProfileNetworkInterfaces.md
 docs/SystemProfileSapSystemOut.md
+docs/SystemProfileSapSystemOutResults.md
 docs/SystemProfileYumRepos.md
 docs/TagCountOut.md
 docs/TagsApi.md
@@ -58,6 +59,7 @@ model_system_profile_dnf_modules.go
 model_system_profile_installed_products.go
 model_system_profile_network_interfaces.go
 model_system_profile_sap_system_out.go
+model_system_profile_sap_system_out_results.go
 model_system_profile_yum_repos.go
 model_tag_count_out.go
 model_tags_out.go

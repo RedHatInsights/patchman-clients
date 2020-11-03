@@ -2,8 +2,8 @@
 
 set -e
 
-#cd /go/src/inventory
-#go test -v -run TestAPI
+cd /go/src/inventory
+go test -v -run TestAPI
 
 cd /go/src/rbac
 go test -v -run TestAPI

@@ -117,6 +117,7 @@ Class | Method | HTTP request | Description
  - [SystemProfileInstalledProducts](docs/SystemProfileInstalledProducts.md)
  - [SystemProfileNetworkInterfaces](docs/SystemProfileNetworkInterfaces.md)
  - [SystemProfileSapSystemOut](docs/SystemProfileSapSystemOut.md)
+ - [SystemProfileSapSystemOutResults](docs/SystemProfileSapSystemOutResults.md)
  - [SystemProfileYumRepos](docs/SystemProfileYumRepos.md)
  - [TagCountOut](docs/TagCountOut.md)
  - [TagsOut](docs/TagsOut.md)
