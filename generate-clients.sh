@@ -17,12 +17,21 @@ fi
 
 # For now, we skip the dateTime parsing because of incompatible formats ( inventory does not produce fully compliant
 
+function filter_oneof() {
+    # filter out oneOf types which openapi generator can't handle
+    sed -i 's|"type": {"oneOf": \[{"type": "string", "example": "security"}, {"type": "array", "items": {"type": "string", "example": "security"}}\]},|"type": {"type": "array", "items": {"type": "string", "example": "security"}},|;
+            s|"severity": {"oneOf": \[{"type": "string", "enum": \["Low", "Moderate", "Important", "Critical", null\], "nullable": true}, {"type": "array", "items": {"type": "string", "enum": \["Low", "Moderate", "Important", "Critical", null\], "nullable": true}}\]}},| "severity": {"type": "array", "items": {"type": "string", "enum": \["Low", "Moderate", "Important", "Critical", null\], "nullable": true}}},|;
+            ' $1
+}
+
 function generate_client() {
   NAME=$1
   SPEC_URL=$2
 
   LOCAL_JSON="$NAME/api/openapi.json"
   curl $SPEC_URL -o "$LOCAL_JSON"
+
+  filter_oneof "$LOCAL_JSON"
 
   HERE=$(pwd)
   # remove old code and doc
