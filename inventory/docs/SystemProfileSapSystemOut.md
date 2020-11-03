@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Count** | Pointer to **int32** | The number of items on the current page | [optional] 
-**Results** | Pointer to [**[]OneOfobjectobject**](oneOf&lt;object,object&gt;.md) | The list of sap_system values on the account | [optional] 
+**Results** | Pointer to [**[]SystemProfileSapSystemOutResults**](SystemProfileSapSystemOut_results.md) | The list of sap_system values on the account | [optional] 
 **Total** | Pointer to **int32** | Total number of items | [optional] 
 
 ## Methods
@@ -54,20 +54,20 @@ HasCount returns a boolean if a field has been set.
 
 ### GetResults
 
-`func (o *SystemProfileSapSystemOut) GetResults() []OneOfobjectobject`
+`func (o *SystemProfileSapSystemOut) GetResults() []SystemProfileSapSystemOutResults`
 
 GetResults returns the Results field if non-nil, zero value otherwise.
 
 ### GetResultsOk
 
-`func (o *SystemProfileSapSystemOut) GetResultsOk() (*[]OneOfobjectobject, bool)`
+`func (o *SystemProfileSapSystemOut) GetResultsOk() (*[]SystemProfileSapSystemOutResults, bool)`
 
 GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResults
 
-`func (o *SystemProfileSapSystemOut) SetResults(v []OneOfobjectobject)`
+`func (o *SystemProfileSapSystemOut) SetResults(v []SystemProfileSapSystemOutResults)`
 
 SetResults sets Results field to given value.
 

@@ -39,7 +39,7 @@ import (
 )
 
 func main() {
-    createHostIn := []CreateHostIn{*openapiclient.NewCreateHostIn("Account_example", "Reporter_example", time.Now())} // []CreateHostIn | A list of host objects to be added to the host list
+    createHostIn := []CreateHostIn{*openapiclient.NewCreateHostIn("Account_example", "Reporter_example", "StaleTimestamp_example")} // []CreateHostIn | A list of host objects to be added to the host list
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

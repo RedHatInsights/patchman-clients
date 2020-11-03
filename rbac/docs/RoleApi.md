@@ -389,7 +389,7 @@ import (
 
 func main() {
     uuid := TODO // string | ID of role to update
-    roleWithAccess := *openapiclient.NewRoleWithAccess("Name_example", "Uuid_example", time.Now(), time.Now(), []Access{*openapiclient.NewAccess("Permission_example", []ResourceDefinition{*openapiclient.NewResourceDefinition(*openapiclient.NewResourceDefinitionFilter("Key_example", "Operation_example", "Value_example")))))) // RoleWithAccess | Update to a Role
+    roleWithAccess := *openapiclient.NewRoleWithAccess("Name_example", "Uuid_example", "Created_example", "Modified_example", []Access{*openapiclient.NewAccess("Permission_example", []ResourceDefinition{*openapiclient.NewResourceDefinition(*openapiclient.NewResourceDefinitionFilter("Key_example", "Operation_example", "Value_example")))))) // RoleWithAccess | Update to a Role
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
