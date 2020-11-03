@@ -1,0 +1,19 @@
+version: '3'
+services:
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - CI
+      - TRAVIS
+      - SHIPPABLE
+      - TRAVIS_BRANCH
+      - TRAVIS_COMMIT
+      - TRAVIS_JOB_NUMBER
+      - TRAVIS_PULL_REQUEST
+      - TRAVIS_JOB_ID
+      - TRAVIS_REPO_SLUG
+      - TRAVIS_TAG
+      - TRAVIS_OS_NAME
+    command: ./run_tests.sh
