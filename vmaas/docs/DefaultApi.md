@@ -33,55 +33,19 @@ Method | HTTP request | Description
 
 ## AppCVEHandlerGetGet
 
-> CvesResponse AppCVEHandlerGetGet(ctx, cve).Execute()
+> CvesResponse AppCVEHandlerGetGet(ctx, cve)
 
 
 
+Get details about CVEs. It is possible to use POSIX regular expression as a pattern for CVE names.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    cve := "cve_example" // string | CVE name or POSIX regular expression pattern
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppCVEHandlerGetGet(context.Background(), cve).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppCVEHandlerGetGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppCVEHandlerGetGet`: CvesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppCVEHandlerGetGet`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**cve** | **string** | CVE name or POSIX regular expression pattern | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppCVEHandlerGetGetRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**cve** | **string**| CVE name or POSIX regular expression pattern | 
 
 ### Return type
 
@@ -103,51 +67,28 @@ No authorization required
 
 ## AppCVEHandlerPostPost
 
-> CvesResponse AppCVEHandlerPostPost(ctx).CvesRequest(cvesRequest).Execute()
+> CvesResponse AppCVEHandlerPostPost(ctx, optional)
 
 
 
+Get details about CVEs with additional parameters. As a \"cve_list\" parameter a complete list of CVE names can be provided OR one POSIX regular expression.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    cvesRequest := *openapiclient.NewCvesRequest([]string{"CveList_example")) // CvesRequest |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppCVEHandlerPostPost(context.Background()).CvesRequest(cvesRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppCVEHandlerPostPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppCVEHandlerPostPost`: CvesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppCVEHandlerPostPost`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppCVEHandlerPostPostRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cvesRequest** | [**CvesRequest**](CvesRequest.md) |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AppCVEHandlerPostPostOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AppCVEHandlerPostPostOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cvesRequest** | [**optional.Interface of CvesRequest**](CvesRequest.md)|  | 
 
 ### Return type
 
@@ -169,50 +110,19 @@ No authorization required
 
 ## AppDBChangeHandlerGet
 
-> DBChangeResponse AppDBChangeHandlerGet(ctx).Execute()
+> DbChangeResponse AppDBChangeHandlerGet(ctx, )
 
 
 
+Get last-updated-times for VMaaS DB
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppDBChangeHandlerGet(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppDBChangeHandlerGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppDBChangeHandlerGet`: DBChangeResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppDBChangeHandlerGet`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
 
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppDBChangeHandlerGetRequest struct via the builder pattern
-
-
 ### Return type
 
-[**DBChangeResponse**](DBChangeResponse.md)
+[**DbChangeResponse**](DBChangeResponse.md)
 
 ### Authorization
 
@@ -230,55 +140,19 @@ No authorization required
 
 ## AppErrataHandlerGetGet
 
-> ErrataResponse AppErrataHandlerGetGet(ctx, erratum).Execute()
+> ErrataResponse AppErrataHandlerGetGet(ctx, erratum)
 
 
 
+Get details about errata. It is possible to use POSIX regular expression as a pattern for errata names.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    erratum := "erratum_example" // string | Errata advisory name or POSIX regular expression pattern
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppErrataHandlerGetGet(context.Background(), erratum).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppErrataHandlerGetGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppErrataHandlerGetGet`: ErrataResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppErrataHandlerGetGet`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**erratum** | **string** | Errata advisory name or POSIX regular expression pattern | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppErrataHandlerGetGetRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**erratum** | **string**| Errata advisory name or POSIX regular expression pattern | 
 
 ### Return type
 
@@ -300,51 +174,28 @@ No authorization required
 
 ## AppErrataHandlerPostPost
 
-> ErrataResponse AppErrataHandlerPostPost(ctx).ErrataRequest(errataRequest).Execute()
+> ErrataResponse AppErrataHandlerPostPost(ctx, optional)
 
 
 
+Get details about errata with additional parameters. \"errata_list\" parameter can be either a list of errata names OR a single POSIX regular expression.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    errataRequest := *openapiclient.NewErrataRequest([]string{"ErrataList_example")) // ErrataRequest |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppErrataHandlerPostPost(context.Background()).ErrataRequest(errataRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppErrataHandlerPostPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppErrataHandlerPostPost`: ErrataResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppErrataHandlerPostPost`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppErrataHandlerPostPostRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **errataRequest** | [**ErrataRequest**](ErrataRequest.md) |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AppErrataHandlerPostPostOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AppErrataHandlerPostPostOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **errataRequest** | [**optional.Interface of ErrataRequest**](ErrataRequest.md)|  | 
 
 ### Return type
 
@@ -366,42 +217,13 @@ No authorization required
 
 ## AppHealthHandlerGet
 
-> AppHealthHandlerGet(ctx).Execute()
+> AppHealthHandlerGet(ctx, )
 
 Return API liveness status
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppHealthHandlerGet(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppHealthHandlerGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppHealthHandlerGetRequest struct via the builder pattern
-
 
 ### Return type
 
@@ -423,55 +245,19 @@ No authorization required
 
 ## AppPackagesHandlerGetGet
 
-> PackagesResponse AppPackagesHandlerGetGet(ctx, nevra).Execute()
+> PackagesResponse AppPackagesHandlerGetGet(ctx, nevra)
 
 
 
+Get details about packages.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    nevra := "nevra_example" // string | Package NEVRA
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppPackagesHandlerGetGet(context.Background(), nevra).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPackagesHandlerGetGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppPackagesHandlerGetGet`: PackagesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPackagesHandlerGetGet`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**nevra** | **string** | Package NEVRA | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppPackagesHandlerGetGetRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**nevra** | **string**| Package NEVRA | 
 
 ### Return type
 
@@ -493,51 +279,28 @@ No authorization required
 
 ## AppPackagesHandlerPostPost
 
-> PackagesResponse AppPackagesHandlerPostPost(ctx).PackagesRequest(packagesRequest).Execute()
+> PackagesResponse AppPackagesHandlerPostPost(ctx, optional)
 
 
 
+Get details about packages. \"package_list\" must be a list of package NEVRAs.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    packagesRequest := *openapiclient.NewPackagesRequest([]string{"PackageList_example")) // PackagesRequest |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppPackagesHandlerPostPost(context.Background()).PackagesRequest(packagesRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPackagesHandlerPostPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppPackagesHandlerPostPost`: PackagesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPackagesHandlerPostPost`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppPackagesHandlerPostPostRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **packagesRequest** | [**PackagesRequest**](PackagesRequest.md) |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AppPackagesHandlerPostPostOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AppPackagesHandlerPostPostOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **packagesRequest** | [**optional.Interface of PackagesRequest**](PackagesRequest.md)|  | 
 
 ### Return type
 
@@ -559,55 +322,19 @@ No authorization required
 
 ## AppPatchesHandlerGetGet
 
-> PatchesResponse AppPatchesHandlerGetGet(ctx, nevra).Execute()
+> PatchesResponse AppPatchesHandlerGetGet(ctx, nevra)
 
 
 
+List of applicable CVEs for a single package NEVRA
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    nevra := "nevra_example" // string | Package NEVRA
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppPatchesHandlerGetGet(context.Background(), nevra).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPatchesHandlerGetGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppPatchesHandlerGetGet`: PatchesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPatchesHandlerGetGet`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**nevra** | **string** | Package NEVRA | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppPatchesHandlerGetGetRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**nevra** | **string**| Package NEVRA | 
 
 ### Return type
 
@@ -629,51 +356,28 @@ No authorization required
 
 ## AppPatchesHandlerPostPost
 
-> PatchesResponse AppPatchesHandlerPostPost(ctx).PatchesRequest(patchesRequest).Execute()
+> PatchesResponse AppPatchesHandlerPostPost(ctx, optional)
 
 
 
+List of applicable errata to a package list.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    patchesRequest := *openapiclient.NewPatchesRequest([]string{"PackageList_example")) // PatchesRequest |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppPatchesHandlerPostPost(context.Background()).PatchesRequest(patchesRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPatchesHandlerPostPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppPatchesHandlerPostPost`: PatchesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPatchesHandlerPostPost`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppPatchesHandlerPostPostRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **patchesRequest** | [**PatchesRequest**](PatchesRequest.md) |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AppPatchesHandlerPostPostOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AppPatchesHandlerPostPostOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **patchesRequest** | [**optional.Interface of PatchesRequest**](PatchesRequest.md)|  | 
 
 ### Return type
 
@@ -695,55 +399,19 @@ No authorization required
 
 ## AppPkgtreeHandlerGetGet
 
-> PkgtreeResponse AppPkgtreeHandlerGetGet(ctx, packageName).Execute()
+> PkgtreeResponse AppPkgtreeHandlerGetGet(ctx, packageName)
 
 
 
+Get package NEVRAs tree for a single package name.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    packageName := "packageName_example" // string | Package name
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppPkgtreeHandlerGetGet(context.Background(), packageName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPkgtreeHandlerGetGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppPkgtreeHandlerGetGet`: PkgtreeResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPkgtreeHandlerGetGet`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**packageName** | **string** | Package name | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppPkgtreeHandlerGetGetRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**packageName** | **string**| Package name | 
 
 ### Return type
 
@@ -765,51 +433,28 @@ No authorization required
 
 ## AppPkgtreeHandlerPostPost
 
-> PkgtreeResponse AppPkgtreeHandlerPostPost(ctx).PkgtreeRequest(pkgtreeRequest).Execute()
+> PkgtreeResponse AppPkgtreeHandlerPostPost(ctx, optional)
 
 
 
+Get package NEVRAs trees for package names. \"package_name_list\" must be a list of package names.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    pkgtreeRequest := *openapiclient.NewPkgtreeRequest([]string{"PackageNameList_example")) // PkgtreeRequest |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppPkgtreeHandlerPostPost(context.Background()).PkgtreeRequest(pkgtreeRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPkgtreeHandlerPostPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppPkgtreeHandlerPostPost`: PkgtreeResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPkgtreeHandlerPostPost`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppPkgtreeHandlerPostPostRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pkgtreeRequest** | [**PkgtreeRequest**](PkgtreeRequest.md) |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AppPkgtreeHandlerPostPostOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AppPkgtreeHandlerPostPostOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pkgtreeRequest** | [**optional.Interface of PkgtreeRequest**](PkgtreeRequest.md)|  | 
 
 ### Return type
 
@@ -831,42 +476,13 @@ No authorization required
 
 ## AppReadyHandlerGet
 
-> AppReadyHandlerGet(ctx).Execute()
+> AppReadyHandlerGet(ctx, )
 
 Return API readiness status
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppReadyHandlerGet(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppReadyHandlerGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppReadyHandlerGetRequest struct via the builder pattern
-
 
 ### Return type
 
@@ -888,55 +504,19 @@ No authorization required
 
 ## AppReposHandlerGetGet
 
-> ReposResponse AppReposHandlerGetGet(ctx, repo).Execute()
+> ReposResponse AppReposHandlerGetGet(ctx, repo)
 
 
 
+Get details about a repository or repository-expression. It is allowed to use POSIX regular expression as a pattern for repository names.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    repo := "repo_example" // string | Repository name or POSIX regular expression pattern
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppReposHandlerGetGet(context.Background(), repo).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppReposHandlerGetGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppReposHandlerGetGet`: ReposResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppReposHandlerGetGet`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**repo** | **string** | Repository name or POSIX regular expression pattern | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppReposHandlerGetGetRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**repo** | **string**| Repository name or POSIX regular expression pattern | 
 
 ### Return type
 
@@ -958,51 +538,28 @@ No authorization required
 
 ## AppReposHandlerPostPost
 
-> ReposResponse AppReposHandlerPostPost(ctx).ReposRequest(reposRequest).Execute()
+> ReposResponse AppReposHandlerPostPost(ctx, optional)
 
 
 
+Get details about list of repositories. \"repository_list\" can be either a list of repository names, OR a single POSIX regular expression.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    reposRequest := *openapiclient.NewReposRequest([]string{"RepositoryList_example")) // ReposRequest |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppReposHandlerPostPost(context.Background()).ReposRequest(reposRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppReposHandlerPostPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppReposHandlerPostPost`: ReposResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppReposHandlerPostPost`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppReposHandlerPostPostRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **reposRequest** | [**ReposRequest**](ReposRequest.md) |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AppReposHandlerPostPostOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AppReposHandlerPostPostOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **reposRequest** | [**optional.Interface of ReposRequest**](ReposRequest.md)|  | 
 
 ### Return type
 
@@ -1024,55 +581,19 @@ No authorization required
 
 ## AppUpdatesHandlerGetGet
 
-> UpdatesResponse AppUpdatesHandlerGetGet(ctx, nevra).Execute()
+> UpdatesResponse AppUpdatesHandlerGetGet(ctx, nevra)
 
 
 
+List security updates for single package NEVRA
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    nevra := "nevra_example" // string | Package NEVRA
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppUpdatesHandlerGetGet(context.Background(), nevra).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppUpdatesHandlerGetGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppUpdatesHandlerGetGet`: UpdatesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppUpdatesHandlerGetGet`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**nevra** | **string** | Package NEVRA | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppUpdatesHandlerGetGetRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**nevra** | **string**| Package NEVRA | 
 
 ### Return type
 
@@ -1094,51 +615,28 @@ No authorization required
 
 ## AppUpdatesHandlerPostPost
 
-> UpdatesResponse AppUpdatesHandlerPostPost(ctx).UpdatesRequest(updatesRequest).Execute()
+> UpdatesResponse AppUpdatesHandlerPostPost(ctx, optional)
 
 
 
+List security updates for list of package NEVRAs
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    updatesRequest := *openapiclient.NewUpdatesRequest([]string{"PackageList_example")) // UpdatesRequest | Input json (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppUpdatesHandlerPostPost(context.Background()).UpdatesRequest(updatesRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppUpdatesHandlerPostPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppUpdatesHandlerPostPost`: UpdatesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppUpdatesHandlerPostPost`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppUpdatesHandlerPostPostRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **updatesRequest** | [**UpdatesRequest**](UpdatesRequest.md) | Input json | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AppUpdatesHandlerPostPostOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AppUpdatesHandlerPostPostOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updatesRequest** | [**optional.Interface of UpdatesRequest**](UpdatesRequest.md)| Input json | 
 
 ### Return type
 
@@ -1160,55 +658,19 @@ No authorization required
 
 ## AppUpdatesHandlerV2GetGet
 
-> UpdatesV2Response AppUpdatesHandlerV2GetGet(ctx, nevra).Execute()
+> UpdatesV2Response AppUpdatesHandlerV2GetGet(ctx, nevra)
 
 
 
+List security updates for single package NEVRA
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    nevra := "nevra_example" // string | Package NEVRA
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppUpdatesHandlerV2GetGet(context.Background(), nevra).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppUpdatesHandlerV2GetGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppUpdatesHandlerV2GetGet`: UpdatesV2Response
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppUpdatesHandlerV2GetGet`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**nevra** | **string** | Package NEVRA | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppUpdatesHandlerV2GetGetRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**nevra** | **string**| Package NEVRA | 
 
 ### Return type
 
@@ -1230,51 +692,28 @@ No authorization required
 
 ## AppUpdatesHandlerV2PostPost
 
-> UpdatesV2Response AppUpdatesHandlerV2PostPost(ctx).UpdatesRequest(updatesRequest).Execute()
+> UpdatesV2Response AppUpdatesHandlerV2PostPost(ctx, optional)
 
 
 
+List security updates for list of package NEVRAs
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    updatesRequest := *openapiclient.NewUpdatesRequest([]string{"PackageList_example")) // UpdatesRequest | Input json (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppUpdatesHandlerV2PostPost(context.Background()).UpdatesRequest(updatesRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppUpdatesHandlerV2PostPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppUpdatesHandlerV2PostPost`: UpdatesV2Response
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppUpdatesHandlerV2PostPost`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppUpdatesHandlerV2PostPostRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **updatesRequest** | [**UpdatesRequest**](UpdatesRequest.md) | Input json | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AppUpdatesHandlerV2PostPostOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AppUpdatesHandlerV2PostPostOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updatesRequest** | [**optional.Interface of UpdatesRequest**](UpdatesRequest.md)| Input json | 
 
 ### Return type
 
@@ -1296,55 +735,19 @@ No authorization required
 
 ## AppUpdatesHandlerV3GetGet
 
-> UpdatesV2Response AppUpdatesHandlerV3GetGet(ctx, nevra).Execute()
+> UpdatesV2Response AppUpdatesHandlerV3GetGet(ctx, nevra)
 
 
 
+List all updates for single package NEVRA
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    nevra := "nevra_example" // string | Package NEVRA
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppUpdatesHandlerV3GetGet(context.Background(), nevra).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppUpdatesHandlerV3GetGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppUpdatesHandlerV3GetGet`: UpdatesV2Response
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppUpdatesHandlerV3GetGet`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**nevra** | **string** | Package NEVRA | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppUpdatesHandlerV3GetGetRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**nevra** | **string**| Package NEVRA | 
 
 ### Return type
 
@@ -1366,51 +769,28 @@ No authorization required
 
 ## AppUpdatesHandlerV3PostPost
 
-> UpdatesV2Response AppUpdatesHandlerV3PostPost(ctx).UpdatesV3Request(updatesV3Request).Execute()
+> UpdatesV2Response AppUpdatesHandlerV3PostPost(ctx, optional)
 
 
 
+List all updates for list of package NEVRAs
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    updatesV3Request := *openapiclient.NewUpdatesV3Request([]string{"PackageList_example")) // UpdatesV3Request | Input json (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppUpdatesHandlerV3PostPost(context.Background()).UpdatesV3Request(updatesV3Request).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppUpdatesHandlerV3PostPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppUpdatesHandlerV3PostPost`: UpdatesV2Response
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppUpdatesHandlerV3PostPost`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppUpdatesHandlerV3PostPostRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **updatesV3Request** | [**UpdatesV3Request**](UpdatesV3Request.md) | Input json | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AppUpdatesHandlerV3PostPostOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AppUpdatesHandlerV3PostPostOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updatesV3Request** | [**optional.Interface of UpdatesV3Request**](UpdatesV3Request.md)| Input json | 
 
 ### Return type
 
@@ -1432,44 +812,15 @@ No authorization required
 
 ## AppVersionHandlerGet
 
-> AppVersionHandlerGet(ctx).Execute()
+> AppVersionHandlerGet(ctx, )
 
 
 
+Get version of application
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppVersionHandlerGet(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppVersionHandlerGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppVersionHandlerGetRequest struct via the builder pattern
-
 
 ### Return type
 
@@ -1491,55 +842,19 @@ No authorization required
 
 ## AppVulnerabilitiesHandlerGetGet
 
-> VulnerabilitiesResponse AppVulnerabilitiesHandlerGetGet(ctx, nevra).Execute()
+> VulnerabilitiesResponse AppVulnerabilitiesHandlerGetGet(ctx, nevra)
 
 
 
+List of applicable CVEs for a single package NEVRA
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    nevra := "nevra_example" // string | Package NEVRA
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppVulnerabilitiesHandlerGetGet(context.Background(), nevra).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppVulnerabilitiesHandlerGetGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppVulnerabilitiesHandlerGetGet`: VulnerabilitiesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppVulnerabilitiesHandlerGetGet`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**nevra** | **string** | Package NEVRA | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppVulnerabilitiesHandlerGetGetRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**nevra** | **string**| Package NEVRA | 
 
 ### Return type
 
@@ -1561,51 +876,28 @@ No authorization required
 
 ## AppVulnerabilitiesHandlerPostPost
 
-> VulnerabilitiesResponse AppVulnerabilitiesHandlerPostPost(ctx).VulnerabilitiesRequest(vulnerabilitiesRequest).Execute()
+> VulnerabilitiesResponse AppVulnerabilitiesHandlerPostPost(ctx, optional)
 
 
 
+List of applicable CVEs to a package list.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    vulnerabilitiesRequest := *openapiclient.NewVulnerabilitiesRequest([]string{"PackageList_example")) // VulnerabilitiesRequest |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppVulnerabilitiesHandlerPostPost(context.Background()).VulnerabilitiesRequest(vulnerabilitiesRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppVulnerabilitiesHandlerPostPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppVulnerabilitiesHandlerPostPost`: VulnerabilitiesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppVulnerabilitiesHandlerPostPost`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppVulnerabilitiesHandlerPostPostRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **vulnerabilitiesRequest** | [**VulnerabilitiesRequest**](VulnerabilitiesRequest.md) |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AppVulnerabilitiesHandlerPostPostOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AppVulnerabilitiesHandlerPostPostOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **vulnerabilitiesRequest** | [**optional.Interface of VulnerabilitiesRequest**](VulnerabilitiesRequest.md)|  | 
 
 ### Return type
 

@@ -13,59 +13,23 @@ Method | HTTP request | Description
 
 ## AppRPMPkgNamesHandlerGetGet
 
-> RPMPkgNamesResponse AppRPMPkgNamesHandlerGetGet(ctx, rpm).Execute()
+> RpmPkgNamesResponse AppRPMPkgNamesHandlerGetGet(ctx, rpm)
 
 
 
+List of content sets by given rpm name.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    rpm := "rpm_example" // string | Package name
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentalApi.AppRPMPkgNamesHandlerGetGet(context.Background(), rpm).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.AppRPMPkgNamesHandlerGetGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppRPMPkgNamesHandlerGetGet`: RPMPkgNamesResponse
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.AppRPMPkgNamesHandlerGetGet`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**rpm** | **string** | Package name | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppRPMPkgNamesHandlerGetGetRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**rpm** | **string**| Package name | 
 
 ### Return type
 
-[**RPMPkgNamesResponse**](RPMPkgNamesResponse.md)
+[**RpmPkgNamesResponse**](RPMPkgNamesResponse.md)
 
 ### Authorization
 
@@ -83,55 +47,32 @@ No authorization required
 
 ## AppRPMPkgNamesHandlerPostPost
 
-> RPMPkgNamesResponse AppRPMPkgNamesHandlerPostPost(ctx).RPMPkgNamesRequest(rPMPkgNamesRequest).Execute()
+> RpmPkgNamesResponse AppRPMPkgNamesHandlerPostPost(ctx, optional)
 
 
 
+List of content sets by given rpm name and content set.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    rPMPkgNamesRequest := *openapiclient.NewRPMPkgNamesRequest([]string{"RpmNameList_example")) // RPMPkgNamesRequest |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentalApi.AppRPMPkgNamesHandlerPostPost(context.Background()).RPMPkgNamesRequest(rPMPkgNamesRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.AppRPMPkgNamesHandlerPostPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppRPMPkgNamesHandlerPostPost`: RPMPkgNamesResponse
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.AppRPMPkgNamesHandlerPostPost`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppRPMPkgNamesHandlerPostPostRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **rPMPkgNamesRequest** | [**RPMPkgNamesRequest**](RPMPkgNamesRequest.md) |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AppRPMPkgNamesHandlerPostPostOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AppRPMPkgNamesHandlerPostPostOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **rpmPkgNamesRequest** | [**optional.Interface of RpmPkgNamesRequest**](RpmPkgNamesRequest.md)|  | 
 
 ### Return type
 
-[**RPMPkgNamesResponse**](RPMPkgNamesResponse.md)
+[**RpmPkgNamesResponse**](RPMPkgNamesResponse.md)
 
 ### Authorization
 
@@ -149,59 +90,23 @@ No authorization required
 
 ## AppSRPMPkgNamesHandlerGetGet
 
-> SRPMPkgNamesResponse AppSRPMPkgNamesHandlerGetGet(ctx, srpm).Execute()
+> SrpmPkgNamesResponse AppSRPMPkgNamesHandlerGetGet(ctx, srpm)
 
 
 
+List of content sets with associated rpm names by given srpm.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    srpm := "srpm_example" // string | Source package name
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentalApi.AppSRPMPkgNamesHandlerGetGet(context.Background(), srpm).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.AppSRPMPkgNamesHandlerGetGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppSRPMPkgNamesHandlerGetGet`: SRPMPkgNamesResponse
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.AppSRPMPkgNamesHandlerGetGet`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**srpm** | **string** | Source package name | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppSRPMPkgNamesHandlerGetGetRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**srpm** | **string**| Source package name | 
 
 ### Return type
 
-[**SRPMPkgNamesResponse**](SRPMPkgNamesResponse.md)
+[**SrpmPkgNamesResponse**](SRPMPkgNamesResponse.md)
 
 ### Authorization
 
@@ -219,55 +124,32 @@ No authorization required
 
 ## AppSRPMPkgNamesHandlerPostPost
 
-> SRPMPkgNamesResponse AppSRPMPkgNamesHandlerPostPost(ctx).SRPMPkgNamesRequest(sRPMPkgNamesRequest).Execute()
+> SrpmPkgNamesResponse AppSRPMPkgNamesHandlerPostPost(ctx, optional)
 
 
 
+List of content sets with associated rpm names by given srpm and content set.
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    sRPMPkgNamesRequest := *openapiclient.NewSRPMPkgNamesRequest([]string{"SrpmNameList_example")) // SRPMPkgNamesRequest |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentalApi.AppSRPMPkgNamesHandlerPostPost(context.Background()).SRPMPkgNamesRequest(sRPMPkgNamesRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.AppSRPMPkgNamesHandlerPostPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AppSRPMPkgNamesHandlerPostPost`: SRPMPkgNamesResponse
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.AppSRPMPkgNamesHandlerPostPost`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAppSRPMPkgNamesHandlerPostPostRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sRPMPkgNamesRequest** | [**SRPMPkgNamesRequest**](SRPMPkgNamesRequest.md) |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AppSRPMPkgNamesHandlerPostPostOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AppSRPMPkgNamesHandlerPostPostOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **srpmPkgNamesRequest** | [**optional.Interface of SrpmPkgNamesRequest**](SrpmPkgNamesRequest.md)|  | 
 
 ### Return type
 
-[**SRPMPkgNamesResponse**](SRPMPkgNamesResponse.md)
+[**SrpmPkgNamesResponse**](SRPMPkgNamesResponse.md)
 
 ### Authorization
 

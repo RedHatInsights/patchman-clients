@@ -1292,7 +1292,7 @@ components:
         - host:
             fqdn: my.host.example.com
             satellite_id: 3f01b55457674041b75e41829bcee1dc
-            created: created
+            created: 2000-01-23T04:56:07.000+00:00
             ip_addresses:
             - 10.10.0.1
             - 10.0.0.2
@@ -1310,12 +1310,12 @@ components:
                 fact2: value2
             subscription_manager_id: 3f01b55457674041b75e41829bcee1dc
             ansible_host: host1.mydomain.com
-            culled_timestamp: culled_timestamp
+            culled_timestamp: 2000-01-23T04:56:07.000+00:00
             insights_id: 3f01b55457674041b75e41829bcee1dc
-            stale_warning_timestamp: stale_warning_timestamp
+            stale_warning_timestamp: 2000-01-23T04:56:07.000+00:00
             id: 3f01b55457674041b75e41829bcee1dc
-            stale_timestamp: stale_timestamp
-            updated: updated
+            stale_timestamp: 2000-01-23T04:56:07.000+00:00
+            updated: 2000-01-23T04:56:07.000+00:00
             account: "000102"
             mac_addresses:
             - c2:00:d0:c8:61:01
@@ -1327,7 +1327,7 @@ components:
         - host:
             fqdn: my.host.example.com
             satellite_id: 3f01b55457674041b75e41829bcee1dc
-            created: created
+            created: 2000-01-23T04:56:07.000+00:00
             ip_addresses:
             - 10.10.0.1
             - 10.0.0.2
@@ -1345,12 +1345,12 @@ components:
                 fact2: value2
             subscription_manager_id: 3f01b55457674041b75e41829bcee1dc
             ansible_host: host1.mydomain.com
-            culled_timestamp: culled_timestamp
+            culled_timestamp: 2000-01-23T04:56:07.000+00:00
             insights_id: 3f01b55457674041b75e41829bcee1dc
-            stale_warning_timestamp: stale_warning_timestamp
+            stale_warning_timestamp: 2000-01-23T04:56:07.000+00:00
             id: 3f01b55457674041b75e41829bcee1dc
-            stale_timestamp: stale_timestamp
-            updated: updated
+            stale_timestamp: 2000-01-23T04:56:07.000+00:00
+            updated: 2000-01-23T04:56:07.000+00:00
             account: "000102"
             mac_addresses:
             - c2:00:d0:c8:61:01
@@ -1378,7 +1378,7 @@ components:
         host:
           fqdn: my.host.example.com
           satellite_id: 3f01b55457674041b75e41829bcee1dc
-          created: created
+          created: 2000-01-23T04:56:07.000+00:00
           ip_addresses:
           - 10.10.0.1
           - 10.0.0.2
@@ -1396,12 +1396,12 @@ components:
               fact2: value2
           subscription_manager_id: 3f01b55457674041b75e41829bcee1dc
           ansible_host: host1.mydomain.com
-          culled_timestamp: culled_timestamp
+          culled_timestamp: 2000-01-23T04:56:07.000+00:00
           insights_id: 3f01b55457674041b75e41829bcee1dc
-          stale_warning_timestamp: stale_warning_timestamp
+          stale_warning_timestamp: 2000-01-23T04:56:07.000+00:00
           id: 3f01b55457674041b75e41829bcee1dc
-          stale_timestamp: stale_timestamp
-          updated: updated
+          stale_timestamp: 2000-01-23T04:56:07.000+00:00
+          updated: 2000-01-23T04:56:07.000+00:00
           account: "000102"
           mac_addresses:
           - c2:00:d0:c8:61:01
@@ -1507,7 +1507,7 @@ components:
           enabled_services:
           - enabled_services
           - enabled_services
-          last_boot_time: last_boot_time
+          last_boot_time: 2000-01-23T04:56:07.000+00:00
           number_of_sockets: 5
           sap_instance_number: "42"
           running_processes:
@@ -1586,7 +1586,7 @@ components:
         subscription_manager_id: 3f01b55457674041b75e41829bcee1dc
         ansible_host: host1.mydomain.com
         insights_id: 3f01b55457674041b75e41829bcee1dc
-        stale_timestamp: stale_timestamp
+        stale_timestamp: 2000-01-23T04:56:07.000+00:00
         account: "000102"
         mac_addresses:
         - c2:00:d0:c8:61:01
@@ -1663,7 +1663,7 @@ components:
           type: string
         stale_timestamp:
           description: Timestamp from which the host is considered stale.
-          format: '-'
+          format: date-time
           type: string
         subscription_manager_id:
           description: A Red Hat Subcription Manager ID of a RHEL host.  This field
@@ -1684,7 +1684,7 @@ components:
       example:
         fqdn: my.host.example.com
         satellite_id: 3f01b55457674041b75e41829bcee1dc
-        created: created
+        created: 2000-01-23T04:56:07.000+00:00
         ip_addresses:
         - 10.10.0.1
         - 10.0.0.2
@@ -1702,12 +1702,12 @@ components:
             fact2: value2
         subscription_manager_id: 3f01b55457674041b75e41829bcee1dc
         ansible_host: host1.mydomain.com
-        culled_timestamp: culled_timestamp
+        culled_timestamp: 2000-01-23T04:56:07.000+00:00
         insights_id: 3f01b55457674041b75e41829bcee1dc
-        stale_warning_timestamp: stale_warning_timestamp
+        stale_warning_timestamp: 2000-01-23T04:56:07.000+00:00
         id: 3f01b55457674041b75e41829bcee1dc
-        stale_timestamp: stale_timestamp
-        updated: updated
+        stale_timestamp: 2000-01-23T04:56:07.000+00:00
+        updated: 2000-01-23T04:56:07.000+00:00
         account: "000102"
         mac_addresses:
         - c2:00:d0:c8:61:01
@@ -1731,11 +1731,11 @@ components:
           type: string
         created:
           description: A timestamp when the entry was created.
-          format: '-'
+          format: date-time
           type: string
         culled_timestamp:
           description: Timestamp from which the host is considered deleted.
-          format: '-'
+          format: date-time
           nullable: true
           type: string
         display_name:
@@ -1809,13 +1809,13 @@ components:
           type: string
         stale_timestamp:
           description: Timestamp from which the host is considered stale.
-          format: '-'
+          format: date-time
           nullable: true
           type: string
         stale_warning_timestamp:
           description: Timestamp from which the host is considered too stale to be
             listed without an explicit toggle.
-          format: '-'
+          format: date-time
           nullable: true
           type: string
         subscription_manager_id:
@@ -1826,7 +1826,7 @@ components:
           type: string
         updated:
           description: A timestamp when the entry was last updated.
-          format: '-'
+          format: date-time
           type: string
       required:
       - account
@@ -1960,7 +1960,7 @@ components:
           enabled_services:
           - enabled_services
           - enabled_services
-          last_boot_time: last_boot_time
+          last_boot_time: 2000-01-23T04:56:07.000+00:00
           number_of_sockets: 5
           sap_instance_number: "42"
           running_processes:
@@ -2117,7 +2117,7 @@ components:
         enabled_services:
         - enabled_services
         - enabled_services
-        last_boot_time: last_boot_time
+        last_boot_time: 2000-01-23T04:56:07.000+00:00
         number_of_sockets: 5
         sap_instance_number: "42"
         running_processes:
@@ -2251,7 +2251,7 @@ components:
             type: string
           type: array
         last_boot_time:
-          format: '-'
+          format: date-time
           maxLength: 50
           type: string
         network_interfaces:
@@ -2398,7 +2398,7 @@ components:
             enabled_services:
             - enabled_services
             - enabled_services
-            last_boot_time: last_boot_time
+            last_boot_time: 2000-01-23T04:56:07.000+00:00
             number_of_sockets: 5
             sap_instance_number: "42"
             running_processes:
@@ -2509,7 +2509,7 @@ components:
             enabled_services:
             - enabled_services
             - enabled_services
-            last_boot_time: last_boot_time
+            last_boot_time: 2000-01-23T04:56:07.000+00:00
             number_of_sockets: 5
             sap_instance_number: "42"
             running_processes:
@@ -2695,8 +2695,6 @@ components:
       required:
       - count
       - tag
-      title: ActiveTag
-      type: object
     HostOut_allOf:
       properties:
         facts:
@@ -2704,7 +2702,6 @@ components:
           items:
             $ref: '#/components/schemas/FactSet'
           type: array
-      type: object
     SystemProfile_disk_devices:
       description: Representation of one mounted device
       example:
@@ -2740,7 +2737,6 @@ components:
           example: ext3
           maxLength: 256
           type: string
-      type: object
     SystemProfile_dnf_modules:
       description: Representation of one DNF module
       example:
@@ -2753,7 +2749,6 @@ components:
         stream:
           maxLength: 2048
           type: string
-      type: object
     SystemProfile_installed_products:
       description: Representation of one installed product
       example:
@@ -2774,7 +2769,6 @@ components:
           example: Subscribed
           maxLength: 256
           type: string
-      type: object
     SystemProfile_network_interfaces:
       description: Representation of one network interface
       example:
@@ -2828,7 +2822,6 @@ components:
           example: ether
           maxLength: 18
           type: string
-      type: object
     SystemProfile_yum_repos:
       description: Representation of one yum repository
       example:
@@ -2852,7 +2845,6 @@ components:
         name:
           maxLength: 1024
           type: string
-      type: object
     SystemProfileSapSystemOut_results:
       example:
         count: 6
@@ -2862,7 +2854,6 @@ components:
           type: integer
         value:
           type: string
-      type: object
   securitySchemes:
     ApiKeyAuth:
       description: 'Base64-encoded JSON identity header provided by 3Scale. Contains
