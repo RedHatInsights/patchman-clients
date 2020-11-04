@@ -11,63 +11,34 @@ Method | HTTP request | Description
 
 ## ApiSystemProfileGetSapSids
 
-> SystemProfileSapSystemOut ApiSystemProfileGetSapSids(ctx).Search(search).Tags(tags).PerPage(perPage).Page(page).Staleness(staleness).RegisteredWith(registeredWith).Filter(filter).Execute()
+> SystemProfileSapSystemOut ApiSystemProfileGetSapSids(ctx, optional)
 
 get sap system values
 
+Required permissions: inventory:hosts:read
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    search := "search_example" // string | Only include tags that match the given search string. The value is matched against namespace, key and value. (optional)
-    tags := []string{"Inner_example"} // []string | filters out hosts not tagged by the given tags (optional)
-    perPage := 987 // int32 | A number of items to return per page. (optional) (default to 50)
-    page := 987 // int32 | A page number of the items to return. (optional) (default to 1)
-    staleness := []string{"Staleness_example"} // []string | Culling states of the hosts. Default: fresh,stale,unknown (optional) (default to ["fresh","stale","unknown"])
-    registeredWith := "registeredWith_example" // string | Filters out any host not registered with the specified service (optional)
-    filter := TODO // map[string]interface{} | Filters hosts based on system_profile fields (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SapSystemApi.ApiSystemProfileGetSapSids(context.Background()).Search(search).Tags(tags).PerPage(perPage).Page(page).Staleness(staleness).RegisteredWith(registeredWith).Filter(filter).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SapSystemApi.ApiSystemProfileGetSapSids``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ApiSystemProfileGetSapSids`: SystemProfileSapSystemOut
-    fmt.Fprintf(os.Stdout, "Response from `SapSystemApi.ApiSystemProfileGetSapSids`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiApiSystemProfileGetSapSidsRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **string** | Only include tags that match the given search string. The value is matched against namespace, key and value. | 
- **tags** | [**[]string**](string.md) | filters out hosts not tagged by the given tags | 
- **perPage** | **int32** | A number of items to return per page. | [default to 50]
- **page** | **int32** | A page number of the items to return. | [default to 1]
- **staleness** | [**[]string**](string.md) | Culling states of the hosts. Default: fresh,stale,unknown | [default to [&quot;fresh&quot;,&quot;stale&quot;,&quot;unknown&quot;]]
- **registeredWith** | **string** | Filters out any host not registered with the specified service | 
- **filter** | [**map[string]interface{}**](.md) | Filters hosts based on system_profile fields | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***ApiSystemProfileGetSapSidsOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a ApiSystemProfileGetSapSidsOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **search** | **optional.String**| Only include tags that match the given search string. The value is matched against namespace, key and value. | 
+ **tags** | [**optional.Interface of []string**](string.md)| filters out hosts not tagged by the given tags | 
+ **perPage** | **optional.Int32**| A number of items to return per page. | [default to 50]
+ **page** | **optional.Int32**| A page number of the items to return. | [default to 1]
+ **staleness** | [**optional.Interface of []string**](string.md)| Culling states of the hosts. Default: fresh,stale,unknown | [default to [&quot;fresh&quot;,&quot;stale&quot;,&quot;unknown&quot;]]
+ **registeredWith** | **optional.String**| Filters out any host not registered with the specified service | 
+ **filter** | [**optional.Interface of map[string]interface{}**](.md)| Filters hosts based on system_profile fields | 
 
 ### Return type
 
@@ -89,61 +60,33 @@ Name | Type | Description  | Notes
 
 ## ApiSystemProfileGetSapSystem
 
-> SystemProfileSapSystemOut ApiSystemProfileGetSapSystem(ctx).Tags(tags).PerPage(perPage).Page(page).Staleness(staleness).RegisteredWith(registeredWith).Filter(filter).Execute()
+> SystemProfileSapSystemOut ApiSystemProfileGetSapSystem(ctx, optional)
 
 get sap system values
 
+Required permissions: inventory:hosts:read
 
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    tags := []string{"Inner_example"} // []string | filters out hosts not tagged by the given tags (optional)
-    perPage := 987 // int32 | A number of items to return per page. (optional) (default to 50)
-    page := 987 // int32 | A page number of the items to return. (optional) (default to 1)
-    staleness := []string{"Staleness_example"} // []string | Culling states of the hosts. Default: fresh,stale,unknown (optional) (default to ["fresh","stale","unknown"])
-    registeredWith := "registeredWith_example" // string | Filters out any host not registered with the specified service (optional)
-    filter := TODO // map[string]interface{} | Filters hosts based on system_profile fields (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SapSystemApi.ApiSystemProfileGetSapSystem(context.Background()).Tags(tags).PerPage(perPage).Page(page).Staleness(staleness).RegisteredWith(registeredWith).Filter(filter).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SapSystemApi.ApiSystemProfileGetSapSystem``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ApiSystemProfileGetSapSystem`: SystemProfileSapSystemOut
-    fmt.Fprintf(os.Stdout, "Response from `SapSystemApi.ApiSystemProfileGetSapSystem`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiApiSystemProfileGetSapSystemRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tags** | [**[]string**](string.md) | filters out hosts not tagged by the given tags | 
- **perPage** | **int32** | A number of items to return per page. | [default to 50]
- **page** | **int32** | A page number of the items to return. | [default to 1]
- **staleness** | [**[]string**](string.md) | Culling states of the hosts. Default: fresh,stale,unknown | [default to [&quot;fresh&quot;,&quot;stale&quot;,&quot;unknown&quot;]]
- **registeredWith** | **string** | Filters out any host not registered with the specified service | 
- **filter** | [**map[string]interface{}**](.md) | Filters hosts based on system_profile fields | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***ApiSystemProfileGetSapSystemOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a ApiSystemProfileGetSapSystemOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tags** | [**optional.Interface of []string**](string.md)| filters out hosts not tagged by the given tags | 
+ **perPage** | **optional.Int32**| A number of items to return per page. | [default to 50]
+ **page** | **optional.Int32**| A page number of the items to return. | [default to 1]
+ **staleness** | [**optional.Interface of []string**](string.md)| Culling states of the hosts. Default: fresh,stale,unknown | [default to [&quot;fresh&quot;,&quot;stale&quot;,&quot;unknown&quot;]]
+ **registeredWith** | **optional.String**| Filters out any host not registered with the specified service | 
+ **filter** | [**optional.Interface of map[string]interface{}**](.md)| Filters hosts based on system_profile fields | 
 
 ### Return type
 

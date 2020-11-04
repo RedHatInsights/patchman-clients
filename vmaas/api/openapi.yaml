@@ -1274,13 +1274,6 @@ components:
             type: string
           type: array
     SRPMPkgNamesRequest:
-      example:
-        srpm_name_list:
-        - openssl
-        - openssl
-        content_set_list:
-        - rhel-7-desktop-rpms
-        - rhel-7-desktop-rpms
       properties:
         srpm_name_list:
           items:
@@ -1316,13 +1309,6 @@ components:
             type: object
           type: object
     RPMPkgNamesRequest:
-      example:
-        rpm_name_list:
-        - openssl-libs
-        - openssl-libs
-        content_set_list:
-        - rhel-7-desktop-rpms
-        - rhel-7-desktop-rpms
       properties:
         rpm_name_list:
           items:
@@ -1368,7 +1354,6 @@ components:
       required:
       - module_name
       - module_stream
-      type: object
     UpdatesResponse_available_updates:
       example:
         erratum: RHSA-2018:0512
@@ -1392,7 +1377,6 @@ components:
         package:
           example: kernel-2.6.32-696.23.1.el6.x86_64
           type: string
-      type: object
     UpdatesResponse_update_list:
       example:
         summary: package summary
@@ -1419,7 +1403,6 @@ components:
         summary:
           example: package summary
           type: string
-      type: object
     UpdatesV2Response_update_list:
       example:
         available_updates:
@@ -1438,7 +1421,6 @@ components:
           items:
             $ref: '#/components/schemas/UpdatesResponse_available_updates'
           type: array
-      type: object
     CvesResponse_cve_list:
       example:
         source_package_list:
@@ -1528,7 +1510,6 @@ components:
             example: nss-devel-3.16.1-9.el6_5.src
             type: string
           type: array
-      type: object
     ErrataResponse_errata_list:
       example:
         severity: Low
@@ -1615,7 +1596,6 @@ components:
         type:
           example: security
           type: string
-      type: object
     PackagesResponse_repositories:
       example:
         name: Red Hat Enterprise Linux 6 Server (RPMs)
@@ -1635,7 +1615,6 @@ components:
         releasever:
           example: "6.9"
           type: string
-      type: object
     PackagesResponse_package_list:
       example:
         summary: package summary
@@ -1672,7 +1651,6 @@ components:
           items:
             $ref: '#/components/schemas/PackagesResponse_repositories'
           type: array
-      type: object
     DBChangeResponse_dbchange:
       example:
         errata_changes: 2018-04-16 20:07:58.500192+00
@@ -1696,7 +1674,6 @@ components:
         exported:
           example: 2018-04-16 20:07:59.235962+00
           type: string
-      type: object
 x-format-resps:
   "400":
     description: Invalid input json format
