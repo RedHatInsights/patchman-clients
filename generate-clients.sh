@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONTAINER=openapitools/openapi-generator-cli:latest
+CONTAINER=openapitools/openapi-generator-cli:v4.3.1
 CONTAINER_TOOL=$([ -x /usr/bin/podman ] && echo podman || echo docker)
 
 if [ -n "$1" ] ; then
@@ -22,7 +22,7 @@ function filter_oneof() {
     sed -i 's|"type": {"oneOf": \[{"type": "string", "example": "security"}, {"type": "array", "items": {"type": "string", "example": "security"}}\]},|"type": {"type": "array", "items": {"type": "string", "example": "security"}},|;
             s|"severity": {"oneOf": \[{"type": "string", "enum": \["Low", "Moderate", "Important", "Critical", null\], "nullable": true}, {"type": "array", "items": {"type": "string", "enum": \["Low", "Moderate", "Important", "Critical", null\], "nullable": true}}\]}},| "severity": {"type": "array", "items": {"type": "string", "enum": \["Low", "Moderate", "Important", "Critical", null\], "nullable": true}}},|;
             s|"items":{"oneOf":\[{"properties":{"count":{"type":"integer"},"value":{"type":"string"}},"type":"object"},{"properties":{"count":{"type":"integer"},"value":{"type":"boolean"}},"type":"object"}\]},|"items":{"properties":{"count":{"type":"integer"},"value":{"type":"string"}},"type":"object"},|;
-            s|"format":"date-time"|"format":"-"|g;
+            s|"items":{"oneOf":\[{"properties":{"count":{"type":"integer"},"value":{"type":"string"}},"type":"object"},{"properties":{"count":{"type":"integer"},"value":{"type":"boolean"}},"type":"object"}\]},"type":"array"},|"items":{"properties":{"count":{"type":"integer"},"value":{"type":"string"}},"type":"object"},|;
             ' $1
 }
 
@@ -37,7 +37,8 @@ function generate_client() {
 
   HERE=$(pwd)
   # remove old code and doc
-  find "$HERE/$NAME" -name '*.go' -o -name '*.md' -print0 | xargs -0 rm -f
+  find "$HERE/$NAME" -name client_test.go -prune -o \( -name '*.go' -o -name '*.md' \) -print0 \
+        | xargs -0 rm -f
 
   $CONTAINER_TOOL run --rm -v ${HERE}:/local:z --security-opt=label=disable $CONTAINER generate \
       -i "/local/$LOCAL_JSON" \
