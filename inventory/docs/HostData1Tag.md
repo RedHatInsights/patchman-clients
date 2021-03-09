@@ -1,11 +1,12 @@
-# HostSystemProfileOut
+# HostData1Tag
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | [optional] 
-**SystemProfile** | [**SystemProfileSpecYamlSystemProfile**](system_profile.spec.yaml_SystemProfile.md) |  | [optional] 
+**Key** | **string** |  | [optional] 
+**Namespace** | Pointer to **string** |  | [optional] 
+**Value** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

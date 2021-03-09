@@ -17,7 +17,7 @@ type SystemProfileByHostOut struct {
 	// A page size – a number of entries per single page.
 	PerPage int32 `json:"per_page"`
 	// Actual host search query result entries.
-	Results []HostSystemProfileOut `json:"results"`
+	Results []map[string]interface{} `json:"results"`
 	// A total count of the found entries.
 	Total int32 `json:"total"`
 }

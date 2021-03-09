@@ -8,10 +8,8 @@
  */
 
 package inventory
-// CreateCheckIn Data required to create a check-in record for a host.
-type CreateCheckIn struct {
-	// How long from now to expect another check-in (in minutes).
-	CheckinFrequency int32 `json:"checkin_frequency,omitempty"`
+// CanonicalFactsIn struct for CanonicalFactsIn
+type CanonicalFactsIn struct {
 	Fqdn string `json:"fqdn"`
 	BiosUuid string `json:"bios_uuid"`
 	ExternalId string `json:"external_id"`

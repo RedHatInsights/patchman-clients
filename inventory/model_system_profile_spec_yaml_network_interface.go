@@ -8,8 +8,8 @@
  */
 
 package inventory
-// SystemProfileNetworkInterfaces Representation of one network interface
-type SystemProfileNetworkInterfaces struct {
+// SystemProfileSpecYamlNetworkInterface Representation of one network interface
+type SystemProfileSpecYamlNetworkInterface struct {
 	Ipv4Addresses []string `json:"ipv4_addresses,omitempty"`
 	Ipv6Addresses []string `json:"ipv6_addresses,omitempty"`
 	// MAC address (with or without colons)

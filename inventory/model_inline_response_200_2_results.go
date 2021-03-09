@@ -8,8 +8,8 @@
  */
 
 package inventory
-// HostOutAllOf struct for HostOutAllOf
-type HostOutAllOf struct {
-	// A set of facts belonging to the host.
-	Facts []map[string]interface{} `json:"facts,omitempty"`
+// InlineResponse2002Results struct for InlineResponse2002Results
+type InlineResponse2002Results struct {
+	Count int32 `json:"count,omitempty"`
+	Value string `json:"value,omitempty"`
 }

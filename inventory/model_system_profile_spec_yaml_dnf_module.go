@@ -8,11 +8,8 @@
  */
 
 package inventory
-// SystemProfileYumRepos Representation of one yum repository
-type SystemProfileYumRepos struct {
-	BaseUrl string `json:"base_url,omitempty"`
-	Enabled bool `json:"enabled,omitempty"`
-	Gpgcheck bool `json:"gpgcheck,omitempty"`
-	Id string `json:"id,omitempty"`
+// SystemProfileSpecYamlDnfModule Representation of one DNF module
+type SystemProfileSpecYamlDnfModule struct {
 	Name string `json:"name,omitempty"`
+	Stream string `json:"stream,omitempty"`
 }

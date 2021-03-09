@@ -11,5 +11,5 @@ package inventory
 // HostSystemProfileOut Individual host record that contains only the host id and system profile
 type HostSystemProfileOut struct {
 	Id string `json:"id,omitempty"`
-	SystemProfile SystemProfile `json:"system_profile,omitempty"`
+	SystemProfile SystemProfileSpecYamlSystemProfile `json:"system_profile,omitempty"`
 }

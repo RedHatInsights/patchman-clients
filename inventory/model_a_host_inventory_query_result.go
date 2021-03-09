@@ -8,8 +8,8 @@
  */
 
 package inventory
-// HostQueryOutput A paginated host search query result with host entries and their Inventory metadata.
-type HostQueryOutput struct {
+// AHostInventoryQueryResult A paginated host search query result with host entries and their Inventory metadata.
+type AHostInventoryQueryResult struct {
 	// A number of entries on the current page.
 	Count int32 `json:"count"`
 	// A current page number.

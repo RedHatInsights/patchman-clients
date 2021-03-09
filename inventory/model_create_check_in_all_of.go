@@ -8,8 +8,8 @@
  */
 
 package inventory
-// SystemProfileDnfModules Representation of one DNF module
-type SystemProfileDnfModules struct {
-	Name string `json:"name,omitempty"`
-	Stream string `json:"stream,omitempty"`
+// CreateCheckInAllOf struct for CreateCheckInAllOf
+type CreateCheckInAllOf struct {
+	// How long from now to expect another check-in (in minutes).
+	CheckinFrequency int32 `json:"checkin_frequency,omitempty"`
 }

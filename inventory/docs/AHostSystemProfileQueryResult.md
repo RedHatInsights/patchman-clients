@@ -1,4 +1,4 @@
-# HostQueryOutput
+# AHostSystemProfileQueryResult
 
 ## Properties
 

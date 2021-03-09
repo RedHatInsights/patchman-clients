@@ -1,10 +1,9 @@
-# CreateCheckIn
+# CanonicalFactsIn
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CheckinFrequency** | **int32** | How long from now to expect another check-in (in minutes). | [optional] 
 **Fqdn** | **string** |  | 
 **BiosUuid** | **string** |  | 
 **ExternalId** | **string** |  | 

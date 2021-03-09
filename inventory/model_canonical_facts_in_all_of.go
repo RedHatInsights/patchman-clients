@@ -8,10 +8,8 @@
  */
 
 package inventory
-// HostOut A database entry representing a single host with its Inventory metadata.
-type HostOut struct {
-	// A set of facts belonging to the host.
-	Facts []map[string]interface{} `json:"facts,omitempty"`
+// CanonicalFactsInAllOf struct for CanonicalFactsInAllOf
+type CanonicalFactsInAllOf struct {
 	// A host’s Fully Qualified Domain Name.  This field is considered to be a canonical fact.
 	Fqdn *string `json:"fqdn,omitempty"`
 	// A UUID of the host machine BIOS.  This field is considered to be a canonical fact.
@@ -30,24 +28,4 @@ type HostOut struct {
 	SatelliteId *string `json:"satellite_id,omitempty"`
 	// A Red Hat Subcription Manager ID of a RHEL host.  This field is considered to be a canonical fact.
 	SubscriptionManagerId *string `json:"subscription_manager_id,omitempty"`
-	// A Red Hat Account number that owns the host.
-	Account string `json:"account"`
-	// The ansible host name for remediations
-	AnsibleHost *string `json:"ansible_host,omitempty"`
-	// A timestamp when the entry was created.
-	Created string `json:"created,omitempty"`
-	// Timestamp from which the host is considered deleted.
-	CulledTimestamp *string `json:"culled_timestamp,omitempty"`
-	// A host’s human-readable display name, e.g. in a form of a domain name.
-	DisplayName *string `json:"display_name,omitempty"`
-	// A durable and reliable platform-wide host identifier. Applications should use this identifier to reference hosts.
-	Id string `json:"id,omitempty"`
-	// Reporting source of the host. Used when updating the stale_timestamp.
-	Reporter *string `json:"reporter,omitempty"`
-	// Timestamp from which the host is considered stale.
-	StaleTimestamp *string `json:"stale_timestamp,omitempty"`
-	// Timestamp from which the host is considered too stale to be listed without an explicit toggle.
-	StaleWarningTimestamp *string `json:"stale_warning_timestamp,omitempty"`
-	// A timestamp when the entry was last updated.
-	Updated string `json:"updated,omitempty"`
 }

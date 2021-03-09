@@ -8,8 +8,8 @@
  */
 
 package inventory
-// SystemProfile Representation of the system profile fields
-type SystemProfile struct {
+// SystemProfileSpecYamlSystemProfile Representation of the system profile fields
+type SystemProfileSpecYamlSystemProfile struct {
 	Arch string `json:"arch,omitempty"`
 	BiosReleaseDate string `json:"bios_release_date,omitempty"`
 	BiosVendor string `json:"bios_vendor,omitempty"`
@@ -18,28 +18,39 @@ type SystemProfile struct {
 	CloudProvider string `json:"cloud_provider,omitempty"`
 	CoresPerSocket int32 `json:"cores_per_socket,omitempty"`
 	CpuFlags []string `json:"cpu_flags,omitempty"`
-	DiskDevices []SystemProfileDiskDevices `json:"disk_devices,omitempty"`
-	DnfModules []SystemProfileDnfModules `json:"dnf_modules,omitempty"`
+	// The cpu model name
+	CpuModel string `json:"cpu_model,omitempty"`
+	DiskDevices []SystemProfileSpecYamlDiskDevice `json:"disk_devices,omitempty"`
+	DnfModules []SystemProfileSpecYamlDnfModule `json:"dnf_modules,omitempty"`
 	EnabledServices []string `json:"enabled_services,omitempty"`
 	InfrastructureType string `json:"infrastructure_type,omitempty"`
 	InfrastructureVendor string `json:"infrastructure_vendor,omitempty"`
 	InsightsClientVersion string `json:"insights_client_version,omitempty"`
 	InsightsEggVersion string `json:"insights_egg_version,omitempty"`
 	InstalledPackages []string `json:"installed_packages,omitempty"`
-	InstalledProducts []SystemProfileInstalledProducts `json:"installed_products,omitempty"`
+	InstalledPackagesDelta []string `json:"installed_packages_delta,omitempty"`
+	InstalledProducts []SystemProfileSpecYamlInstalledProduct `json:"installed_products,omitempty"`
 	InstalledServices []string `json:"installed_services,omitempty"`
+	// Indicates whether the host is part of a marketplace install from AWS, Azure, etc.
+	IsMarketplace bool `json:"is_marketplace,omitempty"`
 	KatelloAgentRunning bool `json:"katello_agent_running,omitempty"`
 	KernelModules []string `json:"kernel_modules,omitempty"`
 	LastBootTime string `json:"last_boot_time,omitempty"`
-	NetworkInterfaces []SystemProfileNetworkInterfaces `json:"network_interfaces,omitempty"`
+	NetworkInterfaces []SystemProfileSpecYamlNetworkInterface `json:"network_interfaces,omitempty"`
 	NumberOfCpus int32 `json:"number_of_cpus,omitempty"`
 	NumberOfSockets int32 `json:"number_of_sockets,omitempty"`
+	OperatingSystem SystemProfileSpecYamlSystemProfileOperatingSystem `json:"operating_system,omitempty"`
+	// The kernel version represented with a three, optionally four, number scheme.
 	OsKernelVersion string `json:"os_kernel_version,omitempty"`
 	OsRelease string `json:"os_release,omitempty"`
+	// A UUID associated with the host's RHSM certificate
+	OwnerId string `json:"owner_id,omitempty"`
+	// A UUID associated with a cloud_connector
+	RhcClientId string `json:"rhc_client_id,omitempty"`
+	Rhsm SystemProfileSpecYamlSystemProfileRhsm `json:"rhsm,omitempty"`
 	RunningProcesses []string `json:"running_processes,omitempty"`
-	// The instance number of the SAP HANA system
+	// The instance number of the SAP HANA system (a two-digit number between 00 and 99)
 	SapInstanceNumber string `json:"sap_instance_number,omitempty"`
-	// List of SAP SIDs
 	SapSids []string `json:"sap_sids,omitempty"`
 	// Indicates if SAP is installed on the system
 	SapSystem bool `json:"sap_system,omitempty"`
@@ -55,5 +66,5 @@ type SystemProfile struct {
 	SystemMemoryBytes int64 `json:"system_memory_bytes,omitempty"`
 	// Current profile resulting from command tuned-adm active
 	TunedProfile string `json:"tuned_profile,omitempty"`
-	YumRepos []SystemProfileYumRepos `json:"yum_repos,omitempty"`
+	YumRepos []SystemProfileSpecYamlYumRepo `json:"yum_repos,omitempty"`
 }

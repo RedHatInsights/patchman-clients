@@ -1,4 +1,4 @@
-# SystemProfileNetworkInterfaces
+# SystemProfileSpecYamlNetworkInterface
 
 ## Properties
 

@@ -8,15 +8,15 @@
  */
 
 package inventory
-// SystemProfileDiskDevices Representation of one mounted device
-type SystemProfileDiskDevices struct {
+// SystemProfileSpecYamlDiskDevice Representation of one mounted device
+type SystemProfileSpecYamlDiskDevice struct {
 	Device string `json:"device,omitempty"`
 	// User-defined mount label
 	Label string `json:"label,omitempty"`
 	// The mount point
 	MountPoint string `json:"mount_point,omitempty"`
-	// Mount options for nested object
-	Options map[string]interface{} `json:"options,omitempty"`
+	// An arbitrary object that does not allow empty string keys.
+	Options map[string]map[string]interface{} `json:"options,omitempty"`
 	// The mount type
 	Type string `json:"type,omitempty"`
 }

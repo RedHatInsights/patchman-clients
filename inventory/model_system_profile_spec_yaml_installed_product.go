@@ -8,8 +8,8 @@
  */
 
 package inventory
-// SystemProfileInstalledProducts Representation of one installed product
-type SystemProfileInstalledProducts struct {
+// SystemProfileSpecYamlInstalledProduct Representation of one installed product
+type SystemProfileSpecYamlInstalledProduct struct {
 	// The product ID
 	Id string `json:"id,omitempty"`
 	Name string `json:"name,omitempty"`
