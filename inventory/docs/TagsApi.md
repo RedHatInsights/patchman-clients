@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ApiTagGetTags
 
-> ActiveTags ApiTagGetTags(ctx, optional)
+> HostData1 ApiTagGetTags(ctx, optional)
 
 Get the active host tags for a given account
 
@@ -43,7 +43,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ActiveTags**](ActiveTags.md)
+[**HostData1**](Host_data_1.md)
 
 ### Authorization
 

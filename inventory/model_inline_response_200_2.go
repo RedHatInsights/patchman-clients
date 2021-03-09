@@ -8,8 +8,8 @@
  */
 
 package inventory
-// SystemProfileSapSystemOut struct for SystemProfileSapSystemOut
-type SystemProfileSapSystemOut struct {
+// InlineResponse2002 struct for InlineResponse2002
+type InlineResponse2002 struct {
 	// The number of items on the current page
 	Count int32 `json:"count,omitempty"`
 	// The list of sap_system values on the account

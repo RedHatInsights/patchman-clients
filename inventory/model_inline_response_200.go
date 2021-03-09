@@ -8,8 +8,8 @@
  */
 
 package inventory
-// TagsOut struct for TagsOut
-type TagsOut struct {
+// InlineResponse200 struct for InlineResponse200
+type InlineResponse200 struct {
 	// A number of entries on the current page.
 	Count int32 `json:"count,omitempty"`
 	// A current page number.

@@ -48,6 +48,8 @@ type APIClient struct {
 
 	// API Services
 
+	DefaultApi *DefaultApiService
+
 	HostsApi *HostsApiService
 
 	SapSystemApi *SapSystemApiService
@@ -71,6 +73,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
+	c.DefaultApi = (*DefaultApiService)(&c.common)
 	c.HostsApi = (*HostsApiService)(&c.common)
 	c.SapSystemApi = (*SapSystemApiService)(&c.common)
 	c.TagsApi = (*TagsApiService)(&c.common)

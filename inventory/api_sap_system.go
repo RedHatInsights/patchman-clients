@@ -49,16 +49,16 @@ Required permissions: inventory:hosts:read
  * @param "Staleness" (optional.Interface of []string) -  Culling states of the hosts. Default: fresh,stale,unknown
  * @param "RegisteredWith" (optional.String) -  Filters out any host not registered with the specified service
  * @param "Filter" (optional.Interface of map[string]interface{}) -  Filters hosts based on system_profile fields
-@return SystemProfileSapSystemOut
+@return InlineResponse2002
 */
-func (a *SapSystemApiService) ApiSystemProfileGetSapSids(ctx _context.Context, localVarOptionals *ApiSystemProfileGetSapSidsOpts) (SystemProfileSapSystemOut, *_nethttp.Response, error) {
+func (a *SapSystemApiService) ApiSystemProfileGetSapSids(ctx _context.Context, localVarOptionals *ApiSystemProfileGetSapSidsOpts) (InlineResponse2002, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SystemProfileSapSystemOut
+		localVarReturnValue  InlineResponse2002
 	)
 
 	// create path and map variables
@@ -190,16 +190,16 @@ Required permissions: inventory:hosts:read
  * @param "Staleness" (optional.Interface of []string) -  Culling states of the hosts. Default: fresh,stale,unknown
  * @param "RegisteredWith" (optional.String) -  Filters out any host not registered with the specified service
  * @param "Filter" (optional.Interface of map[string]interface{}) -  Filters hosts based on system_profile fields
-@return SystemProfileSapSystemOut
+@return InlineResponse2002
 */
-func (a *SapSystemApiService) ApiSystemProfileGetSapSystem(ctx _context.Context, localVarOptionals *ApiSystemProfileGetSapSystemOpts) (SystemProfileSapSystemOut, *_nethttp.Response, error) {
+func (a *SapSystemApiService) ApiSystemProfileGetSapSystem(ctx _context.Context, localVarOptionals *ApiSystemProfileGetSapSystemOpts) (InlineResponse2002, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SystemProfileSapSystemOut
+		localVarReturnValue  InlineResponse2002
 	)
 
 	// create path and map variables

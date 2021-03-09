@@ -4,52 +4,17 @@ All URIs are relative to *http://localhost/api/inventory/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ApiHostAddHostList**](HostsApi.md#ApiHostAddHostList) | **Post** /hosts | Create/update multiple host and add them to the host list
 [**ApiHostDeleteById**](HostsApi.md#ApiHostDeleteById) | **Delete** /hosts/{host_id_list} | Delete hosts by IDs
 [**ApiHostGetHostById**](HostsApi.md#ApiHostGetHostById) | **Get** /hosts/{host_id_list} | Find hosts by their IDs
 [**ApiHostGetHostList**](HostsApi.md#ApiHostGetHostList) | **Get** /hosts | Read the entire list of hosts
 [**ApiHostGetHostSystemProfileById**](HostsApi.md#ApiHostGetHostSystemProfileById) | **Get** /hosts/{host_id_list}/system_profile | Return one or more hosts system profile
 [**ApiHostGetHostTagCount**](HostsApi.md#ApiHostGetHostTagCount) | **Get** /hosts/{host_id_list}/tags/count | Get the number of tags on a host
 [**ApiHostGetHostTags**](HostsApi.md#ApiHostGetHostTags) | **Get** /hosts/{host_id_list}/tags | Get the tags on a host
-[**ApiHostHostCheckin**](HostsApi.md#ApiHostHostCheckin) | **Put** /hosts/checkin | Update staleness timestamps for a host matching the provided facts
+[**ApiHostHostCheckin**](HostsApi.md#ApiHostHostCheckin) | **Post** /hosts/checkin | Update staleness timestamps for a host matching the provided facts
 [**ApiHostMergeFacts**](HostsApi.md#ApiHostMergeFacts) | **Patch** /hosts/{host_id_list}/facts/{namespace} | Merge facts under a namespace
 [**ApiHostPatchById**](HostsApi.md#ApiHostPatchById) | **Patch** /hosts/{host_id_list} | Update a host
 [**ApiHostReplaceFacts**](HostsApi.md#ApiHostReplaceFacts) | **Put** /hosts/{host_id_list}/facts/{namespace} | Replace facts under a namespace
 
-
-
-## ApiHostAddHostList
-
-> BulkHostOut ApiHostAddHostList(ctx, createHostIn)
-
-Create/update multiple host and add them to the host list
-
-Create a new host and add it to the host list or update an existing hosts. A host is updated if there is already one with the same canonicals facts and belonging to the same account. <br /><br /> Required permissions: inventory:hosts:write <br /><br /> NOTICE: This operation is deprecated. The explicit creation of hosts is no longer supported. Hosts are created automatically based on uploads processed by the [payload ingress service](/docs/api/ingress#operations-default-post_upload) instead.
-
-### Required Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**createHostIn** | [**[]CreateHostIn**](CreateHostIn.md)| A list of host objects to be added to the host list | 
-
-### Return type
-
-[**BulkHostOut**](BulkHostOut.md)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## ApiHostDeleteById
@@ -99,7 +64,7 @@ Name | Type | Description  | Notes
 
 ## ApiHostGetHostById
 
-> HostQueryOutput ApiHostGetHostById(ctx, hostIdList, optional)
+> AHostInventoryQueryResult ApiHostGetHostById(ctx, hostIdList, optional)
 
 Find hosts by their IDs
 
@@ -130,7 +95,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**HostQueryOutput**](HostQueryOutput.md)
+[**AHostInventoryQueryResult**](A_Host_Inventory_query_result.md)
 
 ### Authorization
 
@@ -148,7 +113,7 @@ Name | Type | Description  | Notes
 
 ## ApiHostGetHostList
 
-> HostQueryOutput ApiHostGetHostList(ctx, optional)
+> AHostInventoryQueryResult ApiHostGetHostList(ctx, optional)
 
 Read the entire list of hosts
 
@@ -185,7 +150,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**HostQueryOutput**](HostQueryOutput.md)
+[**AHostInventoryQueryResult**](A_Host_Inventory_query_result.md)
 
 ### Authorization
 
@@ -203,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## ApiHostGetHostSystemProfileById
 
-> SystemProfileByHostOut ApiHostGetHostSystemProfileById(ctx, hostIdList, optional)
+> AHostSystemProfileQueryResult ApiHostGetHostSystemProfileById(ctx, hostIdList, optional)
 
 Return one or more hosts system profile
 
@@ -231,10 +196,11 @@ Name | Type | Description  | Notes
  **orderBy** | **optional.String**| Ordering field name | 
  **orderHow** | **optional.String**| Direction of the ordering, defaults to ASC for display_name and to DESC for updated | 
  **branchId** | **optional.String**| Filter by branch_id | 
+ **fields** | [**optional.Interface of map[string]interface{}**](.md)| Fetches only mentioned system_profile fields | 
 
 ### Return type
 
-[**SystemProfileByHostOut**](SystemProfileByHostOut.md)
+[**AHostSystemProfileQueryResult**](A_host_system_profile_query_result.md)
 
 ### Authorization
 
@@ -252,7 +218,7 @@ Name | Type | Description  | Notes
 
 ## ApiHostGetHostTagCount
 
-> TagCountOut ApiHostGetHostTagCount(ctx, hostIdList, optional)
+> InlineResponse2001 ApiHostGetHostTagCount(ctx, hostIdList, optional)
 
 Get the number of tags on a host
 
@@ -282,7 +248,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TagCountOut**](TagCountOut.md)
+[**InlineResponse2001**](inline_response_200_1.md)
 
 ### Authorization
 
@@ -300,7 +266,7 @@ Name | Type | Description  | Notes
 
 ## ApiHostGetHostTags
 
-> TagsOut ApiHostGetHostTags(ctx, hostIdList, optional)
+> InlineResponse200 ApiHostGetHostTags(ctx, hostIdList, optional)
 
 Get the tags on a host
 
@@ -331,7 +297,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TagsOut**](TagsOut.md)
+[**InlineResponse200**](inline_response_200.md)
 
 ### Authorization
 
@@ -349,7 +315,7 @@ Name | Type | Description  | Notes
 
 ## ApiHostHostCheckin
 
-> BulkHostOut ApiHostHostCheckin(ctx, createCheckIn)
+> map[string]interface{} ApiHostHostCheckin(ctx, uNKNOWNBASETYPE)
 
 Update staleness timestamps for a host matching the provided facts
 
@@ -361,11 +327,11 @@ Finds a host and updates its staleness timestamps. It uses the supplied canonica
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**createCheckIn** | [**CreateCheckIn**](CreateCheckIn.md)| A list of host objects to be added to the host list | 
+**uNKNOWNBASETYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md)| Data required to create a check-in record for a host. | 
 
 ### Return type
 
-[**BulkHostOut**](BulkHostOut.md)
+**map[string]interface{}**
 
 ### Authorization
 
@@ -432,7 +398,7 @@ Name | Type | Description  | Notes
 
 ## ApiHostPatchById
 
-> ApiHostPatchById(ctx, hostIdList, patchHostIn, optional)
+> ApiHostPatchById(ctx, hostIdList, hostData, optional)
 
 Update a host
 
@@ -445,7 +411,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **hostIdList** | [**[]string**](string.md)| A comma separated list of host IDs. | 
-**patchHostIn** | [**PatchHostIn**](PatchHostIn.md)| A group of fields to be updated on the host | 
+**hostData** | [**HostData**](HostData.md)|  | 
  **optional** | ***ApiHostPatchByIdOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters

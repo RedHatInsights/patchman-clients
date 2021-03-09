@@ -8,8 +8,8 @@
  */
 
 package inventory
-// SystemProfileSapSystemOutResults struct for SystemProfileSapSystemOutResults
-type SystemProfileSapSystemOutResults struct {
-	Count int32 `json:"count,omitempty"`
-	Value string `json:"value,omitempty"`
+// SystemProfileSpecYamlSystemProfileRhsm Object for subscription-manager details
+type SystemProfileSpecYamlSystemProfileRhsm struct {
+	// System release set by subscription-manager
+	Version string `json:"version,omitempty"`
 }

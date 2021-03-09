@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## ApiSystemProfileGetSapSids
 
-> SystemProfileSapSystemOut ApiSystemProfileGetSapSids(ctx, optional)
+> InlineResponse2002 ApiSystemProfileGetSapSids(ctx, optional)
 
 get sap system values
 
@@ -42,7 +42,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SystemProfileSapSystemOut**](SystemProfileSapSystemOut.md)
+[**InlineResponse2002**](inline_response_200_2.md)
 
 ### Authorization
 
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ## ApiSystemProfileGetSapSystem
 
-> SystemProfileSapSystemOut ApiSystemProfileGetSapSystem(ctx, optional)
+> InlineResponse2002 ApiSystemProfileGetSapSystem(ctx, optional)
 
 get sap system values
 
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SystemProfileSapSystemOut**](SystemProfileSapSystemOut.md)
+[**InlineResponse2002**](inline_response_200_2.md)
 
 ### Authorization
 

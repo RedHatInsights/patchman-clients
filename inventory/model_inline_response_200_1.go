@@ -8,8 +8,8 @@
  */
 
 package inventory
-// TagsOut struct for TagsOut
-type TagsOut struct {
+// InlineResponse2001 struct for InlineResponse2001
+type InlineResponse2001 struct {
 	// A number of entries on the current page.
 	Count int32 `json:"count,omitempty"`
 	// A current page number.
@@ -17,7 +17,7 @@ type TagsOut struct {
 	// A page size – a number of entries per single page.
 	PerPage int32 `json:"per_page,omitempty"`
 	// The list of tags on the systems
-	Results map[string][]map[string]interface{} `json:"results,omitempty"`
+	Results map[string]int32 `json:"results,omitempty"`
 	// Total number of items in the \"data\" list.
 	Total int32 `json:"total,omitempty"`
 }

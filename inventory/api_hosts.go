@@ -27,96 +27,6 @@ var (
 // HostsApiService HostsApi service
 type HostsApiService service
 
-/*
-ApiHostAddHostList Create/update multiple host and add them to the host list
-Create a new host and add it to the host list or update an existing hosts. A host is updated if there is already one with the same canonicals facts and belonging to the same account. &lt;br /&gt;&lt;br /&gt; Required permissions: inventory:hosts:write &lt;br /&gt;&lt;br /&gt; NOTICE: This operation is deprecated. The explicit creation of hosts is no longer supported. Hosts are created automatically based on uploads processed by the [payload ingress service](/docs/api/ingress#operations-default-post_upload) instead.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param createHostIn A list of host objects to be added to the host list
-@return BulkHostOut
-*/
-func (a *HostsApiService) ApiHostAddHostList(ctx _context.Context, createHostIn []CreateHostIn) (BulkHostOut, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  BulkHostOut
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/hosts"
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = &createHostIn
-	if ctx != nil {
-		// API Key Authentication
-		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
-			var key string
-			if auth.Prefix != "" {
-				key = auth.Prefix + " " + auth.Key
-			} else {
-				key = auth.Key
-			}
-			localVarHeaderParams["x-rh-identity"] = key
-		}
-	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 // ApiHostDeleteByIdOpts Optional parameters for the method 'ApiHostDeleteById'
 type ApiHostDeleteByIdOpts struct {
     BranchId optional.String
@@ -226,16 +136,16 @@ Find one or more hosts by their ID. &lt;br /&gt;&lt;br /&gt; Required permission
  * @param "Page" (optional.Int32) -  A page number of the items to return.
  * @param "OrderBy" (optional.String) -  Ordering field name
  * @param "OrderHow" (optional.String) -  Direction of the ordering, defaults to ASC for display_name and to DESC for updated
-@return HostQueryOutput
+@return AHostInventoryQueryResult
 */
-func (a *HostsApiService) ApiHostGetHostById(ctx _context.Context, hostIdList []string, localVarOptionals *ApiHostGetHostByIdOpts) (HostQueryOutput, *_nethttp.Response, error) {
+func (a *HostsApiService) ApiHostGetHostById(ctx _context.Context, hostIdList []string, localVarOptionals *ApiHostGetHostByIdOpts) (AHostInventoryQueryResult, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  HostQueryOutput
+		localVarReturnValue  AHostInventoryQueryResult
 	)
 
 	// create path and map variables
@@ -361,16 +271,16 @@ Read the entire list of all hosts available to the account. &lt;br /&gt;&lt;br /
  * @param "Tags" (optional.Interface of []string) -  filters out hosts not tagged by the given tags
  * @param "RegisteredWith" (optional.String) -  Filters out any host not registered with the specified service
  * @param "Filter" (optional.Interface of map[string]interface{}) -  Filters hosts based on system_profile fields
-@return HostQueryOutput
+@return AHostInventoryQueryResult
 */
-func (a *HostsApiService) ApiHostGetHostList(ctx _context.Context, localVarOptionals *ApiHostGetHostListOpts) (HostQueryOutput, *_nethttp.Response, error) {
+func (a *HostsApiService) ApiHostGetHostList(ctx _context.Context, localVarOptionals *ApiHostGetHostListOpts) (AHostInventoryQueryResult, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  HostQueryOutput
+		localVarReturnValue  AHostInventoryQueryResult
 	)
 
 	// create path and map variables
@@ -506,6 +416,7 @@ type ApiHostGetHostSystemProfileByIdOpts struct {
     OrderBy optional.String
     OrderHow optional.String
     BranchId optional.String
+    Fields optional.Interface
 }
 
 /*
@@ -519,16 +430,17 @@ Find one or more hosts by their ID and return the id and system profile &lt;br /
  * @param "OrderBy" (optional.String) -  Ordering field name
  * @param "OrderHow" (optional.String) -  Direction of the ordering, defaults to ASC for display_name and to DESC for updated
  * @param "BranchId" (optional.String) -  Filter by branch_id
-@return SystemProfileByHostOut
+ * @param "Fields" (optional.Interface of map[string]interface{}) -  Fetches only mentioned system_profile fields
+@return AHostSystemProfileQueryResult
 */
-func (a *HostsApiService) ApiHostGetHostSystemProfileById(ctx _context.Context, hostIdList []string, localVarOptionals *ApiHostGetHostSystemProfileByIdOpts) (SystemProfileByHostOut, *_nethttp.Response, error) {
+func (a *HostsApiService) ApiHostGetHostSystemProfileById(ctx _context.Context, hostIdList []string, localVarOptionals *ApiHostGetHostSystemProfileByIdOpts) (AHostSystemProfileQueryResult, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SystemProfileByHostOut
+		localVarReturnValue  AHostSystemProfileQueryResult
 	)
 
 	// create path and map variables
@@ -553,6 +465,9 @@ func (a *HostsApiService) ApiHostGetHostSystemProfileById(ctx _context.Context, 
 	}
 	if localVarOptionals != nil && localVarOptionals.BranchId.IsSet() {
 		localVarQueryParams.Add("branch_id", parameterToString(localVarOptionals.BranchId.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Fields.IsSet() {
+		localVarQueryParams.Add("fields", parameterToString(localVarOptionals.Fields.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -637,16 +552,16 @@ Get the number of tags on a host &lt;br /&gt;&lt;br /&gt; Required permissions: 
  * @param "Page" (optional.Int32) -  A page number of the items to return.
  * @param "OrderBy" (optional.String) -  Ordering field name
  * @param "OrderHow" (optional.String) -  Direction of the ordering, defaults to ASC for display_name and to DESC for updated
-@return TagCountOut
+@return InlineResponse2001
 */
-func (a *HostsApiService) ApiHostGetHostTagCount(ctx _context.Context, hostIdList []string, localVarOptionals *ApiHostGetHostTagCountOpts) (TagCountOut, *_nethttp.Response, error) {
+func (a *HostsApiService) ApiHostGetHostTagCount(ctx _context.Context, hostIdList []string, localVarOptionals *ApiHostGetHostTagCountOpts) (InlineResponse2001, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  TagCountOut
+		localVarReturnValue  InlineResponse2001
 	)
 
 	// create path and map variables
@@ -754,16 +669,16 @@ Get the tags on a host &lt;br /&gt;&lt;br /&gt; Required permissions: inventory:
  * @param "OrderBy" (optional.String) -  Ordering field name
  * @param "OrderHow" (optional.String) -  Direction of the ordering, defaults to ASC for display_name and to DESC for updated
  * @param "Search" (optional.String) -  Only include tags that match the given search string. The value is matched against namespace, key and value.
-@return TagsOut
+@return InlineResponse200
 */
-func (a *HostsApiService) ApiHostGetHostTags(ctx _context.Context, hostIdList []string, localVarOptionals *ApiHostGetHostTagsOpts) (TagsOut, *_nethttp.Response, error) {
+func (a *HostsApiService) ApiHostGetHostTags(ctx _context.Context, hostIdList []string, localVarOptionals *ApiHostGetHostTagsOpts) (InlineResponse200, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  TagsOut
+		localVarReturnValue  InlineResponse200
 	)
 
 	// create path and map variables
@@ -858,17 +773,17 @@ func (a *HostsApiService) ApiHostGetHostTags(ctx _context.Context, hostIdList []
 ApiHostHostCheckin Update staleness timestamps for a host matching the provided facts
 Finds a host and updates its staleness timestamps. It uses the supplied canonical facts to determine which host to update. By default, the staleness timestamp is set to 1 hour from when the request is received; however, this can be overridden by supplying the interval. &lt;br /&gt;&lt;br /&gt; Required permissions: inventory:hosts:write
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param createCheckIn A list of host objects to be added to the host list
-@return BulkHostOut
+ * @param createCheckIn Data required to create a check-in record for a host.
+@return map[string]interface{}
 */
-func (a *HostsApiService) ApiHostHostCheckin(ctx _context.Context, createCheckIn CreateCheckIn) (BulkHostOut, *_nethttp.Response, error) {
+func (a *HostsApiService) ApiHostHostCheckin(ctx _context.Context, createCheckIn CreateCheckIn) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  BulkHostOut
+		localVarReturnValue  map[string]interface{}
 	)
 
 	// create path and map variables
@@ -1049,11 +964,11 @@ ApiHostPatchById Update a host
 Update a host &lt;br /&gt;&lt;br /&gt; Required permissions: inventory:hosts:write
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param hostIdList A comma separated list of host IDs.
- * @param patchHostIn A group of fields to be updated on the host
+ * @param hostData
  * @param optional nil or *ApiHostPatchByIdOpts - Optional Parameters:
  * @param "BranchId" (optional.String) -  Filter by branch_id
 */
-func (a *HostsApiService) ApiHostPatchById(ctx _context.Context, hostIdList []string, patchHostIn PatchHostIn, localVarOptionals *ApiHostPatchByIdOpts) (*_nethttp.Response, error) {
+func (a *HostsApiService) ApiHostPatchById(ctx _context.Context, hostIdList []string, hostData HostData, localVarOptionals *ApiHostPatchByIdOpts) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -1091,7 +1006,7 @@ func (a *HostsApiService) ApiHostPatchById(ctx _context.Context, hostIdList []st
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &patchHostIn
+	localVarPostBody = &hostData
 	if ctx != nil {
 		// API Key Authentication
 		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {

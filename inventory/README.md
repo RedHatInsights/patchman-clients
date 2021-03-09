@@ -32,14 +32,14 @@ All URIs are relative to *http://localhost/api/inventory/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*HostsApi* | [**ApiHostAddHostList**](docs/HostsApi.md#apihostaddhostlist) | **Post** /hosts | Create/update multiple host and add them to the host list
+*DefaultApi* | [**ApiSystemProfileValidateSchema**](docs/DefaultApi.md#apisystemprofilevalidateschema) | **Post** /system_profile/validate_schema | validate system profile schema
 *HostsApi* | [**ApiHostDeleteById**](docs/HostsApi.md#apihostdeletebyid) | **Delete** /hosts/{host_id_list} | Delete hosts by IDs
 *HostsApi* | [**ApiHostGetHostById**](docs/HostsApi.md#apihostgethostbyid) | **Get** /hosts/{host_id_list} | Find hosts by their IDs
 *HostsApi* | [**ApiHostGetHostList**](docs/HostsApi.md#apihostgethostlist) | **Get** /hosts | Read the entire list of hosts
 *HostsApi* | [**ApiHostGetHostSystemProfileById**](docs/HostsApi.md#apihostgethostsystemprofilebyid) | **Get** /hosts/{host_id_list}/system_profile | Return one or more hosts system profile
 *HostsApi* | [**ApiHostGetHostTagCount**](docs/HostsApi.md#apihostgethosttagcount) | **Get** /hosts/{host_id_list}/tags/count | Get the number of tags on a host
 *HostsApi* | [**ApiHostGetHostTags**](docs/HostsApi.md#apihostgethosttags) | **Get** /hosts/{host_id_list}/tags | Get the tags on a host
-*HostsApi* | [**ApiHostHostCheckin**](docs/HostsApi.md#apihosthostcheckin) | **Put** /hosts/checkin | Update staleness timestamps for a host matching the provided facts
+*HostsApi* | [**ApiHostHostCheckin**](docs/HostsApi.md#apihosthostcheckin) | **Post** /hosts/checkin | Update staleness timestamps for a host matching the provided facts
 *HostsApi* | [**ApiHostMergeFacts**](docs/HostsApi.md#apihostmergefacts) | **Patch** /hosts/{host_id_list}/facts/{namespace} | Merge facts under a namespace
 *HostsApi* | [**ApiHostPatchById**](docs/HostsApi.md#apihostpatchbyid) | **Patch** /hosts/{host_id_list} | Update a host
 *HostsApi* | [**ApiHostReplaceFacts**](docs/HostsApi.md#apihostreplacefacts) | **Put** /hosts/{host_id_list}/facts/{namespace} | Replace facts under a namespace
@@ -50,29 +50,42 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AHostInventoryQueryResult](docs/AHostInventoryQueryResult.md)
+ - [AHostSystemProfileQueryResult](docs/AHostSystemProfileQueryResult.md)
  - [ActiveTag](docs/ActiveTag.md)
  - [ActiveTags](docs/ActiveTags.md)
- - [BulkHostOut](docs/BulkHostOut.md)
- - [BulkHostOutDetails](docs/BulkHostOutDetails.md)
+ - [CanonicalFactsIn](docs/CanonicalFactsIn.md)
+ - [CanonicalFactsInAllOf](docs/CanonicalFactsInAllOf.md)
+ - [CanonicalFactsInAllOf1](docs/CanonicalFactsInAllOf1.md)
+ - [CanonicalFactsOut](docs/CanonicalFactsOut.md)
  - [CreateCheckIn](docs/CreateCheckIn.md)
- - [CreateHostIn](docs/CreateHostIn.md)
+ - [CreateCheckInAllOf](docs/CreateCheckInAllOf.md)
  - [CreateHostOut](docs/CreateHostOut.md)
+ - [CreateHostOutAllOf](docs/CreateHostOutAllOf.md)
  - [FactSet](docs/FactSet.md)
+ - [HostData](docs/HostData.md)
+ - [HostData1](docs/HostData1.md)
+ - [HostData1Tag](docs/HostData1Tag.md)
  - [HostOut](docs/HostOut.md)
  - [HostOutAllOf](docs/HostOutAllOf.md)
  - [HostQueryOutput](docs/HostQueryOutput.md)
  - [HostSystemProfileOut](docs/HostSystemProfileOut.md)
+ - [InlineResponse200](docs/InlineResponse200.md)
+ - [InlineResponse2001](docs/InlineResponse2001.md)
+ - [InlineResponse2002](docs/InlineResponse2002.md)
+ - [InlineResponse2002Results](docs/InlineResponse2002Results.md)
  - [PatchHostIn](docs/PatchHostIn.md)
  - [StructuredTag](docs/StructuredTag.md)
- - [SystemProfile](docs/SystemProfile.md)
  - [SystemProfileByHostOut](docs/SystemProfileByHostOut.md)
- - [SystemProfileDiskDevices](docs/SystemProfileDiskDevices.md)
- - [SystemProfileDnfModules](docs/SystemProfileDnfModules.md)
- - [SystemProfileInstalledProducts](docs/SystemProfileInstalledProducts.md)
- - [SystemProfileNetworkInterfaces](docs/SystemProfileNetworkInterfaces.md)
  - [SystemProfileSapSystemOut](docs/SystemProfileSapSystemOut.md)
- - [SystemProfileSapSystemOutResults](docs/SystemProfileSapSystemOutResults.md)
- - [SystemProfileYumRepos](docs/SystemProfileYumRepos.md)
+ - [SystemProfileSpecYamlDiskDevice](docs/SystemProfileSpecYamlDiskDevice.md)
+ - [SystemProfileSpecYamlDnfModule](docs/SystemProfileSpecYamlDnfModule.md)
+ - [SystemProfileSpecYamlInstalledProduct](docs/SystemProfileSpecYamlInstalledProduct.md)
+ - [SystemProfileSpecYamlNetworkInterface](docs/SystemProfileSpecYamlNetworkInterface.md)
+ - [SystemProfileSpecYamlSystemProfile](docs/SystemProfileSpecYamlSystemProfile.md)
+ - [SystemProfileSpecYamlSystemProfileOperatingSystem](docs/SystemProfileSpecYamlSystemProfileOperatingSystem.md)
+ - [SystemProfileSpecYamlSystemProfileRhsm](docs/SystemProfileSpecYamlSystemProfileRhsm.md)
+ - [SystemProfileSpecYamlYumRepo](docs/SystemProfileSpecYamlYumRepo.md)
  - [TagCountOut](docs/TagCountOut.md)
  - [TagsOut](docs/TagsOut.md)
 

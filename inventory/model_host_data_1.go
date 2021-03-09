@@ -8,12 +8,15 @@
  */
 
 package inventory
-// SystemProfileSapSystemOut struct for SystemProfileSapSystemOut
-type SystemProfileSapSystemOut struct {
+// HostData1 struct for HostData1
+type HostData1 struct {
 	// The number of items on the current page
-	Count int32 `json:"count,omitempty"`
-	// The list of sap_system values on the account
-	Results []InlineResponse2002Results `json:"results,omitempty"`
+	Count int32 `json:"count"`
+	// The page number
+	Page int32 `json:"page"`
+	// The number of items to return per page
+	PerPage int32 `json:"per_page"`
+	Results []ActiveTag `json:"results"`
 	// Total number of items
-	Total int32 `json:"total,omitempty"`
+	Total int32 `json:"total"`
 }

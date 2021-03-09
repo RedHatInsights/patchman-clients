@@ -53,16 +53,16 @@ Required permissions: inventory:hosts:read
  * @param "Search" (optional.String) -  Only include tags that match the given search string. The value is matched against namespace, key and value.
  * @param "RegisteredWith" (optional.String) -  Filters out any host not registered with the specified service
  * @param "Filter" (optional.Interface of map[string]interface{}) -  Filters hosts based on system_profile fields
-@return ActiveTags
+@return HostData1
 */
-func (a *TagsApiService) ApiTagGetTags(ctx _context.Context, localVarOptionals *ApiTagGetTagsOpts) (ActiveTags, *_nethttp.Response, error) {
+func (a *TagsApiService) ApiTagGetTags(ctx _context.Context, localVarOptionals *ApiTagGetTagsOpts) (HostData1, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  ActiveTags
+		localVarReturnValue  HostData1
 	)
 
 	// create path and map variables
