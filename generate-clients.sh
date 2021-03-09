@@ -49,6 +49,10 @@ function generate_client() {
       --git-host "github.com" --git-user-id RedHatInsights --git-repo-id patchman-clients \
       --type-mappings DateTime=string \
       -o /local/$NAME
+
+    if [ "$NAME" == "inventory" ] ; then
+        sed -i 's/uNKNOWNBASETYPE/createCheckIn/g; s/UNKNOWN_BASE_TYPE/CreateCheckIn/g;' $NAME/api_hosts.go
+    fi
 }
 
 
