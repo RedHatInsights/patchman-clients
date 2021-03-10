@@ -10,31 +10,55 @@ Method | HTTP request | Description
 
 ## ApiSystemProfileValidateSchema
 
-> ApiSystemProfileValidateSchema(ctx, repoBranch, optional)
+> ApiSystemProfileValidateSchema(ctx).RepoBranch(repoBranch).RepoFork(repoFork).Days(days).MaxMessages(maxMessages).Execute()
 
 validate system profile schema
 
-Required permissions: inventory:hosts:read
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    repoBranch := "repoBranch_example" // string | The branch of the inventory-schemas repo to use
+    repoFork := "repoFork_example" // string | The fork of the inventory-schemas repo to use (optional)
+    days := int32(56) // int32 | How many days worth of data to validate (optional)
+    maxMessages := int32(56) // int32 | Stops polling when this number of messages has been collected (optional) (default to 10000)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ApiSystemProfileValidateSchema(context.Background()).RepoBranch(repoBranch).RepoFork(repoFork).Days(days).MaxMessages(maxMessages).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ApiSystemProfileValidateSchema``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiApiSystemProfileValidateSchemaRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**repoBranch** | **string**| The branch of the inventory-schemas repo to use | 
- **optional** | ***ApiSystemProfileValidateSchemaOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ApiSystemProfileValidateSchemaOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **repoFork** | **optional.String**| The fork of the inventory-schemas repo to use | 
- **days** | **optional.Int32**| How many days worth of kafka messages to validate | 
+ **repoBranch** | **string** | The branch of the inventory-schemas repo to use | 
+ **repoFork** | **string** | The fork of the inventory-schemas repo to use | 
+ **days** | **int32** | How many days worth of data to validate | 
+ **maxMessages** | **int32** | Stops polling when this number of messages has been collected | [default to 10000]
 
 ### Return type
 
