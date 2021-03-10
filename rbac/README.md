@@ -17,13 +17,59 @@ Install the following dependencies:
 go get github.com/stretchr/testify/assert
 go get golang.org/x/oauth2
 go get golang.org/x/net/context
-go get github.com/antihax/optional
 ```
 
 Put the package under your project folder and add the following in import:
 
 ```golang
-import "./rbac"
+import sw "./rbac"
+```
+
+To use a proxy, set the environment variable `HTTP_PROXY`:
+
+```golang
+os.Setenv("HTTP_PROXY", "http://proxy_name:proxy_port")
+```
+
+## Configuration of Server URL
+
+Default configuration comes with `Servers` field that contains server objects as defined in the OpenAPI specification.
+
+### Select Server Configuration
+
+For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
+
+```golang
+ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
+```
+
+### Templated Server URL
+
+Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
+
+```golang
+ctx := context.WithValue(context.Background(), sw.ContextServerVariables, map[string]string{
+	"basePath": "v2",
+})
+```
+
+Note, enum values are always validated and all unused variables are silently ignored.
+
+### URLs Configuration per Operation
+
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identifield by `"{classname}Service.{nickname}"` string.
+Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```
+ctx := context.WithValue(context.Background(), sw.ContextOperationServerIndices, map[string]int{
+	"{classname}Service.{nickname}": 2,
+})
+ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables, map[string]map[string]string{
+	"{classname}Service.{nickname}": {
+		"port": "8443",
+	},
+})
 ```
 
 ## Documentation for API Endpoints
@@ -33,6 +79,11 @@ All URIs are relative to *http://localhost/api/rbac/v1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AccessApi* | [**GetPrincipalAccess**](docs/AccessApi.md#getprincipalaccess) | **Get** /access/ | Get the permitted access for a principal in the tenant (defaults to principal from the identity header)
+*CrossAccountRequestApi* | [**CreateCrossAccountRequests**](docs/CrossAccountRequestApi.md#createcrossaccountrequests) | **Post** /cross-account-requests/ | Create a cross account request
+*CrossAccountRequestApi* | [**GetCrossAccountRequest**](docs/CrossAccountRequestApi.md#getcrossaccountrequest) | **Get** /cross-account-requests/{uuid}/ | Get a cross account request
+*CrossAccountRequestApi* | [**ListCrossAccountRequests**](docs/CrossAccountRequestApi.md#listcrossaccountrequests) | **Get** /cross-account-requests/ | List the cross account requests for a user or account
+*CrossAccountRequestApi* | [**PatchCrossAccountRequest**](docs/CrossAccountRequestApi.md#patchcrossaccountrequest) | **Patch** /cross-account-requests/{uuid}/ | Update a cross account request
+*CrossAccountRequestApi* | [**PutCrossAccountRequest**](docs/CrossAccountRequestApi.md#putcrossaccountrequest) | **Put** /cross-account-requests/{uuid}/ | Update a cross account request
 *GroupApi* | [**AddPrincipalToGroup**](docs/GroupApi.md#addprincipaltogroup) | **Post** /groups/{uuid}/principals/ | Add a principal to a group in the tenant
 *GroupApi* | [**AddRoleToGroup**](docs/GroupApi.md#addroletogroup) | **Post** /groups/{uuid}/roles/ | Add a role to a group in the tenant
 *GroupApi* | [**CreateGroup**](docs/GroupApi.md#creategroup) | **Post** /groups/ | Create a group in a tenant
@@ -57,6 +108,7 @@ Class | Method | HTTP request | Description
 *RoleApi* | [**GetRole**](docs/RoleApi.md#getrole) | **Get** /roles/{uuid}/ | Get a role in the tenant
 *RoleApi* | [**GetRoleAccess**](docs/RoleApi.md#getroleaccess) | **Get** /roles/{uuid}/access/ | Get access for a role in the tenant
 *RoleApi* | [**ListRoles**](docs/RoleApi.md#listroles) | **Get** /roles/ | List the roles for a tenant
+*RoleApi* | [**PatchRole**](docs/RoleApi.md#patchrole) | **Patch** /roles/{uuid}/ | Patch a Role in the tenant
 *RoleApi* | [**UpdateRole**](docs/RoleApi.md#updaterole) | **Put** /roles/{uuid}/ | Update a Role in the tenant
 *StatusApi* | [**GetStatus**](docs/StatusApi.md#getstatus) | **Get** /status/ | Obtain server status
 
@@ -67,6 +119,23 @@ Class | Method | HTTP request | Description
  - [AccessPagination](docs/AccessPagination.md)
  - [AccessPaginationAllOf](docs/AccessPaginationAllOf.md)
  - [AdditionalGroup](docs/AdditionalGroup.md)
+ - [CrossAccountRequest](docs/CrossAccountRequest.md)
+ - [CrossAccountRequestByAccount](docs/CrossAccountRequestByAccount.md)
+ - [CrossAccountRequestByAccountAllOf](docs/CrossAccountRequestByAccountAllOf.md)
+ - [CrossAccountRequestByUserId](docs/CrossAccountRequestByUserId.md)
+ - [CrossAccountRequestByUserIdAllOf](docs/CrossAccountRequestByUserIdAllOf.md)
+ - [CrossAccountRequestDetailByAccount](docs/CrossAccountRequestDetailByAccount.md)
+ - [CrossAccountRequestDetailByAccountAllOf](docs/CrossAccountRequestDetailByAccountAllOf.md)
+ - [CrossAccountRequestDetailByUseId](docs/CrossAccountRequestDetailByUseId.md)
+ - [CrossAccountRequestDetailByUseIdAllOf](docs/CrossAccountRequestDetailByUseIdAllOf.md)
+ - [CrossAccountRequestIn](docs/CrossAccountRequestIn.md)
+ - [CrossAccountRequestOut](docs/CrossAccountRequestOut.md)
+ - [CrossAccountRequestPagination](docs/CrossAccountRequestPagination.md)
+ - [CrossAccountRequestPaginationAllOf](docs/CrossAccountRequestPaginationAllOf.md)
+ - [CrossAccountRequestPatch](docs/CrossAccountRequestPatch.md)
+ - [CrossAccountRequestUpdateIn](docs/CrossAccountRequestUpdateIn.md)
+ - [CrossAccountRequestWithRoles](docs/CrossAccountRequestWithRoles.md)
+ - [CrossAccountRequestWithRolesRoles](docs/CrossAccountRequestWithRolesRoles.md)
  - [Error](docs/Error.md)
  - [Error403](docs/Error403.md)
  - [Error403Errors](docs/Error403Errors.md)
@@ -116,17 +185,18 @@ Class | Method | HTTP request | Description
  - [RolePagination](docs/RolePagination.md)
  - [RolePaginationDynamic](docs/RolePaginationDynamic.md)
  - [RolePaginationDynamicAllOf](docs/RolePaginationDynamicAllOf.md)
+ - [RolePatch](docs/RolePatch.md)
  - [RoleWithAccess](docs/RoleWithAccess.md)
  - [Status](docs/Status.md)
  - [Timestamped](docs/Timestamped.md)
- - [Uuid](docs/Uuid.md)
+ - [UUID](docs/UUID.md)
 
 
 ## Documentation For Authorization
 
 
 
-## basic_auth
+### basic_auth
 
 - **Type**: HTTP basic authentication
 
@@ -141,6 +211,21 @@ r, err := client.Service.Operation(auth, args)
 ```
 
 
+## Documentation for Utility Methods
+
+Due to the fact that model structure members are all pointers, this package contains
+a number of utility functions to easily obtain pointers to values of basic types.
+Each of these functions takes a value of the given basic type and returns a pointer to it:
+
+* `PtrBool`
+* `PtrInt`
+* `PtrInt32`
+* `PtrInt64`
+* `PtrFloat`
+* `PtrFloat32`
+* `PtrFloat64`
+* `PtrString`
+* `PtrTime`
 
 ## Author
 
