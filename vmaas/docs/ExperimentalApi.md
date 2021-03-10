@@ -1,35 +1,71 @@
 # \ExperimentalApi
 
-All URIs are relative to *http://localhost/api*
+All URIs are relative to *http://localhost/api/vmaas/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AppRPMPkgNamesHandlerGetGet**](ExperimentalApi.md#AppRPMPkgNamesHandlerGetGet) | **Get** /v1/package_names/rpms/{rpm} | 
-[**AppRPMPkgNamesHandlerPostPost**](ExperimentalApi.md#AppRPMPkgNamesHandlerPostPost) | **Post** /v1/package_names/rpms | 
-[**AppSRPMPkgNamesHandlerGetGet**](ExperimentalApi.md#AppSRPMPkgNamesHandlerGetGet) | **Get** /v1/package_names/srpms/{srpm} | 
-[**AppSRPMPkgNamesHandlerPostPost**](ExperimentalApi.md#AppSRPMPkgNamesHandlerPostPost) | **Post** /v1/package_names/srpms | 
+[**AppRPMPkgNamesHandlerGetGet**](ExperimentalApi.md#AppRPMPkgNamesHandlerGetGet) | **Get** /package_names/rpms/{rpm} | 
+[**AppRPMPkgNamesHandlerPostPost**](ExperimentalApi.md#AppRPMPkgNamesHandlerPostPost) | **Post** /package_names/rpms | 
+[**AppSRPMPkgNamesHandlerGetGet**](ExperimentalApi.md#AppSRPMPkgNamesHandlerGetGet) | **Get** /package_names/srpms/{srpm} | 
+[**AppSRPMPkgNamesHandlerPostPost**](ExperimentalApi.md#AppSRPMPkgNamesHandlerPostPost) | **Post** /package_names/srpms | 
 
 
 
 ## AppRPMPkgNamesHandlerGetGet
 
-> RpmPkgNamesResponse AppRPMPkgNamesHandlerGetGet(ctx, rpm)
+> RPMPkgNamesResponse AppRPMPkgNamesHandlerGetGet(ctx, rpm).Execute()
 
 
 
-List of content sets by given rpm name.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    rpm := ""openssl-libs"" // string | Package name
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ExperimentalApi.AppRPMPkgNamesHandlerGetGet(context.Background(), rpm).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.AppRPMPkgNamesHandlerGetGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AppRPMPkgNamesHandlerGetGet`: RPMPkgNamesResponse
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.AppRPMPkgNamesHandlerGetGet`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**rpm** | **string**| Package name | 
+**rpm** | **string** | Package name | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAppRPMPkgNamesHandlerGetGetRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
-[**RpmPkgNamesResponse**](RPMPkgNamesResponse.md)
+[**RPMPkgNamesResponse**](RPMPkgNamesResponse.md)
 
 ### Authorization
 
@@ -47,32 +83,55 @@ No authorization required
 
 ## AppRPMPkgNamesHandlerPostPost
 
-> RpmPkgNamesResponse AppRPMPkgNamesHandlerPostPost(ctx, optional)
+> RPMPkgNamesResponse AppRPMPkgNamesHandlerPostPost(ctx).RPMPkgNamesRequest(rPMPkgNamesRequest).Execute()
 
 
 
-List of content sets by given rpm name and content set.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    rPMPkgNamesRequest := *openapiclient.NewRPMPkgNamesRequest([]string{"openssl-libs"}) // RPMPkgNamesRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ExperimentalApi.AppRPMPkgNamesHandlerPostPost(context.Background()).RPMPkgNamesRequest(rPMPkgNamesRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.AppRPMPkgNamesHandlerPostPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AppRPMPkgNamesHandlerPostPost`: RPMPkgNamesResponse
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.AppRPMPkgNamesHandlerPostPost`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAppRPMPkgNamesHandlerPostPostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***AppRPMPkgNamesHandlerPostPostOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a AppRPMPkgNamesHandlerPostPostOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **rpmPkgNamesRequest** | [**optional.Interface of RpmPkgNamesRequest**](RpmPkgNamesRequest.md)|  | 
+ **rPMPkgNamesRequest** | [**RPMPkgNamesRequest**](RPMPkgNamesRequest.md) |  | 
 
 ### Return type
 
-[**RpmPkgNamesResponse**](RPMPkgNamesResponse.md)
+[**RPMPkgNamesResponse**](RPMPkgNamesResponse.md)
 
 ### Authorization
 
@@ -90,23 +149,59 @@ No authorization required
 
 ## AppSRPMPkgNamesHandlerGetGet
 
-> SrpmPkgNamesResponse AppSRPMPkgNamesHandlerGetGet(ctx, srpm)
+> SRPMPkgNamesResponse AppSRPMPkgNamesHandlerGetGet(ctx, srpm).Execute()
 
 
 
-List of content sets with associated rpm names by given srpm.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    srpm := ""openssl"" // string | Source package name
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ExperimentalApi.AppSRPMPkgNamesHandlerGetGet(context.Background(), srpm).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.AppSRPMPkgNamesHandlerGetGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AppSRPMPkgNamesHandlerGetGet`: SRPMPkgNamesResponse
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.AppSRPMPkgNamesHandlerGetGet`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**srpm** | **string**| Source package name | 
+**srpm** | **string** | Source package name | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAppSRPMPkgNamesHandlerGetGetRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
-[**SrpmPkgNamesResponse**](SRPMPkgNamesResponse.md)
+[**SRPMPkgNamesResponse**](SRPMPkgNamesResponse.md)
 
 ### Authorization
 
@@ -124,32 +219,55 @@ No authorization required
 
 ## AppSRPMPkgNamesHandlerPostPost
 
-> SrpmPkgNamesResponse AppSRPMPkgNamesHandlerPostPost(ctx, optional)
+> SRPMPkgNamesResponse AppSRPMPkgNamesHandlerPostPost(ctx).SRPMPkgNamesRequest(sRPMPkgNamesRequest).Execute()
 
 
 
-List of content sets with associated rpm names by given srpm and content set.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    sRPMPkgNamesRequest := *openapiclient.NewSRPMPkgNamesRequest([]string{"openssl"}) // SRPMPkgNamesRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ExperimentalApi.AppSRPMPkgNamesHandlerPostPost(context.Background()).SRPMPkgNamesRequest(sRPMPkgNamesRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.AppSRPMPkgNamesHandlerPostPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AppSRPMPkgNamesHandlerPostPost`: SRPMPkgNamesResponse
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.AppSRPMPkgNamesHandlerPostPost`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAppSRPMPkgNamesHandlerPostPostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***AppSRPMPkgNamesHandlerPostPostOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a AppSRPMPkgNamesHandlerPostPostOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **srpmPkgNamesRequest** | [**optional.Interface of SrpmPkgNamesRequest**](SrpmPkgNamesRequest.md)|  | 
+ **sRPMPkgNamesRequest** | [**SRPMPkgNamesRequest**](SRPMPkgNamesRequest.md) |  | 
 
 ### Return type
 
-[**SrpmPkgNamesResponse**](SRPMPkgNamesResponse.md)
+[**SRPMPkgNamesResponse**](SRPMPkgNamesResponse.md)
 
 ### Authorization
 
