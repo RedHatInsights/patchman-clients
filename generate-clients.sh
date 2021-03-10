@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONTAINER=openapitools/openapi-generator-cli:v4.3.1
+CONTAINER=openapitools/openapi-generator-cli:v5.0.1
 CONTAINER_TOOL=$([ -x /usr/bin/podman ] && echo podman || echo docker)
 
 if [ -n "$1" ] ; then
