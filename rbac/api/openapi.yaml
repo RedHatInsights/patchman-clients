@@ -23,7 +23,311 @@ tags:
   name: Access
 - description: Operations about status
   name: Status
+- description: Operations about cross account requests
+  name: CrossAccountRequest
 paths:
+  /cross-account-requests/:
+    get:
+      description: By default, responses are sorted in ascending order by created_at
+      operationId: listCrossAccountRequests
+      parameters:
+      - description: Parameter for selecting the amount of data returned.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: Parameter for selecting the offset of data.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+        style: form
+      - description: Parameter for filtering resource by either a user's ID, or a
+          client's account number. The default value is target_account.
+        explode: true
+        in: query
+        name: query_by
+        required: false
+        schema:
+          enum:
+          - user_id
+          - target_account
+          type: string
+        style: form
+      - description: Parameter for filtering resource by an account number. Value
+          can be a comma-separated list of ids. To be used in tandem with ?query_by=user_id
+          to further filter a user's requests by account number.
+        explode: true
+        in: query
+        name: account
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Parameter for filtering resource which have been approved.
+        explode: true
+        in: query
+        name: approved_only
+        required: false
+        schema:
+          enum:
+          - "true"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrossAccountRequestPagination'
+          description: A paginated list of cross account request objects
+        "401":
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to list cross account requests
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: List the cross account requests for a user or account
+      tags:
+      - CrossAccountRequest
+    post:
+      operationId: createCrossAccountRequests
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrossAccountRequestIn'
+        description: CrossAccountRequest to create
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrossAccountRequestOut'
+          description: An object describing the cross account request
+        "401":
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to create cross account request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Create a cross account request
+      tags:
+      - CrossAccountRequest
+  /cross-account-requests/{uuid}/:
+    get:
+      operationId: getCrossAccountRequest
+      parameters:
+      - description: ID of cross account request to get
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Parameter for filtering resource by either a user's ID, or a
+          client's account number. The default value is target_account.
+        explode: true
+        in: query
+        name: query_by
+        required: false
+        schema:
+          enum:
+          - user_id
+          - target_account
+          type: string
+        style: form
+      - description: Parameter for filtering resource by an account number. Value
+          can be a comma-separated list of ids. To be used in tandem with ?query_by=user_id
+          to further filter a user's requests by account number.
+        explode: true
+        in: query
+        name: account
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Parameter for filtering resource which have been approved.
+        explode: true
+        in: query
+        name: approved_only
+        required: false
+        schema:
+          enum:
+          - "true"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrossAccountRequestDetail'
+          description: A cross account request object
+        "401":
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to get group
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Get a cross account request
+      tags:
+      - CrossAccountRequest
+    patch:
+      description: Update a cross account request
+      operationId: patchCrossAccountRequest
+      parameters:
+      - description: ID of cross account request to get
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrossAccountRequestPatch'
+        description: Updates to CrossAccountRequest
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrossAccountRequestDetail'
+          description: A cross account request object
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrossAccountRequestOut'
+          description: An object describing the cross account request
+        "401":
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to get group
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Update a cross account request
+      tags:
+      - CrossAccountRequest
+    put:
+      description: Update a cross account request
+      operationId: putCrossAccountRequest
+      parameters:
+      - description: ID of cross account request to get
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrossAccountRequestUpdateIn'
+        description: Updates to CrossAccountRequest
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrossAccountRequestDetail'
+          description: A cross account request object
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrossAccountRequestOut'
+          description: An object describing the cross account request
+        "401":
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to get group
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Update a cross account request
+      tags:
+      - CrossAccountRequest
   /status/:
     get:
       operationId: getStatus
@@ -69,15 +373,31 @@ paths:
           minimum: 0
           type: integer
         style: form
-      - description: Usernames of principals to get
+      - description: Parameter for specifying the matching criteria for an object's
+          name or email.
+        explode: true
+        in: query
+        name: match_criteria
+        required: false
+        schema:
+          default: exact
+          enum:
+          - partial
+          - exact
+          type: string
+        style: form
+      - description: Comma separated usernames of principals to get. If match_criteria
+          is specified, only the first username will be picked up for search.
         explode: true
         in: query
         name: usernames
         required: false
         schema:
+          example: userA,userB
           type: string
         style: form
-      - description: The sort order of the query, either ascending or descending
+      - description: The sort order of the query, either ascending or descending.
+          Defaults to ascending.
         explode: true
         in: query
         name: sort_order
@@ -88,7 +408,8 @@ paths:
           - desc
           type: string
         style: form
-      - description: Exact e-mail address of principal to search for
+      - description: E-mail address of principal to search for. Could be combined
+          with match_criteria for searching.
         explode: true
         in: query
         name: email
@@ -121,6 +442,17 @@ paths:
           enum:
           - "true"
           - "false"
+          type: string
+        style: form
+      - description: 'Parameter for ordering principals by value. For inverse ordering,
+          supply ''-'' before the param value, such as: ?order_by=-username'
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          enum:
+          - username
           type: string
         style: form
       responses:
@@ -183,7 +515,7 @@ paths:
           type: string
         style: form
       - description: Parameter for specifying the matching criteria for an object's
-          name.
+          name or display_name.
         explode: true
         in: query
         name: name_match
@@ -247,13 +579,18 @@ paths:
           - any
           type: string
         style: form
-      - description: 'Parameter for ordering resource by value. For inverse ordering,
+      - description: 'Parameter for ordering groups by value. For inverse ordering,
           supply ''-'' before the param value, such as: ?order_by=-name'
         explode: true
         in: query
         name: order_by
         required: false
         schema:
+          enum:
+          - name
+          - modified
+          - principalCount
+          - policyCount
           type: string
         style: form
       responses:
@@ -701,6 +1038,15 @@ paths:
         schema:
           type: string
         style: form
+      - description: Parameter for filtering group roles by role `display_name` using
+          string contains search.
+        explode: true
+        in: query
+        name: role_display_name
+        required: false
+        schema:
+          type: string
+        style: form
       - description: Parameter for filtering group roles by role `description` using
           string contains search.
         explode: true
@@ -709,6 +1055,14 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Parameter for filtering group roles by system flag.
+        explode: true
+        in: query
+        name: role_system
+        required: false
+        schema:
+          type: boolean
         style: form
       - description: Parameter for selecting the amount of data returned.
         explode: true
@@ -731,7 +1085,7 @@ paths:
           minimum: 0
           type: integer
         style: form
-      - description: 'Parameter for ordering resource by value. For inverse ordering,
+      - description: 'Parameter for ordering roles by value. For inverse ordering,
           supply ''-'' before the param value, such as: ?order_by=-name'
         explode: true
         in: query
@@ -740,6 +1094,7 @@ paths:
         schema:
           enum:
           - name
+          - display_name
           - modified
           - policyCount
           type: string
@@ -849,8 +1204,25 @@ paths:
         schema:
           type: string
         style: form
+      - description: Parameter for filtering resource by system flag.
+        explode: true
+        in: query
+        name: system
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Parameter for filtering resource by display_name using string
+          contains search.
+        explode: true
+        in: query
+        name: display_name
+        required: false
+        schema:
+          type: string
+        style: form
       - description: Parameter for specifying the matching criteria for an object's
-          name.
+          name or display_name.
         explode: true
         in: query
         name: name_match
@@ -873,13 +1245,18 @@ paths:
           - principal
           type: string
         style: form
-      - description: 'Parameter for ordering resource by value. For inverse ordering,
+      - description: 'Parameter for ordering roles by value. For inverse ordering,
           supply ''-'' before the param value, such as: ?order_by=-name'
         explode: true
         in: query
         name: order_by
         required: false
         schema:
+          enum:
+          - name
+          - display_name
+          - modified
+          - policyCount
           type: string
         style: form
       - description: Parameter for add list of fields to display for roles.
@@ -1073,6 +1450,54 @@ paths:
       summary: Get a role in the tenant
       tags:
       - Role
+    patch:
+      operationId: patchRole
+      parameters:
+      - description: ID of role to update
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RolePatch'
+        description: Patch to a Role
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleWithAccess'
+          description: Role patched
+        "401":
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error403'
+          description: Insufficient permissions to patch role
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected Error
+      summary: Patch a Role in the tenant
+      tags:
+      - Role
     put:
       operationId: updateRole
       parameters:
@@ -1248,13 +1673,16 @@ paths:
           format: uuid
           type: string
         style: form
-      - description: 'Parameter for ordering resource by value. For inverse ordering,
+      - description: 'Parameter for ordering policies by value. For inverse ordering,
           supply ''-'' before the param value, such as: ?order_by=-name'
         explode: true
         in: query
         name: order_by
         required: false
         schema:
+          enum:
+          - name
+          - modified
           type: string
         style: form
       responses:
@@ -1513,13 +1941,18 @@ paths:
           minimum: 0
           type: integer
         style: form
-      - description: 'Parameter for ordering resource by value. For inverse ordering,
-          supply ''-'' before the param value, such as: ?order_by=-name'
+      - description: 'Parameter for ordering permissions by value. For inverse ordering,
+          supply ''-'' before the param value, such as: ?order_by=-application'
         explode: true
         in: query
         name: order_by
         required: false
         schema:
+          enum:
+          - application
+          - resource_type
+          - verb
+          - permission
           type: string
         style: form
       - description: Exact match for the application name of a permission. You may
@@ -1721,6 +2154,15 @@ components:
       schema:
         type: string
       style: form
+    SystemFilter:
+      description: Parameter for filtering resource by system flag.
+      explode: true
+      in: query
+      name: system
+      required: false
+      schema:
+        type: boolean
+      style: form
     GroupNameFilter:
       description: Parameter for filtering resource by group name using string contains
         search.
@@ -1742,16 +2184,6 @@ components:
         format: uuid
         type: string
       style: form
-    OrderByFilter:
-      description: 'Parameter for ordering resource by value. For inverse ordering,
-        supply ''-'' before the param value, such as: ?order_by=-name'
-      explode: true
-      in: query
-      name: order_by
-      required: false
-      schema:
-        type: string
-      style: form
     ScopeFilter:
       description: Parameter for filtering resource by scope.
       explode: true
@@ -1767,7 +2199,7 @@ components:
       style: form
     NameMatchCriteria:
       description: Parameter for specifying the matching criteria for an object's
-        name.
+        name or display_name.
       explode: true
       in: query
       name: name_match
@@ -1978,6 +2410,168 @@ components:
       allOf:
       - $ref: '#/components/schemas/ListPagination'
       - $ref: '#/components/schemas/GroupPagination_allOf'
+    CrossAccountRequestDetail:
+      $ref: '#/components/schemas/CrossAccountRequestDetailByAccount'
+    CrossAccountRequestDetailByAccount:
+      allOf:
+      - $ref: '#/components/schemas/CrossAccountRequestWithRoles'
+      - $ref: '#/components/schemas/CrossAccountRequestDetailByAccount_allOf'
+    CrossAccountRequestDetailByUseId:
+      allOf:
+      - $ref: '#/components/schemas/CrossAccountRequestWithRoles'
+      - $ref: '#/components/schemas/CrossAccountRequestDetailByUseId_allOf'
+    CrossAccountRequestPagination:
+      allOf:
+      - $ref: '#/components/schemas/ListPagination'
+      - $ref: '#/components/schemas/CrossAccountRequestPagination_allOf'
+    CrossAccountRequestIn:
+      example:
+        end_date: 01/01/2021
+        roles:
+        - Role Name
+        - Role Name
+        target_account: "12345"
+        start_date: 01/01/2021
+      properties:
+        target_account:
+          example: "12345"
+          type: string
+        start_date:
+          example: 01/01/2021
+          type: string
+        end_date:
+          example: 01/01/2021
+          type: string
+        roles:
+          items:
+            example: Role Name
+            type: string
+          type: array
+      required:
+      - end_date
+      - roles
+      - start_date
+      - target_account
+    CrossAccountRequestUpdateIn:
+      example:
+        end_date: 01/01/2021
+        roles:
+        - Role Name
+        - Role Name
+        start_date: 01/01/2021
+        status: pending
+      properties:
+        start_date:
+          example: 01/01/2021
+          type: string
+        end_date:
+          example: 01/01/2021
+          type: string
+        roles:
+          items:
+            example: Role Name
+            type: string
+          type: array
+        status:
+          enum:
+          - pending
+          - approved
+          - expired
+          - cancelled
+          - denied
+          type: string
+      required:
+      - end_date
+      - roles
+      - start_date
+    CrossAccountRequestPatch:
+      example:
+        end_date: 01/01/2021
+        roles:
+        - Role Name
+        - Role Name
+        start_date: 01/01/2021
+        status: pending
+      properties:
+        start_date:
+          example: 01/01/2021
+          type: string
+        end_date:
+          example: 01/01/2021
+          type: string
+        roles:
+          items:
+            example: Role Name
+            type: string
+          type: array
+        status:
+          enum:
+          - pending
+          - approved
+          - expired
+          - cancelled
+          - denied
+          type: string
+    CrossAccountRequestByAccount:
+      allOf:
+      - $ref: '#/components/schemas/CrossAccountRequest'
+      - $ref: '#/components/schemas/CrossAccountRequestByAccount_allOf'
+    CrossAccountRequestByUserId:
+      allOf:
+      - $ref: '#/components/schemas/CrossAccountRequest'
+      - $ref: '#/components/schemas/CrossAccountRequestByUserId_allOf'
+    CrossAccountRequest:
+      properties:
+        request_id:
+          example: 2ad8cac5-336e-44c6-9b16-15ac84224d4b
+          format: uuid
+          type: string
+        target_account:
+          example: "12345"
+          type: string
+        status:
+          example: pending
+          type: string
+        created:
+          example: 2019-01-21T17:32:28Z
+          format: date-time
+          type: string
+        start_date:
+          example: 2019-01-21T17:32:28Z
+          format: date-time
+        end_date:
+          example: 2019-01-21T17:32:28Z
+          format: date-time
+    CrossAccountRequestWithRoles:
+      properties:
+        request_id:
+          example: 2ad8cac5-336e-44c6-9b16-15ac84224d4b
+          format: uuid
+          type: string
+        target_account:
+          example: "12345"
+          type: string
+        start_date:
+          example: 01/01/2021
+          type: string
+        end_date:
+          example: 01/01/2021
+          type: string
+        status:
+          example: pending
+          type: string
+        created:
+          example: 2019-01-21T17:32:28Z
+          format: date-time
+          type: string
+        roles:
+          items:
+            $ref: '#/components/schemas/CrossAccountRequestWithRoles_roles'
+          type: array
+    CrossAccountRequestOut:
+      allOf:
+      - $ref: '#/components/schemas/CrossAccountRequestWithRoles'
+      - $ref: '#/components/schemas/CrossAccountRequestByUserId_allOf'
     ResourceDefinitionFilter:
       properties:
         key:
@@ -2050,6 +2644,21 @@ components:
       - $ref: '#/components/schemas/UUID'
       - $ref: '#/components/schemas/Timestamped'
       - $ref: '#/components/schemas/RoleOutDynamic_allOf'
+    RolePatch:
+      example:
+        name: RoleA
+        description: A description of RoleA
+        display_name: ARoleName
+      properties:
+        name:
+          example: RoleA
+          type: string
+        display_name:
+          example: ARoleName
+          type: string
+        description:
+          example: A description of RoleA
+          type: string
     RoleWithAccess:
       allOf:
       - $ref: '#/components/schemas/RoleOut'
@@ -2160,6 +2769,9 @@ components:
         permission:
           example: rbac:group:read
           type: string
+        description:
+          example: Describe the usage of permission.
+          type: string
     PermissionPagination:
       allOf:
       - $ref: '#/components/schemas/ListPagination'
@@ -2180,6 +2792,7 @@ components:
           type: array
       required:
       - data
+      type: object
     Error_errors:
       properties:
         detail:
@@ -2188,6 +2801,7 @@ components:
         status:
           example: "403"
           type: string
+      type: object
     Error403_errors:
       properties:
         detail:
@@ -2199,6 +2813,7 @@ components:
         status:
           example: "403"
           type: string
+      type: object
     PrincipalPagination_allOf:
       properties:
         data:
@@ -2207,6 +2822,7 @@ components:
           type: array
       required:
       - data
+      type: object
     GroupOut_allOf:
       properties:
         principalCount:
@@ -2229,6 +2845,7 @@ components:
           type: array
       required:
       - principals
+      type: object
     GroupWithPrincipalsAndRoles_allOf:
       properties:
         principals:
@@ -2242,6 +2859,7 @@ components:
       required:
       - principals
       - roles
+      type: object
     GroupPagination_allOf:
       properties:
         data:
@@ -2250,6 +2868,65 @@ components:
           type: array
       required:
       - data
+      type: object
+    CrossAccountRequestDetailByAccount_allOf:
+      properties:
+        first_name:
+          example: first_name
+          format: string
+        last_name:
+          example: last_name
+          format: string
+        email:
+          example: email
+          format: string
+      type: object
+    CrossAccountRequestDetailByUseId_allOf:
+      properties:
+        user_id:
+          example: "1234"
+          format: string
+      type: object
+    CrossAccountRequestPagination_allOf:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/CrossAccountRequestByAccount'
+          type: array
+      required:
+      - data
+      type: object
+    CrossAccountRequestByAccount_allOf:
+      properties:
+        first_name:
+          example: Jane
+          type: string
+        last_name:
+          example: Doe
+          type: string
+        email:
+          example: test@redhat.com
+          type: string
+      type: object
+    CrossAccountRequestByUserId_allOf:
+      properties:
+        user_id:
+          example: "1234"
+          type: string
+      type: object
+    CrossAccountRequestWithRoles_roles:
+      properties:
+        display_name:
+          example: display_name
+          type: string
+        description:
+          example: description
+          type: string
+        permissions:
+          items:
+            $ref: '#/components/schemas/Permission'
+          type: array
+      type: object
     RoleIn_allOf:
       properties:
         access:
@@ -2258,6 +2935,7 @@ components:
           type: array
       required:
       - access
+      type: object
     RolePaginationDynamic_allOf:
       properties:
         data:
@@ -2266,6 +2944,7 @@ components:
           type: array
       required:
       - data
+      type: object
     RoleOut_allOf:
       properties:
         policyCount:
@@ -2317,6 +2996,7 @@ components:
       - platform_default
       - policyCount
       - system
+      type: object
     PolicyIn_allOf:
       properties:
         group:
@@ -2332,6 +3012,7 @@ components:
       required:
       - group
       - roles
+      type: object
     PolicyExtended_allOf:
       properties:
         group:
@@ -2343,6 +3024,7 @@ components:
       required:
       - group
       - roles
+      type: object
     PolicyPagination_allOf:
       properties:
         data:
@@ -2351,6 +3033,7 @@ components:
           type: array
       required:
       - data
+      type: object
     AccessPagination_allOf:
       properties:
         data:
@@ -2359,6 +3042,7 @@ components:
           type: array
       required:
       - data
+      type: object
     PermissionPagination_allOf:
       properties:
         data:
@@ -2367,6 +3051,7 @@ components:
           type: array
       required:
       - data
+      type: object
     PermissionOptionsPagination_allOf:
       properties:
         data:
@@ -2375,6 +3060,7 @@ components:
           type: array
       required:
       - data
+      type: object
   securitySchemes:
     basic_auth:
       description: The userid/password is needed when accessing this API externally
