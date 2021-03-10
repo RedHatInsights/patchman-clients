@@ -173,12 +173,6 @@ paths:
               allOf:
               - allOf:
                 - properties:
-                    fqdn:
-                      description: A host’s Fully Qualified Domain Name.  This field
-                        is considered to be a canonical fact.
-                      example: my.host.example.com
-                      nullable: true
-                      type: string
                     bios_uuid:
                       description: A UUID of the host machine BIOS.  This field is
                         considered to be a canonical fact.
@@ -190,6 +184,12 @@ paths:
                         EC2, Azure, OpenStack, etc. This field is considered to be
                         a canonical fact.
                       example: i-05d2313e6b9a42b16
+                      nullable: true
+                      type: string
+                    fqdn:
+                      description: A host’s Fully Qualified Domain Name.  This field
+                        is considered to be a canonical fact.
+                      example: my.host.example.com
                       nullable: true
                       type: string
                     insights_id:
@@ -307,12 +307,6 @@ paths:
               schema:
                 allOf:
                 - properties:
-                    fqdn:
-                      description: A host’s Fully Qualified Domain Name.  This field
-                        is considered to be a canonical fact.
-                      example: my.host.example.com
-                      nullable: true
-                      type: string
                     bios_uuid:
                       description: A UUID of the host machine BIOS.  This field is
                         considered to be a canonical fact.
@@ -324,6 +318,12 @@ paths:
                         EC2, Azure, OpenStack, etc. This field is considered to be
                         a canonical fact.
                       example: i-05d2313e6b9a42b16
+                      nullable: true
+                      type: string
+                    fqdn:
+                      description: A host’s Fully Qualified Domain Name.  This field
+                        is considered to be a canonical fact.
+                      example: my.host.example.com
                       nullable: true
                       type: string
                     insights_id:
@@ -1196,7 +1196,9 @@ paths:
       - sap_system
   /system_profile/validate_schema:
     post:
-      description: 'Required permissions: inventory:hosts:read'
+      description: Validates System Profile data from recent Kafka messages against
+        a given spec, and compares it with the current one. Only HBI Admins can access
+        this endpoint.
       operationId: api.system_profile.validate_schema
       parameters:
       - description: The fork of the inventory-schemas repo to use
@@ -1215,7 +1217,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: How many days worth of kafka messages to validate
+      - description: How many days worth of data to validate
         explode: true
         in: query
         name: days
@@ -1224,9 +1226,21 @@ paths:
           minimum: 1
           type: integer
         style: form
+      - description: Stops polling when this number of messages has been collected
+        explode: true
+        in: query
+        name: max_messages
+        required: false
+        schema:
+          default: 10000
+          minimum: 1
+          type: integer
+        style: form
       responses:
         "200":
           description: Host validation results
+        "403":
+          description: Forbidden
       security:
       - ApiKeyAuth: []
       summary: validate system profile schema
@@ -1623,12 +1637,6 @@ components:
           - external_id
     CanonicalFactsOut:
       properties:
-        fqdn:
-          description: A host’s Fully Qualified Domain Name.  This field is considered
-            to be a canonical fact.
-          example: my.host.example.com
-          nullable: true
-          type: string
         bios_uuid:
           description: A UUID of the host machine BIOS.  This field is considered
             to be a canonical fact.
@@ -1639,6 +1647,12 @@ components:
           description: Host’s reference in the external source e.g. AWS EC2, Azure,
             OpenStack, etc. This field is considered to be a canonical fact.
           example: i-05d2313e6b9a42b16
+          nullable: true
+          type: string
+        fqdn:
+          description: A host’s Fully Qualified Domain Name.  This field is considered
+            to be a canonical fact.
+          example: my.host.example.com
           nullable: true
           type: string
         insights_id:
@@ -1692,12 +1706,6 @@ components:
       allOf:
       - allOf:
         - properties:
-            fqdn:
-              description: A host’s Fully Qualified Domain Name.  This field is considered
-                to be a canonical fact.
-              example: my.host.example.com
-              nullable: true
-              type: string
             bios_uuid:
               description: A UUID of the host machine BIOS.  This field is considered
                 to be a canonical fact.
@@ -1708,6 +1716,12 @@ components:
               description: Host’s reference in the external source e.g. AWS EC2, Azure,
                 OpenStack, etc. This field is considered to be a canonical fact.
               example: i-05d2313e6b9a42b16
+              nullable: true
+              type: string
+            fqdn:
+              description: A host’s Fully Qualified Domain Name.  This field is considered
+                to be a canonical fact.
+              example: my.host.example.com
               nullable: true
               type: string
             insights_id:
@@ -1857,12 +1871,6 @@ components:
       allOf:
       - allOf:
         - properties:
-            fqdn:
-              description: A host’s Fully Qualified Domain Name.  This field is considered
-                to be a canonical fact.
-              example: my.host.example.com
-              nullable: true
-              type: string
             bios_uuid:
               description: A UUID of the host machine BIOS.  This field is considered
                 to be a canonical fact.
@@ -1873,6 +1881,12 @@ components:
               description: Host’s reference in the external source e.g. AWS EC2, Azure,
                 OpenStack, etc. This field is considered to be a canonical fact.
               example: i-05d2313e6b9a42b16
+              nullable: true
+              type: string
+            fqdn:
+              description: A host’s Fully Qualified Domain Name.  This field is considered
+                to be a canonical fact.
+              example: my.host.example.com
               nullable: true
               type: string
             insights_id:
@@ -2017,12 +2031,6 @@ components:
             allOf:
             - allOf:
               - properties:
-                  fqdn:
-                    description: A host’s Fully Qualified Domain Name.  This field
-                      is considered to be a canonical fact.
-                    example: my.host.example.com
-                    nullable: true
-                    type: string
                   bios_uuid:
                     description: A UUID of the host machine BIOS.  This field is considered
                       to be a canonical fact.
@@ -2034,6 +2042,12 @@ components:
                       EC2, Azure, OpenStack, etc. This field is considered to be a
                       canonical fact.
                     example: i-05d2313e6b9a42b16
+                    nullable: true
+                    type: string
+                  fqdn:
+                    description: A host’s Fully Qualified Domain Name.  This field
+                      is considered to be a canonical fact.
+                    example: my.host.example.com
                     nullable: true
                     type: string
                   insights_id:
@@ -2624,6 +2638,12 @@ components:
           maxLength: 36
           pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
           type: string
+        rhc_config_state:
+          description: A UUID associated with the config manager state
+          example: 22cd8e39-13bb-4d02-8316-84b850dc5136
+          maxLength: 36
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          type: string
         rhsm:
           $ref: '#/components/schemas/system_profile_spec_yaml_SystemProfile_rhsm'
         running_processes:
@@ -2662,12 +2682,8 @@ components:
           type: boolean
         selinux_config_file:
           description: The SELinux mode provided in the config file
-          enum:
-          - enforcing
-          - permissive
-          - disabled
           example: permissive
-          maxLength: 10
+          maxLength: 128
           type: string
         selinux_current_mode:
           description: The current SELinux mode, either enforcing, permissive, or
@@ -2743,12 +2759,6 @@ components:
             allOf:
             - allOf:
               - properties:
-                  fqdn:
-                    description: A host’s Fully Qualified Domain Name.  This field
-                      is considered to be a canonical fact.
-                    example: my.host.example.com
-                    nullable: true
-                    type: string
                   bios_uuid:
                     description: A UUID of the host machine BIOS.  This field is considered
                       to be a canonical fact.
@@ -2760,6 +2770,12 @@ components:
                       EC2, Azure, OpenStack, etc. This field is considered to be a
                       canonical fact.
                     example: i-05d2313e6b9a42b16
+                    nullable: true
+                    type: string
+                  fqdn:
+                    description: A host’s Fully Qualified Domain Name.  This field
+                      is considered to be a canonical fact.
+                    example: my.host.example.com
                     nullable: true
                     type: string
                   insights_id:
@@ -2917,6 +2933,8 @@ components:
       - per_page
       - results
       - total
+      title: A Host Inventory query result
+      type: object
     Host_data:
       description: Data of a single host to be updated.
       properties:
@@ -2972,6 +2990,8 @@ components:
       - per_page
       - results
       - total
+      title: A host system profile query result
+      type: object
     inline_response_200:
       example:
         per_page: 1
@@ -3011,6 +3031,7 @@ components:
         total:
           description: Total number of items in the "data" list.
           type: integer
+      type: object
     inline_response_200_1:
       example:
         per_page: 1
@@ -3037,6 +3058,7 @@ components:
         total:
           description: Total number of items in the "data" list.
           type: integer
+      type: object
     inline_response_200_2_results:
       example:
         count: 6
@@ -3046,6 +3068,7 @@ components:
           type: integer
         value:
           type: string
+      type: object
     inline_response_200_2:
       example:
         total: 1
@@ -3067,6 +3090,7 @@ components:
         total:
           description: Total number of items
           type: integer
+      type: object
     Host_data_1_tag:
       properties:
         key:
@@ -3077,6 +3101,7 @@ components:
         value:
           nullable: true
           type: string
+      type: object
     ActiveTag:
       description: Information about a host tag
       properties:
@@ -3090,8 +3115,30 @@ components:
       required:
       - count
       - tag
+      title: ActiveTag
+      type: object
     Host_data_1:
-      example: '{"count":3,"page":1,"per_page":50,"results":[{"count":3,"tag":{"key":"env","namespace":"Sat","value":"prod"}},{"count":1,"tag":{"key":"region","namespace":"aws","value":"us-east-1"}},{"count":-1,"tag":{"key":"web","namespace":"insights-client","value":null}}],"total":3}'
+      example:
+        count: 3
+        page: 1
+        per_page: 50
+        results:
+        - count: 3
+          tag:
+            key: env
+            namespace: Sat
+            value: prod
+        - count: 1
+          tag:
+            key: region
+            namespace: aws
+            value: us-east-1
+        - count: -1
+          tag:
+            key: web
+            namespace: insights-client
+            value: null
+        total: 3
       properties:
         count:
           description: The number of items on the current page
@@ -3115,14 +3162,10 @@ components:
       - per_page
       - results
       - total
+      title: Host data
+      type: object
     CanonicalFactsIn_allOf:
       properties:
-        fqdn:
-          description: A host’s Fully Qualified Domain Name.  This field is considered
-            to be a canonical fact.
-          example: my.host.example.com
-          nullable: true
-          type: string
         bios_uuid:
           description: A UUID of the host machine BIOS.  This field is considered
             to be a canonical fact.
@@ -3133,6 +3176,12 @@ components:
           description: Host’s reference in the external source e.g. AWS EC2, Azure,
             OpenStack, etc. This field is considered to be a canonical fact.
           example: i-05d2313e6b9a42b16
+          nullable: true
+          type: string
+        fqdn:
+          description: A host’s Fully Qualified Domain Name.  This field is considered
+            to be a canonical fact.
+          example: my.host.example.com
           nullable: true
           type: string
         insights_id:
@@ -3178,6 +3227,7 @@ components:
           example: 3f01b55457674041b75e41829bcee1dc
           nullable: true
           type: string
+      type: object
     CanonicalFactsIn_allOf_1:
       properties:
         bios_uuid:
@@ -3313,6 +3363,7 @@ components:
             - namespace
             title: Host facts under a namespace
           type: array
+      type: object
     system_profile_spec_yaml_SystemProfile_operating_system:
       description: Object for OS details
       properties:
@@ -3335,6 +3386,7 @@ components:
           example: RHEL
           maxLength: 4
           type: string
+      type: object
     system_profile_spec_yaml_SystemProfile_rhsm:
       description: Object for subscription-manager details
       properties:
@@ -3343,6 +3395,7 @@ components:
           example: "8.1"
           maxLength: 255
           type: string
+      type: object
   securitySchemes:
     ApiKeyAuth:
       description: 'Base64-encoded JSON identity header provided by 3Scale. Contains
