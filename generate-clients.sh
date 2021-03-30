@@ -47,7 +47,7 @@ function generate_client() {
       --api-package $NAME \
       -p packageName=$NAME,isGoSubmodule=true \
       --git-host "github.com" --git-user-id RedHatInsights --git-repo-id patchman-clients \
-      --type-mappings DateTime=string \
+      --type-mappings date-time=string \
       -o /local/$NAME
 
     if [ "$NAME" == "inventory" ] ; then
