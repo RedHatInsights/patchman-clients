@@ -60,5 +60,5 @@ function generate_client() {
 
 $CONTAINER_TOOL image exists $CONTAINER || $CONTAINER_TOOL pull $CONTAINER
 generate_client inventory "https://ci.cloud.redhat.com/api/inventory/v1/openapi.json"
-generate_client vmaas "https://webapp-vmaas-ci.5a9f.insights-dev.openshiftapps.com/api/openapi.json"
+generate_client vmaas "https://webapp-vmaas-ci.5a9f.insights-dev.openshiftapps.com/api/vmaas/v3/openapi.json"
 generate_client rbac "https://ci.cloud.redhat.com/api/rbac/v1/openapi.json"
