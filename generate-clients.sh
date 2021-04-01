@@ -24,6 +24,8 @@ function filter_oneof() {
             s|"items":{"oneOf":\[{"properties":{"count":{"type":"integer"},"value":{"type":"string"}},"type":"object"},{"properties":{"count":{"type":"integer"},"value":{"type":"boolean"}},"type":"object"}\]},|"items":{"properties":{"count":{"type":"integer"},"value":{"type":"string"}},"type":"object"},|g;
             s|"additionalProperties":{"oneOf":\[{"$ref":"#/components/schemas/system_profile.spec.yaml_NestedObject","x-scope":\[""\]},{"not":{"type":"object"}}\]},|"additionalProperties":{"not":{"type":"object"}},|g;
             s|Fqdn|fqdn|g;
+            s|"CrossAccountRequestDetail":{"oneOf":\[{"\$ref":"#/components/schemas/CrossAccountRequestDetailByAccount"},{"\$ref":"#/components/schemas/CrossAccountRequestDetailByUseId"}\]}|"CrossAccountRequestDetail":{"\$ref":"#/components/schemas/CrossAccountRequestDetailByAccount"}|g;
+            s|"items":{"oneOf":\[{"\$ref":"#/components/schemas/CrossAccountRequestByAccount"},{"\$ref":"#/components/schemas/CrossAccountRequestByUserId"}\]}|"items":{"\$ref":"#/components/schemas/CrossAccountRequestByAccount"}|g;
             ' $1
 }
 
