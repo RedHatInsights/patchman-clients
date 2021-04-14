@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **DiskDevices** | Pointer to [**[]SystemProfileSpecYamlDiskDevice**](SystemProfileSpecYamlDiskDevice.md) |  | [optional] 
 **DnfModules** | Pointer to [**[]SystemProfileSpecYamlDnfModule**](SystemProfileSpecYamlDnfModule.md) |  | [optional] 
 **EnabledServices** | Pointer to **[]string** |  | [optional] 
+**GpgPubkeys** | Pointer to **[]string** |  | [optional] 
 **InfrastructureType** | Pointer to **string** |  | [optional] 
 **InfrastructureVendor** | Pointer to **string** |  | [optional] 
 **InsightsClientVersion** | Pointer to **string** |  | [optional] 
@@ -370,6 +371,31 @@ SetEnabledServices sets EnabledServices field to given value.
 `func (o *SystemProfileSpecYamlSystemProfile) HasEnabledServices() bool`
 
 HasEnabledServices returns a boolean if a field has been set.
+
+### GetGpgPubkeys
+
+`func (o *SystemProfileSpecYamlSystemProfile) GetGpgPubkeys() []string`
+
+GetGpgPubkeys returns the GpgPubkeys field if non-nil, zero value otherwise.
+
+### GetGpgPubkeysOk
+
+`func (o *SystemProfileSpecYamlSystemProfile) GetGpgPubkeysOk() (*[]string, bool)`
+
+GetGpgPubkeysOk returns a tuple with the GpgPubkeys field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGpgPubkeys
+
+`func (o *SystemProfileSpecYamlSystemProfile) SetGpgPubkeys(v []string)`
+
+SetGpgPubkeys sets GpgPubkeys field to given value.
+
+### HasGpgPubkeys
+
+`func (o *SystemProfileSpecYamlSystemProfile) HasGpgPubkeys() bool`
+
+HasGpgPubkeys returns a boolean if a field has been set.
 
 ### GetInfrastructureType
 
