@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 ## ApiHostGetHostList
 
-> AHostInventoryQueryResult ApiHostGetHostList(ctx).DisplayName(displayName).Fqdn(fqdn).HostnameOrId(hostnameOrId).InsightsId(insightsId).BranchId(branchId).PerPage(perPage).Page(page).OrderBy(orderBy).OrderHow(orderHow).Staleness(staleness).Tags(tags).RegisteredWith(registeredWith).Filter(filter).Execute()
+> AHostInventoryQueryResult ApiHostGetHostList(ctx).DisplayName(displayName).Fqdn(fqdn).HostnameOrId(hostnameOrId).InsightsId(insightsId).BranchId(branchId).PerPage(perPage).Page(page).OrderBy(orderBy).OrderHow(orderHow).Staleness(staleness).Tags(tags).RegisteredWith(registeredWith).Filter(filter).Fields(fields).Execute()
 
 Read the entire list of hosts
 
@@ -201,10 +201,11 @@ func main() {
     tags := []string{"Inner_example"} // []string | filters out hosts not tagged by the given tags (optional)
     registeredWith := "registeredWith_example" // string | Filters out any host not registered with the specified service (optional)
     filter := TODO // map[string]interface{} | Filters hosts based on system_profile fields (optional)
+    fields := TODO // map[string]interface{} | Fetches only mentioned system_profile fields (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.HostsApi.ApiHostGetHostList(context.Background()).DisplayName(displayName).Fqdn(fqdn).HostnameOrId(hostnameOrId).InsightsId(insightsId).BranchId(branchId).PerPage(perPage).Page(page).OrderBy(orderBy).OrderHow(orderHow).Staleness(staleness).Tags(tags).RegisteredWith(registeredWith).Filter(filter).Execute()
+    resp, r, err := api_client.HostsApi.ApiHostGetHostList(context.Background()).DisplayName(displayName).Fqdn(fqdn).HostnameOrId(hostnameOrId).InsightsId(insightsId).BranchId(branchId).PerPage(perPage).Page(page).OrderBy(orderBy).OrderHow(orderHow).Staleness(staleness).Tags(tags).RegisteredWith(registeredWith).Filter(filter).Fields(fields).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `HostsApi.ApiHostGetHostList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -238,6 +239,7 @@ Name | Type | Description  | Notes
  **tags** | **[]string** | filters out hosts not tagged by the given tags | 
  **registeredWith** | **string** | Filters out any host not registered with the specified service | 
  **filter** | [**map[string]interface{}**](map[string]interface{}.md) | Filters hosts based on system_profile fields | 
+ **fields** | [**map[string]interface{}**](map[string]interface{}.md) | Fetches only mentioned system_profile fields | 
 
 ### Return type
 

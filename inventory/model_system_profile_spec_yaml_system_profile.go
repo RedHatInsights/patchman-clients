@@ -30,6 +30,7 @@ type SystemProfileSpecYamlSystemProfile struct {
 	DiskDevices *[]SystemProfileSpecYamlDiskDevice `json:"disk_devices,omitempty"`
 	DnfModules *[]SystemProfileSpecYamlDnfModule `json:"dnf_modules,omitempty"`
 	EnabledServices *[]string `json:"enabled_services,omitempty"`
+	GpgPubkeys *[]string `json:"gpg_pubkeys,omitempty"`
 	InfrastructureType *string `json:"infrastructure_type,omitempty"`
 	InfrastructureVendor *string `json:"infrastructure_vendor,omitempty"`
 	InsightsClientVersion *string `json:"insights_client_version,omitempty"`
@@ -477,6 +478,38 @@ func (o *SystemProfileSpecYamlSystemProfile) HasEnabledServices() bool {
 // SetEnabledServices gets a reference to the given []string and assigns it to the EnabledServices field.
 func (o *SystemProfileSpecYamlSystemProfile) SetEnabledServices(v []string) {
 	o.EnabledServices = &v
+}
+
+// GetGpgPubkeys returns the GpgPubkeys field value if set, zero value otherwise.
+func (o *SystemProfileSpecYamlSystemProfile) GetGpgPubkeys() []string {
+	if o == nil || o.GpgPubkeys == nil {
+		var ret []string
+		return ret
+	}
+	return *o.GpgPubkeys
+}
+
+// GetGpgPubkeysOk returns a tuple with the GpgPubkeys field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SystemProfileSpecYamlSystemProfile) GetGpgPubkeysOk() (*[]string, bool) {
+	if o == nil || o.GpgPubkeys == nil {
+		return nil, false
+	}
+	return o.GpgPubkeys, true
+}
+
+// HasGpgPubkeys returns a boolean if a field has been set.
+func (o *SystemProfileSpecYamlSystemProfile) HasGpgPubkeys() bool {
+	if o != nil && o.GpgPubkeys != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetGpgPubkeys gets a reference to the given []string and assigns it to the GpgPubkeys field.
+func (o *SystemProfileSpecYamlSystemProfile) SetGpgPubkeys(v []string) {
+	o.GpgPubkeys = &v
 }
 
 // GetInfrastructureType returns the InfrastructureType field value if set, zero value otherwise.
@@ -1636,6 +1669,9 @@ func (o SystemProfileSpecYamlSystemProfile) MarshalJSON() ([]byte, error) {
 	}
 	if o.EnabledServices != nil {
 		toSerialize["enabled_services"] = o.EnabledServices
+	}
+	if o.GpgPubkeys != nil {
+		toSerialize["gpg_pubkeys"] = o.GpgPubkeys
 	}
 	if o.InfrastructureType != nil {
 		toSerialize["infrastructure_type"] = o.InfrastructureType

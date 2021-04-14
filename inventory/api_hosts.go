@@ -321,6 +321,7 @@ type ApiApiHostGetHostListRequest struct {
 	tags *[]string
 	registeredWith *string
 	filter *map[string]interface{}
+	fields *map[string]interface{}
 }
 
 func (r ApiApiHostGetHostListRequest) DisplayName(displayName string) ApiApiHostGetHostListRequest {
@@ -373,6 +374,10 @@ func (r ApiApiHostGetHostListRequest) RegisteredWith(registeredWith string) ApiA
 }
 func (r ApiApiHostGetHostListRequest) Filter(filter map[string]interface{}) ApiApiHostGetHostListRequest {
 	r.filter = &filter
+	return r
+}
+func (r ApiApiHostGetHostListRequest) Fields(fields map[string]interface{}) ApiApiHostGetHostListRequest {
+	r.fields = &fields
 	return r
 }
 
@@ -472,6 +477,9 @@ func (a *HostsApiService) ApiHostGetHostListExecute(r ApiApiHostGetHostListReque
 	}
 	if r.filter != nil {
 		localVarQueryParams.Add("filter", parameterToString(*r.filter, ""))
+	}
+	if r.fields != nil {
+		localVarQueryParams.Add("fields", parameterToString(*r.fields, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

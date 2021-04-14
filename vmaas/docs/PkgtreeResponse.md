@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LastChange** | Pointer to **interface{}** |  | [optional] 
-**PackageNameList** | Pointer to **map[string][]map[string]interface{}** |  | [optional] 
+**PackageNameList** | Pointer to [**map[string][]PkgTreeItem**](array.md) |  | [optional] 
 
 ## Methods
 
@@ -63,20 +63,20 @@ HasLastChange returns a boolean if a field has been set.
 UnsetLastChange ensures that no value is present for LastChange, not even an explicit nil
 ### GetPackageNameList
 
-`func (o *PkgtreeResponse) GetPackageNameList() map[string][]map[string]interface{}`
+`func (o *PkgtreeResponse) GetPackageNameList() map[string][]PkgTreeItem`
 
 GetPackageNameList returns the PackageNameList field if non-nil, zero value otherwise.
 
 ### GetPackageNameListOk
 
-`func (o *PkgtreeResponse) GetPackageNameListOk() (*map[string][]map[string]interface{}, bool)`
+`func (o *PkgtreeResponse) GetPackageNameListOk() (*map[string][]PkgTreeItem, bool)`
 
 GetPackageNameListOk returns a tuple with the PackageNameList field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPackageNameList
 
-`func (o *PkgtreeResponse) SetPackageNameList(v map[string][]map[string]interface{})`
+`func (o *PkgtreeResponse) SetPackageNameList(v map[string][]PkgTreeItem)`
 
 SetPackageNameList sets PackageNameList field to given value.
 

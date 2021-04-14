@@ -22,6 +22,9 @@ docs/PackagesResponsePackageList.md
 docs/PackagesResponseRepositories.md
 docs/PatchesRequest.md
 docs/PatchesResponse.md
+docs/PkgTreeItem.md
+docs/PkgTreeItemErrata.md
+docs/PkgTreeItemRepositories.md
 docs/PkgtreeRequest.md
 docs/PkgtreeResponse.md
 docs/RPMPkgNamesRequest.md
@@ -54,6 +57,9 @@ model_packages_response_package_list.go
 model_packages_response_repositories.go
 model_patches_request.go
 model_patches_response.go
+model_pkg_tree_item.go
+model_pkg_tree_item_errata.go
+model_pkg_tree_item_repositories.go
 model_pkgtree_request.go
 model_pkgtree_response.go
 model_repos_request.go
