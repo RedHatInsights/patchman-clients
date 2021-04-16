@@ -4,6 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Page** | Pointer to **float32** |  | [optional] 
+**PageSize** | Pointer to **float32** |  | [optional] 
+**Pages** | Pointer to **float32** |  | [optional] 
 **LastChange** | Pointer to **interface{}** |  | [optional] 
 **PackageNameList** | Pointer to [**map[string][]PkgTreeItem**](array.md) |  | [optional] 
 
@@ -25,6 +28,81 @@ will change when the set of required properties is changed
 NewPkgtreeResponseWithDefaults instantiates a new PkgtreeResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetPage
+
+`func (o *PkgtreeResponse) GetPage() float32`
+
+GetPage returns the Page field if non-nil, zero value otherwise.
+
+### GetPageOk
+
+`func (o *PkgtreeResponse) GetPageOk() (*float32, bool)`
+
+GetPageOk returns a tuple with the Page field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPage
+
+`func (o *PkgtreeResponse) SetPage(v float32)`
+
+SetPage sets Page field to given value.
+
+### HasPage
+
+`func (o *PkgtreeResponse) HasPage() bool`
+
+HasPage returns a boolean if a field has been set.
+
+### GetPageSize
+
+`func (o *PkgtreeResponse) GetPageSize() float32`
+
+GetPageSize returns the PageSize field if non-nil, zero value otherwise.
+
+### GetPageSizeOk
+
+`func (o *PkgtreeResponse) GetPageSizeOk() (*float32, bool)`
+
+GetPageSizeOk returns a tuple with the PageSize field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPageSize
+
+`func (o *PkgtreeResponse) SetPageSize(v float32)`
+
+SetPageSize sets PageSize field to given value.
+
+### HasPageSize
+
+`func (o *PkgtreeResponse) HasPageSize() bool`
+
+HasPageSize returns a boolean if a field has been set.
+
+### GetPages
+
+`func (o *PkgtreeResponse) GetPages() float32`
+
+GetPages returns the Pages field if non-nil, zero value otherwise.
+
+### GetPagesOk
+
+`func (o *PkgtreeResponse) GetPagesOk() (*float32, bool)`
+
+GetPagesOk returns a tuple with the Pages field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPages
+
+`func (o *PkgtreeResponse) SetPages(v float32)`
+
+SetPages sets Pages field to given value.
+
+### HasPages
+
+`func (o *PkgtreeResponse) HasPages() bool`
+
+HasPages returns a boolean if a field has been set.
 
 ### GetLastChange
 
