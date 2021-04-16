@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: VMaaS Webapp
-  version: 2.8.2
+  version: 2.10.0
 servers:
 - url: /api/vmaas/v3
 tags:
@@ -252,8 +252,8 @@ paths:
   /pkgtree:
     post:
       description: Get package NEVRAs trees for package names. "package_name_list"
-        must be a list of package names.
-      operationId: app.PkgtreeHandlerPost.post
+        must be a list of package names OR one POSIX regular expression.
+      operationId: app.PkgtreeHandlerV3Post.post
       requestBody:
         content:
           application/json:
@@ -271,7 +271,7 @@ paths:
   /pkgtree/{package_name}:
     get:
       description: Get package NEVRAs tree for a single package name.
-      operationId: app.PkgtreeHandlerGet.get
+      operationId: app.PkgtreeHandlerV3Get.get
       parameters:
       - description: Package name
         explode: false
@@ -952,11 +952,19 @@ components:
           type: object
     PkgtreeRequest:
       example:
+        page: 0
         package_name_list:
         - kernel-rt
         - kernel-rt
         third_party: false
+        page_size: 10
       properties:
+        page:
+          example: 0
+          type: number
+        page_size:
+          example: 10
+          type: number
         package_name_list:
           items:
             example: kernel-rt
@@ -976,7 +984,9 @@ components:
       type: object
     PkgtreeResponse:
       example:
+        pages: 0.8008281904610115
         last_change: 2020-04-16 20:07:58.500192+00
+        page: 0
         package_name_list:
           key:
           - nevra: kernel-rt-4.18.0-147.rt24.93.el8.x86_64
@@ -1035,7 +1045,16 @@ components:
               name: RHSA-2019:2730
               issued: 2019-11-19T09:41:05Z
             first_published: 2020-01-13T17:31:41Z
+        page_size: 10
       properties:
+        page:
+          example: 0
+          type: number
+        page_size:
+          example: 10
+          type: number
+        pages:
+          type: number
         last_change:
           example: 2020-04-16 20:07:58.500192+00
         package_name_list:

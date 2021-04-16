@@ -14,8 +14,8 @@ Method | HTTP request | Description
 [**AppPackagesHandlerPostPost**](DefaultApi.md#AppPackagesHandlerPostPost) | **Post** /packages | 
 [**AppPatchesHandlerGetGet**](DefaultApi.md#AppPatchesHandlerGetGet) | **Get** /patches/{nevra} | 
 [**AppPatchesHandlerPostPost**](DefaultApi.md#AppPatchesHandlerPostPost) | **Post** /patches | 
-[**AppPkgtreeHandlerGetGet**](DefaultApi.md#AppPkgtreeHandlerGetGet) | **Get** /pkgtree/{package_name} | 
-[**AppPkgtreeHandlerPostPost**](DefaultApi.md#AppPkgtreeHandlerPostPost) | **Post** /pkgtree | 
+[**AppPkgtreeHandlerV3GetGet**](DefaultApi.md#AppPkgtreeHandlerV3GetGet) | **Get** /pkgtree/{package_name} | 
+[**AppPkgtreeHandlerV3PostPost**](DefaultApi.md#AppPkgtreeHandlerV3PostPost) | **Post** /pkgtree | 
 [**AppReadyHandlerGet**](DefaultApi.md#AppReadyHandlerGet) | **Get** /monitoring/ready | Return API readiness status
 [**AppReposHandlerGetGet**](DefaultApi.md#AppReposHandlerGetGet) | **Get** /repos/{repo} | 
 [**AppReposHandlerPostPost**](DefaultApi.md#AppReposHandlerPostPost) | **Post** /repos | 
@@ -689,9 +689,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppPkgtreeHandlerGetGet
+## AppPkgtreeHandlerV3GetGet
 
-> PkgtreeResponse AppPkgtreeHandlerGetGet(ctx, packageName).Execute()
+> PkgtreeResponse AppPkgtreeHandlerV3GetGet(ctx, packageName).Execute()
 
 
 
@@ -714,13 +714,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppPkgtreeHandlerGetGet(context.Background(), packageName).Execute()
+    resp, r, err := api_client.DefaultApi.AppPkgtreeHandlerV3GetGet(context.Background(), packageName).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPkgtreeHandlerGetGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPkgtreeHandlerV3GetGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppPkgtreeHandlerGetGet`: PkgtreeResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPkgtreeHandlerGetGet`: %v\n", resp)
+    // response from `AppPkgtreeHandlerV3GetGet`: PkgtreeResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPkgtreeHandlerV3GetGet`: %v\n", resp)
 }
 ```
 
@@ -734,7 +734,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppPkgtreeHandlerGetGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiAppPkgtreeHandlerV3GetGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -759,9 +759,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppPkgtreeHandlerPostPost
+## AppPkgtreeHandlerV3PostPost
 
-> PkgtreeResponse AppPkgtreeHandlerPostPost(ctx).PkgtreeRequest(pkgtreeRequest).Execute()
+> PkgtreeResponse AppPkgtreeHandlerV3PostPost(ctx).PkgtreeRequest(pkgtreeRequest).Execute()
 
 
 
@@ -784,13 +784,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppPkgtreeHandlerPostPost(context.Background()).PkgtreeRequest(pkgtreeRequest).Execute()
+    resp, r, err := api_client.DefaultApi.AppPkgtreeHandlerV3PostPost(context.Background()).PkgtreeRequest(pkgtreeRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPkgtreeHandlerPostPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPkgtreeHandlerV3PostPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppPkgtreeHandlerPostPost`: PkgtreeResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPkgtreeHandlerPostPost`: %v\n", resp)
+    // response from `AppPkgtreeHandlerV3PostPost`: PkgtreeResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPkgtreeHandlerV3PostPost`: %v\n", resp)
 }
 ```
 
@@ -800,7 +800,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppPkgtreeHandlerPostPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiAppPkgtreeHandlerV3PostPostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

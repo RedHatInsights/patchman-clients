@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Page** | Pointer to **float32** |  | [optional] 
+**PageSize** | Pointer to **float32** |  | [optional] 
 **PackageNameList** | **[]string** |  | 
 **ThirdParty** | Pointer to **bool** | Include content from \&quot;third party\&quot; repositories into the response, disabled by default. | [optional] [default to false]
 
@@ -25,6 +27,56 @@ will change when the set of required properties is changed
 NewPkgtreeRequestWithDefaults instantiates a new PkgtreeRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetPage
+
+`func (o *PkgtreeRequest) GetPage() float32`
+
+GetPage returns the Page field if non-nil, zero value otherwise.
+
+### GetPageOk
+
+`func (o *PkgtreeRequest) GetPageOk() (*float32, bool)`
+
+GetPageOk returns a tuple with the Page field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPage
+
+`func (o *PkgtreeRequest) SetPage(v float32)`
+
+SetPage sets Page field to given value.
+
+### HasPage
+
+`func (o *PkgtreeRequest) HasPage() bool`
+
+HasPage returns a boolean if a field has been set.
+
+### GetPageSize
+
+`func (o *PkgtreeRequest) GetPageSize() float32`
+
+GetPageSize returns the PageSize field if non-nil, zero value otherwise.
+
+### GetPageSizeOk
+
+`func (o *PkgtreeRequest) GetPageSizeOk() (*float32, bool)`
+
+GetPageSizeOk returns a tuple with the PageSize field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPageSize
+
+`func (o *PkgtreeRequest) SetPageSize(v float32)`
+
+SetPageSize sets PageSize field to given value.
+
+### HasPageSize
+
+`func (o *PkgtreeRequest) HasPageSize() bool`
+
+HasPageSize returns a boolean if a field has been set.
 
 ### GetPackageNameList
 
