@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
 **Issued** | **time.Time** |  | 
+**Updated** | Pointer to **time.Time** |  | [optional] 
 **CveList** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
@@ -66,6 +67,31 @@ and a boolean to check if the value has been set.
 
 SetIssued sets Issued field to given value.
 
+
+### GetUpdated
+
+`func (o *PkgTreeItemErrata) GetUpdated() time.Time`
+
+GetUpdated returns the Updated field if non-nil, zero value otherwise.
+
+### GetUpdatedOk
+
+`func (o *PkgTreeItemErrata) GetUpdatedOk() (*time.Time, bool)`
+
+GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpdated
+
+`func (o *PkgTreeItemErrata) SetUpdated(v time.Time)`
+
+SetUpdated sets Updated field to given value.
+
+### HasUpdated
+
+`func (o *PkgTreeItemErrata) HasUpdated() bool`
+
+HasUpdated returns a boolean if a field has been set.
 
 ### GetCveList
 

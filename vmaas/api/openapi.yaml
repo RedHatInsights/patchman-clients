@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: VMaaS Webapp
-  version: 2.10.0
+  version: 2.13.1
 servers:
 - url: /api/vmaas/v3
 tags:
@@ -952,7 +952,12 @@ components:
           type: object
     PkgtreeRequest:
       example:
+        return_description: false
+        return_repositories: true
+        return_errata: true
+        modified_since: 2018-04-05T01:23:45+02:00
         page: 0
+        return_summary: false
         package_name_list:
         - kernel-rt
         - kernel-rt
@@ -971,10 +976,42 @@ components:
             type: string
           minItems: 1
           type: array
+        modified_since:
+          example: 2018-04-05T01:23:45+02:00
+          format: date-time
+          type: string
         third_party:
           default: false
           description: Include content from "third party" repositories into the response,
             disabled by default.
+          enum:
+          - true
+          - false
+          type: boolean
+        return_repositories:
+          default: true
+          description: Include nevra repositories info into the response.
+          enum:
+          - true
+          - false
+          type: boolean
+        return_errata:
+          default: true
+          description: Include nevra errata info into the response.
+          enum:
+          - true
+          - false
+          type: boolean
+        return_summary:
+          default: false
+          description: Include nevra summary info into the response.
+          enum:
+          - true
+          - false
+          type: boolean
+        return_description:
+          default: false
+          description: Include nevra description info into the response.
           enum:
           - true
           - false
@@ -989,7 +1026,8 @@ components:
         page: 0
         package_name_list:
           key:
-          - nevra: kernel-rt-4.18.0-147.rt24.93.el8.x86_64
+          - summary: My package summary
+            nevra: kernel-rt-4.18.0-147.rt24.93.el8.x86_64
             repositories:
             - module_stream: "9.6"
               name: Red Hat Enterprise Linux 8 for IBM z Systems - AppStream (RPMs)
@@ -1005,19 +1043,23 @@ components:
               basearch: x86_64
               releasever: "6.9"
               revision: 2019-11-19T09:41:05Z
+            description: My package description
             errata:
             - cve_list:
               - CVE-2018-13405
               - CVE-2018-13405
               name: RHSA-2019:2730
               issued: 2019-11-19T09:41:05Z
+              updated: 2019-11-19T09:41:05Z
             - cve_list:
               - CVE-2018-13405
               - CVE-2018-13405
               name: RHSA-2019:2730
               issued: 2019-11-19T09:41:05Z
+              updated: 2019-11-19T09:41:05Z
             first_published: 2020-01-13T17:31:41Z
-          - nevra: kernel-rt-4.18.0-147.rt24.93.el8.x86_64
+          - summary: My package summary
+            nevra: kernel-rt-4.18.0-147.rt24.93.el8.x86_64
             repositories:
             - module_stream: "9.6"
               name: Red Hat Enterprise Linux 8 for IBM z Systems - AppStream (RPMs)
@@ -1033,17 +1075,20 @@ components:
               basearch: x86_64
               releasever: "6.9"
               revision: 2019-11-19T09:41:05Z
+            description: My package description
             errata:
             - cve_list:
               - CVE-2018-13405
               - CVE-2018-13405
               name: RHSA-2019:2730
               issued: 2019-11-19T09:41:05Z
+              updated: 2019-11-19T09:41:05Z
             - cve_list:
               - CVE-2018-13405
               - CVE-2018-13405
               name: RHSA-2019:2730
               issued: 2019-11-19T09:41:05Z
+              updated: 2019-11-19T09:41:05Z
             first_published: 2020-01-13T17:31:41Z
         page_size: 10
       properties:
@@ -1065,6 +1110,7 @@ components:
           type: object
     PkgTreeItem:
       example:
+        summary: My package summary
         nevra: kernel-rt-4.18.0-147.rt24.93.el8.x86_64
         repositories:
         - module_stream: "9.6"
@@ -1081,21 +1127,30 @@ components:
           basearch: x86_64
           releasever: "6.9"
           revision: 2019-11-19T09:41:05Z
+        description: My package description
         errata:
         - cve_list:
           - CVE-2018-13405
           - CVE-2018-13405
           name: RHSA-2019:2730
           issued: 2019-11-19T09:41:05Z
+          updated: 2019-11-19T09:41:05Z
         - cve_list:
           - CVE-2018-13405
           - CVE-2018-13405
           name: RHSA-2019:2730
           issued: 2019-11-19T09:41:05Z
+          updated: 2019-11-19T09:41:05Z
         first_published: 2020-01-13T17:31:41Z
       properties:
         nevra:
           example: kernel-rt-4.18.0-147.rt24.93.el8.x86_64
+          type: string
+        summary:
+          example: My package summary
+          type: string
+        description:
+          example: My package description
           type: string
         first_published:
           example: 2020-01-13T17:31:41Z
@@ -1705,11 +1760,16 @@ components:
         - CVE-2018-13405
         name: RHSA-2019:2730
         issued: 2019-11-19T09:41:05Z
+        updated: 2019-11-19T09:41:05Z
       properties:
         name:
           example: RHSA-2019:2730
           type: string
         issued:
+          example: 2019-11-19T09:41:05Z
+          format: date-time
+          type: string
+        updated:
           example: 2019-11-19T09:41:05Z
           format: date-time
           type: string
