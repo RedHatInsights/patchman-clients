@@ -5,6 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Nevra** | **string** |  | 
+**Summary** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
 **FirstPublished** | **time.Time** |  | 
 **Repositories** | Pointer to [**[]PkgTreeItemRepositories**](PkgTreeItemRepositories.md) |  | [optional] 
 **Errata** | Pointer to [**[]PkgTreeItemErrata**](PkgTreeItemErrata.md) |  | [optional] 
@@ -47,6 +49,56 @@ and a boolean to check if the value has been set.
 
 SetNevra sets Nevra field to given value.
 
+
+### GetSummary
+
+`func (o *PkgTreeItem) GetSummary() string`
+
+GetSummary returns the Summary field if non-nil, zero value otherwise.
+
+### GetSummaryOk
+
+`func (o *PkgTreeItem) GetSummaryOk() (*string, bool)`
+
+GetSummaryOk returns a tuple with the Summary field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSummary
+
+`func (o *PkgTreeItem) SetSummary(v string)`
+
+SetSummary sets Summary field to given value.
+
+### HasSummary
+
+`func (o *PkgTreeItem) HasSummary() bool`
+
+HasSummary returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *PkgTreeItem) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *PkgTreeItem) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *PkgTreeItem) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *PkgTreeItem) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetFirstPublished
 
