@@ -12,7 +12,6 @@ package inventory
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // CreateHostOut Data of a single host belonging to an account. Represents the hosts without its Inventory metadata.
@@ -40,9 +39,9 @@ type CreateHostOut struct {
 	// The ansible host name for remediations
 	AnsibleHost NullableString `json:"ansible_host,omitempty"`
 	// A timestamp when the entry was created.
-	Created *time.Time `json:"created,omitempty"`
+	Created *string `json:"created,omitempty"`
 	// Timestamp from which the host is considered deleted.
-	CulledTimestamp NullableTime `json:"culled_timestamp,omitempty"`
+	CulledTimestamp NullableString `json:"culled_timestamp,omitempty"`
 	// A host’s human-readable display name, e.g. in a form of a domain name.
 	DisplayName NullableString `json:"display_name,omitempty"`
 	// A set of facts belonging to the host.
@@ -52,11 +51,11 @@ type CreateHostOut struct {
 	// Reporting source of the host. Used when updating the stale_timestamp.
 	Reporter NullableString `json:"reporter,omitempty"`
 	// Timestamp from which the host is considered stale.
-	StaleTimestamp NullableTime `json:"stale_timestamp,omitempty"`
+	StaleTimestamp NullableString `json:"stale_timestamp,omitempty"`
 	// Timestamp from which the host is considered too stale to be listed without an explicit toggle.
-	StaleWarningTimestamp NullableTime `json:"stale_warning_timestamp,omitempty"`
+	StaleWarningTimestamp NullableString `json:"stale_warning_timestamp,omitempty"`
 	// A timestamp when the entry was last updated.
-	Updated *time.Time `json:"updated,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 }
 
 // NewCreateHostOut instantiates a new CreateHostOut object
@@ -504,9 +503,9 @@ func (o *CreateHostOut) UnsetAnsibleHost() {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *CreateHostOut) GetCreated() time.Time {
+func (o *CreateHostOut) GetCreated() string {
 	if o == nil || o.Created == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -514,7 +513,7 @@ func (o *CreateHostOut) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateHostOut) GetCreatedOk() (*time.Time, bool) {
+func (o *CreateHostOut) GetCreatedOk() (*string, bool) {
 	if o == nil || o.Created == nil {
 		return nil, false
 	}
@@ -530,15 +529,15 @@ func (o *CreateHostOut) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *CreateHostOut) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *CreateHostOut) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetCulledTimestamp returns the CulledTimestamp field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateHostOut) GetCulledTimestamp() time.Time {
+func (o *CreateHostOut) GetCulledTimestamp() string {
 	if o == nil || o.CulledTimestamp.Get() == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.CulledTimestamp.Get()
@@ -547,7 +546,7 @@ func (o *CreateHostOut) GetCulledTimestamp() time.Time {
 // GetCulledTimestampOk returns a tuple with the CulledTimestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateHostOut) GetCulledTimestampOk() (*time.Time, bool) {
+func (o *CreateHostOut) GetCulledTimestampOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -563,8 +562,8 @@ func (o *CreateHostOut) HasCulledTimestamp() bool {
 	return false
 }
 
-// SetCulledTimestamp gets a reference to the given NullableTime and assigns it to the CulledTimestamp field.
-func (o *CreateHostOut) SetCulledTimestamp(v time.Time) {
+// SetCulledTimestamp gets a reference to the given NullableString and assigns it to the CulledTimestamp field.
+func (o *CreateHostOut) SetCulledTimestamp(v string) {
 	o.CulledTimestamp.Set(&v)
 }
 // SetCulledTimestampNil sets the value for CulledTimestamp to be an explicit nil
@@ -726,9 +725,9 @@ func (o *CreateHostOut) UnsetReporter() {
 }
 
 // GetStaleTimestamp returns the StaleTimestamp field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateHostOut) GetStaleTimestamp() time.Time {
+func (o *CreateHostOut) GetStaleTimestamp() string {
 	if o == nil || o.StaleTimestamp.Get() == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.StaleTimestamp.Get()
@@ -737,7 +736,7 @@ func (o *CreateHostOut) GetStaleTimestamp() time.Time {
 // GetStaleTimestampOk returns a tuple with the StaleTimestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateHostOut) GetStaleTimestampOk() (*time.Time, bool) {
+func (o *CreateHostOut) GetStaleTimestampOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -753,8 +752,8 @@ func (o *CreateHostOut) HasStaleTimestamp() bool {
 	return false
 }
 
-// SetStaleTimestamp gets a reference to the given NullableTime and assigns it to the StaleTimestamp field.
-func (o *CreateHostOut) SetStaleTimestamp(v time.Time) {
+// SetStaleTimestamp gets a reference to the given NullableString and assigns it to the StaleTimestamp field.
+func (o *CreateHostOut) SetStaleTimestamp(v string) {
 	o.StaleTimestamp.Set(&v)
 }
 // SetStaleTimestampNil sets the value for StaleTimestamp to be an explicit nil
@@ -768,9 +767,9 @@ func (o *CreateHostOut) UnsetStaleTimestamp() {
 }
 
 // GetStaleWarningTimestamp returns the StaleWarningTimestamp field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateHostOut) GetStaleWarningTimestamp() time.Time {
+func (o *CreateHostOut) GetStaleWarningTimestamp() string {
 	if o == nil || o.StaleWarningTimestamp.Get() == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.StaleWarningTimestamp.Get()
@@ -779,7 +778,7 @@ func (o *CreateHostOut) GetStaleWarningTimestamp() time.Time {
 // GetStaleWarningTimestampOk returns a tuple with the StaleWarningTimestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateHostOut) GetStaleWarningTimestampOk() (*time.Time, bool) {
+func (o *CreateHostOut) GetStaleWarningTimestampOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -795,8 +794,8 @@ func (o *CreateHostOut) HasStaleWarningTimestamp() bool {
 	return false
 }
 
-// SetStaleWarningTimestamp gets a reference to the given NullableTime and assigns it to the StaleWarningTimestamp field.
-func (o *CreateHostOut) SetStaleWarningTimestamp(v time.Time) {
+// SetStaleWarningTimestamp gets a reference to the given NullableString and assigns it to the StaleWarningTimestamp field.
+func (o *CreateHostOut) SetStaleWarningTimestamp(v string) {
 	o.StaleWarningTimestamp.Set(&v)
 }
 // SetStaleWarningTimestampNil sets the value for StaleWarningTimestamp to be an explicit nil
@@ -810,9 +809,9 @@ func (o *CreateHostOut) UnsetStaleWarningTimestamp() {
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *CreateHostOut) GetUpdated() time.Time {
+func (o *CreateHostOut) GetUpdated() string {
 	if o == nil || o.Updated == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -820,7 +819,7 @@ func (o *CreateHostOut) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateHostOut) GetUpdatedOk() (*time.Time, bool) {
+func (o *CreateHostOut) GetUpdatedOk() (*string, bool) {
 	if o == nil || o.Updated == nil {
 		return nil, false
 	}
@@ -836,8 +835,8 @@ func (o *CreateHostOut) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *CreateHostOut) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *CreateHostOut) SetUpdated(v string) {
 	o.Updated = &v
 }
 

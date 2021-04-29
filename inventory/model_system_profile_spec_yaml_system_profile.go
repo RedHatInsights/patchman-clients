@@ -12,7 +12,6 @@ package inventory
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // SystemProfileSpecYamlSystemProfile Representation of the system profile fields
@@ -43,7 +42,7 @@ type SystemProfileSpecYamlSystemProfile struct {
 	IsMarketplace *bool `json:"is_marketplace,omitempty"`
 	KatelloAgentRunning *bool `json:"katello_agent_running,omitempty"`
 	KernelModules *[]string `json:"kernel_modules,omitempty"`
-	LastBootTime *time.Time `json:"last_boot_time,omitempty"`
+	LastBootTime *string `json:"last_boot_time,omitempty"`
 	NetworkInterfaces *[]SystemProfileSpecYamlNetworkInterface `json:"network_interfaces,omitempty"`
 	NumberOfCpus *int32 `json:"number_of_cpus,omitempty"`
 	NumberOfSockets *int32 `json:"number_of_sockets,omitempty"`
@@ -865,9 +864,9 @@ func (o *SystemProfileSpecYamlSystemProfile) SetKernelModules(v []string) {
 }
 
 // GetLastBootTime returns the LastBootTime field value if set, zero value otherwise.
-func (o *SystemProfileSpecYamlSystemProfile) GetLastBootTime() time.Time {
+func (o *SystemProfileSpecYamlSystemProfile) GetLastBootTime() string {
 	if o == nil || o.LastBootTime == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.LastBootTime
@@ -875,7 +874,7 @@ func (o *SystemProfileSpecYamlSystemProfile) GetLastBootTime() time.Time {
 
 // GetLastBootTimeOk returns a tuple with the LastBootTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SystemProfileSpecYamlSystemProfile) GetLastBootTimeOk() (*time.Time, bool) {
+func (o *SystemProfileSpecYamlSystemProfile) GetLastBootTimeOk() (*string, bool) {
 	if o == nil || o.LastBootTime == nil {
 		return nil, false
 	}
@@ -891,8 +890,8 @@ func (o *SystemProfileSpecYamlSystemProfile) HasLastBootTime() bool {
 	return false
 }
 
-// SetLastBootTime gets a reference to the given time.Time and assigns it to the LastBootTime field.
-func (o *SystemProfileSpecYamlSystemProfile) SetLastBootTime(v time.Time) {
+// SetLastBootTime gets a reference to the given string and assigns it to the LastBootTime field.
+func (o *SystemProfileSpecYamlSystemProfile) SetLastBootTime(v string) {
 	o.LastBootTime = &v
 }
 
