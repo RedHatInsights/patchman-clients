@@ -12,7 +12,6 @@ package rbac
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // GroupOut struct for GroupOut
@@ -20,8 +19,8 @@ type GroupOut struct {
 	Name string `json:"name"`
 	Description *string `json:"description,omitempty"`
 	Uuid string `json:"uuid"`
-	Created time.Time `json:"created"`
-	Modified time.Time `json:"modified"`
+	Created string `json:"created"`
+	Modified string `json:"modified"`
 	PrincipalCount *int32 `json:"principalCount,omitempty"`
 	RoleCount *int32 `json:"roleCount,omitempty"`
 	System *bool `json:"system,omitempty"`
@@ -32,7 +31,7 @@ type GroupOut struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGroupOut(name string, uuid string, created time.Time, modified time.Time, ) *GroupOut {
+func NewGroupOut(name string, uuid string, created string, modified string, ) *GroupOut {
 	this := GroupOut{}
 	this.Name = name
 	this.Uuid = uuid
@@ -138,9 +137,9 @@ func (o *GroupOut) SetUuid(v string) {
 }
 
 // GetCreated returns the Created field value
-func (o *GroupOut) GetCreated() time.Time {
+func (o *GroupOut) GetCreated() string {
 	if o == nil  {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 
@@ -149,7 +148,7 @@ func (o *GroupOut) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value
 // and a boolean to check if the value has been set.
-func (o *GroupOut) GetCreatedOk() (*time.Time, bool) {
+func (o *GroupOut) GetCreatedOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -157,14 +156,14 @@ func (o *GroupOut) GetCreatedOk() (*time.Time, bool) {
 }
 
 // SetCreated sets field value
-func (o *GroupOut) SetCreated(v time.Time) {
+func (o *GroupOut) SetCreated(v string) {
 	o.Created = v
 }
 
 // GetModified returns the Modified field value
-func (o *GroupOut) GetModified() time.Time {
+func (o *GroupOut) GetModified() string {
 	if o == nil  {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 
@@ -173,7 +172,7 @@ func (o *GroupOut) GetModified() time.Time {
 
 // GetModifiedOk returns a tuple with the Modified field value
 // and a boolean to check if the value has been set.
-func (o *GroupOut) GetModifiedOk() (*time.Time, bool) {
+func (o *GroupOut) GetModifiedOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -181,7 +180,7 @@ func (o *GroupOut) GetModifiedOk() (*time.Time, bool) {
 }
 
 // SetModified sets field value
-func (o *GroupOut) SetModified(v time.Time) {
+func (o *GroupOut) SetModified(v string) {
 	o.Modified = v
 }
 

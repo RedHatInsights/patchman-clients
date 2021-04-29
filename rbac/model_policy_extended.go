@@ -12,7 +12,6 @@ package rbac
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // PolicyExtended struct for PolicyExtended
@@ -20,8 +19,8 @@ type PolicyExtended struct {
 	Name string `json:"name"`
 	Description *string `json:"description,omitempty"`
 	Uuid string `json:"uuid"`
-	Created time.Time `json:"created"`
-	Modified time.Time `json:"modified"`
+	Created string `json:"created"`
+	Modified string `json:"modified"`
 	Group GroupOut `json:"group"`
 	Roles []RoleOut `json:"roles"`
 }
@@ -30,7 +29,7 @@ type PolicyExtended struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPolicyExtended(name string, uuid string, created time.Time, modified time.Time, group GroupOut, roles []RoleOut, ) *PolicyExtended {
+func NewPolicyExtended(name string, uuid string, created string, modified string, group GroupOut, roles []RoleOut, ) *PolicyExtended {
 	this := PolicyExtended{}
 	this.Name = name
 	this.Uuid = uuid
@@ -130,9 +129,9 @@ func (o *PolicyExtended) SetUuid(v string) {
 }
 
 // GetCreated returns the Created field value
-func (o *PolicyExtended) GetCreated() time.Time {
+func (o *PolicyExtended) GetCreated() string {
 	if o == nil  {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 
@@ -141,7 +140,7 @@ func (o *PolicyExtended) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value
 // and a boolean to check if the value has been set.
-func (o *PolicyExtended) GetCreatedOk() (*time.Time, bool) {
+func (o *PolicyExtended) GetCreatedOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -149,14 +148,14 @@ func (o *PolicyExtended) GetCreatedOk() (*time.Time, bool) {
 }
 
 // SetCreated sets field value
-func (o *PolicyExtended) SetCreated(v time.Time) {
+func (o *PolicyExtended) SetCreated(v string) {
 	o.Created = v
 }
 
 // GetModified returns the Modified field value
-func (o *PolicyExtended) GetModified() time.Time {
+func (o *PolicyExtended) GetModified() string {
 	if o == nil  {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 
@@ -165,7 +164,7 @@ func (o *PolicyExtended) GetModified() time.Time {
 
 // GetModifiedOk returns a tuple with the Modified field value
 // and a boolean to check if the value has been set.
-func (o *PolicyExtended) GetModifiedOk() (*time.Time, bool) {
+func (o *PolicyExtended) GetModifiedOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -173,7 +172,7 @@ func (o *PolicyExtended) GetModifiedOk() (*time.Time, bool) {
 }
 
 // SetModified sets field value
-func (o *PolicyExtended) SetModified(v time.Time) {
+func (o *PolicyExtended) SetModified(v string) {
 	o.Modified = v
 }
 

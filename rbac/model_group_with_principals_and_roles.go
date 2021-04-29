@@ -12,7 +12,6 @@ package rbac
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // GroupWithPrincipalsAndRoles struct for GroupWithPrincipalsAndRoles
@@ -20,8 +19,8 @@ type GroupWithPrincipalsAndRoles struct {
 	Name string `json:"name"`
 	Description *string `json:"description,omitempty"`
 	Uuid string `json:"uuid"`
-	Created time.Time `json:"created"`
-	Modified time.Time `json:"modified"`
+	Created string `json:"created"`
+	Modified string `json:"modified"`
 	Principals []Principal `json:"principals"`
 	Roles []RoleOut `json:"roles"`
 }
@@ -30,7 +29,7 @@ type GroupWithPrincipalsAndRoles struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGroupWithPrincipalsAndRoles(name string, uuid string, created time.Time, modified time.Time, principals []Principal, roles []RoleOut, ) *GroupWithPrincipalsAndRoles {
+func NewGroupWithPrincipalsAndRoles(name string, uuid string, created string, modified string, principals []Principal, roles []RoleOut, ) *GroupWithPrincipalsAndRoles {
 	this := GroupWithPrincipalsAndRoles{}
 	this.Name = name
 	this.Uuid = uuid
@@ -130,9 +129,9 @@ func (o *GroupWithPrincipalsAndRoles) SetUuid(v string) {
 }
 
 // GetCreated returns the Created field value
-func (o *GroupWithPrincipalsAndRoles) GetCreated() time.Time {
+func (o *GroupWithPrincipalsAndRoles) GetCreated() string {
 	if o == nil  {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 
@@ -141,7 +140,7 @@ func (o *GroupWithPrincipalsAndRoles) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value
 // and a boolean to check if the value has been set.
-func (o *GroupWithPrincipalsAndRoles) GetCreatedOk() (*time.Time, bool) {
+func (o *GroupWithPrincipalsAndRoles) GetCreatedOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -149,14 +148,14 @@ func (o *GroupWithPrincipalsAndRoles) GetCreatedOk() (*time.Time, bool) {
 }
 
 // SetCreated sets field value
-func (o *GroupWithPrincipalsAndRoles) SetCreated(v time.Time) {
+func (o *GroupWithPrincipalsAndRoles) SetCreated(v string) {
 	o.Created = v
 }
 
 // GetModified returns the Modified field value
-func (o *GroupWithPrincipalsAndRoles) GetModified() time.Time {
+func (o *GroupWithPrincipalsAndRoles) GetModified() string {
 	if o == nil  {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 
@@ -165,7 +164,7 @@ func (o *GroupWithPrincipalsAndRoles) GetModified() time.Time {
 
 // GetModifiedOk returns a tuple with the Modified field value
 // and a boolean to check if the value has been set.
-func (o *GroupWithPrincipalsAndRoles) GetModifiedOk() (*time.Time, bool) {
+func (o *GroupWithPrincipalsAndRoles) GetModifiedOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -173,7 +172,7 @@ func (o *GroupWithPrincipalsAndRoles) GetModifiedOk() (*time.Time, bool) {
 }
 
 // SetModified sets field value
-func (o *GroupWithPrincipalsAndRoles) SetModified(v time.Time) {
+func (o *GroupWithPrincipalsAndRoles) SetModified(v string) {
 	o.Modified = v
 }
 
