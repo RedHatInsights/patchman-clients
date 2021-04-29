@@ -28,7 +28,7 @@ Name | Type | Description | Notes
 **IsMarketplace** | Pointer to **bool** | Indicates whether the host is part of a marketplace install from AWS, Azure, etc. | [optional] 
 **KatelloAgentRunning** | Pointer to **bool** |  | [optional] 
 **KernelModules** | Pointer to **[]string** |  | [optional] 
-**LastBootTime** | Pointer to **time.Time** |  | [optional] 
+**LastBootTime** | Pointer to **string** |  | [optional] 
 **NetworkInterfaces** | Pointer to [**[]SystemProfileSpecYamlNetworkInterface**](SystemProfileSpecYamlNetworkInterface.md) |  | [optional] 
 **NumberOfCpus** | Pointer to **int32** |  | [optional] 
 **NumberOfSockets** | Pointer to **int32** |  | [optional] 
@@ -674,20 +674,20 @@ HasKernelModules returns a boolean if a field has been set.
 
 ### GetLastBootTime
 
-`func (o *SystemProfileSpecYamlSystemProfile) GetLastBootTime() time.Time`
+`func (o *SystemProfileSpecYamlSystemProfile) GetLastBootTime() string`
 
 GetLastBootTime returns the LastBootTime field if non-nil, zero value otherwise.
 
 ### GetLastBootTimeOk
 
-`func (o *SystemProfileSpecYamlSystemProfile) GetLastBootTimeOk() (*time.Time, bool)`
+`func (o *SystemProfileSpecYamlSystemProfile) GetLastBootTimeOk() (*string, bool)`
 
 GetLastBootTimeOk returns a tuple with the LastBootTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastBootTime
 
-`func (o *SystemProfileSpecYamlSystemProfile) SetLastBootTime(v time.Time)`
+`func (o *SystemProfileSpecYamlSystemProfile) SetLastBootTime(v string)`
 
 SetLastBootTime sets LastBootTime field to given value.
 

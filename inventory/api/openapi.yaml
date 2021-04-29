@@ -399,7 +399,6 @@ paths:
                       type: string
                     culled_timestamp:
                       description: Timestamp from which the host is considered deleted.
-                      format: date-time
                       nullable: true
                       type: string
                     display_name:
@@ -440,13 +439,11 @@ paths:
                       type: string
                     stale_timestamp:
                       description: Timestamp from which the host is considered stale.
-                      format: date-time
                       nullable: true
                       type: string
                     stale_warning_timestamp:
                       description: Timestamp from which the host is considered too
                         stale to be listed without an explicit toggle.
-                      format: date-time
                       nullable: true
                       type: string
                     updated:
@@ -1985,7 +1982,6 @@ components:
               type: string
             culled_timestamp:
               description: Timestamp from which the host is considered deleted.
-              format: date-time
               nullable: true
               type: string
             display_name:
@@ -2025,13 +2021,11 @@ components:
               type: string
             stale_timestamp:
               description: Timestamp from which the host is considered stale.
-              format: date-time
               nullable: true
               type: string
             stale_warning_timestamp:
               description: Timestamp from which the host is considered too stale to
                 be listed without an explicit toggle.
-              format: date-time
               nullable: true
               type: string
             updated:
@@ -2146,7 +2140,6 @@ components:
                     type: string
                   culled_timestamp:
                     description: Timestamp from which the host is considered deleted.
-                    format: date-time
                     nullable: true
                     type: string
                   display_name:
@@ -2187,13 +2180,11 @@ components:
                     type: string
                   stale_timestamp:
                     description: Timestamp from which the host is considered stale.
-                    format: date-time
                     nullable: true
                     type: string
                   stale_warning_timestamp:
                     description: Timestamp from which the host is considered too stale
                       to be listed without an explicit toggle.
-                    format: date-time
                     nullable: true
                     type: string
                   updated:
@@ -2881,7 +2872,6 @@ components:
                     type: string
                   culled_timestamp:
                     description: Timestamp from which the host is considered deleted.
-                    format: date-time
                     nullable: true
                     type: string
                   display_name:
@@ -2922,13 +2912,11 @@ components:
                     type: string
                   stale_timestamp:
                     description: Timestamp from which the host is considered stale.
-                    format: date-time
                     nullable: true
                     type: string
                   stale_warning_timestamp:
                     description: Timestamp from which the host is considered too stale
                       to be listed without an explicit toggle.
-                    format: date-time
                     nullable: true
                     type: string
                   updated:
@@ -3329,7 +3317,6 @@ components:
           type: string
         culled_timestamp:
           description: Timestamp from which the host is considered deleted.
-          format: date-time
           nullable: true
           type: string
         display_name:
@@ -3369,13 +3356,11 @@ components:
           type: string
         stale_timestamp:
           description: Timestamp from which the host is considered stale.
-          format: date-time
           nullable: true
           type: string
         stale_warning_timestamp:
           description: Timestamp from which the host is considered too stale to be
             listed without an explicit toggle.
-          format: date-time
           nullable: true
           type: string
         updated:
