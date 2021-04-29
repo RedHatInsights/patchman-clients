@@ -26,6 +26,8 @@ function filter_oneof() {
             s|Fqdn|fqdn|g;
             s|"CrossAccountRequestDetail":{"oneOf":\[{"\$ref":"#/components/schemas/CrossAccountRequestDetailByAccount"},{"\$ref":"#/components/schemas/CrossAccountRequestDetailByUseId"}\]}|"CrossAccountRequestDetail":{"\$ref":"#/components/schemas/CrossAccountRequestDetailByAccount"}|g;
             s|"items":{"oneOf":\[{"\$ref":"#/components/schemas/CrossAccountRequestByAccount"},{"\$ref":"#/components/schemas/CrossAccountRequestByUserId"}\]}|"items":{"\$ref":"#/components/schemas/CrossAccountRequestByAccount"}|g;
+            # workaround for converting nullable date-time to nullable strings
+            s|"format":"date-time","nullable":true,"type":"string"|"nullable":true,"type":"string"|g;
             ' $1
 }
 
@@ -49,7 +51,7 @@ function generate_client() {
       --api-package $NAME \
       -p packageName=$NAME,isGoSubmodule=true \
       --git-host "github.com" --git-user-id RedHatInsights --git-repo-id patchman-clients \
-      --type-mappings date-time=string \
+      --type-mappings DateTime=string \
       -o /local/$NAME
 
     if [ "$NAME" == "inventory" ] ; then
