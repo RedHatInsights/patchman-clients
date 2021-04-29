@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Page** | Pointer to **float32** |  | [optional] 
 **PageSize** | Pointer to **float32** |  | [optional] 
 **RepositoryList** | **[]string** |  | 
-**ModifiedSince** | Pointer to **time.Time** | Return only repositories changed after the given date | [optional] 
+**ModifiedSince** | Pointer to **string** | Return only repositories changed after the given date | [optional] 
 **ThirdParty** | Pointer to **bool** | Include content from \&quot;third party\&quot; repositories into the response, disabled by default. | [optional] [default to false]
 
 ## Methods
@@ -101,20 +101,20 @@ SetRepositoryList sets RepositoryList field to given value.
 
 ### GetModifiedSince
 
-`func (o *ReposRequest) GetModifiedSince() time.Time`
+`func (o *ReposRequest) GetModifiedSince() string`
 
 GetModifiedSince returns the ModifiedSince field if non-nil, zero value otherwise.
 
 ### GetModifiedSinceOk
 
-`func (o *ReposRequest) GetModifiedSinceOk() (*time.Time, bool)`
+`func (o *ReposRequest) GetModifiedSinceOk() (*string, bool)`
 
 GetModifiedSinceOk returns a tuple with the ModifiedSince field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModifiedSince
 
-`func (o *ReposRequest) SetModifiedSince(v time.Time)`
+`func (o *ReposRequest) SetModifiedSince(v string)`
 
 SetModifiedSince sets ModifiedSince field to given value.
 

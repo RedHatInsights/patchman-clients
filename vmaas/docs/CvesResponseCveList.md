@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Impact** | Pointer to **string** |  | [optional] 
-**PublicDate** | Pointer to **time.Time** |  | [optional] 
+**PublicDate** | Pointer to **string** |  | [optional] 
 **Synopsis** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
-**ModifiedDate** | Pointer to **time.Time** |  | [optional] 
+**ModifiedDate** | Pointer to **string** |  | [optional] 
 **RedhatUrl** | Pointer to **string** |  | [optional] 
 **SecondaryUrl** | Pointer to **string** |  | [optional] 
 **Cvss2Score** | Pointer to **string** |  | [optional] 
@@ -66,20 +66,20 @@ HasImpact returns a boolean if a field has been set.
 
 ### GetPublicDate
 
-`func (o *CvesResponseCveList) GetPublicDate() time.Time`
+`func (o *CvesResponseCveList) GetPublicDate() string`
 
 GetPublicDate returns the PublicDate field if non-nil, zero value otherwise.
 
 ### GetPublicDateOk
 
-`func (o *CvesResponseCveList) GetPublicDateOk() (*time.Time, bool)`
+`func (o *CvesResponseCveList) GetPublicDateOk() (*string, bool)`
 
 GetPublicDateOk returns a tuple with the PublicDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPublicDate
 
-`func (o *CvesResponseCveList) SetPublicDate(v time.Time)`
+`func (o *CvesResponseCveList) SetPublicDate(v string)`
 
 SetPublicDate sets PublicDate field to given value.
 
@@ -141,20 +141,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetModifiedDate
 
-`func (o *CvesResponseCveList) GetModifiedDate() time.Time`
+`func (o *CvesResponseCveList) GetModifiedDate() string`
 
 GetModifiedDate returns the ModifiedDate field if non-nil, zero value otherwise.
 
 ### GetModifiedDateOk
 
-`func (o *CvesResponseCveList) GetModifiedDateOk() (*time.Time, bool)`
+`func (o *CvesResponseCveList) GetModifiedDateOk() (*string, bool)`
 
 GetModifiedDateOk returns a tuple with the ModifiedDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModifiedDate
 
-`func (o *CvesResponseCveList) SetModifiedDate(v time.Time)`
+`func (o *CvesResponseCveList) SetModifiedDate(v string)`
 
 SetModifiedDate sets ModifiedDate field to given value.
 

@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **Page** | Pointer to **float32** |  | [optional] 
 **PageSize** | Pointer to **float32** |  | [optional] 
 **CveList** | **[]string** |  | 
-**ModifiedSince** | Pointer to **time.Time** |  | [optional] 
-**PublishedSince** | Pointer to **time.Time** |  | [optional] 
+**ModifiedSince** | Pointer to **string** |  | [optional] 
+**PublishedSince** | Pointer to **string** |  | [optional] 
 **RhOnly** | Pointer to **bool** |  | [optional] 
 **ErrataAssociated** | Pointer to **bool** | Return only those CVEs which are associated with at least one errata. Defaults to false. | [optional] 
 **ThirdParty** | Pointer to **bool** | Include content from \&quot;third party\&quot; repositories into the response, disabled by default. | [optional] [default to false]
@@ -104,20 +104,20 @@ SetCveList sets CveList field to given value.
 
 ### GetModifiedSince
 
-`func (o *CvesRequest) GetModifiedSince() time.Time`
+`func (o *CvesRequest) GetModifiedSince() string`
 
 GetModifiedSince returns the ModifiedSince field if non-nil, zero value otherwise.
 
 ### GetModifiedSinceOk
 
-`func (o *CvesRequest) GetModifiedSinceOk() (*time.Time, bool)`
+`func (o *CvesRequest) GetModifiedSinceOk() (*string, bool)`
 
 GetModifiedSinceOk returns a tuple with the ModifiedSince field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModifiedSince
 
-`func (o *CvesRequest) SetModifiedSince(v time.Time)`
+`func (o *CvesRequest) SetModifiedSince(v string)`
 
 SetModifiedSince sets ModifiedSince field to given value.
 
@@ -129,20 +129,20 @@ HasModifiedSince returns a boolean if a field has been set.
 
 ### GetPublishedSince
 
-`func (o *CvesRequest) GetPublishedSince() time.Time`
+`func (o *CvesRequest) GetPublishedSince() string`
 
 GetPublishedSince returns the PublishedSince field if non-nil, zero value otherwise.
 
 ### GetPublishedSinceOk
 
-`func (o *CvesRequest) GetPublishedSinceOk() (*time.Time, bool)`
+`func (o *CvesRequest) GetPublishedSinceOk() (*string, bool)`
 
 GetPublishedSinceOk returns a tuple with the PublishedSince field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPublishedSince
 
-`func (o *CvesRequest) SetPublishedSince(v time.Time)`
+`func (o *CvesRequest) SetPublishedSince(v string)`
 
 SetPublishedSince sets PublishedSince field to given value.
 

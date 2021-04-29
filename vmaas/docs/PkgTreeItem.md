@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Nevra** | **string** |  | 
 **Summary** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
-**FirstPublished** | **time.Time** |  | 
+**FirstPublished** | **string** |  | 
 **Repositories** | Pointer to [**[]PkgTreeItemRepositories**](PkgTreeItemRepositories.md) |  | [optional] 
 **Errata** | Pointer to [**[]PkgTreeItemErrata**](PkgTreeItemErrata.md) |  | [optional] 
 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewPkgTreeItem
 
-`func NewPkgTreeItem(nevra string, firstPublished time.Time, ) *PkgTreeItem`
+`func NewPkgTreeItem(nevra string, firstPublished string, ) *PkgTreeItem`
 
 NewPkgTreeItem instantiates a new PkgTreeItem object
 This constructor will assign default values to properties that have it defined,
@@ -102,20 +102,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetFirstPublished
 
-`func (o *PkgTreeItem) GetFirstPublished() time.Time`
+`func (o *PkgTreeItem) GetFirstPublished() string`
 
 GetFirstPublished returns the FirstPublished field if non-nil, zero value otherwise.
 
 ### GetFirstPublishedOk
 
-`func (o *PkgTreeItem) GetFirstPublishedOk() (*time.Time, bool)`
+`func (o *PkgTreeItem) GetFirstPublishedOk() (*string, bool)`
 
 GetFirstPublishedOk returns a tuple with the FirstPublished field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFirstPublished
 
-`func (o *PkgTreeItem) SetFirstPublished(v time.Time)`
+`func (o *PkgTreeItem) SetFirstPublished(v string)`
 
 SetFirstPublished sets FirstPublished field to given value.
 

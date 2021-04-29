@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **PageSize** | Pointer to **float32** |  | [optional] 
 **Pages** | Pointer to **float32** |  | [optional] 
 **CveList** | Pointer to [**map[string]CvesResponseCveList**](CvesResponse_cve_list.md) |  | [optional] 
-**ModifiedSince** | Pointer to **time.Time** |  | [optional] 
+**ModifiedSince** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasCveList returns a boolean if a field has been set.
 
 ### GetModifiedSince
 
-`func (o *CvesResponse) GetModifiedSince() time.Time`
+`func (o *CvesResponse) GetModifiedSince() string`
 
 GetModifiedSince returns the ModifiedSince field if non-nil, zero value otherwise.
 
 ### GetModifiedSinceOk
 
-`func (o *CvesResponse) GetModifiedSinceOk() (*time.Time, bool)`
+`func (o *CvesResponse) GetModifiedSinceOk() (*string, bool)`
 
 GetModifiedSinceOk returns a tuple with the ModifiedSince field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModifiedSince
 
-`func (o *CvesResponse) SetModifiedSince(v time.Time)`
+`func (o *CvesResponse) SetModifiedSince(v string)`
 
 SetModifiedSince sets ModifiedSince field to given value.
 
