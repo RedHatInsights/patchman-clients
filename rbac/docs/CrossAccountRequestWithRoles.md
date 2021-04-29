@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **StartDate** | Pointer to **string** |  | [optional] 
 **EndDate** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
-**Created** | Pointer to **time.Time** |  | [optional] 
+**Created** | Pointer to **string** |  | [optional] 
 **Roles** | Pointer to [**[]CrossAccountRequestWithRolesRoles**](CrossAccountRequestWithRolesRoles.md) |  | [optional] 
 
 ## Methods
@@ -158,20 +158,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetCreated
 
-`func (o *CrossAccountRequestWithRoles) GetCreated() time.Time`
+`func (o *CrossAccountRequestWithRoles) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *CrossAccountRequestWithRoles) GetCreatedOk() (*time.Time, bool)`
+`func (o *CrossAccountRequestWithRoles) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *CrossAccountRequestWithRoles) SetCreated(v time.Time)`
+`func (o *CrossAccountRequestWithRoles) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 

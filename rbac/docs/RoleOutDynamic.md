@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **DisplayName** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Uuid** | **string** |  | 
-**Created** | **time.Time** |  | 
-**Modified** | **time.Time** |  | 
+**Created** | **string** |  | 
+**Modified** | **string** |  | 
 **PolicyCount** | **int32** |  | 
 **AccessCount** | **int32** |  | 
 **Applications** | **[]string** |  | 
@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 
 ### NewRoleOutDynamic
 
-`func NewRoleOutDynamic(name string, uuid string, created time.Time, modified time.Time, policyCount int32, accessCount int32, applications []string, system bool, platformDefault bool, ) *RoleOutDynamic`
+`func NewRoleOutDynamic(name string, uuid string, created string, modified string, policyCount int32, accessCount int32, applications []string, system bool, platformDefault bool, ) *RoleOutDynamic`
 
 NewRoleOutDynamic instantiates a new RoleOutDynamic object
 This constructor will assign default values to properties that have it defined,
@@ -129,40 +129,40 @@ SetUuid sets Uuid field to given value.
 
 ### GetCreated
 
-`func (o *RoleOutDynamic) GetCreated() time.Time`
+`func (o *RoleOutDynamic) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *RoleOutDynamic) GetCreatedOk() (*time.Time, bool)`
+`func (o *RoleOutDynamic) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *RoleOutDynamic) SetCreated(v time.Time)`
+`func (o *RoleOutDynamic) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
 
 ### GetModified
 
-`func (o *RoleOutDynamic) GetModified() time.Time`
+`func (o *RoleOutDynamic) GetModified() string`
 
 GetModified returns the Modified field if non-nil, zero value otherwise.
 
 ### GetModifiedOk
 
-`func (o *RoleOutDynamic) GetModifiedOk() (*time.Time, bool)`
+`func (o *RoleOutDynamic) GetModifiedOk() (*string, bool)`
 
 GetModifiedOk returns a tuple with the Modified field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModified
 
-`func (o *RoleOutDynamic) SetModified(v time.Time)`
+`func (o *RoleOutDynamic) SetModified(v string)`
 
 SetModified sets Modified field to given value.
 

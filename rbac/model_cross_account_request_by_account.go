@@ -12,7 +12,6 @@ package rbac
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // CrossAccountRequestByAccount struct for CrossAccountRequestByAccount
@@ -20,7 +19,7 @@ type CrossAccountRequestByAccount struct {
 	RequestId *string `json:"request_id,omitempty"`
 	TargetAccount *string `json:"target_account,omitempty"`
 	Status *string `json:"status,omitempty"`
-	Created *time.Time `json:"created,omitempty"`
+	Created *string `json:"created,omitempty"`
 	StartDate interface{} `json:"start_date,omitempty"`
 	EndDate interface{} `json:"end_date,omitempty"`
 	FirstName *string `json:"first_name,omitempty"`
@@ -142,9 +141,9 @@ func (o *CrossAccountRequestByAccount) SetStatus(v string) {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *CrossAccountRequestByAccount) GetCreated() time.Time {
+func (o *CrossAccountRequestByAccount) GetCreated() string {
 	if o == nil || o.Created == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -152,7 +151,7 @@ func (o *CrossAccountRequestByAccount) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CrossAccountRequestByAccount) GetCreatedOk() (*time.Time, bool) {
+func (o *CrossAccountRequestByAccount) GetCreatedOk() (*string, bool) {
 	if o == nil || o.Created == nil {
 		return nil, false
 	}
@@ -168,8 +167,8 @@ func (o *CrossAccountRequestByAccount) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *CrossAccountRequestByAccount) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *CrossAccountRequestByAccount) SetCreated(v string) {
 	o.Created = &v
 }
 

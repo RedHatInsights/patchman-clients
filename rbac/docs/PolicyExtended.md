@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **Description** | Pointer to **string** |  | [optional] 
 **Uuid** | **string** |  | 
-**Created** | **time.Time** |  | 
-**Modified** | **time.Time** |  | 
+**Created** | **string** |  | 
+**Modified** | **string** |  | 
 **Group** | [**GroupOut**](GroupOut.md) |  | 
 **Roles** | [**[]RoleOut**](RoleOut.md) |  | 
 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewPolicyExtended
 
-`func NewPolicyExtended(name string, uuid string, created time.Time, modified time.Time, group GroupOut, roles []RoleOut, ) *PolicyExtended`
+`func NewPolicyExtended(name string, uuid string, created string, modified string, group GroupOut, roles []RoleOut, ) *PolicyExtended`
 
 NewPolicyExtended instantiates a new PolicyExtended object
 This constructor will assign default values to properties that have it defined,
@@ -98,40 +98,40 @@ SetUuid sets Uuid field to given value.
 
 ### GetCreated
 
-`func (o *PolicyExtended) GetCreated() time.Time`
+`func (o *PolicyExtended) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *PolicyExtended) GetCreatedOk() (*time.Time, bool)`
+`func (o *PolicyExtended) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *PolicyExtended) SetCreated(v time.Time)`
+`func (o *PolicyExtended) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
 
 ### GetModified
 
-`func (o *PolicyExtended) GetModified() time.Time`
+`func (o *PolicyExtended) GetModified() string`
 
 GetModified returns the Modified field if non-nil, zero value otherwise.
 
 ### GetModifiedOk
 
-`func (o *PolicyExtended) GetModifiedOk() (*time.Time, bool)`
+`func (o *PolicyExtended) GetModifiedOk() (*string, bool)`
 
 GetModifiedOk returns a tuple with the Modified field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModified
 
-`func (o *PolicyExtended) SetModified(v time.Time)`
+`func (o *PolicyExtended) SetModified(v string)`
 
 SetModified sets Modified field to given value.
 

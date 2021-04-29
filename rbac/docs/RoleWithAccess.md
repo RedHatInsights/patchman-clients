@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **DisplayName** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Uuid** | **string** |  | 
-**Created** | **time.Time** |  | 
-**Modified** | **time.Time** |  | 
+**Created** | **string** |  | 
+**Modified** | **string** |  | 
 **PolicyCount** | Pointer to **int32** |  | [optional] 
 **AccessCount** | Pointer to **int32** |  | [optional] 
 **Applications** | Pointer to **[]string** |  | [optional] 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewRoleWithAccess
 
-`func NewRoleWithAccess(name string, uuid string, created time.Time, modified time.Time, access []Access, ) *RoleWithAccess`
+`func NewRoleWithAccess(name string, uuid string, created string, modified string, access []Access, ) *RoleWithAccess`
 
 NewRoleWithAccess instantiates a new RoleWithAccess object
 This constructor will assign default values to properties that have it defined,
@@ -128,40 +128,40 @@ SetUuid sets Uuid field to given value.
 
 ### GetCreated
 
-`func (o *RoleWithAccess) GetCreated() time.Time`
+`func (o *RoleWithAccess) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *RoleWithAccess) GetCreatedOk() (*time.Time, bool)`
+`func (o *RoleWithAccess) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *RoleWithAccess) SetCreated(v time.Time)`
+`func (o *RoleWithAccess) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
 
 ### GetModified
 
-`func (o *RoleWithAccess) GetModified() time.Time`
+`func (o *RoleWithAccess) GetModified() string`
 
 GetModified returns the Modified field if non-nil, zero value otherwise.
 
 ### GetModifiedOk
 
-`func (o *RoleWithAccess) GetModifiedOk() (*time.Time, bool)`
+`func (o *RoleWithAccess) GetModifiedOk() (*string, bool)`
 
 GetModifiedOk returns a tuple with the Modified field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModified
 
-`func (o *RoleWithAccess) SetModified(v time.Time)`
+`func (o *RoleWithAccess) SetModified(v string)`
 
 SetModified sets Modified field to given value.
 
