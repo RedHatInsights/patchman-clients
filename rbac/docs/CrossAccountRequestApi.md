@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ## ListCrossAccountRequests
 
-> CrossAccountRequestPagination ListCrossAccountRequests(ctx).Limit(limit).Offset(offset).QueryBy(queryBy).Account(account).ApprovedOnly(approvedOnly).Execute()
+> CrossAccountRequestPagination ListCrossAccountRequests(ctx).Limit(limit).Offset(offset).QueryBy(queryBy).Account(account).ApprovedOnly(approvedOnly).Status(status).OrderBy(orderBy).Execute()
 
 List the cross account requests for a user or account
 
@@ -176,10 +176,12 @@ func main() {
     queryBy := "queryBy_example" // string | Parameter for filtering resource by either a user's ID, or a client's account number. The default value is target_account. (optional)
     account := "account_example" // string | Parameter for filtering resource by an account number. Value can be a comma-separated list of ids. To be used in tandem with ?query_by=user_id to further filter a user's requests by account number. (optional)
     approvedOnly := "approvedOnly_example" // string | Parameter for filtering resource which have been approved. (optional)
+    status := "status_example" // string | Parameter for filtering resource based on status. (optional)
+    orderBy := "orderBy_example" // string | Parameter for ordering by field. For inverse ordering, use '-', e.g. ?order_by=-start_date. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CrossAccountRequestApi.ListCrossAccountRequests(context.Background()).Limit(limit).Offset(offset).QueryBy(queryBy).Account(account).ApprovedOnly(approvedOnly).Execute()
+    resp, r, err := api_client.CrossAccountRequestApi.ListCrossAccountRequests(context.Background()).Limit(limit).Offset(offset).QueryBy(queryBy).Account(account).ApprovedOnly(approvedOnly).Status(status).OrderBy(orderBy).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CrossAccountRequestApi.ListCrossAccountRequests``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -205,6 +207,8 @@ Name | Type | Description  | Notes
  **queryBy** | **string** | Parameter for filtering resource by either a user&#39;s ID, or a client&#39;s account number. The default value is target_account. | 
  **account** | **string** | Parameter for filtering resource by an account number. Value can be a comma-separated list of ids. To be used in tandem with ?query_by&#x3D;user_id to further filter a user&#39;s requests by account number. | 
  **approvedOnly** | **string** | Parameter for filtering resource which have been approved. | 
+ **status** | **string** | Parameter for filtering resource based on status. | 
+ **orderBy** | **string** | Parameter for ordering by field. For inverse ordering, use &#39;-&#39;, e.g. ?order_by&#x3D;-start_date. | 
 
 ### Return type
 

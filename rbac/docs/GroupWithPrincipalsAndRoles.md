@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **Description** | Pointer to **string** |  | [optional] 
 **Uuid** | **string** |  | 
-**Created** | **time.Time** |  | 
-**Modified** | **time.Time** |  | 
+**Created** | **string** |  | 
+**Modified** | **string** |  | 
 **Principals** | [**[]Principal**](Principal.md) |  | 
 **Roles** | [**[]RoleOut**](RoleOut.md) |  | 
 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewGroupWithPrincipalsAndRoles
 
-`func NewGroupWithPrincipalsAndRoles(name string, uuid string, created time.Time, modified time.Time, principals []Principal, roles []RoleOut, ) *GroupWithPrincipalsAndRoles`
+`func NewGroupWithPrincipalsAndRoles(name string, uuid string, created string, modified string, principals []Principal, roles []RoleOut, ) *GroupWithPrincipalsAndRoles`
 
 NewGroupWithPrincipalsAndRoles instantiates a new GroupWithPrincipalsAndRoles object
 This constructor will assign default values to properties that have it defined,
@@ -98,40 +98,40 @@ SetUuid sets Uuid field to given value.
 
 ### GetCreated
 
-`func (o *GroupWithPrincipalsAndRoles) GetCreated() time.Time`
+`func (o *GroupWithPrincipalsAndRoles) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *GroupWithPrincipalsAndRoles) GetCreatedOk() (*time.Time, bool)`
+`func (o *GroupWithPrincipalsAndRoles) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *GroupWithPrincipalsAndRoles) SetCreated(v time.Time)`
+`func (o *GroupWithPrincipalsAndRoles) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
 
 ### GetModified
 
-`func (o *GroupWithPrincipalsAndRoles) GetModified() time.Time`
+`func (o *GroupWithPrincipalsAndRoles) GetModified() string`
 
 GetModified returns the Modified field if non-nil, zero value otherwise.
 
 ### GetModifiedOk
 
-`func (o *GroupWithPrincipalsAndRoles) GetModifiedOk() (*time.Time, bool)`
+`func (o *GroupWithPrincipalsAndRoles) GetModifiedOk() (*string, bool)`
 
 GetModifiedOk returns a tuple with the Modified field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModified
 
-`func (o *GroupWithPrincipalsAndRoles) SetModified(v time.Time)`
+`func (o *GroupWithPrincipalsAndRoles) SetModified(v string)`
 
 SetModified sets Modified field to given value.
 

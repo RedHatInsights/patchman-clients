@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Updated** | Pointer to **string** |  | [optional] 
 **Severity** | Pointer to **NullableString** |  | [optional] 
 **ReferenceList** | Pointer to **[]string** |  | [optional] 
-**Issued** | Pointer to **time.Time** |  | [optional] 
+**Issued** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Solution** | Pointer to **string** |  | [optional] 
 **Summary** | Pointer to **string** |  | [optional] 
@@ -126,20 +126,20 @@ HasReferenceList returns a boolean if a field has been set.
 
 ### GetIssued
 
-`func (o *ErrataResponseErrataList) GetIssued() time.Time`
+`func (o *ErrataResponseErrataList) GetIssued() string`
 
 GetIssued returns the Issued field if non-nil, zero value otherwise.
 
 ### GetIssuedOk
 
-`func (o *ErrataResponseErrataList) GetIssuedOk() (*time.Time, bool)`
+`func (o *ErrataResponseErrataList) GetIssuedOk() (*string, bool)`
 
 GetIssuedOk returns a tuple with the Issued field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIssued
 
-`func (o *ErrataResponseErrataList) SetIssued(v time.Time)`
+`func (o *ErrataResponseErrataList) SetIssued(v string)`
 
 SetIssued sets Issued field to given value.
 

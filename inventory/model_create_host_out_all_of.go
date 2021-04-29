@@ -12,7 +12,6 @@ package inventory
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // CreateHostOutAllOf struct for CreateHostOutAllOf
@@ -22,7 +21,7 @@ type CreateHostOutAllOf struct {
 	// The ansible host name for remediations
 	AnsibleHost NullableString `json:"ansible_host,omitempty"`
 	// A timestamp when the entry was created.
-	Created *time.Time `json:"created,omitempty"`
+	Created *string `json:"created,omitempty"`
 	// Timestamp from which the host is considered deleted.
 	CulledTimestamp NullableTime `json:"culled_timestamp,omitempty"`
 	// A host’s human-readable display name, e.g. in a form of a domain name.
@@ -38,7 +37,7 @@ type CreateHostOutAllOf struct {
 	// Timestamp from which the host is considered too stale to be listed without an explicit toggle.
 	StaleWarningTimestamp NullableTime `json:"stale_warning_timestamp,omitempty"`
 	// A timestamp when the entry was last updated.
-	Updated *time.Time `json:"updated,omitempty"`
+	Updated *string `json:"updated,omitempty"`
 }
 
 // NewCreateHostOutAllOf instantiates a new CreateHostOutAllOf object
@@ -126,9 +125,9 @@ func (o *CreateHostOutAllOf) UnsetAnsibleHost() {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *CreateHostOutAllOf) GetCreated() time.Time {
+func (o *CreateHostOutAllOf) GetCreated() string {
 	if o == nil || o.Created == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -136,7 +135,7 @@ func (o *CreateHostOutAllOf) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateHostOutAllOf) GetCreatedOk() (*time.Time, bool) {
+func (o *CreateHostOutAllOf) GetCreatedOk() (*string, bool) {
 	if o == nil || o.Created == nil {
 		return nil, false
 	}
@@ -152,15 +151,15 @@ func (o *CreateHostOutAllOf) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *CreateHostOutAllOf) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *CreateHostOutAllOf) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetCulledTimestamp returns the CulledTimestamp field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateHostOutAllOf) GetCulledTimestamp() time.Time {
+func (o *CreateHostOutAllOf) GetCulledTimestamp() string {
 	if o == nil || o.CulledTimestamp.Get() == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.CulledTimestamp.Get()
@@ -169,7 +168,7 @@ func (o *CreateHostOutAllOf) GetCulledTimestamp() time.Time {
 // GetCulledTimestampOk returns a tuple with the CulledTimestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateHostOutAllOf) GetCulledTimestampOk() (*time.Time, bool) {
+func (o *CreateHostOutAllOf) GetCulledTimestampOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -186,7 +185,7 @@ func (o *CreateHostOutAllOf) HasCulledTimestamp() bool {
 }
 
 // SetCulledTimestamp gets a reference to the given NullableTime and assigns it to the CulledTimestamp field.
-func (o *CreateHostOutAllOf) SetCulledTimestamp(v time.Time) {
+func (o *CreateHostOutAllOf) SetCulledTimestamp(v string) {
 	o.CulledTimestamp.Set(&v)
 }
 // SetCulledTimestampNil sets the value for CulledTimestamp to be an explicit nil
@@ -348,9 +347,9 @@ func (o *CreateHostOutAllOf) UnsetReporter() {
 }
 
 // GetStaleTimestamp returns the StaleTimestamp field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateHostOutAllOf) GetStaleTimestamp() time.Time {
+func (o *CreateHostOutAllOf) GetStaleTimestamp() string {
 	if o == nil || o.StaleTimestamp.Get() == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.StaleTimestamp.Get()
@@ -359,7 +358,7 @@ func (o *CreateHostOutAllOf) GetStaleTimestamp() time.Time {
 // GetStaleTimestampOk returns a tuple with the StaleTimestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateHostOutAllOf) GetStaleTimestampOk() (*time.Time, bool) {
+func (o *CreateHostOutAllOf) GetStaleTimestampOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -376,7 +375,7 @@ func (o *CreateHostOutAllOf) HasStaleTimestamp() bool {
 }
 
 // SetStaleTimestamp gets a reference to the given NullableTime and assigns it to the StaleTimestamp field.
-func (o *CreateHostOutAllOf) SetStaleTimestamp(v time.Time) {
+func (o *CreateHostOutAllOf) SetStaleTimestamp(v string) {
 	o.StaleTimestamp.Set(&v)
 }
 // SetStaleTimestampNil sets the value for StaleTimestamp to be an explicit nil
@@ -390,9 +389,9 @@ func (o *CreateHostOutAllOf) UnsetStaleTimestamp() {
 }
 
 // GetStaleWarningTimestamp returns the StaleWarningTimestamp field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateHostOutAllOf) GetStaleWarningTimestamp() time.Time {
+func (o *CreateHostOutAllOf) GetStaleWarningTimestamp() string {
 	if o == nil || o.StaleWarningTimestamp.Get() == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.StaleWarningTimestamp.Get()
@@ -401,7 +400,7 @@ func (o *CreateHostOutAllOf) GetStaleWarningTimestamp() time.Time {
 // GetStaleWarningTimestampOk returns a tuple with the StaleWarningTimestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateHostOutAllOf) GetStaleWarningTimestampOk() (*time.Time, bool) {
+func (o *CreateHostOutAllOf) GetStaleWarningTimestampOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -418,7 +417,7 @@ func (o *CreateHostOutAllOf) HasStaleWarningTimestamp() bool {
 }
 
 // SetStaleWarningTimestamp gets a reference to the given NullableTime and assigns it to the StaleWarningTimestamp field.
-func (o *CreateHostOutAllOf) SetStaleWarningTimestamp(v time.Time) {
+func (o *CreateHostOutAllOf) SetStaleWarningTimestamp(v string) {
 	o.StaleWarningTimestamp.Set(&v)
 }
 // SetStaleWarningTimestampNil sets the value for StaleWarningTimestamp to be an explicit nil
@@ -432,9 +431,9 @@ func (o *CreateHostOutAllOf) UnsetStaleWarningTimestamp() {
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *CreateHostOutAllOf) GetUpdated() time.Time {
+func (o *CreateHostOutAllOf) GetUpdated() string {
 	if o == nil || o.Updated == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Updated
@@ -442,7 +441,7 @@ func (o *CreateHostOutAllOf) GetUpdated() time.Time {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateHostOutAllOf) GetUpdatedOk() (*time.Time, bool) {
+func (o *CreateHostOutAllOf) GetUpdatedOk() (*string, bool) {
 	if o == nil || o.Updated == nil {
 		return nil, false
 	}
@@ -458,8 +457,8 @@ func (o *CreateHostOutAllOf) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
-func (o *CreateHostOutAllOf) SetUpdated(v time.Time) {
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *CreateHostOutAllOf) SetUpdated(v string) {
 	o.Updated = &v
 }
 

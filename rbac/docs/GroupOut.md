@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **Description** | Pointer to **string** |  | [optional] 
 **Uuid** | **string** |  | 
-**Created** | **time.Time** |  | 
-**Modified** | **time.Time** |  | 
+**Created** | **string** |  | 
+**Modified** | **string** |  | 
 **PrincipalCount** | Pointer to **int32** |  | [optional] 
 **RoleCount** | Pointer to **int32** |  | [optional] 
 **System** | Pointer to **bool** |  | [optional] [default to false]
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewGroupOut
 
-`func NewGroupOut(name string, uuid string, created time.Time, modified time.Time, ) *GroupOut`
+`func NewGroupOut(name string, uuid string, created string, modified string, ) *GroupOut`
 
 NewGroupOut instantiates a new GroupOut object
 This constructor will assign default values to properties that have it defined,
@@ -100,40 +100,40 @@ SetUuid sets Uuid field to given value.
 
 ### GetCreated
 
-`func (o *GroupOut) GetCreated() time.Time`
+`func (o *GroupOut) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *GroupOut) GetCreatedOk() (*time.Time, bool)`
+`func (o *GroupOut) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *GroupOut) SetCreated(v time.Time)`
+`func (o *GroupOut) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
 
 ### GetModified
 
-`func (o *GroupOut) GetModified() time.Time`
+`func (o *GroupOut) GetModified() string`
 
 GetModified returns the Modified field if non-nil, zero value otherwise.
 
 ### GetModifiedOk
 
-`func (o *GroupOut) GetModifiedOk() (*time.Time, bool)`
+`func (o *GroupOut) GetModifiedOk() (*string, bool)`
 
 GetModifiedOk returns a tuple with the Modified field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModified
 
-`func (o *GroupOut) SetModified(v time.Time)`
+`func (o *GroupOut) SetModified(v string)`
 
 SetModified sets Modified field to given value.
 

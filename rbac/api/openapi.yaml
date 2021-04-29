@@ -84,6 +84,36 @@ paths:
           - "true"
           type: string
         style: form
+      - description: Parameter for filtering resource based on status.
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          enum:
+          - pending
+          - approved
+          - denied
+          - cancelled
+          - expired
+          type: string
+        style: form
+      - description: Parameter for ordering by field. For inverse ordering, use '-',
+          e.g. ?order_by=-start_date.
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          enum:
+          - request_id
+          - start_date
+          - end_date
+          - created
+          - modified
+          - status
+          type: string
+        style: form
       responses:
         "200":
           content:

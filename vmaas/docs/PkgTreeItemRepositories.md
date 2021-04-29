@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **Basearch** | **string** |  | 
 **Releasever** | **string** |  | 
-**Revision** | **time.Time** |  | 
+**Revision** | **string** |  | 
 **ModuleName** | Pointer to **string** |  | [optional] 
 **ModuleStream** | Pointer to **string** |  | [optional] 
 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewPkgTreeItemRepositories
 
-`func NewPkgTreeItemRepositories(label string, name string, basearch string, releasever string, revision time.Time, ) *PkgTreeItemRepositories`
+`func NewPkgTreeItemRepositories(label string, name string, basearch string, releasever string, revision string, ) *PkgTreeItemRepositories`
 
 NewPkgTreeItemRepositories instantiates a new PkgTreeItemRepositories object
 This constructor will assign default values to properties that have it defined,
@@ -113,20 +113,20 @@ SetReleasever sets Releasever field to given value.
 
 ### GetRevision
 
-`func (o *PkgTreeItemRepositories) GetRevision() time.Time`
+`func (o *PkgTreeItemRepositories) GetRevision() string`
 
 GetRevision returns the Revision field if non-nil, zero value otherwise.
 
 ### GetRevisionOk
 
-`func (o *PkgTreeItemRepositories) GetRevisionOk() (*time.Time, bool)`
+`func (o *PkgTreeItemRepositories) GetRevisionOk() (*string, bool)`
 
 GetRevisionOk returns a tuple with the Revision field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRevision
 
-`func (o *PkgTreeItemRepositories) SetRevision(v time.Time)`
+`func (o *PkgTreeItemRepositories) SetRevision(v string)`
 
 SetRevision sets Revision field to given value.
 

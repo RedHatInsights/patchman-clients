@@ -12,7 +12,6 @@ package rbac
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // RoleWithAccess struct for RoleWithAccess
@@ -21,8 +20,8 @@ type RoleWithAccess struct {
 	DisplayName *string `json:"display_name,omitempty"`
 	Description *string `json:"description,omitempty"`
 	Uuid string `json:"uuid"`
-	Created time.Time `json:"created"`
-	Modified time.Time `json:"modified"`
+	Created string `json:"created"`
+	Modified string `json:"modified"`
 	PolicyCount *int32 `json:"policyCount,omitempty"`
 	AccessCount *int32 `json:"accessCount,omitempty"`
 	Applications *[]string `json:"applications,omitempty"`
@@ -35,7 +34,7 @@ type RoleWithAccess struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRoleWithAccess(name string, uuid string, created time.Time, modified time.Time, access []Access, ) *RoleWithAccess {
+func NewRoleWithAccess(name string, uuid string, created string, modified string, access []Access, ) *RoleWithAccess {
 	this := RoleWithAccess{}
 	this.Name = name
 	this.Uuid = uuid
@@ -174,9 +173,9 @@ func (o *RoleWithAccess) SetUuid(v string) {
 }
 
 // GetCreated returns the Created field value
-func (o *RoleWithAccess) GetCreated() time.Time {
+func (o *RoleWithAccess) GetCreated() string {
 	if o == nil  {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 
@@ -185,7 +184,7 @@ func (o *RoleWithAccess) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value
 // and a boolean to check if the value has been set.
-func (o *RoleWithAccess) GetCreatedOk() (*time.Time, bool) {
+func (o *RoleWithAccess) GetCreatedOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -193,14 +192,14 @@ func (o *RoleWithAccess) GetCreatedOk() (*time.Time, bool) {
 }
 
 // SetCreated sets field value
-func (o *RoleWithAccess) SetCreated(v time.Time) {
+func (o *RoleWithAccess) SetCreated(v string) {
 	o.Created = v
 }
 
 // GetModified returns the Modified field value
-func (o *RoleWithAccess) GetModified() time.Time {
+func (o *RoleWithAccess) GetModified() string {
 	if o == nil  {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 
@@ -209,7 +208,7 @@ func (o *RoleWithAccess) GetModified() time.Time {
 
 // GetModifiedOk returns a tuple with the Modified field value
 // and a boolean to check if the value has been set.
-func (o *RoleWithAccess) GetModifiedOk() (*time.Time, bool) {
+func (o *RoleWithAccess) GetModifiedOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -217,7 +216,7 @@ func (o *RoleWithAccess) GetModifiedOk() (*time.Time, bool) {
 }
 
 // SetModified sets field value
-func (o *RoleWithAccess) SetModified(v time.Time) {
+func (o *RoleWithAccess) SetModified(v string) {
 	o.Modified = v
 }
 

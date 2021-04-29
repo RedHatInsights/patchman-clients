@@ -16,14 +16,14 @@ Name | Type | Description | Notes
 **SubscriptionManagerId** | Pointer to **NullableString** | A Red Hat Subcription Manager ID of a RHEL host.  This field is considered to be a canonical fact. | [optional] 
 **Account** | **string** | A Red Hat Account number that owns the host. | 
 **AnsibleHost** | Pointer to **NullableString** | The ansible host name for remediations | [optional] 
-**Created** | Pointer to **time.Time** | A timestamp when the entry was created. | [optional] 
+**Created** | Pointer to **string** | A timestamp when the entry was created. | [optional] 
 **CulledTimestamp** | Pointer to **NullableTime** | Timestamp from which the host is considered deleted. | [optional] 
 **DisplayName** | Pointer to **NullableString** | A host’s human-readable display name, e.g. in a form of a domain name. | [optional] 
 **Id** | Pointer to **string** | A durable and reliable platform-wide host identifier. Applications should use this identifier to reference hosts. | [optional] 
 **Reporter** | Pointer to **NullableString** | Reporting source of the host. Used when updating the stale_timestamp. | [optional] 
 **StaleTimestamp** | Pointer to **NullableTime** | Timestamp from which the host is considered stale. | [optional] 
 **StaleWarningTimestamp** | Pointer to **NullableTime** | Timestamp from which the host is considered too stale to be listed without an explicit toggle. | [optional] 
-**Updated** | Pointer to **time.Time** | A timestamp when the entry was last updated. | [optional] 
+**Updated** | Pointer to **string** | A timestamp when the entry was last updated. | [optional] 
 
 ## Methods
 
@@ -441,20 +441,20 @@ HasAnsibleHost returns a boolean if a field has been set.
 UnsetAnsibleHost ensures that no value is present for AnsibleHost, not even an explicit nil
 ### GetCreated
 
-`func (o *HostOut) GetCreated() time.Time`
+`func (o *HostOut) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *HostOut) GetCreatedOk() (*time.Time, bool)`
+`func (o *HostOut) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *HostOut) SetCreated(v time.Time)`
+`func (o *HostOut) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
@@ -466,20 +466,20 @@ HasCreated returns a boolean if a field has been set.
 
 ### GetCulledTimestamp
 
-`func (o *HostOut) GetCulledTimestamp() time.Time`
+`func (o *HostOut) GetCulledTimestamp() string`
 
 GetCulledTimestamp returns the CulledTimestamp field if non-nil, zero value otherwise.
 
 ### GetCulledTimestampOk
 
-`func (o *HostOut) GetCulledTimestampOk() (*time.Time, bool)`
+`func (o *HostOut) GetCulledTimestampOk() (*string, bool)`
 
 GetCulledTimestampOk returns a tuple with the CulledTimestamp field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCulledTimestamp
 
-`func (o *HostOut) SetCulledTimestamp(v time.Time)`
+`func (o *HostOut) SetCulledTimestamp(v string)`
 
 SetCulledTimestamp sets CulledTimestamp field to given value.
 
@@ -596,20 +596,20 @@ HasReporter returns a boolean if a field has been set.
 UnsetReporter ensures that no value is present for Reporter, not even an explicit nil
 ### GetStaleTimestamp
 
-`func (o *HostOut) GetStaleTimestamp() time.Time`
+`func (o *HostOut) GetStaleTimestamp() string`
 
 GetStaleTimestamp returns the StaleTimestamp field if non-nil, zero value otherwise.
 
 ### GetStaleTimestampOk
 
-`func (o *HostOut) GetStaleTimestampOk() (*time.Time, bool)`
+`func (o *HostOut) GetStaleTimestampOk() (*string, bool)`
 
 GetStaleTimestampOk returns a tuple with the StaleTimestamp field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStaleTimestamp
 
-`func (o *HostOut) SetStaleTimestamp(v time.Time)`
+`func (o *HostOut) SetStaleTimestamp(v string)`
 
 SetStaleTimestamp sets StaleTimestamp field to given value.
 
@@ -631,20 +631,20 @@ HasStaleTimestamp returns a boolean if a field has been set.
 UnsetStaleTimestamp ensures that no value is present for StaleTimestamp, not even an explicit nil
 ### GetStaleWarningTimestamp
 
-`func (o *HostOut) GetStaleWarningTimestamp() time.Time`
+`func (o *HostOut) GetStaleWarningTimestamp() string`
 
 GetStaleWarningTimestamp returns the StaleWarningTimestamp field if non-nil, zero value otherwise.
 
 ### GetStaleWarningTimestampOk
 
-`func (o *HostOut) GetStaleWarningTimestampOk() (*time.Time, bool)`
+`func (o *HostOut) GetStaleWarningTimestampOk() (*string, bool)`
 
 GetStaleWarningTimestampOk returns a tuple with the StaleWarningTimestamp field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStaleWarningTimestamp
 
-`func (o *HostOut) SetStaleWarningTimestamp(v time.Time)`
+`func (o *HostOut) SetStaleWarningTimestamp(v string)`
 
 SetStaleWarningTimestamp sets StaleWarningTimestamp field to given value.
 
@@ -666,20 +666,20 @@ HasStaleWarningTimestamp returns a boolean if a field has been set.
 UnsetStaleWarningTimestamp ensures that no value is present for StaleWarningTimestamp, not even an explicit nil
 ### GetUpdated
 
-`func (o *HostOut) GetUpdated() time.Time`
+`func (o *HostOut) GetUpdated() string`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *HostOut) GetUpdatedOk() (*time.Time, bool)`
+`func (o *HostOut) GetUpdatedOk() (*string, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *HostOut) SetUpdated(v time.Time)`
+`func (o *HostOut) SetUpdated(v string)`
 
 SetUpdated sets Updated field to given value.
 

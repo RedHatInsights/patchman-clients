@@ -12,20 +12,19 @@ package rbac
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // Timestamped struct for Timestamped
 type Timestamped struct {
-	Created time.Time `json:"created"`
-	Modified time.Time `json:"modified"`
+	Created string `json:"created"`
+	Modified string `json:"modified"`
 }
 
 // NewTimestamped instantiates a new Timestamped object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTimestamped(created time.Time, modified time.Time, ) *Timestamped {
+func NewTimestamped(created string, modified string, ) *Timestamped {
 	this := Timestamped{}
 	this.Created = created
 	this.Modified = modified
@@ -41,9 +40,9 @@ func NewTimestampedWithDefaults() *Timestamped {
 }
 
 // GetCreated returns the Created field value
-func (o *Timestamped) GetCreated() time.Time {
+func (o *Timestamped) GetCreated() string {
 	if o == nil  {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 
@@ -52,7 +51,7 @@ func (o *Timestamped) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value
 // and a boolean to check if the value has been set.
-func (o *Timestamped) GetCreatedOk() (*time.Time, bool) {
+func (o *Timestamped) GetCreatedOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -60,14 +59,14 @@ func (o *Timestamped) GetCreatedOk() (*time.Time, bool) {
 }
 
 // SetCreated sets field value
-func (o *Timestamped) SetCreated(v time.Time) {
+func (o *Timestamped) SetCreated(v string) {
 	o.Created = v
 }
 
 // GetModified returns the Modified field value
-func (o *Timestamped) GetModified() time.Time {
+func (o *Timestamped) GetModified() string {
 	if o == nil  {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 
@@ -76,7 +75,7 @@ func (o *Timestamped) GetModified() time.Time {
 
 // GetModifiedOk returns a tuple with the Modified field value
 // and a boolean to check if the value has been set.
-func (o *Timestamped) GetModifiedOk() (*time.Time, bool) {
+func (o *Timestamped) GetModifiedOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -84,7 +83,7 @@ func (o *Timestamped) GetModifiedOk() (*time.Time, bool) {
 }
 
 // SetModified sets field value
-func (o *Timestamped) SetModified(v time.Time) {
+func (o *Timestamped) SetModified(v string) {
 	o.Modified = v
 }
 

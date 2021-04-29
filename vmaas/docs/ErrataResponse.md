@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **PageSize** | Pointer to **float32** |  | [optional] 
 **Pages** | Pointer to **float32** |  | [optional] 
 **ErrataList** | Pointer to [**map[string]ErrataResponseErrataList**](ErrataResponse_errata_list.md) |  | [optional] 
-**ModifiedSince** | Pointer to **time.Time** |  | [optional] 
+**ModifiedSince** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **[]string** |  | [optional] 
 **Severity** | Pointer to **[]string** |  | [optional] 
 
@@ -133,20 +133,20 @@ HasErrataList returns a boolean if a field has been set.
 
 ### GetModifiedSince
 
-`func (o *ErrataResponse) GetModifiedSince() time.Time`
+`func (o *ErrataResponse) GetModifiedSince() string`
 
 GetModifiedSince returns the ModifiedSince field if non-nil, zero value otherwise.
 
 ### GetModifiedSinceOk
 
-`func (o *ErrataResponse) GetModifiedSinceOk() (*time.Time, bool)`
+`func (o *ErrataResponse) GetModifiedSinceOk() (*string, bool)`
 
 GetModifiedSinceOk returns a tuple with the ModifiedSince field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModifiedSince
 
-`func (o *ErrataResponse) SetModifiedSince(v time.Time)`
+`func (o *ErrataResponse) SetModifiedSince(v string)`
 
 SetModifiedSince sets ModifiedSince field to given value.
 

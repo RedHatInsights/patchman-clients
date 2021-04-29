@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: VMaaS Webapp
-  version: 2.13.1
+  version: 2.14.0
 servers:
 - url: /api/vmaas/v3
 tags:

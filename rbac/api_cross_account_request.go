@@ -323,6 +323,8 @@ type ApiListCrossAccountRequestsRequest struct {
 	queryBy *string
 	account *string
 	approvedOnly *string
+	status *string
+	orderBy *string
 }
 
 func (r ApiListCrossAccountRequestsRequest) Limit(limit int32) ApiListCrossAccountRequestsRequest {
@@ -343,6 +345,14 @@ func (r ApiListCrossAccountRequestsRequest) Account(account string) ApiListCross
 }
 func (r ApiListCrossAccountRequestsRequest) ApprovedOnly(approvedOnly string) ApiListCrossAccountRequestsRequest {
 	r.approvedOnly = &approvedOnly
+	return r
+}
+func (r ApiListCrossAccountRequestsRequest) Status(status string) ApiListCrossAccountRequestsRequest {
+	r.status = &status
+	return r
+}
+func (r ApiListCrossAccountRequestsRequest) OrderBy(orderBy string) ApiListCrossAccountRequestsRequest {
+	r.orderBy = &orderBy
 	return r
 }
 
@@ -402,6 +412,12 @@ func (a *CrossAccountRequestApiService) ListCrossAccountRequestsExecute(r ApiLis
 	}
 	if r.approvedOnly != nil {
 		localVarQueryParams.Add("approved_only", parameterToString(*r.approvedOnly, ""))
+	}
+	if r.status != nil {
+		localVarQueryParams.Add("status", parameterToString(*r.status, ""))
+	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("order_by", parameterToString(*r.orderBy, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

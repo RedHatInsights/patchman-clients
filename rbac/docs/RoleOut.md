@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **DisplayName** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Uuid** | **string** |  | 
-**Created** | **time.Time** |  | 
-**Modified** | **time.Time** |  | 
+**Created** | **string** |  | 
+**Modified** | **string** |  | 
 **PolicyCount** | Pointer to **int32** |  | [optional] 
 **AccessCount** | Pointer to **int32** |  | [optional] 
 **Applications** | Pointer to **[]string** |  | [optional] 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewRoleOut
 
-`func NewRoleOut(name string, uuid string, created time.Time, modified time.Time, ) *RoleOut`
+`func NewRoleOut(name string, uuid string, created string, modified string, ) *RoleOut`
 
 NewRoleOut instantiates a new RoleOut object
 This constructor will assign default values to properties that have it defined,
@@ -127,40 +127,40 @@ SetUuid sets Uuid field to given value.
 
 ### GetCreated
 
-`func (o *RoleOut) GetCreated() time.Time`
+`func (o *RoleOut) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *RoleOut) GetCreatedOk() (*time.Time, bool)`
+`func (o *RoleOut) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *RoleOut) SetCreated(v time.Time)`
+`func (o *RoleOut) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
 
 ### GetModified
 
-`func (o *RoleOut) GetModified() time.Time`
+`func (o *RoleOut) GetModified() string`
 
 GetModified returns the Modified field if non-nil, zero value otherwise.
 
 ### GetModifiedOk
 
-`func (o *RoleOut) GetModifiedOk() (*time.Time, bool)`
+`func (o *RoleOut) GetModifiedOk() (*string, bool)`
 
 GetModifiedOk returns a tuple with the Modified field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModified
 
-`func (o *RoleOut) SetModified(v time.Time)`
+`func (o *RoleOut) SetModified(v string)`
 
 SetModified sets Modified field to given value.
 
