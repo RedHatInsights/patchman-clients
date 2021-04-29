@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Page** | Pointer to **float32** |  | [optional] 
 **PageSize** | Pointer to **float32** |  | [optional] 
 **ErrataList** | **[]string** |  | 
-**ModifiedSince** | Pointer to **time.Time** |  | [optional] 
+**ModifiedSince** | Pointer to **string** |  | [optional] 
 **ThirdParty** | Pointer to **bool** | Include content from \&quot;third party\&quot; repositories into the response, disabled by default. | [optional] [default to false]
 **Type** | Pointer to **[]string** |  | [optional] 
 **Severity** | Pointer to **[]string** |  | [optional] 
@@ -103,20 +103,20 @@ SetErrataList sets ErrataList field to given value.
 
 ### GetModifiedSince
 
-`func (o *ErrataRequest) GetModifiedSince() time.Time`
+`func (o *ErrataRequest) GetModifiedSince() string`
 
 GetModifiedSince returns the ModifiedSince field if non-nil, zero value otherwise.
 
 ### GetModifiedSinceOk
 
-`func (o *ErrataRequest) GetModifiedSinceOk() (*time.Time, bool)`
+`func (o *ErrataRequest) GetModifiedSinceOk() (*string, bool)`
 
 GetModifiedSinceOk returns a tuple with the ModifiedSince field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModifiedSince
 
-`func (o *ErrataRequest) SetModifiedSince(v time.Time)`
+`func (o *ErrataRequest) SetModifiedSince(v string)`
 
 SetModifiedSince sets ModifiedSince field to given value.
 

@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
-**Issued** | **time.Time** |  | 
-**Updated** | Pointer to **time.Time** |  | [optional] 
+**Issued** | **string** |  | 
+**Updated** | Pointer to **string** |  | [optional] 
 **CveList** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewPkgTreeItemErrata
 
-`func NewPkgTreeItemErrata(name string, issued time.Time, ) *PkgTreeItemErrata`
+`func NewPkgTreeItemErrata(name string, issued string, ) *PkgTreeItemErrata`
 
 NewPkgTreeItemErrata instantiates a new PkgTreeItemErrata object
 This constructor will assign default values to properties that have it defined,
@@ -50,40 +50,40 @@ SetName sets Name field to given value.
 
 ### GetIssued
 
-`func (o *PkgTreeItemErrata) GetIssued() time.Time`
+`func (o *PkgTreeItemErrata) GetIssued() string`
 
 GetIssued returns the Issued field if non-nil, zero value otherwise.
 
 ### GetIssuedOk
 
-`func (o *PkgTreeItemErrata) GetIssuedOk() (*time.Time, bool)`
+`func (o *PkgTreeItemErrata) GetIssuedOk() (*string, bool)`
 
 GetIssuedOk returns a tuple with the Issued field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIssued
 
-`func (o *PkgTreeItemErrata) SetIssued(v time.Time)`
+`func (o *PkgTreeItemErrata) SetIssued(v string)`
 
 SetIssued sets Issued field to given value.
 
 
 ### GetUpdated
 
-`func (o *PkgTreeItemErrata) GetUpdated() time.Time`
+`func (o *PkgTreeItemErrata) GetUpdated() string`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *PkgTreeItemErrata) GetUpdatedOk() (*time.Time, bool)`
+`func (o *PkgTreeItemErrata) GetUpdatedOk() (*string, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *PkgTreeItemErrata) SetUpdated(v time.Time)`
+`func (o *PkgTreeItemErrata) SetUpdated(v string)`
 
 SetUpdated sets Updated field to given value.
 

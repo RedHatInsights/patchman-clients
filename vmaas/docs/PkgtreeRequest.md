@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Page** | Pointer to **float32** |  | [optional] 
 **PageSize** | Pointer to **float32** |  | [optional] 
 **PackageNameList** | **[]string** |  | 
-**ModifiedSince** | Pointer to **time.Time** |  | [optional] 
+**ModifiedSince** | Pointer to **string** |  | [optional] 
 **ThirdParty** | Pointer to **bool** | Include content from \&quot;third party\&quot; repositories into the response, disabled by default. | [optional] [default to false]
 **ReturnRepositories** | Pointer to **bool** | Include nevra repositories info into the response. | [optional] [default to true]
 **ReturnErrata** | Pointer to **bool** | Include nevra errata info into the response. | [optional] [default to true]
@@ -105,20 +105,20 @@ SetPackageNameList sets PackageNameList field to given value.
 
 ### GetModifiedSince
 
-`func (o *PkgtreeRequest) GetModifiedSince() time.Time`
+`func (o *PkgtreeRequest) GetModifiedSince() string`
 
 GetModifiedSince returns the ModifiedSince field if non-nil, zero value otherwise.
 
 ### GetModifiedSinceOk
 
-`func (o *PkgtreeRequest) GetModifiedSinceOk() (*time.Time, bool)`
+`func (o *PkgtreeRequest) GetModifiedSinceOk() (*string, bool)`
 
 GetModifiedSinceOk returns a tuple with the ModifiedSince field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModifiedSince
 
-`func (o *PkgtreeRequest) SetModifiedSince(v time.Time)`
+`func (o *PkgtreeRequest) SetModifiedSince(v string)`
 
 SetModifiedSince sets ModifiedSince field to given value.
 
