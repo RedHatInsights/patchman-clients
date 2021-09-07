@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **PageSize** | Pointer to **float32** |  | [optional] 
 **Pages** | Pointer to **float32** |  | [optional] 
 **CveList** | Pointer to [**map[string]CvesResponseCveList**](CvesResponse_cve_list.md) |  | [optional] 
-**ModifiedSince** | Pointer to **string** |  | [optional] 
+**LastChange** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -129,30 +129,30 @@ SetCveList sets CveList field to given value.
 
 HasCveList returns a boolean if a field has been set.
 
-### GetModifiedSince
+### GetLastChange
 
-`func (o *CvesResponse) GetModifiedSince() string`
+`func (o *CvesResponse) GetLastChange() string`
 
-GetModifiedSince returns the ModifiedSince field if non-nil, zero value otherwise.
+GetLastChange returns the LastChange field if non-nil, zero value otherwise.
 
-### GetModifiedSinceOk
+### GetLastChangeOk
 
-`func (o *CvesResponse) GetModifiedSinceOk() (*string, bool)`
+`func (o *CvesResponse) GetLastChangeOk() (*string, bool)`
 
-GetModifiedSinceOk returns a tuple with the ModifiedSince field if it's non-nil, zero value otherwise
+GetLastChangeOk returns a tuple with the LastChange field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetModifiedSince
+### SetLastChange
 
-`func (o *CvesResponse) SetModifiedSince(v string)`
+`func (o *CvesResponse) SetLastChange(v string)`
 
-SetModifiedSince sets ModifiedSince field to given value.
+SetLastChange sets LastChange field to given value.
 
-### HasModifiedSince
+### HasLastChange
 
-`func (o *CvesResponse) HasModifiedSince() bool`
+`func (o *CvesResponse) HasLastChange() bool`
 
-HasModifiedSince returns a boolean if a field has been set.
+HasLastChange returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

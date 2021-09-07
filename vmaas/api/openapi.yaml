@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: VMaaS Webapp
-  version: 2.14.0
+  version: 2.24.1
 servers:
 - url: /api/vmaas/v3
 tags:
@@ -11,14 +11,14 @@ tags:
 paths:
   /monitoring/health:
     get:
-      operationId: app.HealthHandler.get
+      operationId: vmaas.webapp.app.HealthHandler.get
       responses:
         "200":
           description: Application is alive
       summary: Return API liveness status
   /monitoring/ready:
     get:
-      operationId: app.ReadyHandler.get
+      operationId: vmaas.webapp.app.ReadyHandler.get
       responses:
         "200":
           description: Application is ready
@@ -28,14 +28,14 @@ paths:
   /version:
     get:
       description: Get version of application
-      operationId: app.VersionHandler.get
+      operationId: vmaas.webapp.app.VersionHandler.get
       responses:
         "200":
           description: Version of application returned
   /dbchange:
     get:
       description: Get last-updated-times for VMaaS DB
-      operationId: app.DBChangeHandler.get
+      operationId: vmaas.webapp.app.DBChangeHandler.get
       responses:
         "200":
           content:
@@ -47,7 +47,7 @@ paths:
   /updates:
     post:
       description: List all updates for list of package NEVRAs
-      operationId: app.UpdatesHandlerV3Post.post
+      operationId: vmaas.webapp.app.UpdatesHandlerV3Post.post
       requestBody:
         content:
           application/json:
@@ -66,7 +66,7 @@ paths:
   /updates/{nevra}:
     get:
       description: List all updates for single package NEVRA
-      operationId: app.UpdatesHandlerV3Get.get
+      operationId: vmaas.webapp.app.UpdatesHandlerV3Get.get
       parameters:
       - description: Package NEVRA
         explode: false
@@ -89,7 +89,7 @@ paths:
       description: Get details about CVEs with additional parameters. As a "cve_list"
         parameter a complete list of CVE names can be provided OR one POSIX regular
         expression.
-      operationId: app.CVEHandlerPost.post
+      operationId: vmaas.webapp.app.CVEHandlerPost.post
       requestBody:
         content:
           application/json:
@@ -108,7 +108,7 @@ paths:
     get:
       description: Get details about CVEs. It is possible to use POSIX regular expression
         as a pattern for CVE names.
-      operationId: app.CVEHandlerGet.get
+      operationId: vmaas.webapp.app.CVEHandlerGet.get
       parameters:
       - description: CVE name or POSIX regular expression pattern
         explode: false
@@ -130,7 +130,7 @@ paths:
     post:
       description: Get details about list of repositories. "repository_list" can be
         either a list of repository names, OR a single POSIX regular expression.
-      operationId: app.ReposHandlerPost.post
+      operationId: vmaas.webapp.app.ReposHandlerPost.post
       requestBody:
         content:
           application/json:
@@ -149,7 +149,7 @@ paths:
     get:
       description: Get details about a repository or repository-expression. It is
         allowed to use POSIX regular expression as a pattern for repository names.
-      operationId: app.ReposHandlerGet.get
+      operationId: vmaas.webapp.app.ReposHandlerGet.get
       parameters:
       - description: Repository name or POSIX regular expression pattern
         explode: false
@@ -172,7 +172,7 @@ paths:
     post:
       description: Get details about errata with additional parameters. "errata_list"
         parameter can be either a list of errata names OR a single POSIX regular expression.
-      operationId: app.ErrataHandlerPost.post
+      operationId: vmaas.webapp.app.ErrataHandlerPost.post
       requestBody:
         content:
           application/json:
@@ -191,7 +191,7 @@ paths:
     get:
       description: Get details about errata. It is possible to use POSIX regular expression
         as a pattern for errata names.
-      operationId: app.ErrataHandlerGet.get
+      operationId: vmaas.webapp.app.ErrataHandlerGet.get
       parameters:
       - description: Errata advisory name or POSIX regular expression pattern
         explode: false
@@ -213,7 +213,7 @@ paths:
     post:
       description: Get details about packages. "package_list" must be a list of package
         NEVRAs.
-      operationId: app.PackagesHandlerPost.post
+      operationId: vmaas.webapp.app.PackagesHandlerPost.post
       requestBody:
         content:
           application/json:
@@ -231,7 +231,7 @@ paths:
   /packages/{nevra}:
     get:
       description: Get details about packages.
-      operationId: app.PackagesHandlerGet.get
+      operationId: vmaas.webapp.app.PackagesHandlerGet.get
       parameters:
       - description: Package NEVRA
         explode: false
@@ -253,7 +253,7 @@ paths:
     post:
       description: Get package NEVRAs trees for package names. "package_name_list"
         must be a list of package names OR one POSIX regular expression.
-      operationId: app.PkgtreeHandlerV3Post.post
+      operationId: vmaas.webapp.app.PkgtreeHandlerV3Post.post
       requestBody:
         content:
           application/json:
@@ -271,7 +271,7 @@ paths:
   /pkgtree/{package_name}:
     get:
       description: Get package NEVRAs tree for a single package name.
-      operationId: app.PkgtreeHandlerV3Get.get
+      operationId: vmaas.webapp.app.PkgtreeHandlerV3Get.get
       parameters:
       - description: Package name
         explode: false
@@ -292,7 +292,7 @@ paths:
   /vulnerabilities:
     post:
       description: List of applicable CVEs to a package list.
-      operationId: app.VulnerabilitiesHandlerPost.post
+      operationId: vmaas.webapp.app.VulnerabilitiesHandlerPost.post
       requestBody:
         content:
           application/json:
@@ -310,7 +310,7 @@ paths:
   /vulnerabilities/{nevra}:
     get:
       description: List of applicable CVEs for a single package NEVRA
-      operationId: app.VulnerabilitiesHandlerGet.get
+      operationId: vmaas.webapp.app.VulnerabilitiesHandlerGet.get
       parameters:
       - description: Package NEVRA
         explode: false
@@ -331,7 +331,7 @@ paths:
   /patches:
     post:
       description: List of applicable errata to a package list.
-      operationId: app.PatchesHandlerPost.post
+      operationId: vmaas.webapp.app.PatchesHandlerPost.post
       requestBody:
         content:
           application/json:
@@ -349,7 +349,7 @@ paths:
   /patches/{nevra}:
     get:
       description: List of applicable CVEs for a single package NEVRA
-      operationId: app.PatchesHandlerGet.get
+      operationId: vmaas.webapp.app.PatchesHandlerGet.get
       parameters:
       - description: Package NEVRA
         explode: false
@@ -371,7 +371,7 @@ paths:
     post:
       description: List of content sets with associated rpm names by given srpm and
         content set.
-      operationId: app.SRPMPkgNamesHandlerPost.post
+      operationId: vmaas.webapp.app.SRPMPkgNamesHandlerPost.post
       requestBody:
         content:
           application/json:
@@ -392,7 +392,7 @@ paths:
   /package_names/srpms/{srpm}:
     get:
       description: List of content sets with associated rpm names by given srpm.
-      operationId: app.SRPMPkgNamesHandlerGet.get
+      operationId: vmaas.webapp.app.SRPMPkgNamesHandlerGet.get
       parameters:
       - description: Source package name
         explode: false
@@ -418,7 +418,7 @@ paths:
   /package_names/rpms:
     post:
       description: List of content sets by given rpm name and content set.
-      operationId: app.RPMPkgNamesHandlerPost.post
+      operationId: vmaas.webapp.app.RPMPkgNamesHandlerPost.post
       requestBody:
         content:
           application/json:
@@ -438,7 +438,7 @@ paths:
   /package_names/rpms/{rpm}:
     get:
       description: List of content sets by given rpm name.
-      operationId: app.RPMPkgNamesHandlerGet.get
+      operationId: vmaas.webapp.app.RPMPkgNamesHandlerGet.get
       parameters:
       - description: Package name
         explode: false
@@ -538,6 +538,7 @@ components:
           module_name: rhn-tools
         - module_stream: "1"
           module_name: rhn-tools
+        last_change: 2020-04-16 20:07:58.500192+00
         update_list:
           key:
             available_updates:
@@ -575,6 +576,9 @@ components:
           type: string
         basearch:
           example: x86_64
+          type: string
+        last_change:
+          example: 2020-04-16 20:07:58.500192+00
           type: string
     CvesRequest:
       example:
@@ -660,7 +664,7 @@ components:
             redhat_url: https://access.redhat.com/security/cve/cve-2017-5715
             cvss3_score: "5.1"
         pages: 0.8008281904610115
-        modified_since: 2018-04-05T01:23:45+02:00
+        last_change: 2020-04-16 20:07:58.500192+00
         page: 0
         page_size: 10
       properties:
@@ -676,9 +680,8 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/CvesResponse_cve_list'
           type: object
-        modified_since:
-          example: 2018-04-05T01:23:45+02:00
-          format: date-time
+        last_change:
+          example: 2020-04-16 20:07:58.500192+00
           type: string
     ReposRequest:
       example:
@@ -721,6 +724,7 @@ components:
     ReposResponse:
       example:
         pages: 0.8008281904610115
+        last_change: 2020-04-16 20:07:58.500192+00
         page: 0
         repository_list:
           key:
@@ -771,6 +775,9 @@ components:
               type: object
             type: array
           type: object
+        last_change:
+          example: 2020-04-16 20:07:58.500192+00
+          type: string
     ErrataRequest:
       example:
         severity:
@@ -863,7 +870,7 @@ components:
             bugzilla_list:
             - "1519778"
             - "1519778"
-        modified_since: 2018-04-05T01:23:45+02:00
+        last_change: 2020-04-16 20:07:58.500192+00
         page: 0
         type:
         - security
@@ -882,10 +889,6 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/ErrataResponse_errata_list'
           type: object
-        modified_since:
-          example: 2018-04-05T01:23:45+02:00
-          format: date-time
-          type: string
         type:
           items:
             example: security
@@ -902,6 +905,9 @@ components:
             nullable: true
             type: string
           type: array
+        last_change:
+          example: 2020-04-16 20:07:58.500192+00
+          type: string
     PackagesRequest:
       example:
         package_list:
@@ -928,6 +934,7 @@ components:
       type: object
     PackagesResponse:
       example:
+        last_change: 2020-04-16 20:07:58.500192+00
         package_list:
           key:
             summary: package summary
@@ -950,6 +957,9 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/PackagesResponse_package_list'
           type: object
+        last_change:
+          example: 2020-04-16 20:07:58.500192+00
+          type: string
     PkgtreeRequest:
       example:
         return_description: false
@@ -1102,6 +1112,7 @@ components:
           type: number
         last_change:
           example: 2020-04-16 20:07:58.500192+00
+          type: string
         package_name_list:
           additionalProperties:
             items:
@@ -1247,6 +1258,7 @@ components:
         unpatched_cve_list:
         - CVE-2017-15089
         - CVE-2017-15089
+        last_change: 2020-04-16 20:07:58.500192+00
       properties:
         cve_list:
           items:
@@ -1258,6 +1270,9 @@ components:
             example: CVE-2017-15089
             type: string
           type: array
+        last_change:
+          example: 2020-04-16 20:07:58.500192+00
+          type: string
       required:
       - cve_list
       - unpatched_cve_list
@@ -1314,12 +1329,16 @@ components:
         errata_list:
         - RHSA-2018:0151
         - RHSA-2018:0151
+        last_change: 2020-04-16 20:07:58.500192+00
       properties:
         errata_list:
           items:
             example: RHSA-2018:0151
             type: string
           type: array
+        last_change:
+          example: 2020-04-16 20:07:58.500192+00
+          type: string
     SRPMPkgNamesRequest:
       example:
         srpm_name_list:
@@ -1360,8 +1379,6 @@ components:
             - openssl-libs
         last_change: 2020-04-16 20:07:58.500192+00
       properties:
-        last_change:
-          example: 2020-04-16 20:07:58.500192+00
         srpm_name_list:
           additionalProperties:
             additionalProperties:
@@ -1371,6 +1388,9 @@ components:
               type: array
             type: object
           type: object
+        last_change:
+          example: 2020-04-16 20:07:58.500192+00
+          type: string
     RPMPkgNamesRequest:
       example:
         rpm_name_list:
@@ -1412,6 +1432,7 @@ components:
       properties:
         last_change:
           example: 2020-04-16 20:07:58.500192+00
+          type: string
         rpm_name_list:
           additionalProperties:
             items:

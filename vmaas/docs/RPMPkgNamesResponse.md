@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LastChange** | Pointer to **interface{}** |  | [optional] 
+**LastChange** | Pointer to **string** |  | [optional] 
 **RpmNameList** | Pointer to **map[string][]string** |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLastChange
 
-`func (o *RPMPkgNamesResponse) GetLastChange() interface{}`
+`func (o *RPMPkgNamesResponse) GetLastChange() string`
 
 GetLastChange returns the LastChange field if non-nil, zero value otherwise.
 
 ### GetLastChangeOk
 
-`func (o *RPMPkgNamesResponse) GetLastChangeOk() (*interface{}, bool)`
+`func (o *RPMPkgNamesResponse) GetLastChangeOk() (*string, bool)`
 
 GetLastChangeOk returns a tuple with the LastChange field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastChange
 
-`func (o *RPMPkgNamesResponse) SetLastChange(v interface{})`
+`func (o *RPMPkgNamesResponse) SetLastChange(v string)`
 
 SetLastChange sets LastChange field to given value.
 
@@ -51,16 +51,6 @@ SetLastChange sets LastChange field to given value.
 
 HasLastChange returns a boolean if a field has been set.
 
-### SetLastChangeNil
-
-`func (o *RPMPkgNamesResponse) SetLastChangeNil(b bool)`
-
- SetLastChangeNil sets the value for LastChange to be an explicit nil
-
-### UnsetLastChange
-`func (o *RPMPkgNamesResponse) UnsetLastChange()`
-
-UnsetLastChange ensures that no value is present for LastChange, not even an explicit nil
 ### GetRpmNameList
 
 `func (o *RPMPkgNamesResponse) GetRpmNameList() map[string][]string`

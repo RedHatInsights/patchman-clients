@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Page** | Pointer to **float32** |  | [optional] 
 **PageSize** | Pointer to **float32** |  | [optional] 
 **Pages** | Pointer to **float32** |  | [optional] 
-**LastChange** | Pointer to **interface{}** |  | [optional] 
+**LastChange** | Pointer to **string** |  | [optional] 
 **PackageNameList** | Pointer to [**map[string][]PkgTreeItem**](array.md) |  | [optional] 
 
 ## Methods
@@ -106,20 +106,20 @@ HasPages returns a boolean if a field has been set.
 
 ### GetLastChange
 
-`func (o *PkgtreeResponse) GetLastChange() interface{}`
+`func (o *PkgtreeResponse) GetLastChange() string`
 
 GetLastChange returns the LastChange field if non-nil, zero value otherwise.
 
 ### GetLastChangeOk
 
-`func (o *PkgtreeResponse) GetLastChangeOk() (*interface{}, bool)`
+`func (o *PkgtreeResponse) GetLastChangeOk() (*string, bool)`
 
 GetLastChangeOk returns a tuple with the LastChange field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastChange
 
-`func (o *PkgtreeResponse) SetLastChange(v interface{})`
+`func (o *PkgtreeResponse) SetLastChange(v string)`
 
 SetLastChange sets LastChange field to given value.
 
@@ -129,16 +129,6 @@ SetLastChange sets LastChange field to given value.
 
 HasLastChange returns a boolean if a field has been set.
 
-### SetLastChangeNil
-
-`func (o *PkgtreeResponse) SetLastChangeNil(b bool)`
-
- SetLastChangeNil sets the value for LastChange to be an explicit nil
-
-### UnsetLastChange
-`func (o *PkgtreeResponse) UnsetLastChange()`
-
-UnsetLastChange ensures that no value is present for LastChange, not even an explicit nil
 ### GetPackageNameList
 
 `func (o *PkgtreeResponse) GetPackageNameList() map[string][]PkgTreeItem`
