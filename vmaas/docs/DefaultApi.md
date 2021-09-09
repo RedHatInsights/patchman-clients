@@ -4,32 +4,32 @@ All URIs are relative to *http://localhost/api/vmaas/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AppCVEHandlerGetGet**](DefaultApi.md#AppCVEHandlerGetGet) | **Get** /cves/{cve} | 
-[**AppCVEHandlerPostPost**](DefaultApi.md#AppCVEHandlerPostPost) | **Post** /cves | 
-[**AppDBChangeHandlerGet**](DefaultApi.md#AppDBChangeHandlerGet) | **Get** /dbchange | 
-[**AppErrataHandlerGetGet**](DefaultApi.md#AppErrataHandlerGetGet) | **Get** /errata/{erratum} | 
-[**AppErrataHandlerPostPost**](DefaultApi.md#AppErrataHandlerPostPost) | **Post** /errata | 
-[**AppHealthHandlerGet**](DefaultApi.md#AppHealthHandlerGet) | **Get** /monitoring/health | Return API liveness status
-[**AppPackagesHandlerGetGet**](DefaultApi.md#AppPackagesHandlerGetGet) | **Get** /packages/{nevra} | 
-[**AppPackagesHandlerPostPost**](DefaultApi.md#AppPackagesHandlerPostPost) | **Post** /packages | 
-[**AppPatchesHandlerGetGet**](DefaultApi.md#AppPatchesHandlerGetGet) | **Get** /patches/{nevra} | 
-[**AppPatchesHandlerPostPost**](DefaultApi.md#AppPatchesHandlerPostPost) | **Post** /patches | 
-[**AppPkgtreeHandlerV3GetGet**](DefaultApi.md#AppPkgtreeHandlerV3GetGet) | **Get** /pkgtree/{package_name} | 
-[**AppPkgtreeHandlerV3PostPost**](DefaultApi.md#AppPkgtreeHandlerV3PostPost) | **Post** /pkgtree | 
-[**AppReadyHandlerGet**](DefaultApi.md#AppReadyHandlerGet) | **Get** /monitoring/ready | Return API readiness status
-[**AppReposHandlerGetGet**](DefaultApi.md#AppReposHandlerGetGet) | **Get** /repos/{repo} | 
-[**AppReposHandlerPostPost**](DefaultApi.md#AppReposHandlerPostPost) | **Post** /repos | 
-[**AppUpdatesHandlerV3GetGet**](DefaultApi.md#AppUpdatesHandlerV3GetGet) | **Get** /updates/{nevra} | 
-[**AppUpdatesHandlerV3PostPost**](DefaultApi.md#AppUpdatesHandlerV3PostPost) | **Post** /updates | 
-[**AppVersionHandlerGet**](DefaultApi.md#AppVersionHandlerGet) | **Get** /version | 
-[**AppVulnerabilitiesHandlerGetGet**](DefaultApi.md#AppVulnerabilitiesHandlerGetGet) | **Get** /vulnerabilities/{nevra} | 
-[**AppVulnerabilitiesHandlerPostPost**](DefaultApi.md#AppVulnerabilitiesHandlerPostPost) | **Post** /vulnerabilities | 
+[**VmaasWebappAppCVEHandlerGetGet**](DefaultApi.md#VmaasWebappAppCVEHandlerGetGet) | **Get** /cves/{cve} | 
+[**VmaasWebappAppCVEHandlerPostPost**](DefaultApi.md#VmaasWebappAppCVEHandlerPostPost) | **Post** /cves | 
+[**VmaasWebappAppDBChangeHandlerGet**](DefaultApi.md#VmaasWebappAppDBChangeHandlerGet) | **Get** /dbchange | 
+[**VmaasWebappAppErrataHandlerGetGet**](DefaultApi.md#VmaasWebappAppErrataHandlerGetGet) | **Get** /errata/{erratum} | 
+[**VmaasWebappAppErrataHandlerPostPost**](DefaultApi.md#VmaasWebappAppErrataHandlerPostPost) | **Post** /errata | 
+[**VmaasWebappAppHealthHandlerGet**](DefaultApi.md#VmaasWebappAppHealthHandlerGet) | **Get** /monitoring/health | Return API liveness status
+[**VmaasWebappAppPackagesHandlerGetGet**](DefaultApi.md#VmaasWebappAppPackagesHandlerGetGet) | **Get** /packages/{nevra} | 
+[**VmaasWebappAppPackagesHandlerPostPost**](DefaultApi.md#VmaasWebappAppPackagesHandlerPostPost) | **Post** /packages | 
+[**VmaasWebappAppPatchesHandlerGetGet**](DefaultApi.md#VmaasWebappAppPatchesHandlerGetGet) | **Get** /patches/{nevra} | 
+[**VmaasWebappAppPatchesHandlerPostPost**](DefaultApi.md#VmaasWebappAppPatchesHandlerPostPost) | **Post** /patches | 
+[**VmaasWebappAppPkgtreeHandlerV3GetGet**](DefaultApi.md#VmaasWebappAppPkgtreeHandlerV3GetGet) | **Get** /pkgtree/{package_name} | 
+[**VmaasWebappAppPkgtreeHandlerV3PostPost**](DefaultApi.md#VmaasWebappAppPkgtreeHandlerV3PostPost) | **Post** /pkgtree | 
+[**VmaasWebappAppReadyHandlerGet**](DefaultApi.md#VmaasWebappAppReadyHandlerGet) | **Get** /monitoring/ready | Return API readiness status
+[**VmaasWebappAppReposHandlerGetGet**](DefaultApi.md#VmaasWebappAppReposHandlerGetGet) | **Get** /repos/{repo} | 
+[**VmaasWebappAppReposHandlerPostPost**](DefaultApi.md#VmaasWebappAppReposHandlerPostPost) | **Post** /repos | 
+[**VmaasWebappAppUpdatesHandlerV3GetGet**](DefaultApi.md#VmaasWebappAppUpdatesHandlerV3GetGet) | **Get** /updates/{nevra} | 
+[**VmaasWebappAppUpdatesHandlerV3PostPost**](DefaultApi.md#VmaasWebappAppUpdatesHandlerV3PostPost) | **Post** /updates | 
+[**VmaasWebappAppVersionHandlerGet**](DefaultApi.md#VmaasWebappAppVersionHandlerGet) | **Get** /version | 
+[**VmaasWebappAppVulnerabilitiesHandlerGetGet**](DefaultApi.md#VmaasWebappAppVulnerabilitiesHandlerGetGet) | **Get** /vulnerabilities/{nevra} | 
+[**VmaasWebappAppVulnerabilitiesHandlerPostPost**](DefaultApi.md#VmaasWebappAppVulnerabilitiesHandlerPostPost) | **Post** /vulnerabilities | 
 
 
 
-## AppCVEHandlerGetGet
+## VmaasWebappAppCVEHandlerGetGet
 
-> CvesResponse AppCVEHandlerGetGet(ctx, cve).Execute()
+> CvesResponse VmaasWebappAppCVEHandlerGetGet(ctx, cve).Execute()
 
 
 
@@ -52,13 +52,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppCVEHandlerGetGet(context.Background(), cve).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppCVEHandlerGetGet(context.Background(), cve).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppCVEHandlerGetGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppCVEHandlerGetGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppCVEHandlerGetGet`: CvesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppCVEHandlerGetGet`: %v\n", resp)
+    // response from `VmaasWebappAppCVEHandlerGetGet`: CvesResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppCVEHandlerGetGet`: %v\n", resp)
 }
 ```
 
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppCVEHandlerGetGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppCVEHandlerGetGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -97,9 +97,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppCVEHandlerPostPost
+## VmaasWebappAppCVEHandlerPostPost
 
-> CvesResponse AppCVEHandlerPostPost(ctx).CvesRequest(cvesRequest).Execute()
+> CvesResponse VmaasWebappAppCVEHandlerPostPost(ctx).CvesRequest(cvesRequest).Execute()
 
 
 
@@ -122,13 +122,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppCVEHandlerPostPost(context.Background()).CvesRequest(cvesRequest).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppCVEHandlerPostPost(context.Background()).CvesRequest(cvesRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppCVEHandlerPostPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppCVEHandlerPostPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppCVEHandlerPostPost`: CvesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppCVEHandlerPostPost`: %v\n", resp)
+    // response from `VmaasWebappAppCVEHandlerPostPost`: CvesResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppCVEHandlerPostPost`: %v\n", resp)
 }
 ```
 
@@ -138,7 +138,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppCVEHandlerPostPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppCVEHandlerPostPostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -163,9 +163,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppDBChangeHandlerGet
+## VmaasWebappAppDBChangeHandlerGet
 
-> DBChangeResponse AppDBChangeHandlerGet(ctx).Execute()
+> DBChangeResponse VmaasWebappAppDBChangeHandlerGet(ctx).Execute()
 
 
 
@@ -187,13 +187,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppDBChangeHandlerGet(context.Background()).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppDBChangeHandlerGet(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppDBChangeHandlerGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppDBChangeHandlerGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppDBChangeHandlerGet`: DBChangeResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppDBChangeHandlerGet`: %v\n", resp)
+    // response from `VmaasWebappAppDBChangeHandlerGet`: DBChangeResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppDBChangeHandlerGet`: %v\n", resp)
 }
 ```
 
@@ -203,7 +203,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppDBChangeHandlerGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppDBChangeHandlerGetRequest struct via the builder pattern
 
 
 ### Return type
@@ -224,9 +224,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppErrataHandlerGetGet
+## VmaasWebappAppErrataHandlerGetGet
 
-> ErrataResponse AppErrataHandlerGetGet(ctx, erratum).Execute()
+> ErrataResponse VmaasWebappAppErrataHandlerGetGet(ctx, erratum).Execute()
 
 
 
@@ -249,13 +249,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppErrataHandlerGetGet(context.Background(), erratum).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppErrataHandlerGetGet(context.Background(), erratum).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppErrataHandlerGetGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppErrataHandlerGetGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppErrataHandlerGetGet`: ErrataResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppErrataHandlerGetGet`: %v\n", resp)
+    // response from `VmaasWebappAppErrataHandlerGetGet`: ErrataResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppErrataHandlerGetGet`: %v\n", resp)
 }
 ```
 
@@ -269,7 +269,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppErrataHandlerGetGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppErrataHandlerGetGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -294,9 +294,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppErrataHandlerPostPost
+## VmaasWebappAppErrataHandlerPostPost
 
-> ErrataResponse AppErrataHandlerPostPost(ctx).ErrataRequest(errataRequest).Execute()
+> ErrataResponse VmaasWebappAppErrataHandlerPostPost(ctx).ErrataRequest(errataRequest).Execute()
 
 
 
@@ -319,13 +319,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppErrataHandlerPostPost(context.Background()).ErrataRequest(errataRequest).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppErrataHandlerPostPost(context.Background()).ErrataRequest(errataRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppErrataHandlerPostPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppErrataHandlerPostPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppErrataHandlerPostPost`: ErrataResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppErrataHandlerPostPost`: %v\n", resp)
+    // response from `VmaasWebappAppErrataHandlerPostPost`: ErrataResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppErrataHandlerPostPost`: %v\n", resp)
 }
 ```
 
@@ -335,7 +335,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppErrataHandlerPostPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppErrataHandlerPostPostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -360,9 +360,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppHealthHandlerGet
+## VmaasWebappAppHealthHandlerGet
 
-> AppHealthHandlerGet(ctx).Execute()
+> VmaasWebappAppHealthHandlerGet(ctx).Execute()
 
 Return API liveness status
 
@@ -382,9 +382,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppHealthHandlerGet(context.Background()).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppHealthHandlerGet(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppHealthHandlerGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppHealthHandlerGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -396,7 +396,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppHealthHandlerGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppHealthHandlerGetRequest struct via the builder pattern
 
 
 ### Return type
@@ -417,9 +417,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppPackagesHandlerGetGet
+## VmaasWebappAppPackagesHandlerGetGet
 
-> PackagesResponse AppPackagesHandlerGetGet(ctx, nevra).Execute()
+> PackagesResponse VmaasWebappAppPackagesHandlerGetGet(ctx, nevra).Execute()
 
 
 
@@ -442,13 +442,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppPackagesHandlerGetGet(context.Background(), nevra).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppPackagesHandlerGetGet(context.Background(), nevra).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPackagesHandlerGetGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppPackagesHandlerGetGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppPackagesHandlerGetGet`: PackagesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPackagesHandlerGetGet`: %v\n", resp)
+    // response from `VmaasWebappAppPackagesHandlerGetGet`: PackagesResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppPackagesHandlerGetGet`: %v\n", resp)
 }
 ```
 
@@ -462,7 +462,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppPackagesHandlerGetGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppPackagesHandlerGetGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -487,9 +487,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppPackagesHandlerPostPost
+## VmaasWebappAppPackagesHandlerPostPost
 
-> PackagesResponse AppPackagesHandlerPostPost(ctx).PackagesRequest(packagesRequest).Execute()
+> PackagesResponse VmaasWebappAppPackagesHandlerPostPost(ctx).PackagesRequest(packagesRequest).Execute()
 
 
 
@@ -512,13 +512,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppPackagesHandlerPostPost(context.Background()).PackagesRequest(packagesRequest).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppPackagesHandlerPostPost(context.Background()).PackagesRequest(packagesRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPackagesHandlerPostPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppPackagesHandlerPostPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppPackagesHandlerPostPost`: PackagesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPackagesHandlerPostPost`: %v\n", resp)
+    // response from `VmaasWebappAppPackagesHandlerPostPost`: PackagesResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppPackagesHandlerPostPost`: %v\n", resp)
 }
 ```
 
@@ -528,7 +528,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppPackagesHandlerPostPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppPackagesHandlerPostPostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -553,9 +553,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppPatchesHandlerGetGet
+## VmaasWebappAppPatchesHandlerGetGet
 
-> PatchesResponse AppPatchesHandlerGetGet(ctx, nevra).Execute()
+> PatchesResponse VmaasWebappAppPatchesHandlerGetGet(ctx, nevra).Execute()
 
 
 
@@ -578,13 +578,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppPatchesHandlerGetGet(context.Background(), nevra).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppPatchesHandlerGetGet(context.Background(), nevra).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPatchesHandlerGetGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppPatchesHandlerGetGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppPatchesHandlerGetGet`: PatchesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPatchesHandlerGetGet`: %v\n", resp)
+    // response from `VmaasWebappAppPatchesHandlerGetGet`: PatchesResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppPatchesHandlerGetGet`: %v\n", resp)
 }
 ```
 
@@ -598,7 +598,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppPatchesHandlerGetGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppPatchesHandlerGetGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -623,9 +623,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppPatchesHandlerPostPost
+## VmaasWebappAppPatchesHandlerPostPost
 
-> PatchesResponse AppPatchesHandlerPostPost(ctx).PatchesRequest(patchesRequest).Execute()
+> PatchesResponse VmaasWebappAppPatchesHandlerPostPost(ctx).PatchesRequest(patchesRequest).Execute()
 
 
 
@@ -648,13 +648,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppPatchesHandlerPostPost(context.Background()).PatchesRequest(patchesRequest).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppPatchesHandlerPostPost(context.Background()).PatchesRequest(patchesRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPatchesHandlerPostPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppPatchesHandlerPostPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppPatchesHandlerPostPost`: PatchesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPatchesHandlerPostPost`: %v\n", resp)
+    // response from `VmaasWebappAppPatchesHandlerPostPost`: PatchesResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppPatchesHandlerPostPost`: %v\n", resp)
 }
 ```
 
@@ -664,7 +664,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppPatchesHandlerPostPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppPatchesHandlerPostPostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -689,9 +689,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppPkgtreeHandlerV3GetGet
+## VmaasWebappAppPkgtreeHandlerV3GetGet
 
-> PkgtreeResponse AppPkgtreeHandlerV3GetGet(ctx, packageName).Execute()
+> PkgtreeResponse VmaasWebappAppPkgtreeHandlerV3GetGet(ctx, packageName).Execute()
 
 
 
@@ -714,13 +714,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppPkgtreeHandlerV3GetGet(context.Background(), packageName).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppPkgtreeHandlerV3GetGet(context.Background(), packageName).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPkgtreeHandlerV3GetGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppPkgtreeHandlerV3GetGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppPkgtreeHandlerV3GetGet`: PkgtreeResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPkgtreeHandlerV3GetGet`: %v\n", resp)
+    // response from `VmaasWebappAppPkgtreeHandlerV3GetGet`: PkgtreeResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppPkgtreeHandlerV3GetGet`: %v\n", resp)
 }
 ```
 
@@ -734,7 +734,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppPkgtreeHandlerV3GetGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppPkgtreeHandlerV3GetGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -759,9 +759,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppPkgtreeHandlerV3PostPost
+## VmaasWebappAppPkgtreeHandlerV3PostPost
 
-> PkgtreeResponse AppPkgtreeHandlerV3PostPost(ctx).PkgtreeRequest(pkgtreeRequest).Execute()
+> PkgtreeResponse VmaasWebappAppPkgtreeHandlerV3PostPost(ctx).PkgtreeRequest(pkgtreeRequest).Execute()
 
 
 
@@ -784,13 +784,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppPkgtreeHandlerV3PostPost(context.Background()).PkgtreeRequest(pkgtreeRequest).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppPkgtreeHandlerV3PostPost(context.Background()).PkgtreeRequest(pkgtreeRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppPkgtreeHandlerV3PostPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppPkgtreeHandlerV3PostPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppPkgtreeHandlerV3PostPost`: PkgtreeResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppPkgtreeHandlerV3PostPost`: %v\n", resp)
+    // response from `VmaasWebappAppPkgtreeHandlerV3PostPost`: PkgtreeResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppPkgtreeHandlerV3PostPost`: %v\n", resp)
 }
 ```
 
@@ -800,7 +800,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppPkgtreeHandlerV3PostPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppPkgtreeHandlerV3PostPostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -825,9 +825,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppReadyHandlerGet
+## VmaasWebappAppReadyHandlerGet
 
-> AppReadyHandlerGet(ctx).Execute()
+> VmaasWebappAppReadyHandlerGet(ctx).Execute()
 
 Return API readiness status
 
@@ -847,9 +847,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppReadyHandlerGet(context.Background()).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppReadyHandlerGet(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppReadyHandlerGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppReadyHandlerGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -861,7 +861,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppReadyHandlerGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppReadyHandlerGetRequest struct via the builder pattern
 
 
 ### Return type
@@ -882,9 +882,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppReposHandlerGetGet
+## VmaasWebappAppReposHandlerGetGet
 
-> ReposResponse AppReposHandlerGetGet(ctx, repo).Execute()
+> ReposResponse VmaasWebappAppReposHandlerGetGet(ctx, repo).Execute()
 
 
 
@@ -907,13 +907,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppReposHandlerGetGet(context.Background(), repo).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppReposHandlerGetGet(context.Background(), repo).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppReposHandlerGetGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppReposHandlerGetGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppReposHandlerGetGet`: ReposResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppReposHandlerGetGet`: %v\n", resp)
+    // response from `VmaasWebappAppReposHandlerGetGet`: ReposResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppReposHandlerGetGet`: %v\n", resp)
 }
 ```
 
@@ -927,7 +927,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppReposHandlerGetGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppReposHandlerGetGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -952,9 +952,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppReposHandlerPostPost
+## VmaasWebappAppReposHandlerPostPost
 
-> ReposResponse AppReposHandlerPostPost(ctx).ReposRequest(reposRequest).Execute()
+> ReposResponse VmaasWebappAppReposHandlerPostPost(ctx).ReposRequest(reposRequest).Execute()
 
 
 
@@ -977,13 +977,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppReposHandlerPostPost(context.Background()).ReposRequest(reposRequest).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppReposHandlerPostPost(context.Background()).ReposRequest(reposRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppReposHandlerPostPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppReposHandlerPostPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppReposHandlerPostPost`: ReposResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppReposHandlerPostPost`: %v\n", resp)
+    // response from `VmaasWebappAppReposHandlerPostPost`: ReposResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppReposHandlerPostPost`: %v\n", resp)
 }
 ```
 
@@ -993,7 +993,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppReposHandlerPostPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppReposHandlerPostPostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1018,9 +1018,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppUpdatesHandlerV3GetGet
+## VmaasWebappAppUpdatesHandlerV3GetGet
 
-> UpdatesV2Response AppUpdatesHandlerV3GetGet(ctx, nevra).Execute()
+> UpdatesV2Response VmaasWebappAppUpdatesHandlerV3GetGet(ctx, nevra).Execute()
 
 
 
@@ -1043,13 +1043,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppUpdatesHandlerV3GetGet(context.Background(), nevra).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppUpdatesHandlerV3GetGet(context.Background(), nevra).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppUpdatesHandlerV3GetGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppUpdatesHandlerV3GetGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppUpdatesHandlerV3GetGet`: UpdatesV2Response
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppUpdatesHandlerV3GetGet`: %v\n", resp)
+    // response from `VmaasWebappAppUpdatesHandlerV3GetGet`: UpdatesV2Response
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppUpdatesHandlerV3GetGet`: %v\n", resp)
 }
 ```
 
@@ -1063,7 +1063,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppUpdatesHandlerV3GetGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppUpdatesHandlerV3GetGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1088,9 +1088,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppUpdatesHandlerV3PostPost
+## VmaasWebappAppUpdatesHandlerV3PostPost
 
-> UpdatesV2Response AppUpdatesHandlerV3PostPost(ctx).UpdatesV3Request(updatesV3Request).Execute()
+> UpdatesV2Response VmaasWebappAppUpdatesHandlerV3PostPost(ctx).UpdatesV3Request(updatesV3Request).Execute()
 
 
 
@@ -1113,13 +1113,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppUpdatesHandlerV3PostPost(context.Background()).UpdatesV3Request(updatesV3Request).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppUpdatesHandlerV3PostPost(context.Background()).UpdatesV3Request(updatesV3Request).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppUpdatesHandlerV3PostPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppUpdatesHandlerV3PostPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppUpdatesHandlerV3PostPost`: UpdatesV2Response
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppUpdatesHandlerV3PostPost`: %v\n", resp)
+    // response from `VmaasWebappAppUpdatesHandlerV3PostPost`: UpdatesV2Response
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppUpdatesHandlerV3PostPost`: %v\n", resp)
 }
 ```
 
@@ -1129,7 +1129,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppUpdatesHandlerV3PostPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppUpdatesHandlerV3PostPostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1154,9 +1154,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppVersionHandlerGet
+## VmaasWebappAppVersionHandlerGet
 
-> AppVersionHandlerGet(ctx).Execute()
+> VmaasWebappAppVersionHandlerGet(ctx).Execute()
 
 
 
@@ -1178,9 +1178,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppVersionHandlerGet(context.Background()).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppVersionHandlerGet(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppVersionHandlerGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppVersionHandlerGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -1192,7 +1192,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppVersionHandlerGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppVersionHandlerGetRequest struct via the builder pattern
 
 
 ### Return type
@@ -1213,9 +1213,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppVulnerabilitiesHandlerGetGet
+## VmaasWebappAppVulnerabilitiesHandlerGetGet
 
-> VulnerabilitiesResponse AppVulnerabilitiesHandlerGetGet(ctx, nevra).Execute()
+> VulnerabilitiesResponse VmaasWebappAppVulnerabilitiesHandlerGetGet(ctx, nevra).Execute()
 
 
 
@@ -1238,13 +1238,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppVulnerabilitiesHandlerGetGet(context.Background(), nevra).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppVulnerabilitiesHandlerGetGet(context.Background(), nevra).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppVulnerabilitiesHandlerGetGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppVulnerabilitiesHandlerGetGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppVulnerabilitiesHandlerGetGet`: VulnerabilitiesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppVulnerabilitiesHandlerGetGet`: %v\n", resp)
+    // response from `VmaasWebappAppVulnerabilitiesHandlerGetGet`: VulnerabilitiesResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppVulnerabilitiesHandlerGetGet`: %v\n", resp)
 }
 ```
 
@@ -1258,7 +1258,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppVulnerabilitiesHandlerGetGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppVulnerabilitiesHandlerGetGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1283,9 +1283,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppVulnerabilitiesHandlerPostPost
+## VmaasWebappAppVulnerabilitiesHandlerPostPost
 
-> VulnerabilitiesResponse AppVulnerabilitiesHandlerPostPost(ctx).VulnerabilitiesRequest(vulnerabilitiesRequest).Execute()
+> VulnerabilitiesResponse VmaasWebappAppVulnerabilitiesHandlerPostPost(ctx).VulnerabilitiesRequest(vulnerabilitiesRequest).Execute()
 
 
 
@@ -1308,13 +1308,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AppVulnerabilitiesHandlerPostPost(context.Background()).VulnerabilitiesRequest(vulnerabilitiesRequest).Execute()
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppVulnerabilitiesHandlerPostPost(context.Background()).VulnerabilitiesRequest(vulnerabilitiesRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AppVulnerabilitiesHandlerPostPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppVulnerabilitiesHandlerPostPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppVulnerabilitiesHandlerPostPost`: VulnerabilitiesResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AppVulnerabilitiesHandlerPostPost`: %v\n", resp)
+    // response from `VmaasWebappAppVulnerabilitiesHandlerPostPost`: VulnerabilitiesResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppVulnerabilitiesHandlerPostPost`: %v\n", resp)
 }
 ```
 
@@ -1324,7 +1324,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppVulnerabilitiesHandlerPostPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppVulnerabilitiesHandlerPostPostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

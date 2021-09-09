@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CveList** | **[]string** |  | 
 **UnpatchedCveList** | **[]string** |  | 
+**LastChange** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -65,6 +66,31 @@ and a boolean to check if the value has been set.
 
 SetUnpatchedCveList sets UnpatchedCveList field to given value.
 
+
+### GetLastChange
+
+`func (o *VulnerabilitiesResponse) GetLastChange() string`
+
+GetLastChange returns the LastChange field if non-nil, zero value otherwise.
+
+### GetLastChangeOk
+
+`func (o *VulnerabilitiesResponse) GetLastChangeOk() (*string, bool)`
+
+GetLastChangeOk returns a tuple with the LastChange field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastChange
+
+`func (o *VulnerabilitiesResponse) SetLastChange(v string)`
+
+SetLastChange sets LastChange field to given value.
+
+### HasLastChange
+
+`func (o *VulnerabilitiesResponse) HasLastChange() bool`
+
+HasLastChange returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
