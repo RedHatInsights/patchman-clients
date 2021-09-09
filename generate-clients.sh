@@ -61,6 +61,24 @@ function generate_client() {
 
 
 $CONTAINER_TOOL image exists $CONTAINER || $CONTAINER_TOOL pull $CONTAINER
-generate_client inventory "https://ci.cloud.redhat.com/api/inventory/v1/openapi.json"
-generate_client vmaas "https://webapp-vmaas-ci.5a9f.insights-dev.openshiftapps.com/api/vmaas/v3/openapi.json"
-generate_client rbac "https://ci.cloud.redhat.com/api/rbac/v1/openapi.json"
+
+# Generate Inventory client
+if [[ -z $INVENTORY_ADDRESS ]]; then
+  echo "Using default inventory address (CI)"
+  INVENTORY_ADDRESS=https://ci.cloud.redhat.com
+fi
+generate_client inventory "${INVENTORY_ADDRESS}/api/inventory/v1/openapi.json"
+
+# Generate Vmaas client
+if [[ -z $VMAAS_ADDRESS ]]; then
+  echo "Using default vmaas address (CI)"
+  VMAAS_ADDRESS=https://webapp-vmaas-ci.5a9f.insights-dev.openshiftapps.com
+fi
+generate_client vmaas "${VMAAS_ADDRESS}/api/vmaas/v3/openapi.json"
+
+# Generate RBAC client
+if [[ -z $RBAC_ADDRESS ]]; then
+  echo "Using default RBAC address (CI)"
+  RBAC_ADDRESS=https://ci.cloud.redhat.com
+fi
+generate_client rbac "${RBAC_ADDRESS}/api/rbac/v1/openapi.json"
