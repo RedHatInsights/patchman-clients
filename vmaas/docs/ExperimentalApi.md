@@ -4,16 +4,16 @@ All URIs are relative to *http://localhost/api/vmaas/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AppRPMPkgNamesHandlerGetGet**](ExperimentalApi.md#AppRPMPkgNamesHandlerGetGet) | **Get** /package_names/rpms/{rpm} | 
-[**AppRPMPkgNamesHandlerPostPost**](ExperimentalApi.md#AppRPMPkgNamesHandlerPostPost) | **Post** /package_names/rpms | 
-[**AppSRPMPkgNamesHandlerGetGet**](ExperimentalApi.md#AppSRPMPkgNamesHandlerGetGet) | **Get** /package_names/srpms/{srpm} | 
-[**AppSRPMPkgNamesHandlerPostPost**](ExperimentalApi.md#AppSRPMPkgNamesHandlerPostPost) | **Post** /package_names/srpms | 
+[**VmaasWebappAppRPMPkgNamesHandlerGetGet**](ExperimentalApi.md#VmaasWebappAppRPMPkgNamesHandlerGetGet) | **Get** /package_names/rpms/{rpm} | 
+[**VmaasWebappAppRPMPkgNamesHandlerPostPost**](ExperimentalApi.md#VmaasWebappAppRPMPkgNamesHandlerPostPost) | **Post** /package_names/rpms | 
+[**VmaasWebappAppSRPMPkgNamesHandlerGetGet**](ExperimentalApi.md#VmaasWebappAppSRPMPkgNamesHandlerGetGet) | **Get** /package_names/srpms/{srpm} | 
+[**VmaasWebappAppSRPMPkgNamesHandlerPostPost**](ExperimentalApi.md#VmaasWebappAppSRPMPkgNamesHandlerPostPost) | **Post** /package_names/srpms | 
 
 
 
-## AppRPMPkgNamesHandlerGetGet
+## VmaasWebappAppRPMPkgNamesHandlerGetGet
 
-> RPMPkgNamesResponse AppRPMPkgNamesHandlerGetGet(ctx, rpm).Execute()
+> RPMPkgNamesResponse VmaasWebappAppRPMPkgNamesHandlerGetGet(ctx, rpm).Execute()
 
 
 
@@ -36,13 +36,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentalApi.AppRPMPkgNamesHandlerGetGet(context.Background(), rpm).Execute()
+    resp, r, err := api_client.ExperimentalApi.VmaasWebappAppRPMPkgNamesHandlerGetGet(context.Background(), rpm).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.AppRPMPkgNamesHandlerGetGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.VmaasWebappAppRPMPkgNamesHandlerGetGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppRPMPkgNamesHandlerGetGet`: RPMPkgNamesResponse
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.AppRPMPkgNamesHandlerGetGet`: %v\n", resp)
+    // response from `VmaasWebappAppRPMPkgNamesHandlerGetGet`: RPMPkgNamesResponse
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.VmaasWebappAppRPMPkgNamesHandlerGetGet`: %v\n", resp)
 }
 ```
 
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppRPMPkgNamesHandlerGetGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppRPMPkgNamesHandlerGetGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -81,9 +81,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppRPMPkgNamesHandlerPostPost
+## VmaasWebappAppRPMPkgNamesHandlerPostPost
 
-> RPMPkgNamesResponse AppRPMPkgNamesHandlerPostPost(ctx).RPMPkgNamesRequest(rPMPkgNamesRequest).Execute()
+> RPMPkgNamesResponse VmaasWebappAppRPMPkgNamesHandlerPostPost(ctx).RPMPkgNamesRequest(rPMPkgNamesRequest).Execute()
 
 
 
@@ -106,13 +106,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentalApi.AppRPMPkgNamesHandlerPostPost(context.Background()).RPMPkgNamesRequest(rPMPkgNamesRequest).Execute()
+    resp, r, err := api_client.ExperimentalApi.VmaasWebappAppRPMPkgNamesHandlerPostPost(context.Background()).RPMPkgNamesRequest(rPMPkgNamesRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.AppRPMPkgNamesHandlerPostPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.VmaasWebappAppRPMPkgNamesHandlerPostPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppRPMPkgNamesHandlerPostPost`: RPMPkgNamesResponse
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.AppRPMPkgNamesHandlerPostPost`: %v\n", resp)
+    // response from `VmaasWebappAppRPMPkgNamesHandlerPostPost`: RPMPkgNamesResponse
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.VmaasWebappAppRPMPkgNamesHandlerPostPost`: %v\n", resp)
 }
 ```
 
@@ -122,7 +122,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppRPMPkgNamesHandlerPostPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppRPMPkgNamesHandlerPostPostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -147,9 +147,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppSRPMPkgNamesHandlerGetGet
+## VmaasWebappAppSRPMPkgNamesHandlerGetGet
 
-> SRPMPkgNamesResponse AppSRPMPkgNamesHandlerGetGet(ctx, srpm).Execute()
+> SRPMPkgNamesResponse VmaasWebappAppSRPMPkgNamesHandlerGetGet(ctx, srpm).Execute()
 
 
 
@@ -172,13 +172,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentalApi.AppSRPMPkgNamesHandlerGetGet(context.Background(), srpm).Execute()
+    resp, r, err := api_client.ExperimentalApi.VmaasWebappAppSRPMPkgNamesHandlerGetGet(context.Background(), srpm).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.AppSRPMPkgNamesHandlerGetGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.VmaasWebappAppSRPMPkgNamesHandlerGetGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppSRPMPkgNamesHandlerGetGet`: SRPMPkgNamesResponse
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.AppSRPMPkgNamesHandlerGetGet`: %v\n", resp)
+    // response from `VmaasWebappAppSRPMPkgNamesHandlerGetGet`: SRPMPkgNamesResponse
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.VmaasWebappAppSRPMPkgNamesHandlerGetGet`: %v\n", resp)
 }
 ```
 
@@ -192,7 +192,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppSRPMPkgNamesHandlerGetGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppSRPMPkgNamesHandlerGetGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -217,9 +217,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## AppSRPMPkgNamesHandlerPostPost
+## VmaasWebappAppSRPMPkgNamesHandlerPostPost
 
-> SRPMPkgNamesResponse AppSRPMPkgNamesHandlerPostPost(ctx).SRPMPkgNamesRequest(sRPMPkgNamesRequest).Execute()
+> SRPMPkgNamesResponse VmaasWebappAppSRPMPkgNamesHandlerPostPost(ctx).SRPMPkgNamesRequest(sRPMPkgNamesRequest).Execute()
 
 
 
@@ -242,13 +242,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentalApi.AppSRPMPkgNamesHandlerPostPost(context.Background()).SRPMPkgNamesRequest(sRPMPkgNamesRequest).Execute()
+    resp, r, err := api_client.ExperimentalApi.VmaasWebappAppSRPMPkgNamesHandlerPostPost(context.Background()).SRPMPkgNamesRequest(sRPMPkgNamesRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.AppSRPMPkgNamesHandlerPostPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentalApi.VmaasWebappAppSRPMPkgNamesHandlerPostPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AppSRPMPkgNamesHandlerPostPost`: SRPMPkgNamesResponse
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.AppSRPMPkgNamesHandlerPostPost`: %v\n", resp)
+    // response from `VmaasWebappAppSRPMPkgNamesHandlerPostPost`: SRPMPkgNamesResponse
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentalApi.VmaasWebappAppSRPMPkgNamesHandlerPostPost`: %v\n", resp)
 }
 ```
 
@@ -258,7 +258,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAppSRPMPkgNamesHandlerPostPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVmaasWebappAppSRPMPkgNamesHandlerPostPostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

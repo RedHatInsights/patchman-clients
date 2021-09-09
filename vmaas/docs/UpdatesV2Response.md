@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **ModulesList** | Pointer to [**[]UpdatesV3RequestModulesList**](UpdatesV3RequestModulesList.md) |  | [optional] 
 **Releasever** | Pointer to **string** |  | [optional] 
 **Basearch** | Pointer to **string** |  | [optional] 
+**LastChange** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -153,6 +154,31 @@ SetBasearch sets Basearch field to given value.
 `func (o *UpdatesV2Response) HasBasearch() bool`
 
 HasBasearch returns a boolean if a field has been set.
+
+### GetLastChange
+
+`func (o *UpdatesV2Response) GetLastChange() string`
+
+GetLastChange returns the LastChange field if non-nil, zero value otherwise.
+
+### GetLastChangeOk
+
+`func (o *UpdatesV2Response) GetLastChangeOk() (*string, bool)`
+
+GetLastChangeOk returns a tuple with the LastChange field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastChange
+
+`func (o *UpdatesV2Response) SetLastChange(v string)`
+
+SetLastChange sets LastChange field to given value.
+
+### HasLastChange
+
+`func (o *UpdatesV2Response) HasLastChange() bool`
+
+HasLastChange returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

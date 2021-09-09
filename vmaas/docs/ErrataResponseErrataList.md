@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **SourcePackageList** | Pointer to **[]string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 **ThirdParty** | Pointer to **bool** |  | [optional] 
+**RequiresReboot** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -423,6 +424,31 @@ SetThirdParty sets ThirdParty field to given value.
 `func (o *ErrataResponseErrataList) HasThirdParty() bool`
 
 HasThirdParty returns a boolean if a field has been set.
+
+### GetRequiresReboot
+
+`func (o *ErrataResponseErrataList) GetRequiresReboot() bool`
+
+GetRequiresReboot returns the RequiresReboot field if non-nil, zero value otherwise.
+
+### GetRequiresRebootOk
+
+`func (o *ErrataResponseErrataList) GetRequiresRebootOk() (*bool, bool)`
+
+GetRequiresRebootOk returns a tuple with the RequiresReboot field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRequiresReboot
+
+`func (o *ErrataResponseErrataList) SetRequiresReboot(v bool)`
+
+SetRequiresReboot sets RequiresReboot field to given value.
+
+### HasRequiresReboot
+
+`func (o *ErrataResponseErrataList) HasRequiresReboot() bool`
+
+HasRequiresReboot returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
