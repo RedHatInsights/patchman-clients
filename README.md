@@ -20,6 +20,8 @@ To generate current version of clients run:
 Note: be careful and don't delete `{inventory,rbac,vmaas}/client_test.go` files
 needed for build testing.
 
+Note: Optionally use `VMAAS_ADDRESS=http://vmaas.example:8080`, `INVENTORY_ADDRESS`, `RBAC_ADDRESS` env vars to set places to download openapi.json spec to generate clients from.
+
 ## Test compilation
 You can test locally whether newly generated sources are valid and possible to build.
 ~~~bash
