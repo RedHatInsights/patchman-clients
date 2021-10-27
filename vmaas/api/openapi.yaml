@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: VMaaS Webapp
-  version: 2.27.2
+  version: 2.31.2
 servers:
 - url: /api/vmaas/v3
 tags:
@@ -864,6 +864,9 @@ components:
             cve_list:
             - CVE-2017-5715
             - CVE-2017-5715
+            release_versions:
+            - "8.1"
+            - "8.1"
             solution: solution text
             issued: 2018-03-13T17:31:28Z
             third_party: true
@@ -1198,8 +1201,6 @@ components:
           module_name: rhn-tools
         - module_stream: "1"
           module_name: rhn-tools
-        oval_only: true
-        oval: true
         package_list:
         - kernel-2.6.32-696.20.1.el6.x86_64
         - kernel-2.6.32-696.20.1.el6.x86_64
@@ -1209,6 +1210,7 @@ components:
         - rhel-6-server-rpms
         basearch: x86_64
         releasever: 6Server
+        extended: true
       properties:
         package_list:
           items:
@@ -1230,12 +1232,7 @@ components:
         basearch:
           example: x86_64
           type: string
-        oval:
-          enum:
-          - true
-          - false
-          type: boolean
-        oval_only:
+        extended:
           enum:
           - true
           - false
@@ -1254,21 +1251,29 @@ components:
     VulnerabilitiesResponse:
       example:
         cve_list:
-        - CVE-2016-0800
-        - CVE-2016-0800
+        - ""
+        - ""
         unpatched_cve_list:
-        - CVE-2017-15089
-        - CVE-2017-15089
+        - ""
+        - ""
         last_change: 2020-04-16 20:07:58.500192+00
+        manually_fixable_cve_list:
+        - ""
+        - ""
       properties:
         cve_list:
           items:
-            example: CVE-2016-0800
+            example: ""
+            type: string
+          type: array
+        manually_fixable_cve_list:
+          items:
+            example: ""
             type: string
           type: array
         unpatched_cve_list:
           items:
-            example: CVE-2017-15089
+            example: ""
             type: string
           type: array
         last_change:
@@ -1276,6 +1281,7 @@ components:
           type: string
       required:
       - cve_list
+      - manually_fixable_cve_list
       - unpatched_cve_list
     PatchesRequest:
       example:
@@ -1441,6 +1447,31 @@ components:
               type: string
             type: array
           type: object
+    VulnerabilityList:
+      items:
+        oneOf:
+        - example: CVE-2017-15089
+          type: string
+        - properties:
+            cve:
+              example: CVE-2017-15089
+              type: string
+            affected_packages:
+              items:
+                example: libxml2-0:2.9.1-6.el7_2.3.x86_64
+                type: string
+              type: array
+            errata:
+              items:
+                example: RHSA-2018:0512
+                type: string
+              type: array
+          required:
+          - affected_packages
+          - cve
+          - errata
+          type: object
+      type: array
     UpdatesV3Request_modules_list:
       example:
         module_stream: "1"
@@ -1610,6 +1641,9 @@ components:
         cve_list:
         - CVE-2017-5715
         - CVE-2017-5715
+        release_versions:
+        - "8.1"
+        - "8.1"
         solution: solution text
         issued: 2018-03-13T17:31:28Z
         third_party: true
@@ -1681,6 +1715,11 @@ components:
           type: boolean
         requires_reboot:
           type: boolean
+        release_versions:
+          items:
+            example: "8.1"
+            type: string
+          type: array
       type: object
     PackagesResponse_repositories:
       example:

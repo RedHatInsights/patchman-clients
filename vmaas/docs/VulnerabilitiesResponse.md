@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CveList** | **[]string** |  | 
+**ManuallyFixableCveList** | **[]string** |  | 
 **UnpatchedCveList** | **[]string** |  | 
 **LastChange** | Pointer to **string** |  | [optional] 
 
@@ -12,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewVulnerabilitiesResponse
 
-`func NewVulnerabilitiesResponse(cveList []string, unpatchedCveList []string, ) *VulnerabilitiesResponse`
+`func NewVulnerabilitiesResponse(cveList []string, manuallyFixableCveList []string, unpatchedCveList []string, ) *VulnerabilitiesResponse`
 
 NewVulnerabilitiesResponse instantiates a new VulnerabilitiesResponse object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +46,26 @@ and a boolean to check if the value has been set.
 `func (o *VulnerabilitiesResponse) SetCveList(v []string)`
 
 SetCveList sets CveList field to given value.
+
+
+### GetManuallyFixableCveList
+
+`func (o *VulnerabilitiesResponse) GetManuallyFixableCveList() []string`
+
+GetManuallyFixableCveList returns the ManuallyFixableCveList field if non-nil, zero value otherwise.
+
+### GetManuallyFixableCveListOk
+
+`func (o *VulnerabilitiesResponse) GetManuallyFixableCveListOk() (*[]string, bool)`
+
+GetManuallyFixableCveListOk returns a tuple with the ManuallyFixableCveList field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetManuallyFixableCveList
+
+`func (o *VulnerabilitiesResponse) SetManuallyFixableCveList(v []string)`
+
+SetManuallyFixableCveList sets ManuallyFixableCveList field to given value.
 
 
 ### GetUnpatchedCveList
