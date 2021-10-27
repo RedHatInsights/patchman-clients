@@ -3,16 +3,41 @@
 CONTAINER=openapitools/openapi-generator-cli:v5.0.1
 CONTAINER_TOOL=$([ -x /usr/bin/podman ] && echo podman || echo docker)
 
-if [ -n "$1" ] ; then
+usage() {
+    echo -e "Usage:\n $0 [ --docker | --podman ] [ --inventory ] [ --vmaas ] [ --rbac ]" >&2
+}
+
+OPTS=$(getopt --longoptions=docker,podman,help,inventory,vmaas,rbac -n ${0##*/} -- dphvir "$@")
+
+if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+eval set -- "$OPTS"
+
+declare -A GENERATE
+while : ; do
     case "$1" in
-        --docker) CONTAINER_TOOL=docker
+        -d|--docker) CONTAINER_TOOL=docker
             ;;
-        --podman) CONTAINER_TOOL=podman
+        -p|--podman) CONTAINER_TOOL=podman
             ;;
-        --help|*) echo "Usage: $0 [ --docker | --podman ]" >&2
+        -i|--inventory) GENERATE[inventory]=1
+            ;;
+        -v|--vmaas) GENERATE[vmaas]=1
+            ;;
+        -r|--rbac) GENERATE[rbac]=1
+            ;;
+        --) break
+            shift
+            ;;
+        -h|--help|*) usage
                   exit 1
             ;;
     esac
+    shift
+done
+
+# if none of API was explictly set generate all of them
+if [ -z "${GENERATE[*]}" ] ; then
+    GENERATE=([inventory]=1 [vmaas]=1 [rbac]=1)
 fi
 
 # For now, we skip the dateTime parsing because of incompatible formats ( inventory does not produce fully compliant
@@ -63,22 +88,28 @@ function generate_client() {
 $CONTAINER_TOOL image exists $CONTAINER || $CONTAINER_TOOL pull $CONTAINER
 
 # Generate Inventory client
-if [[ -z $INVENTORY_ADDRESS ]]; then
-  echo "Using default inventory address (CI)"
-  INVENTORY_ADDRESS=https://ci.cloud.redhat.com
-fi
+if [ -n "${GENERATE[inventory]}" ] ; then
+    if [[ -z $INVENTORY_ADDRESS ]]; then
+        echo "Using default inventory address (CI)"
+        INVENTORY_ADDRESS=https://ci.cloud.redhat.com
+    fi
 generate_client inventory "${INVENTORY_ADDRESS}/api/inventory/v1/openapi.json"
+fi
 
 # Generate Vmaas client
-if [[ -z $VMAAS_ADDRESS ]]; then
-  echo "Using default vmaas address (CI)"
-  VMAAS_ADDRESS=https://webapp-vmaas-ci.5a9f.insights-dev.openshiftapps.com
-fi
+if [ -n "${GENERATE[vmaas]}" ] ; then
+    if [[ -z $VMAAS_ADDRESS ]]; then
+        echo "Using default vmaas address (CI)"
+        VMAAS_ADDRESS=https://webapp-vmaas-ci.5a9f.insights-dev.openshiftapps.com
+    fi
 generate_client vmaas "${VMAAS_ADDRESS}/api/vmaas/v3/openapi.json"
+fi
 
 # Generate RBAC client
-if [[ -z $RBAC_ADDRESS ]]; then
-  echo "Using default RBAC address (CI)"
-  RBAC_ADDRESS=https://ci.cloud.redhat.com
-fi
+if [ -n "${GENERATE[rbac]}" ] ; then
+    if [[ -z $RBAC_ADDRESS ]]; then
+        echo "Using default RBAC address (CI)"
+        RBAC_ADDRESS=https://ci.cloud.redhat.com
+    fi
 generate_client rbac "${RBAC_ADDRESS}/api/rbac/v1/openapi.json"
+fi
