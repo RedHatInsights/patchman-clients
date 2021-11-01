@@ -51,6 +51,7 @@ function filter_oneof() {
             s|Fqdn|fqdn|g;
             s|"CrossAccountRequestDetail":{"oneOf":\[{"\$ref":"#/components/schemas/CrossAccountRequestDetailByAccount"},{"\$ref":"#/components/schemas/CrossAccountRequestDetailByUseId"}\]}|"CrossAccountRequestDetail":{"\$ref":"#/components/schemas/CrossAccountRequestDetailByAccount"}|g;
             s|"items":{"oneOf":\[{"\$ref":"#/components/schemas/CrossAccountRequestByAccount"},{"\$ref":"#/components/schemas/CrossAccountRequestByUserId"}\]}|"items":{"\$ref":"#/components/schemas/CrossAccountRequestByAccount"}|g;
+            s|{"\$ref": "#/components/schemas/VulnerabilityList"}|{"type": "array","items": { "type": "string","example": ""}}|g;
             # workaround for converting nullable date-time to nullable strings
             s|"format":"date-time","nullable":true,"type":"string"|"nullable":true,"type":"string"|g;
             ' $1
