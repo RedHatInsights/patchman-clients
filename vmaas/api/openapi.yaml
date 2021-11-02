@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: VMaaS Webapp
-  version: 2.31.2
+  version: 2.32.0
 servers:
 - url: /api/vmaas/v3
 tags:
@@ -249,6 +249,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/PackagesResponse'
           description: Return details about single package NEVRA
+  /pkglist:
+    post:
+      description: Get details about all packages..
+      operationId: vmaas.webapp.app.PkgListHandlerPost.post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PkgListRequest'
+      responses:
+        "400":
+          description: Invalid input json format
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PkgListResponse'
+          description: Return details about list of package NEVRAs
   /pkgtree:
     post:
       description: Get package NEVRAs trees for package names. "package_name_list"
@@ -1472,6 +1490,88 @@ components:
           - errata
           type: object
       type: array
+    PkgListRequest:
+      example:
+        return_modified: false
+        modified_since: 2018-04-05T01:23:45+02:00
+        page: 0
+        page_size: 10
+      properties:
+        page:
+          example: 0
+          type: number
+        page_size:
+          example: 10
+          type: number
+        modified_since:
+          example: 2018-04-05T01:23:45+02:00
+          format: date-time
+          type: string
+        return_modified:
+          default: false
+          description: Include 'modified' package attribute into the response
+          enum:
+          - true
+          - false
+          type: boolean
+      type: object
+    PkgListResponse:
+      example:
+        total: 100
+        pages: 0.8008281904610115
+        last_change: 2020-04-16 20:07:58.500192+00
+        page: 0
+        package_list:
+        - summary: My package summary
+          nevra: kernel-rt-4.18.0-147.rt24.93.el8.x86_64
+          description: My package description
+          modified: 2018-04-05T01:23:45+02:00
+        - summary: My package summary
+          nevra: kernel-rt-4.18.0-147.rt24.93.el8.x86_64
+          description: My package description
+          modified: 2018-04-05T01:23:45+02:00
+        page_size: 10
+      properties:
+        page:
+          example: 0
+          type: number
+        page_size:
+          example: 10
+          type: number
+        pages:
+          type: number
+        last_change:
+          example: 2020-04-16 20:07:58.500192+00
+          type: string
+        package_list:
+          items:
+            $ref: '#/components/schemas/PkgListItem'
+          type: array
+        total:
+          description: Total number of packages to return.
+          example: 100
+          type: number
+    PkgListItem:
+      example:
+        summary: My package summary
+        nevra: kernel-rt-4.18.0-147.rt24.93.el8.x86_64
+        description: My package description
+        modified: 2018-04-05T01:23:45+02:00
+      properties:
+        nevra:
+          example: kernel-rt-4.18.0-147.rt24.93.el8.x86_64
+          type: string
+        summary:
+          example: My package summary
+          type: string
+        description:
+          example: My package description
+          type: string
+        modified:
+          example: 2018-04-05T01:23:45+02:00
+          format: date-time
+          type: string
+      type: object
     UpdatesV3Request_modules_list:
       example:
         module_stream: "1"

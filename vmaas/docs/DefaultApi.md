@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**VmaasWebappAppPackagesHandlerPostPost**](DefaultApi.md#VmaasWebappAppPackagesHandlerPostPost) | **Post** /packages | 
 [**VmaasWebappAppPatchesHandlerGetGet**](DefaultApi.md#VmaasWebappAppPatchesHandlerGetGet) | **Get** /patches/{nevra} | 
 [**VmaasWebappAppPatchesHandlerPostPost**](DefaultApi.md#VmaasWebappAppPatchesHandlerPostPost) | **Post** /patches | 
+[**VmaasWebappAppPkgListHandlerPostPost**](DefaultApi.md#VmaasWebappAppPkgListHandlerPostPost) | **Post** /pkglist | 
 [**VmaasWebappAppPkgtreeHandlerV3GetGet**](DefaultApi.md#VmaasWebappAppPkgtreeHandlerV3GetGet) | **Get** /pkgtree/{package_name} | 
 [**VmaasWebappAppPkgtreeHandlerV3PostPost**](DefaultApi.md#VmaasWebappAppPkgtreeHandlerV3PostPost) | **Post** /pkgtree | 
 [**VmaasWebappAppReadyHandlerGet**](DefaultApi.md#VmaasWebappAppReadyHandlerGet) | **Get** /monitoring/ready | Return API readiness status
@@ -674,6 +675,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PatchesResponse**](PatchesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## VmaasWebappAppPkgListHandlerPostPost
+
+> PkgListResponse VmaasWebappAppPkgListHandlerPostPost(ctx).PkgListRequest(pkgListRequest).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    pkgListRequest := *openapiclient.NewPkgListRequest() // PkgListRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.VmaasWebappAppPkgListHandlerPostPost(context.Background()).PkgListRequest(pkgListRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VmaasWebappAppPkgListHandlerPostPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `VmaasWebappAppPkgListHandlerPostPost`: PkgListResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VmaasWebappAppPkgListHandlerPostPost`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiVmaasWebappAppPkgListHandlerPostPostRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pkgListRequest** | [**PkgListRequest**](PkgListRequest.md) |  | 
+
+### Return type
+
+[**PkgListResponse**](PkgListResponse.md)
 
 ### Authorization
 
