@@ -14,34 +14,36 @@ import (
 	"encoding/json"
 )
 
-// PkgtreeResponse struct for PkgtreeResponse
-type PkgtreeResponse struct {
+// PkgListResponse struct for PkgListResponse
+type PkgListResponse struct {
 	Page *float32 `json:"page,omitempty"`
 	PageSize *float32 `json:"page_size,omitempty"`
 	Pages *float32 `json:"pages,omitempty"`
 	LastChange *string `json:"last_change,omitempty"`
-	PackageNameList *map[string][]PkgTreeItem `json:"package_name_list,omitempty"`
+	PackageList *[]PkgListItem `json:"package_list,omitempty"`
+	// Total number of packages to return.
+	Total *float32 `json:"total,omitempty"`
 }
 
-// NewPkgtreeResponse instantiates a new PkgtreeResponse object
+// NewPkgListResponse instantiates a new PkgListResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPkgtreeResponse() *PkgtreeResponse {
-	this := PkgtreeResponse{}
+func NewPkgListResponse() *PkgListResponse {
+	this := PkgListResponse{}
 	return &this
 }
 
-// NewPkgtreeResponseWithDefaults instantiates a new PkgtreeResponse object
+// NewPkgListResponseWithDefaults instantiates a new PkgListResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPkgtreeResponseWithDefaults() *PkgtreeResponse {
-	this := PkgtreeResponse{}
+func NewPkgListResponseWithDefaults() *PkgListResponse {
+	this := PkgListResponse{}
 	return &this
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
-func (o *PkgtreeResponse) GetPage() float32 {
+func (o *PkgListResponse) GetPage() float32 {
 	if o == nil || o.Page == nil {
 		var ret float32
 		return ret
@@ -51,7 +53,7 @@ func (o *PkgtreeResponse) GetPage() float32 {
 
 // GetPageOk returns a tuple with the Page field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PkgtreeResponse) GetPageOk() (*float32, bool) {
+func (o *PkgListResponse) GetPageOk() (*float32, bool) {
 	if o == nil || o.Page == nil {
 		return nil, false
 	}
@@ -59,7 +61,7 @@ func (o *PkgtreeResponse) GetPageOk() (*float32, bool) {
 }
 
 // HasPage returns a boolean if a field has been set.
-func (o *PkgtreeResponse) HasPage() bool {
+func (o *PkgListResponse) HasPage() bool {
 	if o != nil && o.Page != nil {
 		return true
 	}
@@ -68,12 +70,12 @@ func (o *PkgtreeResponse) HasPage() bool {
 }
 
 // SetPage gets a reference to the given float32 and assigns it to the Page field.
-func (o *PkgtreeResponse) SetPage(v float32) {
+func (o *PkgListResponse) SetPage(v float32) {
 	o.Page = &v
 }
 
 // GetPageSize returns the PageSize field value if set, zero value otherwise.
-func (o *PkgtreeResponse) GetPageSize() float32 {
+func (o *PkgListResponse) GetPageSize() float32 {
 	if o == nil || o.PageSize == nil {
 		var ret float32
 		return ret
@@ -83,7 +85,7 @@ func (o *PkgtreeResponse) GetPageSize() float32 {
 
 // GetPageSizeOk returns a tuple with the PageSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PkgtreeResponse) GetPageSizeOk() (*float32, bool) {
+func (o *PkgListResponse) GetPageSizeOk() (*float32, bool) {
 	if o == nil || o.PageSize == nil {
 		return nil, false
 	}
@@ -91,7 +93,7 @@ func (o *PkgtreeResponse) GetPageSizeOk() (*float32, bool) {
 }
 
 // HasPageSize returns a boolean if a field has been set.
-func (o *PkgtreeResponse) HasPageSize() bool {
+func (o *PkgListResponse) HasPageSize() bool {
 	if o != nil && o.PageSize != nil {
 		return true
 	}
@@ -100,12 +102,12 @@ func (o *PkgtreeResponse) HasPageSize() bool {
 }
 
 // SetPageSize gets a reference to the given float32 and assigns it to the PageSize field.
-func (o *PkgtreeResponse) SetPageSize(v float32) {
+func (o *PkgListResponse) SetPageSize(v float32) {
 	o.PageSize = &v
 }
 
 // GetPages returns the Pages field value if set, zero value otherwise.
-func (o *PkgtreeResponse) GetPages() float32 {
+func (o *PkgListResponse) GetPages() float32 {
 	if o == nil || o.Pages == nil {
 		var ret float32
 		return ret
@@ -115,7 +117,7 @@ func (o *PkgtreeResponse) GetPages() float32 {
 
 // GetPagesOk returns a tuple with the Pages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PkgtreeResponse) GetPagesOk() (*float32, bool) {
+func (o *PkgListResponse) GetPagesOk() (*float32, bool) {
 	if o == nil || o.Pages == nil {
 		return nil, false
 	}
@@ -123,7 +125,7 @@ func (o *PkgtreeResponse) GetPagesOk() (*float32, bool) {
 }
 
 // HasPages returns a boolean if a field has been set.
-func (o *PkgtreeResponse) HasPages() bool {
+func (o *PkgListResponse) HasPages() bool {
 	if o != nil && o.Pages != nil {
 		return true
 	}
@@ -132,12 +134,12 @@ func (o *PkgtreeResponse) HasPages() bool {
 }
 
 // SetPages gets a reference to the given float32 and assigns it to the Pages field.
-func (o *PkgtreeResponse) SetPages(v float32) {
+func (o *PkgListResponse) SetPages(v float32) {
 	o.Pages = &v
 }
 
 // GetLastChange returns the LastChange field value if set, zero value otherwise.
-func (o *PkgtreeResponse) GetLastChange() string {
+func (o *PkgListResponse) GetLastChange() string {
 	if o == nil || o.LastChange == nil {
 		var ret string
 		return ret
@@ -147,7 +149,7 @@ func (o *PkgtreeResponse) GetLastChange() string {
 
 // GetLastChangeOk returns a tuple with the LastChange field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PkgtreeResponse) GetLastChangeOk() (*string, bool) {
+func (o *PkgListResponse) GetLastChangeOk() (*string, bool) {
 	if o == nil || o.LastChange == nil {
 		return nil, false
 	}
@@ -155,7 +157,7 @@ func (o *PkgtreeResponse) GetLastChangeOk() (*string, bool) {
 }
 
 // HasLastChange returns a boolean if a field has been set.
-func (o *PkgtreeResponse) HasLastChange() bool {
+func (o *PkgListResponse) HasLastChange() bool {
 	if o != nil && o.LastChange != nil {
 		return true
 	}
@@ -164,43 +166,75 @@ func (o *PkgtreeResponse) HasLastChange() bool {
 }
 
 // SetLastChange gets a reference to the given string and assigns it to the LastChange field.
-func (o *PkgtreeResponse) SetLastChange(v string) {
+func (o *PkgListResponse) SetLastChange(v string) {
 	o.LastChange = &v
 }
 
-// GetPackageNameList returns the PackageNameList field value if set, zero value otherwise.
-func (o *PkgtreeResponse) GetPackageNameList() map[string][]PkgTreeItem {
-	if o == nil || o.PackageNameList == nil {
-		var ret map[string][]PkgTreeItem
+// GetPackageList returns the PackageList field value if set, zero value otherwise.
+func (o *PkgListResponse) GetPackageList() []PkgListItem {
+	if o == nil || o.PackageList == nil {
+		var ret []PkgListItem
 		return ret
 	}
-	return *o.PackageNameList
+	return *o.PackageList
 }
 
-// GetPackageNameListOk returns a tuple with the PackageNameList field value if set, nil otherwise
+// GetPackageListOk returns a tuple with the PackageList field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PkgtreeResponse) GetPackageNameListOk() (*map[string][]PkgTreeItem, bool) {
-	if o == nil || o.PackageNameList == nil {
+func (o *PkgListResponse) GetPackageListOk() (*[]PkgListItem, bool) {
+	if o == nil || o.PackageList == nil {
 		return nil, false
 	}
-	return o.PackageNameList, true
+	return o.PackageList, true
 }
 
-// HasPackageNameList returns a boolean if a field has been set.
-func (o *PkgtreeResponse) HasPackageNameList() bool {
-	if o != nil && o.PackageNameList != nil {
+// HasPackageList returns a boolean if a field has been set.
+func (o *PkgListResponse) HasPackageList() bool {
+	if o != nil && o.PackageList != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPackageNameList gets a reference to the given map[string][]PkgTreeItem and assigns it to the PackageNameList field.
-func (o *PkgtreeResponse) SetPackageNameList(v map[string][]PkgTreeItem) {
-	o.PackageNameList = &v
+// SetPackageList gets a reference to the given []PkgListItem and assigns it to the PackageList field.
+func (o *PkgListResponse) SetPackageList(v []PkgListItem) {
+	o.PackageList = &v
 }
 
-func (o PkgtreeResponse) MarshalJSON() ([]byte, error) {
+// GetTotal returns the Total field value if set, zero value otherwise.
+func (o *PkgListResponse) GetTotal() float32 {
+	if o == nil || o.Total == nil {
+		var ret float32
+		return ret
+	}
+	return *o.Total
+}
+
+// GetTotalOk returns a tuple with the Total field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PkgListResponse) GetTotalOk() (*float32, bool) {
+	if o == nil || o.Total == nil {
+		return nil, false
+	}
+	return o.Total, true
+}
+
+// HasTotal returns a boolean if a field has been set.
+func (o *PkgListResponse) HasTotal() bool {
+	if o != nil && o.Total != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTotal gets a reference to the given float32 and assigns it to the Total field.
+func (o *PkgListResponse) SetTotal(v float32) {
+	o.Total = &v
+}
+
+func (o PkgListResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Page != nil {
 		toSerialize["page"] = o.Page
@@ -214,44 +248,47 @@ func (o PkgtreeResponse) MarshalJSON() ([]byte, error) {
 	if o.LastChange != nil {
 		toSerialize["last_change"] = o.LastChange
 	}
-	if o.PackageNameList != nil {
-		toSerialize["package_name_list"] = o.PackageNameList
+	if o.PackageList != nil {
+		toSerialize["package_list"] = o.PackageList
+	}
+	if o.Total != nil {
+		toSerialize["total"] = o.Total
 	}
 	return json.Marshal(toSerialize)
 }
 
-type NullablePkgtreeResponse struct {
-	value *PkgtreeResponse
+type NullablePkgListResponse struct {
+	value *PkgListResponse
 	isSet bool
 }
 
-func (v NullablePkgtreeResponse) Get() *PkgtreeResponse {
+func (v NullablePkgListResponse) Get() *PkgListResponse {
 	return v.value
 }
 
-func (v *NullablePkgtreeResponse) Set(val *PkgtreeResponse) {
+func (v *NullablePkgListResponse) Set(val *PkgListResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePkgtreeResponse) IsSet() bool {
+func (v NullablePkgListResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePkgtreeResponse) Unset() {
+func (v *NullablePkgListResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePkgtreeResponse(val *PkgtreeResponse) *NullablePkgtreeResponse {
-	return &NullablePkgtreeResponse{value: val, isSet: true}
+func NewNullablePkgListResponse(val *PkgListResponse) *NullablePkgListResponse {
+	return &NullablePkgListResponse{value: val, isSet: true}
 }
 
-func (v NullablePkgtreeResponse) MarshalJSON() ([]byte, error) {
+func (v NullablePkgListResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePkgtreeResponse) UnmarshalJSON(src []byte) error {
+func (v *NullablePkgListResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

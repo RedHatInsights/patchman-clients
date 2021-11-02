@@ -9,8 +9,7 @@ Name | Type | Description | Notes
 **ModulesList** | Pointer to [**[]UpdatesV3RequestModulesList**](UpdatesV3RequestModulesList.md) |  | [optional] 
 **Releasever** | Pointer to **string** |  | [optional] 
 **Basearch** | Pointer to **string** |  | [optional] 
-**Oval** | Pointer to **bool** |  | [optional] 
-**OvalOnly** | Pointer to **bool** |  | [optional] 
+**Extended** | Pointer to **bool** |  | [optional] 
 **ThirdParty** | Pointer to **bool** | Include content from \&quot;third party\&quot; repositories into the response, disabled by default. | [optional] [default to false]
 
 ## Methods
@@ -152,55 +151,30 @@ SetBasearch sets Basearch field to given value.
 
 HasBasearch returns a boolean if a field has been set.
 
-### GetOval
+### GetExtended
 
-`func (o *VulnerabilitiesRequest) GetOval() bool`
+`func (o *VulnerabilitiesRequest) GetExtended() bool`
 
-GetOval returns the Oval field if non-nil, zero value otherwise.
+GetExtended returns the Extended field if non-nil, zero value otherwise.
 
-### GetOvalOk
+### GetExtendedOk
 
-`func (o *VulnerabilitiesRequest) GetOvalOk() (*bool, bool)`
+`func (o *VulnerabilitiesRequest) GetExtendedOk() (*bool, bool)`
 
-GetOvalOk returns a tuple with the Oval field if it's non-nil, zero value otherwise
+GetExtendedOk returns a tuple with the Extended field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetOval
+### SetExtended
 
-`func (o *VulnerabilitiesRequest) SetOval(v bool)`
+`func (o *VulnerabilitiesRequest) SetExtended(v bool)`
 
-SetOval sets Oval field to given value.
+SetExtended sets Extended field to given value.
 
-### HasOval
+### HasExtended
 
-`func (o *VulnerabilitiesRequest) HasOval() bool`
+`func (o *VulnerabilitiesRequest) HasExtended() bool`
 
-HasOval returns a boolean if a field has been set.
-
-### GetOvalOnly
-
-`func (o *VulnerabilitiesRequest) GetOvalOnly() bool`
-
-GetOvalOnly returns the OvalOnly field if non-nil, zero value otherwise.
-
-### GetOvalOnlyOk
-
-`func (o *VulnerabilitiesRequest) GetOvalOnlyOk() (*bool, bool)`
-
-GetOvalOnlyOk returns a tuple with the OvalOnly field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOvalOnly
-
-`func (o *VulnerabilitiesRequest) SetOvalOnly(v bool)`
-
-SetOvalOnly sets OvalOnly field to given value.
-
-### HasOvalOnly
-
-`func (o *VulnerabilitiesRequest) HasOvalOnly() bool`
-
-HasOvalOnly returns a boolean if a field has been set.
+HasExtended returns a boolean if a field has been set.
 
 ### GetThirdParty
 

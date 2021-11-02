@@ -4,15 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CveList** | **[]string** |  | 
-**UnpatchedCveList** | **[]string** |  | 
+**CveList** | [**[]OneOfstringobject**](OneOfstringobject.md) |  | 
+**ManuallyFixableCveList** | [**[]OneOfstringobject**](OneOfstringobject.md) |  | 
+**UnpatchedCveList** | [**[]OneOfstringobject**](OneOfstringobject.md) |  | 
 **LastChange** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewVulnerabilitiesResponse
 
-`func NewVulnerabilitiesResponse(cveList []string, unpatchedCveList []string, ) *VulnerabilitiesResponse`
+`func NewVulnerabilitiesResponse(cveList []OneOfstringobject, manuallyFixableCveList []OneOfstringobject, unpatchedCveList []OneOfstringobject, ) *VulnerabilitiesResponse`
 
 NewVulnerabilitiesResponse instantiates a new VulnerabilitiesResponse object
 This constructor will assign default values to properties that have it defined,
@@ -29,40 +30,60 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCveList
 
-`func (o *VulnerabilitiesResponse) GetCveList() []string`
+`func (o *VulnerabilitiesResponse) GetCveList() []OneOfstringobject`
 
 GetCveList returns the CveList field if non-nil, zero value otherwise.
 
 ### GetCveListOk
 
-`func (o *VulnerabilitiesResponse) GetCveListOk() (*[]string, bool)`
+`func (o *VulnerabilitiesResponse) GetCveListOk() (*[]OneOfstringobject, bool)`
 
 GetCveListOk returns a tuple with the CveList field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCveList
 
-`func (o *VulnerabilitiesResponse) SetCveList(v []string)`
+`func (o *VulnerabilitiesResponse) SetCveList(v []OneOfstringobject)`
 
 SetCveList sets CveList field to given value.
 
 
+### GetManuallyFixableCveList
+
+`func (o *VulnerabilitiesResponse) GetManuallyFixableCveList() []OneOfstringobject`
+
+GetManuallyFixableCveList returns the ManuallyFixableCveList field if non-nil, zero value otherwise.
+
+### GetManuallyFixableCveListOk
+
+`func (o *VulnerabilitiesResponse) GetManuallyFixableCveListOk() (*[]OneOfstringobject, bool)`
+
+GetManuallyFixableCveListOk returns a tuple with the ManuallyFixableCveList field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetManuallyFixableCveList
+
+`func (o *VulnerabilitiesResponse) SetManuallyFixableCveList(v []OneOfstringobject)`
+
+SetManuallyFixableCveList sets ManuallyFixableCveList field to given value.
+
+
 ### GetUnpatchedCveList
 
-`func (o *VulnerabilitiesResponse) GetUnpatchedCveList() []string`
+`func (o *VulnerabilitiesResponse) GetUnpatchedCveList() []OneOfstringobject`
 
 GetUnpatchedCveList returns the UnpatchedCveList field if non-nil, zero value otherwise.
 
 ### GetUnpatchedCveListOk
 
-`func (o *VulnerabilitiesResponse) GetUnpatchedCveListOk() (*[]string, bool)`
+`func (o *VulnerabilitiesResponse) GetUnpatchedCveListOk() (*[]OneOfstringobject, bool)`
 
 GetUnpatchedCveListOk returns a tuple with the UnpatchedCveList field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUnpatchedCveList
 
-`func (o *VulnerabilitiesResponse) SetUnpatchedCveList(v []string)`
+`func (o *VulnerabilitiesResponse) SetUnpatchedCveList(v []OneOfstringobject)`
 
 SetUnpatchedCveList sets UnpatchedCveList field to given value.
 
