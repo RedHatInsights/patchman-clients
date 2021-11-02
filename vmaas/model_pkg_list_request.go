@@ -14,41 +14,38 @@ import (
 	"encoding/json"
 )
 
-// ReposRequest struct for ReposRequest
-type ReposRequest struct {
+// PkgListRequest struct for PkgListRequest
+type PkgListRequest struct {
 	Page *float32 `json:"page,omitempty"`
 	PageSize *float32 `json:"page_size,omitempty"`
-	RepositoryList []string `json:"repository_list"`
-	// Return only repositories changed after the given date
 	ModifiedSince *string `json:"modified_since,omitempty"`
-	// Include content from \"third party\" repositories into the response, disabled by default.
-	ThirdParty *bool `json:"third_party,omitempty"`
+	// Include 'modified' package attribute into the response
+	ReturnModified *bool `json:"return_modified,omitempty"`
 }
 
-// NewReposRequest instantiates a new ReposRequest object
+// NewPkgListRequest instantiates a new PkgListRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReposRequest(repositoryList []string, ) *ReposRequest {
-	this := ReposRequest{}
-	this.RepositoryList = repositoryList
-	var thirdParty bool = false
-	this.ThirdParty = &thirdParty
+func NewPkgListRequest() *PkgListRequest {
+	this := PkgListRequest{}
+	var returnModified bool = false
+	this.ReturnModified = &returnModified
 	return &this
 }
 
-// NewReposRequestWithDefaults instantiates a new ReposRequest object
+// NewPkgListRequestWithDefaults instantiates a new PkgListRequest object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewReposRequestWithDefaults() *ReposRequest {
-	this := ReposRequest{}
-	var thirdParty bool = false
-	this.ThirdParty = &thirdParty
+func NewPkgListRequestWithDefaults() *PkgListRequest {
+	this := PkgListRequest{}
+	var returnModified bool = false
+	this.ReturnModified = &returnModified
 	return &this
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
-func (o *ReposRequest) GetPage() float32 {
+func (o *PkgListRequest) GetPage() float32 {
 	if o == nil || o.Page == nil {
 		var ret float32
 		return ret
@@ -58,7 +55,7 @@ func (o *ReposRequest) GetPage() float32 {
 
 // GetPageOk returns a tuple with the Page field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReposRequest) GetPageOk() (*float32, bool) {
+func (o *PkgListRequest) GetPageOk() (*float32, bool) {
 	if o == nil || o.Page == nil {
 		return nil, false
 	}
@@ -66,7 +63,7 @@ func (o *ReposRequest) GetPageOk() (*float32, bool) {
 }
 
 // HasPage returns a boolean if a field has been set.
-func (o *ReposRequest) HasPage() bool {
+func (o *PkgListRequest) HasPage() bool {
 	if o != nil && o.Page != nil {
 		return true
 	}
@@ -75,12 +72,12 @@ func (o *ReposRequest) HasPage() bool {
 }
 
 // SetPage gets a reference to the given float32 and assigns it to the Page field.
-func (o *ReposRequest) SetPage(v float32) {
+func (o *PkgListRequest) SetPage(v float32) {
 	o.Page = &v
 }
 
 // GetPageSize returns the PageSize field value if set, zero value otherwise.
-func (o *ReposRequest) GetPageSize() float32 {
+func (o *PkgListRequest) GetPageSize() float32 {
 	if o == nil || o.PageSize == nil {
 		var ret float32
 		return ret
@@ -90,7 +87,7 @@ func (o *ReposRequest) GetPageSize() float32 {
 
 // GetPageSizeOk returns a tuple with the PageSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReposRequest) GetPageSizeOk() (*float32, bool) {
+func (o *PkgListRequest) GetPageSizeOk() (*float32, bool) {
 	if o == nil || o.PageSize == nil {
 		return nil, false
 	}
@@ -98,7 +95,7 @@ func (o *ReposRequest) GetPageSizeOk() (*float32, bool) {
 }
 
 // HasPageSize returns a boolean if a field has been set.
-func (o *ReposRequest) HasPageSize() bool {
+func (o *PkgListRequest) HasPageSize() bool {
 	if o != nil && o.PageSize != nil {
 		return true
 	}
@@ -107,36 +104,12 @@ func (o *ReposRequest) HasPageSize() bool {
 }
 
 // SetPageSize gets a reference to the given float32 and assigns it to the PageSize field.
-func (o *ReposRequest) SetPageSize(v float32) {
+func (o *PkgListRequest) SetPageSize(v float32) {
 	o.PageSize = &v
 }
 
-// GetRepositoryList returns the RepositoryList field value
-func (o *ReposRequest) GetRepositoryList() []string {
-	if o == nil  {
-		var ret []string
-		return ret
-	}
-
-	return o.RepositoryList
-}
-
-// GetRepositoryListOk returns a tuple with the RepositoryList field value
-// and a boolean to check if the value has been set.
-func (o *ReposRequest) GetRepositoryListOk() (*[]string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.RepositoryList, true
-}
-
-// SetRepositoryList sets field value
-func (o *ReposRequest) SetRepositoryList(v []string) {
-	o.RepositoryList = v
-}
-
 // GetModifiedSince returns the ModifiedSince field value if set, zero value otherwise.
-func (o *ReposRequest) GetModifiedSince() string {
+func (o *PkgListRequest) GetModifiedSince() string {
 	if o == nil || o.ModifiedSince == nil {
 		var ret string
 		return ret
@@ -146,7 +119,7 @@ func (o *ReposRequest) GetModifiedSince() string {
 
 // GetModifiedSinceOk returns a tuple with the ModifiedSince field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReposRequest) GetModifiedSinceOk() (*string, bool) {
+func (o *PkgListRequest) GetModifiedSinceOk() (*string, bool) {
 	if o == nil || o.ModifiedSince == nil {
 		return nil, false
 	}
@@ -154,7 +127,7 @@ func (o *ReposRequest) GetModifiedSinceOk() (*string, bool) {
 }
 
 // HasModifiedSince returns a boolean if a field has been set.
-func (o *ReposRequest) HasModifiedSince() bool {
+func (o *PkgListRequest) HasModifiedSince() bool {
 	if o != nil && o.ModifiedSince != nil {
 		return true
 	}
@@ -163,43 +136,43 @@ func (o *ReposRequest) HasModifiedSince() bool {
 }
 
 // SetModifiedSince gets a reference to the given string and assigns it to the ModifiedSince field.
-func (o *ReposRequest) SetModifiedSince(v string) {
+func (o *PkgListRequest) SetModifiedSince(v string) {
 	o.ModifiedSince = &v
 }
 
-// GetThirdParty returns the ThirdParty field value if set, zero value otherwise.
-func (o *ReposRequest) GetThirdParty() bool {
-	if o == nil || o.ThirdParty == nil {
+// GetReturnModified returns the ReturnModified field value if set, zero value otherwise.
+func (o *PkgListRequest) GetReturnModified() bool {
+	if o == nil || o.ReturnModified == nil {
 		var ret bool
 		return ret
 	}
-	return *o.ThirdParty
+	return *o.ReturnModified
 }
 
-// GetThirdPartyOk returns a tuple with the ThirdParty field value if set, nil otherwise
+// GetReturnModifiedOk returns a tuple with the ReturnModified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReposRequest) GetThirdPartyOk() (*bool, bool) {
-	if o == nil || o.ThirdParty == nil {
+func (o *PkgListRequest) GetReturnModifiedOk() (*bool, bool) {
+	if o == nil || o.ReturnModified == nil {
 		return nil, false
 	}
-	return o.ThirdParty, true
+	return o.ReturnModified, true
 }
 
-// HasThirdParty returns a boolean if a field has been set.
-func (o *ReposRequest) HasThirdParty() bool {
-	if o != nil && o.ThirdParty != nil {
+// HasReturnModified returns a boolean if a field has been set.
+func (o *PkgListRequest) HasReturnModified() bool {
+	if o != nil && o.ReturnModified != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetThirdParty gets a reference to the given bool and assigns it to the ThirdParty field.
-func (o *ReposRequest) SetThirdParty(v bool) {
-	o.ThirdParty = &v
+// SetReturnModified gets a reference to the given bool and assigns it to the ReturnModified field.
+func (o *PkgListRequest) SetReturnModified(v bool) {
+	o.ReturnModified = &v
 }
 
-func (o ReposRequest) MarshalJSON() ([]byte, error) {
+func (o PkgListRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Page != nil {
 		toSerialize["page"] = o.Page
@@ -207,50 +180,47 @@ func (o ReposRequest) MarshalJSON() ([]byte, error) {
 	if o.PageSize != nil {
 		toSerialize["page_size"] = o.PageSize
 	}
-	if true {
-		toSerialize["repository_list"] = o.RepositoryList
-	}
 	if o.ModifiedSince != nil {
 		toSerialize["modified_since"] = o.ModifiedSince
 	}
-	if o.ThirdParty != nil {
-		toSerialize["third_party"] = o.ThirdParty
+	if o.ReturnModified != nil {
+		toSerialize["return_modified"] = o.ReturnModified
 	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableReposRequest struct {
-	value *ReposRequest
+type NullablePkgListRequest struct {
+	value *PkgListRequest
 	isSet bool
 }
 
-func (v NullableReposRequest) Get() *ReposRequest {
+func (v NullablePkgListRequest) Get() *PkgListRequest {
 	return v.value
 }
 
-func (v *NullableReposRequest) Set(val *ReposRequest) {
+func (v *NullablePkgListRequest) Set(val *PkgListRequest) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableReposRequest) IsSet() bool {
+func (v NullablePkgListRequest) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableReposRequest) Unset() {
+func (v *NullablePkgListRequest) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableReposRequest(val *ReposRequest) *NullableReposRequest {
-	return &NullableReposRequest{value: val, isSet: true}
+func NewNullablePkgListRequest(val *PkgListRequest) *NullablePkgListRequest {
+	return &NullablePkgListRequest{value: val, isSet: true}
 }
 
-func (v NullableReposRequest) MarshalJSON() ([]byte, error) {
+func (v NullablePkgListRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableReposRequest) UnmarshalJSON(src []byte) error {
+func (v *NullablePkgListRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
