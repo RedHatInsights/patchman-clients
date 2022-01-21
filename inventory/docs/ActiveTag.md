@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Tag** | [**StructuredTag**](StructuredTag.md) |  | 
 **Count** | **NullableInt32** | The number of hosts with the given tag. If the value is null this indicates that the count is unknown. | 
-**Tag** | [**HostData1Tag**](Host_data_1_tag.md) |  | 
 
 ## Methods
 
 ### NewActiveTag
 
-`func NewActiveTag(count NullableInt32, tag HostData1Tag, ) *ActiveTag`
+`func NewActiveTag(tag StructuredTag, count NullableInt32, ) *ActiveTag`
 
 NewActiveTag instantiates a new ActiveTag object
 This constructor will assign default values to properties that have it defined,
@@ -25,6 +25,26 @@ will change when the set of required properties is changed
 NewActiveTagWithDefaults instantiates a new ActiveTag object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetTag
+
+`func (o *ActiveTag) GetTag() StructuredTag`
+
+GetTag returns the Tag field if non-nil, zero value otherwise.
+
+### GetTagOk
+
+`func (o *ActiveTag) GetTagOk() (*StructuredTag, bool)`
+
+GetTagOk returns a tuple with the Tag field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTag
+
+`func (o *ActiveTag) SetTag(v StructuredTag)`
+
+SetTag sets Tag field to given value.
+
 
 ### GetCount
 
@@ -56,26 +76,6 @@ SetCount sets Count field to given value.
 `func (o *ActiveTag) UnsetCount()`
 
 UnsetCount ensures that no value is present for Count, not even an explicit nil
-### GetTag
-
-`func (o *ActiveTag) GetTag() HostData1Tag`
-
-GetTag returns the Tag field if non-nil, zero value otherwise.
-
-### GetTagOk
-
-`func (o *ActiveTag) GetTagOk() (*HostData1Tag, bool)`
-
-GetTagOk returns a tuple with the Tag field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTag
-
-`func (o *ActiveTag) SetTag(v HostData1Tag)`
-
-SetTag sets Tag field to given value.
-
-
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

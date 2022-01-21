@@ -4,17 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Account** | **string** | A Red Hat Account number that owns the host. | 
-**AnsibleHost** | Pointer to **NullableString** | The ansible host name for remediations | [optional] 
-**Created** | Pointer to **string** | A timestamp when the entry was created. | [optional] 
-**CulledTimestamp** | Pointer to **NullableString** | Timestamp from which the host is considered deleted. | [optional] 
 **DisplayName** | Pointer to **NullableString** | A host’s human-readable display name, e.g. in a form of a domain name. | [optional] 
-**Facts** | Pointer to **[]map[string]interface{}** | A set of facts belonging to the host. | [optional] 
+**AnsibleHost** | Pointer to **NullableString** | The ansible host name for remediations | [optional] 
+**Account** | **string** | A Red Hat Account number that owns the host. | 
 **Id** | Pointer to **string** | A durable and reliable platform-wide host identifier. Applications should use this identifier to reference hosts. | [optional] 
-**Reporter** | Pointer to **NullableString** | Reporting source of the host. Used when updating the stale_timestamp. | [optional] 
-**StaleTimestamp** | Pointer to **NullableString** | Timestamp from which the host is considered stale. | [optional] 
-**StaleWarningTimestamp** | Pointer to **NullableString** | Timestamp from which the host is considered too stale to be listed without an explicit toggle. | [optional] 
+**Created** | Pointer to **string** | A timestamp when the entry was created. | [optional] 
 **Updated** | Pointer to **string** | A timestamp when the entry was last updated. | [optional] 
+**Facts** | Pointer to [**[]FactSet**](FactSet.md) | A set of facts belonging to the host. | [optional] 
+**StaleTimestamp** | Pointer to **NullableTime** | Timestamp from which the host is considered stale. | [optional] 
+**StaleWarningTimestamp** | Pointer to **NullableTime** | Timestamp from which the host is considered too stale to be listed without an explicit toggle. | [optional] 
+**CulledTimestamp** | Pointer to **NullableTime** | Timestamp from which the host is considered deleted. | [optional] 
+**Reporter** | Pointer to **NullableString** | Reporting source of the host. Used when updating the stale_timestamp. | [optional] 
+**PerReporterStaleness** | Pointer to [**map[string]map[string]interface{}**](object.md) | Reporting source of the last checkin status, stale_timestamp, and last_check_in. | [optional] 
 
 ## Methods
 
@@ -35,121 +36,6 @@ NewCreateHostOutAllOfWithDefaults instantiates a new CreateHostOutAllOf object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetAccount
-
-`func (o *CreateHostOutAllOf) GetAccount() string`
-
-GetAccount returns the Account field if non-nil, zero value otherwise.
-
-### GetAccountOk
-
-`func (o *CreateHostOutAllOf) GetAccountOk() (*string, bool)`
-
-GetAccountOk returns a tuple with the Account field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAccount
-
-`func (o *CreateHostOutAllOf) SetAccount(v string)`
-
-SetAccount sets Account field to given value.
-
-
-### GetAnsibleHost
-
-`func (o *CreateHostOutAllOf) GetAnsibleHost() string`
-
-GetAnsibleHost returns the AnsibleHost field if non-nil, zero value otherwise.
-
-### GetAnsibleHostOk
-
-`func (o *CreateHostOutAllOf) GetAnsibleHostOk() (*string, bool)`
-
-GetAnsibleHostOk returns a tuple with the AnsibleHost field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAnsibleHost
-
-`func (o *CreateHostOutAllOf) SetAnsibleHost(v string)`
-
-SetAnsibleHost sets AnsibleHost field to given value.
-
-### HasAnsibleHost
-
-`func (o *CreateHostOutAllOf) HasAnsibleHost() bool`
-
-HasAnsibleHost returns a boolean if a field has been set.
-
-### SetAnsibleHostNil
-
-`func (o *CreateHostOutAllOf) SetAnsibleHostNil(b bool)`
-
- SetAnsibleHostNil sets the value for AnsibleHost to be an explicit nil
-
-### UnsetAnsibleHost
-`func (o *CreateHostOutAllOf) UnsetAnsibleHost()`
-
-UnsetAnsibleHost ensures that no value is present for AnsibleHost, not even an explicit nil
-### GetCreated
-
-`func (o *CreateHostOutAllOf) GetCreated() string`
-
-GetCreated returns the Created field if non-nil, zero value otherwise.
-
-### GetCreatedOk
-
-`func (o *CreateHostOutAllOf) GetCreatedOk() (*string, bool)`
-
-GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreated
-
-`func (o *CreateHostOutAllOf) SetCreated(v string)`
-
-SetCreated sets Created field to given value.
-
-### HasCreated
-
-`func (o *CreateHostOutAllOf) HasCreated() bool`
-
-HasCreated returns a boolean if a field has been set.
-
-### GetCulledTimestamp
-
-`func (o *CreateHostOutAllOf) GetCulledTimestamp() string`
-
-GetCulledTimestamp returns the CulledTimestamp field if non-nil, zero value otherwise.
-
-### GetCulledTimestampOk
-
-`func (o *CreateHostOutAllOf) GetCulledTimestampOk() (*string, bool)`
-
-GetCulledTimestampOk returns a tuple with the CulledTimestamp field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCulledTimestamp
-
-`func (o *CreateHostOutAllOf) SetCulledTimestamp(v string)`
-
-SetCulledTimestamp sets CulledTimestamp field to given value.
-
-### HasCulledTimestamp
-
-`func (o *CreateHostOutAllOf) HasCulledTimestamp() bool`
-
-HasCulledTimestamp returns a boolean if a field has been set.
-
-### SetCulledTimestampNil
-
-`func (o *CreateHostOutAllOf) SetCulledTimestampNil(b bool)`
-
- SetCulledTimestampNil sets the value for CulledTimestamp to be an explicit nil
-
-### UnsetCulledTimestamp
-`func (o *CreateHostOutAllOf) UnsetCulledTimestamp()`
-
-UnsetCulledTimestamp ensures that no value is present for CulledTimestamp, not even an explicit nil
 ### GetDisplayName
 
 `func (o *CreateHostOutAllOf) GetDisplayName() string`
@@ -185,30 +71,60 @@ HasDisplayName returns a boolean if a field has been set.
 `func (o *CreateHostOutAllOf) UnsetDisplayName()`
 
 UnsetDisplayName ensures that no value is present for DisplayName, not even an explicit nil
-### GetFacts
+### GetAnsibleHost
 
-`func (o *CreateHostOutAllOf) GetFacts() []map[string]interface{}`
+`func (o *CreateHostOutAllOf) GetAnsibleHost() string`
 
-GetFacts returns the Facts field if non-nil, zero value otherwise.
+GetAnsibleHost returns the AnsibleHost field if non-nil, zero value otherwise.
 
-### GetFactsOk
+### GetAnsibleHostOk
 
-`func (o *CreateHostOutAllOf) GetFactsOk() (*[]map[string]interface{}, bool)`
+`func (o *CreateHostOutAllOf) GetAnsibleHostOk() (*string, bool)`
 
-GetFactsOk returns a tuple with the Facts field if it's non-nil, zero value otherwise
+GetAnsibleHostOk returns a tuple with the AnsibleHost field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFacts
+### SetAnsibleHost
 
-`func (o *CreateHostOutAllOf) SetFacts(v []map[string]interface{})`
+`func (o *CreateHostOutAllOf) SetAnsibleHost(v string)`
 
-SetFacts sets Facts field to given value.
+SetAnsibleHost sets AnsibleHost field to given value.
 
-### HasFacts
+### HasAnsibleHost
 
-`func (o *CreateHostOutAllOf) HasFacts() bool`
+`func (o *CreateHostOutAllOf) HasAnsibleHost() bool`
 
-HasFacts returns a boolean if a field has been set.
+HasAnsibleHost returns a boolean if a field has been set.
+
+### SetAnsibleHostNil
+
+`func (o *CreateHostOutAllOf) SetAnsibleHostNil(b bool)`
+
+ SetAnsibleHostNil sets the value for AnsibleHost to be an explicit nil
+
+### UnsetAnsibleHost
+`func (o *CreateHostOutAllOf) UnsetAnsibleHost()`
+
+UnsetAnsibleHost ensures that no value is present for AnsibleHost, not even an explicit nil
+### GetAccount
+
+`func (o *CreateHostOutAllOf) GetAccount() string`
+
+GetAccount returns the Account field if non-nil, zero value otherwise.
+
+### GetAccountOk
+
+`func (o *CreateHostOutAllOf) GetAccountOk() (*string, bool)`
+
+GetAccountOk returns a tuple with the Account field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccount
+
+`func (o *CreateHostOutAllOf) SetAccount(v string)`
+
+SetAccount sets Account field to given value.
+
 
 ### GetId
 
@@ -235,41 +151,81 @@ SetId sets Id field to given value.
 
 HasId returns a boolean if a field has been set.
 
-### GetReporter
+### GetCreated
 
-`func (o *CreateHostOutAllOf) GetReporter() string`
+`func (o *CreateHostOutAllOf) GetCreated() string`
 
-GetReporter returns the Reporter field if non-nil, zero value otherwise.
+GetCreated returns the Created field if non-nil, zero value otherwise.
 
-### GetReporterOk
+### GetCreatedOk
 
-`func (o *CreateHostOutAllOf) GetReporterOk() (*string, bool)`
+`func (o *CreateHostOutAllOf) GetCreatedOk() (*string, bool)`
 
-GetReporterOk returns a tuple with the Reporter field if it's non-nil, zero value otherwise
+GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetReporter
+### SetCreated
 
-`func (o *CreateHostOutAllOf) SetReporter(v string)`
+`func (o *CreateHostOutAllOf) SetCreated(v string)`
 
-SetReporter sets Reporter field to given value.
+SetCreated sets Created field to given value.
 
-### HasReporter
+### HasCreated
 
-`func (o *CreateHostOutAllOf) HasReporter() bool`
+`func (o *CreateHostOutAllOf) HasCreated() bool`
 
-HasReporter returns a boolean if a field has been set.
+HasCreated returns a boolean if a field has been set.
 
-### SetReporterNil
+### GetUpdated
 
-`func (o *CreateHostOutAllOf) SetReporterNil(b bool)`
+`func (o *CreateHostOutAllOf) GetUpdated() string`
 
- SetReporterNil sets the value for Reporter to be an explicit nil
+GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
-### UnsetReporter
-`func (o *CreateHostOutAllOf) UnsetReporter()`
+### GetUpdatedOk
 
-UnsetReporter ensures that no value is present for Reporter, not even an explicit nil
+`func (o *CreateHostOutAllOf) GetUpdatedOk() (*string, bool)`
+
+GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpdated
+
+`func (o *CreateHostOutAllOf) SetUpdated(v string)`
+
+SetUpdated sets Updated field to given value.
+
+### HasUpdated
+
+`func (o *CreateHostOutAllOf) HasUpdated() bool`
+
+HasUpdated returns a boolean if a field has been set.
+
+### GetFacts
+
+`func (o *CreateHostOutAllOf) GetFacts() []FactSet`
+
+GetFacts returns the Facts field if non-nil, zero value otherwise.
+
+### GetFactsOk
+
+`func (o *CreateHostOutAllOf) GetFactsOk() (*[]FactSet, bool)`
+
+GetFactsOk returns a tuple with the Facts field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFacts
+
+`func (o *CreateHostOutAllOf) SetFacts(v []FactSet)`
+
+SetFacts sets Facts field to given value.
+
+### HasFacts
+
+`func (o *CreateHostOutAllOf) HasFacts() bool`
+
+HasFacts returns a boolean if a field has been set.
+
 ### GetStaleTimestamp
 
 `func (o *CreateHostOutAllOf) GetStaleTimestamp() string`
@@ -340,30 +296,100 @@ HasStaleWarningTimestamp returns a boolean if a field has been set.
 `func (o *CreateHostOutAllOf) UnsetStaleWarningTimestamp()`
 
 UnsetStaleWarningTimestamp ensures that no value is present for StaleWarningTimestamp, not even an explicit nil
-### GetUpdated
+### GetCulledTimestamp
 
-`func (o *CreateHostOutAllOf) GetUpdated() string`
+`func (o *CreateHostOutAllOf) GetCulledTimestamp() string`
 
-GetUpdated returns the Updated field if non-nil, zero value otherwise.
+GetCulledTimestamp returns the CulledTimestamp field if non-nil, zero value otherwise.
 
-### GetUpdatedOk
+### GetCulledTimestampOk
 
-`func (o *CreateHostOutAllOf) GetUpdatedOk() (*string, bool)`
+`func (o *CreateHostOutAllOf) GetCulledTimestampOk() (*string, bool)`
 
-GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
+GetCulledTimestampOk returns a tuple with the CulledTimestamp field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUpdated
+### SetCulledTimestamp
 
-`func (o *CreateHostOutAllOf) SetUpdated(v string)`
+`func (o *CreateHostOutAllOf) SetCulledTimestamp(v string)`
 
-SetUpdated sets Updated field to given value.
+SetCulledTimestamp sets CulledTimestamp field to given value.
 
-### HasUpdated
+### HasCulledTimestamp
 
-`func (o *CreateHostOutAllOf) HasUpdated() bool`
+`func (o *CreateHostOutAllOf) HasCulledTimestamp() bool`
 
-HasUpdated returns a boolean if a field has been set.
+HasCulledTimestamp returns a boolean if a field has been set.
+
+### SetCulledTimestampNil
+
+`func (o *CreateHostOutAllOf) SetCulledTimestampNil(b bool)`
+
+ SetCulledTimestampNil sets the value for CulledTimestamp to be an explicit nil
+
+### UnsetCulledTimestamp
+`func (o *CreateHostOutAllOf) UnsetCulledTimestamp()`
+
+UnsetCulledTimestamp ensures that no value is present for CulledTimestamp, not even an explicit nil
+### GetReporter
+
+`func (o *CreateHostOutAllOf) GetReporter() string`
+
+GetReporter returns the Reporter field if non-nil, zero value otherwise.
+
+### GetReporterOk
+
+`func (o *CreateHostOutAllOf) GetReporterOk() (*string, bool)`
+
+GetReporterOk returns a tuple with the Reporter field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReporter
+
+`func (o *CreateHostOutAllOf) SetReporter(v string)`
+
+SetReporter sets Reporter field to given value.
+
+### HasReporter
+
+`func (o *CreateHostOutAllOf) HasReporter() bool`
+
+HasReporter returns a boolean if a field has been set.
+
+### SetReporterNil
+
+`func (o *CreateHostOutAllOf) SetReporterNil(b bool)`
+
+ SetReporterNil sets the value for Reporter to be an explicit nil
+
+### UnsetReporter
+`func (o *CreateHostOutAllOf) UnsetReporter()`
+
+UnsetReporter ensures that no value is present for Reporter, not even an explicit nil
+### GetPerReporterStaleness
+
+`func (o *CreateHostOutAllOf) GetPerReporterStaleness() map[string]map[string]interface{}`
+
+GetPerReporterStaleness returns the PerReporterStaleness field if non-nil, zero value otherwise.
+
+### GetPerReporterStalenessOk
+
+`func (o *CreateHostOutAllOf) GetPerReporterStalenessOk() (*map[string]map[string]interface{}, bool)`
+
+GetPerReporterStalenessOk returns a tuple with the PerReporterStaleness field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPerReporterStaleness
+
+`func (o *CreateHostOutAllOf) SetPerReporterStaleness(v map[string]map[string]interface{})`
+
+SetPerReporterStaleness sets PerReporterStaleness field to given value.
+
+### HasPerReporterStaleness
+
+`func (o *CreateHostOutAllOf) HasPerReporterStaleness() bool`
+
+HasPerReporterStaleness returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

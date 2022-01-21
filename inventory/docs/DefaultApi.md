@@ -1,6 +1,6 @@
 # \DefaultApi
 
-All URIs are relative to *http://localhost/api/inventory/v1*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

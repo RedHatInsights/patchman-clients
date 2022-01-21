@@ -16,19 +16,19 @@ import (
 
 // ActiveTag Information about a host tag
 type ActiveTag struct {
+	Tag StructuredTag `json:"tag"`
 	// The number of hosts with the given tag. If the value is null this indicates that the count is unknown.
 	Count NullableInt32 `json:"count"`
-	Tag HostData1Tag `json:"tag"`
 }
 
 // NewActiveTag instantiates a new ActiveTag object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewActiveTag(count NullableInt32, tag HostData1Tag, ) *ActiveTag {
+func NewActiveTag(tag StructuredTag, count NullableInt32, ) *ActiveTag {
 	this := ActiveTag{}
-	this.Count = count
 	this.Tag = tag
+	this.Count = count
 	return &this
 }
 
@@ -38,6 +38,30 @@ func NewActiveTag(count NullableInt32, tag HostData1Tag, ) *ActiveTag {
 func NewActiveTagWithDefaults() *ActiveTag {
 	this := ActiveTag{}
 	return &this
+}
+
+// GetTag returns the Tag field value
+func (o *ActiveTag) GetTag() StructuredTag {
+	if o == nil  {
+		var ret StructuredTag
+		return ret
+	}
+
+	return o.Tag
+}
+
+// GetTagOk returns a tuple with the Tag field value
+// and a boolean to check if the value has been set.
+func (o *ActiveTag) GetTagOk() (*StructuredTag, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Tag, true
+}
+
+// SetTag sets field value
+func (o *ActiveTag) SetTag(v StructuredTag) {
+	o.Tag = v
 }
 
 // GetCount returns the Count field value
@@ -66,37 +90,13 @@ func (o *ActiveTag) SetCount(v int32) {
 	o.Count.Set(&v)
 }
 
-// GetTag returns the Tag field value
-func (o *ActiveTag) GetTag() HostData1Tag {
-	if o == nil  {
-		var ret HostData1Tag
-		return ret
-	}
-
-	return o.Tag
-}
-
-// GetTagOk returns a tuple with the Tag field value
-// and a boolean to check if the value has been set.
-func (o *ActiveTag) GetTagOk() (*HostData1Tag, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Tag, true
-}
-
-// SetTag sets field value
-func (o *ActiveTag) SetTag(v HostData1Tag) {
-	o.Tag = v
-}
-
 func (o ActiveTag) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["count"] = o.Count.Get()
+		toSerialize["tag"] = o.Tag
 	}
 	if true {
-		toSerialize["tag"] = o.Tag
+		toSerialize["count"] = o.Count.Get()
 	}
 	return json.Marshal(toSerialize)
 }

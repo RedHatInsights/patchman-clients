@@ -145,6 +145,207 @@ func (a *HostsApiService) ApiHostDeleteByIdExecute(r ApiApiHostDeleteByIdRequest
 	return localVarHTTPResponse, nil
 }
 
+type ApiApiHostDeleteHostListRequest struct {
+	ctx _context.Context
+	ApiService *HostsApiService
+	displayName *string
+	fqdn *string
+	hostnameOrId *string
+	insightsId *string
+	providerId *string
+	providerType *string
+	registeredWith *string
+	staleness *[]string
+	tags *[]string
+	filter *map[string]OneOfmapobject
+}
+
+func (r ApiApiHostDeleteHostListRequest) DisplayName(displayName string) ApiApiHostDeleteHostListRequest {
+	r.displayName = &displayName
+	return r
+}
+func (r ApiApiHostDeleteHostListRequest) Fqdn(fqdn string) ApiApiHostDeleteHostListRequest {
+	r.fqdn = &fqdn
+	return r
+}
+func (r ApiApiHostDeleteHostListRequest) HostnameOrId(hostnameOrId string) ApiApiHostDeleteHostListRequest {
+	r.hostnameOrId = &hostnameOrId
+	return r
+}
+func (r ApiApiHostDeleteHostListRequest) InsightsId(insightsId string) ApiApiHostDeleteHostListRequest {
+	r.insightsId = &insightsId
+	return r
+}
+func (r ApiApiHostDeleteHostListRequest) ProviderId(providerId string) ApiApiHostDeleteHostListRequest {
+	r.providerId = &providerId
+	return r
+}
+func (r ApiApiHostDeleteHostListRequest) ProviderType(providerType string) ApiApiHostDeleteHostListRequest {
+	r.providerType = &providerType
+	return r
+}
+func (r ApiApiHostDeleteHostListRequest) RegisteredWith(registeredWith string) ApiApiHostDeleteHostListRequest {
+	r.registeredWith = &registeredWith
+	return r
+}
+func (r ApiApiHostDeleteHostListRequest) Staleness(staleness []string) ApiApiHostDeleteHostListRequest {
+	r.staleness = &staleness
+	return r
+}
+func (r ApiApiHostDeleteHostListRequest) Tags(tags []string) ApiApiHostDeleteHostListRequest {
+	r.tags = &tags
+	return r
+}
+func (r ApiApiHostDeleteHostListRequest) Filter(filter map[string]OneOfmapobject) ApiApiHostDeleteHostListRequest {
+	r.filter = &filter
+	return r
+}
+
+func (r ApiApiHostDeleteHostListRequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.ApiHostDeleteHostListExecute(r)
+}
+
+/*
+ * ApiHostDeleteHostList Delete the entire list of hosts filtered by the given parameters
+ * Delete the entire list of hosts filtered by the given parameters. <br /><br /> Required permissions: inventory:hosts:write
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @return ApiApiHostDeleteHostListRequest
+ */
+func (a *HostsApiService) ApiHostDeleteHostList(ctx _context.Context) ApiApiHostDeleteHostListRequest {
+	return ApiApiHostDeleteHostListRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+/*
+ * Execute executes the request
+ */
+func (a *HostsApiService) ApiHostDeleteHostListExecute(r ApiApiHostDeleteHostListRequest) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HostsApiService.ApiHostDeleteHostList")
+	if err != nil {
+		return nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/hosts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	if r.displayName != nil {
+		localVarQueryParams.Add("display_name", parameterToString(*r.displayName, ""))
+	}
+	if r.fqdn != nil {
+		localVarQueryParams.Add("fqdn", parameterToString(*r.fqdn, ""))
+	}
+	if r.hostnameOrId != nil {
+		localVarQueryParams.Add("hostname_or_id", parameterToString(*r.hostnameOrId, ""))
+	}
+	if r.insightsId != nil {
+		localVarQueryParams.Add("insights_id", parameterToString(*r.insightsId, ""))
+	}
+	if r.providerId != nil {
+		localVarQueryParams.Add("provider_id", parameterToString(*r.providerId, ""))
+	}
+	if r.providerType != nil {
+		localVarQueryParams.Add("provider_type", parameterToString(*r.providerType, ""))
+	}
+	if r.registeredWith != nil {
+		localVarQueryParams.Add("registered_with", parameterToString(*r.registeredWith, ""))
+	}
+	if r.staleness != nil {
+		t := *r.staleness
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("staleness", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("staleness", parameterToString(t, "multi"))
+		}
+	}
+	if r.tags != nil {
+		t := *r.tags
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("tags", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("tags", parameterToString(t, "multi"))
+		}
+	}
+	if r.filter != nil {
+		localVarQueryParams.Add("filter", parameterToString(*r.filter, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKeyAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["x-rh-identity"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiApiHostGetHostByIdRequest struct {
 	ctx _context.Context
 	ApiService *HostsApiService
@@ -177,7 +378,7 @@ func (r ApiApiHostGetHostByIdRequest) OrderHow(orderHow string) ApiApiHostGetHos
 	return r
 }
 
-func (r ApiApiHostGetHostByIdRequest) Execute() (AHostInventoryQueryResult, *_nethttp.Response, error) {
+func (r ApiApiHostGetHostByIdRequest) Execute() (HostQueryOutput, *_nethttp.Response, error) {
 	return r.ApiService.ApiHostGetHostByIdExecute(r)
 }
 
@@ -198,16 +399,16 @@ func (a *HostsApiService) ApiHostGetHostById(ctx _context.Context, hostIdList []
 
 /*
  * Execute executes the request
- * @return AHostInventoryQueryResult
+ * @return HostQueryOutput
  */
-func (a *HostsApiService) ApiHostGetHostByIdExecute(r ApiApiHostGetHostByIdRequest) (AHostInventoryQueryResult, *_nethttp.Response, error) {
+func (a *HostsApiService) ApiHostGetHostByIdExecute(r ApiApiHostGetHostByIdRequest) (HostQueryOutput, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  AHostInventoryQueryResult
+		localVarReturnValue  HostQueryOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HostsApiService.ApiHostGetHostById")
@@ -312,6 +513,8 @@ type ApiApiHostGetHostListRequest struct {
 	fqdn *string
 	hostnameOrId *string
 	insightsId *string
+	providerId *string
+	providerType *string
 	branchId *string
 	perPage *int32
 	page *int32
@@ -320,8 +523,8 @@ type ApiApiHostGetHostListRequest struct {
 	staleness *[]string
 	tags *[]string
 	registeredWith *string
-	filter *map[string]interface{}
-	fields *map[string]interface{}
+	filter *map[string]OneOfmapobject
+	fields *map[string]OneOfmapobject
 }
 
 func (r ApiApiHostGetHostListRequest) DisplayName(displayName string) ApiApiHostGetHostListRequest {
@@ -338,6 +541,14 @@ func (r ApiApiHostGetHostListRequest) HostnameOrId(hostnameOrId string) ApiApiHo
 }
 func (r ApiApiHostGetHostListRequest) InsightsId(insightsId string) ApiApiHostGetHostListRequest {
 	r.insightsId = &insightsId
+	return r
+}
+func (r ApiApiHostGetHostListRequest) ProviderId(providerId string) ApiApiHostGetHostListRequest {
+	r.providerId = &providerId
+	return r
+}
+func (r ApiApiHostGetHostListRequest) ProviderType(providerType string) ApiApiHostGetHostListRequest {
+	r.providerType = &providerType
 	return r
 }
 func (r ApiApiHostGetHostListRequest) BranchId(branchId string) ApiApiHostGetHostListRequest {
@@ -372,16 +583,16 @@ func (r ApiApiHostGetHostListRequest) RegisteredWith(registeredWith string) ApiA
 	r.registeredWith = &registeredWith
 	return r
 }
-func (r ApiApiHostGetHostListRequest) Filter(filter map[string]interface{}) ApiApiHostGetHostListRequest {
+func (r ApiApiHostGetHostListRequest) Filter(filter map[string]OneOfmapobject) ApiApiHostGetHostListRequest {
 	r.filter = &filter
 	return r
 }
-func (r ApiApiHostGetHostListRequest) Fields(fields map[string]interface{}) ApiApiHostGetHostListRequest {
+func (r ApiApiHostGetHostListRequest) Fields(fields map[string]OneOfmapobject) ApiApiHostGetHostListRequest {
 	r.fields = &fields
 	return r
 }
 
-func (r ApiApiHostGetHostListRequest) Execute() (AHostInventoryQueryResult, *_nethttp.Response, error) {
+func (r ApiApiHostGetHostListRequest) Execute() (HostQueryOutput, *_nethttp.Response, error) {
 	return r.ApiService.ApiHostGetHostListExecute(r)
 }
 
@@ -400,16 +611,16 @@ func (a *HostsApiService) ApiHostGetHostList(ctx _context.Context) ApiApiHostGet
 
 /*
  * Execute executes the request
- * @return AHostInventoryQueryResult
+ * @return HostQueryOutput
  */
-func (a *HostsApiService) ApiHostGetHostListExecute(r ApiApiHostGetHostListRequest) (AHostInventoryQueryResult, *_nethttp.Response, error) {
+func (a *HostsApiService) ApiHostGetHostListExecute(r ApiApiHostGetHostListRequest) (HostQueryOutput, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  AHostInventoryQueryResult
+		localVarReturnValue  HostQueryOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HostsApiService.ApiHostGetHostList")
@@ -434,6 +645,12 @@ func (a *HostsApiService) ApiHostGetHostListExecute(r ApiApiHostGetHostListReque
 	}
 	if r.insightsId != nil {
 		localVarQueryParams.Add("insights_id", parameterToString(*r.insightsId, ""))
+	}
+	if r.providerId != nil {
+		localVarQueryParams.Add("provider_id", parameterToString(*r.providerId, ""))
+	}
+	if r.providerType != nil {
+		localVarQueryParams.Add("provider_type", parameterToString(*r.providerType, ""))
 	}
 	if r.branchId != nil {
 		localVarQueryParams.Add("branch_id", parameterToString(*r.branchId, ""))
@@ -558,7 +775,7 @@ type ApiApiHostGetHostSystemProfileByIdRequest struct {
 	orderBy *string
 	orderHow *string
 	branchId *string
-	fields *map[string]interface{}
+	fields *map[string]OneOfmapobject
 }
 
 func (r ApiApiHostGetHostSystemProfileByIdRequest) PerPage(perPage int32) ApiApiHostGetHostSystemProfileByIdRequest {
@@ -581,12 +798,12 @@ func (r ApiApiHostGetHostSystemProfileByIdRequest) BranchId(branchId string) Api
 	r.branchId = &branchId
 	return r
 }
-func (r ApiApiHostGetHostSystemProfileByIdRequest) Fields(fields map[string]interface{}) ApiApiHostGetHostSystemProfileByIdRequest {
+func (r ApiApiHostGetHostSystemProfileByIdRequest) Fields(fields map[string]OneOfmapobject) ApiApiHostGetHostSystemProfileByIdRequest {
 	r.fields = &fields
 	return r
 }
 
-func (r ApiApiHostGetHostSystemProfileByIdRequest) Execute() (AHostSystemProfileQueryResult, *_nethttp.Response, error) {
+func (r ApiApiHostGetHostSystemProfileByIdRequest) Execute() (SystemProfileByHostOut, *_nethttp.Response, error) {
 	return r.ApiService.ApiHostGetHostSystemProfileByIdExecute(r)
 }
 
@@ -607,16 +824,16 @@ func (a *HostsApiService) ApiHostGetHostSystemProfileById(ctx _context.Context, 
 
 /*
  * Execute executes the request
- * @return AHostSystemProfileQueryResult
+ * @return SystemProfileByHostOut
  */
-func (a *HostsApiService) ApiHostGetHostSystemProfileByIdExecute(r ApiApiHostGetHostSystemProfileByIdRequest) (AHostSystemProfileQueryResult, *_nethttp.Response, error) {
+func (a *HostsApiService) ApiHostGetHostSystemProfileByIdExecute(r ApiApiHostGetHostSystemProfileByIdRequest) (SystemProfileByHostOut, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  AHostSystemProfileQueryResult
+		localVarReturnValue  SystemProfileByHostOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HostsApiService.ApiHostGetHostSystemProfileById")
@@ -744,7 +961,7 @@ func (r ApiApiHostGetHostTagCountRequest) OrderHow(orderHow string) ApiApiHostGe
 	return r
 }
 
-func (r ApiApiHostGetHostTagCountRequest) Execute() (InlineResponse2001, *_nethttp.Response, error) {
+func (r ApiApiHostGetHostTagCountRequest) Execute() (TagCountOut, *_nethttp.Response, error) {
 	return r.ApiService.ApiHostGetHostTagCountExecute(r)
 }
 
@@ -765,16 +982,16 @@ func (a *HostsApiService) ApiHostGetHostTagCount(ctx _context.Context, hostIdLis
 
 /*
  * Execute executes the request
- * @return InlineResponse2001
+ * @return TagCountOut
  */
-func (a *HostsApiService) ApiHostGetHostTagCountExecute(r ApiApiHostGetHostTagCountRequest) (InlineResponse2001, *_nethttp.Response, error) {
+func (a *HostsApiService) ApiHostGetHostTagCountExecute(r ApiApiHostGetHostTagCountRequest) (TagCountOut, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse2001
+		localVarReturnValue  TagCountOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HostsApiService.ApiHostGetHostTagCount")
@@ -901,7 +1118,7 @@ func (r ApiApiHostGetHostTagsRequest) Search(search string) ApiApiHostGetHostTag
 	return r
 }
 
-func (r ApiApiHostGetHostTagsRequest) Execute() (InlineResponse200, *_nethttp.Response, error) {
+func (r ApiApiHostGetHostTagsRequest) Execute() (TagsOut, *_nethttp.Response, error) {
 	return r.ApiService.ApiHostGetHostTagsExecute(r)
 }
 
@@ -922,16 +1139,16 @@ func (a *HostsApiService) ApiHostGetHostTags(ctx _context.Context, hostIdList []
 
 /*
  * Execute executes the request
- * @return InlineResponse200
+ * @return TagsOut
  */
-func (a *HostsApiService) ApiHostGetHostTagsExecute(r ApiApiHostGetHostTagsRequest) (InlineResponse200, *_nethttp.Response, error) {
+func (a *HostsApiService) ApiHostGetHostTagsExecute(r ApiApiHostGetHostTagsRequest) (TagsOut, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse200
+		localVarReturnValue  TagsOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HostsApiService.ApiHostGetHostTags")
@@ -1035,12 +1252,12 @@ type ApiApiHostHostCheckinRequest struct {
 	createCheckIn *CreateCheckIn
 }
 
-func (r ApiApiHostHostCheckinRequest) UNKNOWNBASETYPE(createCheckIn CreateCheckIn) ApiApiHostHostCheckinRequest {
+func (r ApiApiHostHostCheckinRequest) CreateCheckIn(createCheckIn CreateCheckIn) ApiApiHostHostCheckinRequest {
 	r.createCheckIn = &createCheckIn
 	return r
 }
 
-func (r ApiApiHostHostCheckinRequest) Execute() (map[string]interface{}, *_nethttp.Response, error) {
+func (r ApiApiHostHostCheckinRequest) Execute() (CreateHostOut, *_nethttp.Response, error) {
 	return r.ApiService.ApiHostHostCheckinExecute(r)
 }
 
@@ -1059,16 +1276,16 @@ func (a *HostsApiService) ApiHostHostCheckin(ctx _context.Context) ApiApiHostHos
 
 /*
  * Execute executes the request
- * @return map[string]interface{}
+ * @return CreateHostOut
  */
-func (a *HostsApiService) ApiHostHostCheckinExecute(r ApiApiHostHostCheckinRequest) (map[string]interface{}, *_nethttp.Response, error) {
+func (a *HostsApiService) ApiHostHostCheckinExecute(r ApiApiHostHostCheckinRequest) (CreateHostOut, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  map[string]interface{}
+		localVarReturnValue  CreateHostOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HostsApiService.ApiHostHostCheckin")
@@ -1290,12 +1507,12 @@ type ApiApiHostPatchByIdRequest struct {
 	ctx _context.Context
 	ApiService *HostsApiService
 	hostIdList []string
-	hostData *HostData
+	patchHostIn *PatchHostIn
 	branchId *string
 }
 
-func (r ApiApiHostPatchByIdRequest) HostData(hostData HostData) ApiApiHostPatchByIdRequest {
-	r.hostData = &hostData
+func (r ApiApiHostPatchByIdRequest) PatchHostIn(patchHostIn PatchHostIn) ApiApiHostPatchByIdRequest {
+	r.patchHostIn = &patchHostIn
 	return r
 }
 func (r ApiApiHostPatchByIdRequest) BranchId(branchId string) ApiApiHostPatchByIdRequest {
@@ -1345,8 +1562,8 @@ func (a *HostsApiService) ApiHostPatchByIdExecute(r ApiApiHostPatchByIdRequest) 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.hostData == nil {
-		return nil, reportError("hostData is required and must be specified")
+	if r.patchHostIn == nil {
+		return nil, reportError("patchHostIn is required and must be specified")
 	}
 
 	if r.branchId != nil {
@@ -1370,7 +1587,7 @@ func (a *HostsApiService) ApiHostPatchByIdExecute(r ApiApiHostPatchByIdRequest) 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.hostData
+	localVarPostBody = r.patchHostIn
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

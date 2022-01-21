@@ -16,12 +16,12 @@ import (
 
 // SystemProfileSapSystemOut struct for SystemProfileSapSystemOut
 type SystemProfileSapSystemOut struct {
+	// Total number of items
+	Total *int32 `json:"total,omitempty"`
 	// The number of items on the current page
 	Count *int32 `json:"count,omitempty"`
 	// The list of sap_system values on the account
-	Results *[]InlineResponse2002Results `json:"results,omitempty"`
-	// Total number of items
-	Total *int32 `json:"total,omitempty"`
+	Results *[]SystemProfileSapSystemOutResults `json:"results,omitempty"`
 }
 
 // NewSystemProfileSapSystemOut instantiates a new SystemProfileSapSystemOut object
@@ -39,6 +39,38 @@ func NewSystemProfileSapSystemOut() *SystemProfileSapSystemOut {
 func NewSystemProfileSapSystemOutWithDefaults() *SystemProfileSapSystemOut {
 	this := SystemProfileSapSystemOut{}
 	return &this
+}
+
+// GetTotal returns the Total field value if set, zero value otherwise.
+func (o *SystemProfileSapSystemOut) GetTotal() int32 {
+	if o == nil || o.Total == nil {
+		var ret int32
+		return ret
+	}
+	return *o.Total
+}
+
+// GetTotalOk returns a tuple with the Total field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SystemProfileSapSystemOut) GetTotalOk() (*int32, bool) {
+	if o == nil || o.Total == nil {
+		return nil, false
+	}
+	return o.Total, true
+}
+
+// HasTotal returns a boolean if a field has been set.
+func (o *SystemProfileSapSystemOut) HasTotal() bool {
+	if o != nil && o.Total != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTotal gets a reference to the given int32 and assigns it to the Total field.
+func (o *SystemProfileSapSystemOut) SetTotal(v int32) {
+	o.Total = &v
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
@@ -74,9 +106,9 @@ func (o *SystemProfileSapSystemOut) SetCount(v int32) {
 }
 
 // GetResults returns the Results field value if set, zero value otherwise.
-func (o *SystemProfileSapSystemOut) GetResults() []InlineResponse2002Results {
+func (o *SystemProfileSapSystemOut) GetResults() []SystemProfileSapSystemOutResults {
 	if o == nil || o.Results == nil {
-		var ret []InlineResponse2002Results
+		var ret []SystemProfileSapSystemOutResults
 		return ret
 	}
 	return *o.Results
@@ -84,7 +116,7 @@ func (o *SystemProfileSapSystemOut) GetResults() []InlineResponse2002Results {
 
 // GetResultsOk returns a tuple with the Results field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SystemProfileSapSystemOut) GetResultsOk() (*[]InlineResponse2002Results, bool) {
+func (o *SystemProfileSapSystemOut) GetResultsOk() (*[]SystemProfileSapSystemOutResults, bool) {
 	if o == nil || o.Results == nil {
 		return nil, false
 	}
@@ -100,53 +132,21 @@ func (o *SystemProfileSapSystemOut) HasResults() bool {
 	return false
 }
 
-// SetResults gets a reference to the given []InlineResponse2002Results and assigns it to the Results field.
-func (o *SystemProfileSapSystemOut) SetResults(v []InlineResponse2002Results) {
+// SetResults gets a reference to the given []SystemProfileSapSystemOutResults and assigns it to the Results field.
+func (o *SystemProfileSapSystemOut) SetResults(v []SystemProfileSapSystemOutResults) {
 	o.Results = &v
-}
-
-// GetTotal returns the Total field value if set, zero value otherwise.
-func (o *SystemProfileSapSystemOut) GetTotal() int32 {
-	if o == nil || o.Total == nil {
-		var ret int32
-		return ret
-	}
-	return *o.Total
-}
-
-// GetTotalOk returns a tuple with the Total field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SystemProfileSapSystemOut) GetTotalOk() (*int32, bool) {
-	if o == nil || o.Total == nil {
-		return nil, false
-	}
-	return o.Total, true
-}
-
-// HasTotal returns a boolean if a field has been set.
-func (o *SystemProfileSapSystemOut) HasTotal() bool {
-	if o != nil && o.Total != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *SystemProfileSapSystemOut) SetTotal(v int32) {
-	o.Total = &v
 }
 
 func (o SystemProfileSapSystemOut) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Total != nil {
+		toSerialize["total"] = o.Total
+	}
 	if o.Count != nil {
 		toSerialize["count"] = o.Count
 	}
 	if o.Results != nil {
 		toSerialize["results"] = o.Results
-	}
-	if o.Total != nil {
-		toSerialize["total"] = o.Total
 	}
 	return json.Marshal(toSerialize)
 }

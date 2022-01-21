@@ -16,24 +16,15 @@ import (
 
 // CanonicalFactsInAllOf struct for CanonicalFactsInAllOf
 type CanonicalFactsInAllOf struct {
-	// A UUID of the host machine BIOS.  This field is considered to be a canonical fact.
-	BiosUuid NullableString `json:"bios_uuid,omitempty"`
-	// Host’s reference in the external source e.g. AWS EC2, Azure, OpenStack, etc. This field is considered to be a canonical fact.
-	ExternalId NullableString `json:"external_id,omitempty"`
-	// A host’s Fully Qualified Domain Name.  This field is considered to be a canonical fact.
-	Fqdn NullableString `json:"fqdn,omitempty"`
-	// An ID defined in /etc/insights-client/machine-id. This field is considered a canonical fact.
-	InsightsId NullableString `json:"insights_id,omitempty"`
-	// Host’s network IP addresses.  This field is considered to be a canonical fact.
-	IpAddresses []string `json:"ip_addresses,omitempty"`
-	// Host’s network interfaces MAC addresses.  This field is considered to be a canonical fact.
-	MacAddresses []string `json:"mac_addresses,omitempty"`
-	// A Machine ID of a RHEL host.  This field is considered to be a canonical fact.
-	RhelMachineId NullableString `json:"rhel_machine_id,omitempty"`
-	// A Red Hat Satellite ID of a RHEL host.  This field is considered to be a canonical fact.
-	SatelliteId NullableString `json:"satellite_id,omitempty"`
-	// A Red Hat Subcription Manager ID of a RHEL host.  This field is considered to be a canonical fact.
-	SubscriptionManagerId NullableString `json:"subscription_manager_id,omitempty"`
+	InsightsId *string `json:"insights_id,omitempty"`
+	SubscriptionManagerId *string `json:"subscription_manager_id,omitempty"`
+	SatelliteId *string `json:"satellite_id,omitempty"`
+	BiosUuid *string `json:"bios_uuid,omitempty"`
+	IpAddresses *[]string `json:"ip_addresses,omitempty"`
+	Fqdn *string `json:"fqdn,omitempty"`
+	MacAddresses *[]string `json:"mac_addresses,omitempty"`
+	ProviderId *string `json:"provider_id,omitempty"`
+	ProviderType *string `json:"provider_type,omitempty"`
 }
 
 // NewCanonicalFactsInAllOf instantiates a new CanonicalFactsInAllOf object
@@ -53,191 +44,150 @@ func NewCanonicalFactsInAllOfWithDefaults() *CanonicalFactsInAllOf {
 	return &this
 }
 
-// GetBiosUuid returns the BiosUuid field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CanonicalFactsInAllOf) GetBiosUuid() string {
-	if o == nil || o.BiosUuid.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.BiosUuid.Get()
-}
-
-// GetBiosUuidOk returns a tuple with the BiosUuid field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CanonicalFactsInAllOf) GetBiosUuidOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.BiosUuid.Get(), o.BiosUuid.IsSet()
-}
-
-// HasBiosUuid returns a boolean if a field has been set.
-func (o *CanonicalFactsInAllOf) HasBiosUuid() bool {
-	if o != nil && o.BiosUuid.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetBiosUuid gets a reference to the given NullableString and assigns it to the BiosUuid field.
-func (o *CanonicalFactsInAllOf) SetBiosUuid(v string) {
-	o.BiosUuid.Set(&v)
-}
-// SetBiosUuidNil sets the value for BiosUuid to be an explicit nil
-func (o *CanonicalFactsInAllOf) SetBiosUuidNil() {
-	o.BiosUuid.Set(nil)
-}
-
-// UnsetBiosUuid ensures that no value is present for BiosUuid, not even an explicit nil
-func (o *CanonicalFactsInAllOf) UnsetBiosUuid() {
-	o.BiosUuid.Unset()
-}
-
-// GetExternalId returns the ExternalId field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CanonicalFactsInAllOf) GetExternalId() string {
-	if o == nil || o.ExternalId.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.ExternalId.Get()
-}
-
-// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CanonicalFactsInAllOf) GetExternalIdOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.ExternalId.Get(), o.ExternalId.IsSet()
-}
-
-// HasExternalId returns a boolean if a field has been set.
-func (o *CanonicalFactsInAllOf) HasExternalId() bool {
-	if o != nil && o.ExternalId.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetExternalId gets a reference to the given NullableString and assigns it to the ExternalId field.
-func (o *CanonicalFactsInAllOf) SetExternalId(v string) {
-	o.ExternalId.Set(&v)
-}
-// SetExternalIdNil sets the value for ExternalId to be an explicit nil
-func (o *CanonicalFactsInAllOf) SetExternalIdNil() {
-	o.ExternalId.Set(nil)
-}
-
-// UnsetExternalId ensures that no value is present for ExternalId, not even an explicit nil
-func (o *CanonicalFactsInAllOf) UnsetExternalId() {
-	o.ExternalId.Unset()
-}
-
-// GetFqdn returns the Fqdn field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CanonicalFactsInAllOf) GetFqdn() string {
-	if o == nil || o.Fqdn.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.Fqdn.Get()
-}
-
-// GetFqdnOk returns a tuple with the Fqdn field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CanonicalFactsInAllOf) GetFqdnOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.Fqdn.Get(), o.Fqdn.IsSet()
-}
-
-// HasFqdn returns a boolean if a field has been set.
-func (o *CanonicalFactsInAllOf) HasFqdn() bool {
-	if o != nil && o.Fqdn.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetFqdn gets a reference to the given NullableString and assigns it to the Fqdn field.
-func (o *CanonicalFactsInAllOf) SetFqdn(v string) {
-	o.Fqdn.Set(&v)
-}
-// SetFqdnNil sets the value for Fqdn to be an explicit nil
-func (o *CanonicalFactsInAllOf) SetFqdnNil() {
-	o.Fqdn.Set(nil)
-}
-
-// UnsetFqdn ensures that no value is present for Fqdn, not even an explicit nil
-func (o *CanonicalFactsInAllOf) UnsetFqdn() {
-	o.Fqdn.Unset()
-}
-
-// GetInsightsId returns the InsightsId field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetInsightsId returns the InsightsId field value if set, zero value otherwise.
 func (o *CanonicalFactsInAllOf) GetInsightsId() string {
-	if o == nil || o.InsightsId.Get() == nil {
+	if o == nil || o.InsightsId == nil {
 		var ret string
 		return ret
 	}
-	return *o.InsightsId.Get()
+	return *o.InsightsId
 }
 
 // GetInsightsIdOk returns a tuple with the InsightsId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CanonicalFactsInAllOf) GetInsightsIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil || o.InsightsId == nil {
 		return nil, false
 	}
-	return o.InsightsId.Get(), o.InsightsId.IsSet()
+	return o.InsightsId, true
 }
 
 // HasInsightsId returns a boolean if a field has been set.
 func (o *CanonicalFactsInAllOf) HasInsightsId() bool {
-	if o != nil && o.InsightsId.IsSet() {
+	if o != nil && o.InsightsId != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetInsightsId gets a reference to the given NullableString and assigns it to the InsightsId field.
+// SetInsightsId gets a reference to the given string and assigns it to the InsightsId field.
 func (o *CanonicalFactsInAllOf) SetInsightsId(v string) {
-	o.InsightsId.Set(&v)
-}
-// SetInsightsIdNil sets the value for InsightsId to be an explicit nil
-func (o *CanonicalFactsInAllOf) SetInsightsIdNil() {
-	o.InsightsId.Set(nil)
+	o.InsightsId = &v
 }
 
-// UnsetInsightsId ensures that no value is present for InsightsId, not even an explicit nil
-func (o *CanonicalFactsInAllOf) UnsetInsightsId() {
-	o.InsightsId.Unset()
+// GetSubscriptionManagerId returns the SubscriptionManagerId field value if set, zero value otherwise.
+func (o *CanonicalFactsInAllOf) GetSubscriptionManagerId() string {
+	if o == nil || o.SubscriptionManagerId == nil {
+		var ret string
+		return ret
+	}
+	return *o.SubscriptionManagerId
 }
 
-// GetIpAddresses returns the IpAddresses field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetSubscriptionManagerIdOk returns a tuple with the SubscriptionManagerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CanonicalFactsInAllOf) GetSubscriptionManagerIdOk() (*string, bool) {
+	if o == nil || o.SubscriptionManagerId == nil {
+		return nil, false
+	}
+	return o.SubscriptionManagerId, true
+}
+
+// HasSubscriptionManagerId returns a boolean if a field has been set.
+func (o *CanonicalFactsInAllOf) HasSubscriptionManagerId() bool {
+	if o != nil && o.SubscriptionManagerId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSubscriptionManagerId gets a reference to the given string and assigns it to the SubscriptionManagerId field.
+func (o *CanonicalFactsInAllOf) SetSubscriptionManagerId(v string) {
+	o.SubscriptionManagerId = &v
+}
+
+// GetSatelliteId returns the SatelliteId field value if set, zero value otherwise.
+func (o *CanonicalFactsInAllOf) GetSatelliteId() string {
+	if o == nil || o.SatelliteId == nil {
+		var ret string
+		return ret
+	}
+	return *o.SatelliteId
+}
+
+// GetSatelliteIdOk returns a tuple with the SatelliteId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CanonicalFactsInAllOf) GetSatelliteIdOk() (*string, bool) {
+	if o == nil || o.SatelliteId == nil {
+		return nil, false
+	}
+	return o.SatelliteId, true
+}
+
+// HasSatelliteId returns a boolean if a field has been set.
+func (o *CanonicalFactsInAllOf) HasSatelliteId() bool {
+	if o != nil && o.SatelliteId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSatelliteId gets a reference to the given string and assigns it to the SatelliteId field.
+func (o *CanonicalFactsInAllOf) SetSatelliteId(v string) {
+	o.SatelliteId = &v
+}
+
+// GetBiosUuid returns the BiosUuid field value if set, zero value otherwise.
+func (o *CanonicalFactsInAllOf) GetBiosUuid() string {
+	if o == nil || o.BiosUuid == nil {
+		var ret string
+		return ret
+	}
+	return *o.BiosUuid
+}
+
+// GetBiosUuidOk returns a tuple with the BiosUuid field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CanonicalFactsInAllOf) GetBiosUuidOk() (*string, bool) {
+	if o == nil || o.BiosUuid == nil {
+		return nil, false
+	}
+	return o.BiosUuid, true
+}
+
+// HasBiosUuid returns a boolean if a field has been set.
+func (o *CanonicalFactsInAllOf) HasBiosUuid() bool {
+	if o != nil && o.BiosUuid != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBiosUuid gets a reference to the given string and assigns it to the BiosUuid field.
+func (o *CanonicalFactsInAllOf) SetBiosUuid(v string) {
+	o.BiosUuid = &v
+}
+
+// GetIpAddresses returns the IpAddresses field value if set, zero value otherwise.
 func (o *CanonicalFactsInAllOf) GetIpAddresses() []string {
-	if o == nil  {
+	if o == nil || o.IpAddresses == nil {
 		var ret []string
 		return ret
 	}
-	return o.IpAddresses
+	return *o.IpAddresses
 }
 
 // GetIpAddressesOk returns a tuple with the IpAddresses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CanonicalFactsInAllOf) GetIpAddressesOk() (*[]string, bool) {
 	if o == nil || o.IpAddresses == nil {
 		return nil, false
 	}
-	return &o.IpAddresses, true
+	return o.IpAddresses, true
 }
 
 // HasIpAddresses returns a boolean if a field has been set.
@@ -251,26 +201,57 @@ func (o *CanonicalFactsInAllOf) HasIpAddresses() bool {
 
 // SetIpAddresses gets a reference to the given []string and assigns it to the IpAddresses field.
 func (o *CanonicalFactsInAllOf) SetIpAddresses(v []string) {
-	o.IpAddresses = v
+	o.IpAddresses = &v
 }
 
-// GetMacAddresses returns the MacAddresses field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetFqdn returns the Fqdn field value if set, zero value otherwise.
+func (o *CanonicalFactsInAllOf) GetFqdn() string {
+	if o == nil || o.Fqdn == nil {
+		var ret string
+		return ret
+	}
+	return *o.Fqdn
+}
+
+// GetFqdnOk returns a tuple with the Fqdn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CanonicalFactsInAllOf) GetFqdnOk() (*string, bool) {
+	if o == nil || o.Fqdn == nil {
+		return nil, false
+	}
+	return o.Fqdn, true
+}
+
+// HasFqdn returns a boolean if a field has been set.
+func (o *CanonicalFactsInAllOf) HasFqdn() bool {
+	if o != nil && o.Fqdn != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFqdn gets a reference to the given string and assigns it to the Fqdn field.
+func (o *CanonicalFactsInAllOf) SetFqdn(v string) {
+	o.Fqdn = &v
+}
+
+// GetMacAddresses returns the MacAddresses field value if set, zero value otherwise.
 func (o *CanonicalFactsInAllOf) GetMacAddresses() []string {
-	if o == nil  {
+	if o == nil || o.MacAddresses == nil {
 		var ret []string
 		return ret
 	}
-	return o.MacAddresses
+	return *o.MacAddresses
 }
 
 // GetMacAddressesOk returns a tuple with the MacAddresses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CanonicalFactsInAllOf) GetMacAddressesOk() (*[]string, bool) {
 	if o == nil || o.MacAddresses == nil {
 		return nil, false
 	}
-	return &o.MacAddresses, true
+	return o.MacAddresses, true
 }
 
 // HasMacAddresses returns a boolean if a field has been set.
@@ -284,163 +265,101 @@ func (o *CanonicalFactsInAllOf) HasMacAddresses() bool {
 
 // SetMacAddresses gets a reference to the given []string and assigns it to the MacAddresses field.
 func (o *CanonicalFactsInAllOf) SetMacAddresses(v []string) {
-	o.MacAddresses = v
+	o.MacAddresses = &v
 }
 
-// GetRhelMachineId returns the RhelMachineId field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CanonicalFactsInAllOf) GetRhelMachineId() string {
-	if o == nil || o.RhelMachineId.Get() == nil {
+// GetProviderId returns the ProviderId field value if set, zero value otherwise.
+func (o *CanonicalFactsInAllOf) GetProviderId() string {
+	if o == nil || o.ProviderId == nil {
 		var ret string
 		return ret
 	}
-	return *o.RhelMachineId.Get()
+	return *o.ProviderId
 }
 
-// GetRhelMachineIdOk returns a tuple with the RhelMachineId field value if set, nil otherwise
+// GetProviderIdOk returns a tuple with the ProviderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CanonicalFactsInAllOf) GetRhelMachineIdOk() (*string, bool) {
-	if o == nil  {
+func (o *CanonicalFactsInAllOf) GetProviderIdOk() (*string, bool) {
+	if o == nil || o.ProviderId == nil {
 		return nil, false
 	}
-	return o.RhelMachineId.Get(), o.RhelMachineId.IsSet()
+	return o.ProviderId, true
 }
 
-// HasRhelMachineId returns a boolean if a field has been set.
-func (o *CanonicalFactsInAllOf) HasRhelMachineId() bool {
-	if o != nil && o.RhelMachineId.IsSet() {
+// HasProviderId returns a boolean if a field has been set.
+func (o *CanonicalFactsInAllOf) HasProviderId() bool {
+	if o != nil && o.ProviderId != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetRhelMachineId gets a reference to the given NullableString and assigns it to the RhelMachineId field.
-func (o *CanonicalFactsInAllOf) SetRhelMachineId(v string) {
-	o.RhelMachineId.Set(&v)
-}
-// SetRhelMachineIdNil sets the value for RhelMachineId to be an explicit nil
-func (o *CanonicalFactsInAllOf) SetRhelMachineIdNil() {
-	o.RhelMachineId.Set(nil)
+// SetProviderId gets a reference to the given string and assigns it to the ProviderId field.
+func (o *CanonicalFactsInAllOf) SetProviderId(v string) {
+	o.ProviderId = &v
 }
 
-// UnsetRhelMachineId ensures that no value is present for RhelMachineId, not even an explicit nil
-func (o *CanonicalFactsInAllOf) UnsetRhelMachineId() {
-	o.RhelMachineId.Unset()
-}
-
-// GetSatelliteId returns the SatelliteId field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CanonicalFactsInAllOf) GetSatelliteId() string {
-	if o == nil || o.SatelliteId.Get() == nil {
+// GetProviderType returns the ProviderType field value if set, zero value otherwise.
+func (o *CanonicalFactsInAllOf) GetProviderType() string {
+	if o == nil || o.ProviderType == nil {
 		var ret string
 		return ret
 	}
-	return *o.SatelliteId.Get()
+	return *o.ProviderType
 }
 
-// GetSatelliteIdOk returns a tuple with the SatelliteId field value if set, nil otherwise
+// GetProviderTypeOk returns a tuple with the ProviderType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CanonicalFactsInAllOf) GetSatelliteIdOk() (*string, bool) {
-	if o == nil  {
+func (o *CanonicalFactsInAllOf) GetProviderTypeOk() (*string, bool) {
+	if o == nil || o.ProviderType == nil {
 		return nil, false
 	}
-	return o.SatelliteId.Get(), o.SatelliteId.IsSet()
+	return o.ProviderType, true
 }
 
-// HasSatelliteId returns a boolean if a field has been set.
-func (o *CanonicalFactsInAllOf) HasSatelliteId() bool {
-	if o != nil && o.SatelliteId.IsSet() {
+// HasProviderType returns a boolean if a field has been set.
+func (o *CanonicalFactsInAllOf) HasProviderType() bool {
+	if o != nil && o.ProviderType != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetSatelliteId gets a reference to the given NullableString and assigns it to the SatelliteId field.
-func (o *CanonicalFactsInAllOf) SetSatelliteId(v string) {
-	o.SatelliteId.Set(&v)
-}
-// SetSatelliteIdNil sets the value for SatelliteId to be an explicit nil
-func (o *CanonicalFactsInAllOf) SetSatelliteIdNil() {
-	o.SatelliteId.Set(nil)
-}
-
-// UnsetSatelliteId ensures that no value is present for SatelliteId, not even an explicit nil
-func (o *CanonicalFactsInAllOf) UnsetSatelliteId() {
-	o.SatelliteId.Unset()
-}
-
-// GetSubscriptionManagerId returns the SubscriptionManagerId field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CanonicalFactsInAllOf) GetSubscriptionManagerId() string {
-	if o == nil || o.SubscriptionManagerId.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.SubscriptionManagerId.Get()
-}
-
-// GetSubscriptionManagerIdOk returns a tuple with the SubscriptionManagerId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CanonicalFactsInAllOf) GetSubscriptionManagerIdOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.SubscriptionManagerId.Get(), o.SubscriptionManagerId.IsSet()
-}
-
-// HasSubscriptionManagerId returns a boolean if a field has been set.
-func (o *CanonicalFactsInAllOf) HasSubscriptionManagerId() bool {
-	if o != nil && o.SubscriptionManagerId.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetSubscriptionManagerId gets a reference to the given NullableString and assigns it to the SubscriptionManagerId field.
-func (o *CanonicalFactsInAllOf) SetSubscriptionManagerId(v string) {
-	o.SubscriptionManagerId.Set(&v)
-}
-// SetSubscriptionManagerIdNil sets the value for SubscriptionManagerId to be an explicit nil
-func (o *CanonicalFactsInAllOf) SetSubscriptionManagerIdNil() {
-	o.SubscriptionManagerId.Set(nil)
-}
-
-// UnsetSubscriptionManagerId ensures that no value is present for SubscriptionManagerId, not even an explicit nil
-func (o *CanonicalFactsInAllOf) UnsetSubscriptionManagerId() {
-	o.SubscriptionManagerId.Unset()
+// SetProviderType gets a reference to the given string and assigns it to the ProviderType field.
+func (o *CanonicalFactsInAllOf) SetProviderType(v string) {
+	o.ProviderType = &v
 }
 
 func (o CanonicalFactsInAllOf) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.BiosUuid.IsSet() {
-		toSerialize["bios_uuid"] = o.BiosUuid.Get()
+	if o.InsightsId != nil {
+		toSerialize["insights_id"] = o.InsightsId
 	}
-	if o.ExternalId.IsSet() {
-		toSerialize["external_id"] = o.ExternalId.Get()
+	if o.SubscriptionManagerId != nil {
+		toSerialize["subscription_manager_id"] = o.SubscriptionManagerId
 	}
-	if o.Fqdn.IsSet() {
-		toSerialize["fqdn"] = o.Fqdn.Get()
+	if o.SatelliteId != nil {
+		toSerialize["satellite_id"] = o.SatelliteId
 	}
-	if o.InsightsId.IsSet() {
-		toSerialize["insights_id"] = o.InsightsId.Get()
+	if o.BiosUuid != nil {
+		toSerialize["bios_uuid"] = o.BiosUuid
 	}
 	if o.IpAddresses != nil {
 		toSerialize["ip_addresses"] = o.IpAddresses
 	}
+	if o.Fqdn != nil {
+		toSerialize["fqdn"] = o.Fqdn
+	}
 	if o.MacAddresses != nil {
 		toSerialize["mac_addresses"] = o.MacAddresses
 	}
-	if o.RhelMachineId.IsSet() {
-		toSerialize["rhel_machine_id"] = o.RhelMachineId.Get()
+	if o.ProviderId != nil {
+		toSerialize["provider_id"] = o.ProviderId
 	}
-	if o.SatelliteId.IsSet() {
-		toSerialize["satellite_id"] = o.SatelliteId.Get()
-	}
-	if o.SubscriptionManagerId.IsSet() {
-		toSerialize["subscription_manager_id"] = o.SubscriptionManagerId.Get()
+	if o.ProviderType != nil {
+		toSerialize["provider_type"] = o.ProviderType
 	}
 	return json.Marshal(toSerialize)
 }

@@ -16,32 +16,32 @@ import (
 
 // CanonicalFactsIn struct for CanonicalFactsIn
 type CanonicalFactsIn struct {
-	BiosUuid string `json:"bios_uuid"`
-	ExternalId string `json:"external_id"`
-	Fqdn string `json:"fqdn"`
 	InsightsId string `json:"insights_id"`
-	IpAddresses []string `json:"ip_addresses"`
-	MacAddresses []string `json:"mac_addresses"`
-	RhelMachineId string `json:"rhel_machine_id"`
-	SatelliteId string `json:"satellite_id"`
 	SubscriptionManagerId string `json:"subscription_manager_id"`
+	SatelliteId string `json:"satellite_id"`
+	BiosUuid string `json:"bios_uuid"`
+	IpAddresses []string `json:"ip_addresses"`
+	Fqdn string `json:"fqdn"`
+	MacAddresses []string `json:"mac_addresses"`
+	ProviderId string `json:"provider_id"`
+	ProviderType string `json:"provider_type"`
 }
 
 // NewCanonicalFactsIn instantiates a new CanonicalFactsIn object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCanonicalFactsIn(biosUuid string, externalId string, fqdn string, insightsId string, ipAddresses []string, macAddresses []string, rhelMachineId string, satelliteId string, subscriptionManagerId string, ) *CanonicalFactsIn {
+func NewCanonicalFactsIn(insightsId string, subscriptionManagerId string, satelliteId string, biosUuid string, ipAddresses []string, fqdn string, macAddresses []string, providerId string, providerType string, ) *CanonicalFactsIn {
 	this := CanonicalFactsIn{}
-	this.BiosUuid = biosUuid
-	this.ExternalId = externalId
-	this.Fqdn = fqdn
 	this.InsightsId = insightsId
-	this.IpAddresses = ipAddresses
-	this.MacAddresses = macAddresses
-	this.RhelMachineId = rhelMachineId
-	this.SatelliteId = satelliteId
 	this.SubscriptionManagerId = subscriptionManagerId
+	this.SatelliteId = satelliteId
+	this.BiosUuid = biosUuid
+	this.IpAddresses = ipAddresses
+	this.Fqdn = fqdn
+	this.MacAddresses = macAddresses
+	this.ProviderId = providerId
+	this.ProviderType = providerType
 	return &this
 }
 
@@ -51,78 +51,6 @@ func NewCanonicalFactsIn(biosUuid string, externalId string, fqdn string, insigh
 func NewCanonicalFactsInWithDefaults() *CanonicalFactsIn {
 	this := CanonicalFactsIn{}
 	return &this
-}
-
-// GetBiosUuid returns the BiosUuid field value
-func (o *CanonicalFactsIn) GetBiosUuid() string {
-	if o == nil  {
-		var ret string
-		return ret
-	}
-
-	return o.BiosUuid
-}
-
-// GetBiosUuidOk returns a tuple with the BiosUuid field value
-// and a boolean to check if the value has been set.
-func (o *CanonicalFactsIn) GetBiosUuidOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.BiosUuid, true
-}
-
-// SetBiosUuid sets field value
-func (o *CanonicalFactsIn) SetBiosUuid(v string) {
-	o.BiosUuid = v
-}
-
-// GetExternalId returns the ExternalId field value
-func (o *CanonicalFactsIn) GetExternalId() string {
-	if o == nil  {
-		var ret string
-		return ret
-	}
-
-	return o.ExternalId
-}
-
-// GetExternalIdOk returns a tuple with the ExternalId field value
-// and a boolean to check if the value has been set.
-func (o *CanonicalFactsIn) GetExternalIdOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.ExternalId, true
-}
-
-// SetExternalId sets field value
-func (o *CanonicalFactsIn) SetExternalId(v string) {
-	o.ExternalId = v
-}
-
-// GetFqdn returns the Fqdn field value
-func (o *CanonicalFactsIn) GetFqdn() string {
-	if o == nil  {
-		var ret string
-		return ret
-	}
-
-	return o.Fqdn
-}
-
-// GetFqdnOk returns a tuple with the Fqdn field value
-// and a boolean to check if the value has been set.
-func (o *CanonicalFactsIn) GetFqdnOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Fqdn, true
-}
-
-// SetFqdn sets field value
-func (o *CanonicalFactsIn) SetFqdn(v string) {
-	o.Fqdn = v
 }
 
 // GetInsightsId returns the InsightsId field value
@@ -149,76 +77,28 @@ func (o *CanonicalFactsIn) SetInsightsId(v string) {
 	o.InsightsId = v
 }
 
-// GetIpAddresses returns the IpAddresses field value
-func (o *CanonicalFactsIn) GetIpAddresses() []string {
-	if o == nil  {
-		var ret []string
-		return ret
-	}
-
-	return o.IpAddresses
-}
-
-// GetIpAddressesOk returns a tuple with the IpAddresses field value
-// and a boolean to check if the value has been set.
-func (o *CanonicalFactsIn) GetIpAddressesOk() (*[]string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.IpAddresses, true
-}
-
-// SetIpAddresses sets field value
-func (o *CanonicalFactsIn) SetIpAddresses(v []string) {
-	o.IpAddresses = v
-}
-
-// GetMacAddresses returns the MacAddresses field value
-func (o *CanonicalFactsIn) GetMacAddresses() []string {
-	if o == nil  {
-		var ret []string
-		return ret
-	}
-
-	return o.MacAddresses
-}
-
-// GetMacAddressesOk returns a tuple with the MacAddresses field value
-// and a boolean to check if the value has been set.
-func (o *CanonicalFactsIn) GetMacAddressesOk() (*[]string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.MacAddresses, true
-}
-
-// SetMacAddresses sets field value
-func (o *CanonicalFactsIn) SetMacAddresses(v []string) {
-	o.MacAddresses = v
-}
-
-// GetRhelMachineId returns the RhelMachineId field value
-func (o *CanonicalFactsIn) GetRhelMachineId() string {
+// GetSubscriptionManagerId returns the SubscriptionManagerId field value
+func (o *CanonicalFactsIn) GetSubscriptionManagerId() string {
 	if o == nil  {
 		var ret string
 		return ret
 	}
 
-	return o.RhelMachineId
+	return o.SubscriptionManagerId
 }
 
-// GetRhelMachineIdOk returns a tuple with the RhelMachineId field value
+// GetSubscriptionManagerIdOk returns a tuple with the SubscriptionManagerId field value
 // and a boolean to check if the value has been set.
-func (o *CanonicalFactsIn) GetRhelMachineIdOk() (*string, bool) {
+func (o *CanonicalFactsIn) GetSubscriptionManagerIdOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.RhelMachineId, true
+	return &o.SubscriptionManagerId, true
 }
 
-// SetRhelMachineId sets field value
-func (o *CanonicalFactsIn) SetRhelMachineId(v string) {
-	o.RhelMachineId = v
+// SetSubscriptionManagerId sets field value
+func (o *CanonicalFactsIn) SetSubscriptionManagerId(v string) {
+	o.SubscriptionManagerId = v
 }
 
 // GetSatelliteId returns the SatelliteId field value
@@ -245,58 +125,178 @@ func (o *CanonicalFactsIn) SetSatelliteId(v string) {
 	o.SatelliteId = v
 }
 
-// GetSubscriptionManagerId returns the SubscriptionManagerId field value
-func (o *CanonicalFactsIn) GetSubscriptionManagerId() string {
+// GetBiosUuid returns the BiosUuid field value
+func (o *CanonicalFactsIn) GetBiosUuid() string {
 	if o == nil  {
 		var ret string
 		return ret
 	}
 
-	return o.SubscriptionManagerId
+	return o.BiosUuid
 }
 
-// GetSubscriptionManagerIdOk returns a tuple with the SubscriptionManagerId field value
+// GetBiosUuidOk returns a tuple with the BiosUuid field value
 // and a boolean to check if the value has been set.
-func (o *CanonicalFactsIn) GetSubscriptionManagerIdOk() (*string, bool) {
+func (o *CanonicalFactsIn) GetBiosUuidOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.SubscriptionManagerId, true
+	return &o.BiosUuid, true
 }
 
-// SetSubscriptionManagerId sets field value
-func (o *CanonicalFactsIn) SetSubscriptionManagerId(v string) {
-	o.SubscriptionManagerId = v
+// SetBiosUuid sets field value
+func (o *CanonicalFactsIn) SetBiosUuid(v string) {
+	o.BiosUuid = v
+}
+
+// GetIpAddresses returns the IpAddresses field value
+func (o *CanonicalFactsIn) GetIpAddresses() []string {
+	if o == nil  {
+		var ret []string
+		return ret
+	}
+
+	return o.IpAddresses
+}
+
+// GetIpAddressesOk returns a tuple with the IpAddresses field value
+// and a boolean to check if the value has been set.
+func (o *CanonicalFactsIn) GetIpAddressesOk() (*[]string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.IpAddresses, true
+}
+
+// SetIpAddresses sets field value
+func (o *CanonicalFactsIn) SetIpAddresses(v []string) {
+	o.IpAddresses = v
+}
+
+// GetFqdn returns the Fqdn field value
+func (o *CanonicalFactsIn) GetFqdn() string {
+	if o == nil  {
+		var ret string
+		return ret
+	}
+
+	return o.Fqdn
+}
+
+// GetFqdnOk returns a tuple with the Fqdn field value
+// and a boolean to check if the value has been set.
+func (o *CanonicalFactsIn) GetFqdnOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Fqdn, true
+}
+
+// SetFqdn sets field value
+func (o *CanonicalFactsIn) SetFqdn(v string) {
+	o.Fqdn = v
+}
+
+// GetMacAddresses returns the MacAddresses field value
+func (o *CanonicalFactsIn) GetMacAddresses() []string {
+	if o == nil  {
+		var ret []string
+		return ret
+	}
+
+	return o.MacAddresses
+}
+
+// GetMacAddressesOk returns a tuple with the MacAddresses field value
+// and a boolean to check if the value has been set.
+func (o *CanonicalFactsIn) GetMacAddressesOk() (*[]string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.MacAddresses, true
+}
+
+// SetMacAddresses sets field value
+func (o *CanonicalFactsIn) SetMacAddresses(v []string) {
+	o.MacAddresses = v
+}
+
+// GetProviderId returns the ProviderId field value
+func (o *CanonicalFactsIn) GetProviderId() string {
+	if o == nil  {
+		var ret string
+		return ret
+	}
+
+	return o.ProviderId
+}
+
+// GetProviderIdOk returns a tuple with the ProviderId field value
+// and a boolean to check if the value has been set.
+func (o *CanonicalFactsIn) GetProviderIdOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.ProviderId, true
+}
+
+// SetProviderId sets field value
+func (o *CanonicalFactsIn) SetProviderId(v string) {
+	o.ProviderId = v
+}
+
+// GetProviderType returns the ProviderType field value
+func (o *CanonicalFactsIn) GetProviderType() string {
+	if o == nil  {
+		var ret string
+		return ret
+	}
+
+	return o.ProviderType
+}
+
+// GetProviderTypeOk returns a tuple with the ProviderType field value
+// and a boolean to check if the value has been set.
+func (o *CanonicalFactsIn) GetProviderTypeOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.ProviderType, true
+}
+
+// SetProviderType sets field value
+func (o *CanonicalFactsIn) SetProviderType(v string) {
+	o.ProviderType = v
 }
 
 func (o CanonicalFactsIn) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["bios_uuid"] = o.BiosUuid
-	}
-	if true {
-		toSerialize["external_id"] = o.ExternalId
-	}
-	if true {
-		toSerialize["fqdn"] = o.Fqdn
-	}
-	if true {
 		toSerialize["insights_id"] = o.InsightsId
 	}
 	if true {
-		toSerialize["ip_addresses"] = o.IpAddresses
-	}
-	if true {
-		toSerialize["mac_addresses"] = o.MacAddresses
-	}
-	if true {
-		toSerialize["rhel_machine_id"] = o.RhelMachineId
+		toSerialize["subscription_manager_id"] = o.SubscriptionManagerId
 	}
 	if true {
 		toSerialize["satellite_id"] = o.SatelliteId
 	}
 	if true {
-		toSerialize["subscription_manager_id"] = o.SubscriptionManagerId
+		toSerialize["bios_uuid"] = o.BiosUuid
+	}
+	if true {
+		toSerialize["ip_addresses"] = o.IpAddresses
+	}
+	if true {
+		toSerialize["fqdn"] = o.Fqdn
+	}
+	if true {
+		toSerialize["mac_addresses"] = o.MacAddresses
+	}
+	if true {
+		toSerialize["provider_id"] = o.ProviderId
+	}
+	if true {
+		toSerialize["provider_type"] = o.ProviderType
 	}
 	return json.Marshal(toSerialize)
 }

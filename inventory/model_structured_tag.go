@@ -16,8 +16,8 @@ import (
 
 // StructuredTag struct for StructuredTag
 type StructuredTag struct {
-	Key *string `json:"key,omitempty"`
 	Namespace NullableString `json:"namespace,omitempty"`
+	Key *string `json:"key,omitempty"`
 	Value NullableString `json:"value,omitempty"`
 }
 
@@ -36,38 +36,6 @@ func NewStructuredTag() *StructuredTag {
 func NewStructuredTagWithDefaults() *StructuredTag {
 	this := StructuredTag{}
 	return &this
-}
-
-// GetKey returns the Key field value if set, zero value otherwise.
-func (o *StructuredTag) GetKey() string {
-	if o == nil || o.Key == nil {
-		var ret string
-		return ret
-	}
-	return *o.Key
-}
-
-// GetKeyOk returns a tuple with the Key field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StructuredTag) GetKeyOk() (*string, bool) {
-	if o == nil || o.Key == nil {
-		return nil, false
-	}
-	return o.Key, true
-}
-
-// HasKey returns a boolean if a field has been set.
-func (o *StructuredTag) HasKey() bool {
-	if o != nil && o.Key != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetKey gets a reference to the given string and assigns it to the Key field.
-func (o *StructuredTag) SetKey(v string) {
-	o.Key = &v
 }
 
 // GetNamespace returns the Namespace field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -110,6 +78,38 @@ func (o *StructuredTag) SetNamespaceNil() {
 // UnsetNamespace ensures that no value is present for Namespace, not even an explicit nil
 func (o *StructuredTag) UnsetNamespace() {
 	o.Namespace.Unset()
+}
+
+// GetKey returns the Key field value if set, zero value otherwise.
+func (o *StructuredTag) GetKey() string {
+	if o == nil || o.Key == nil {
+		var ret string
+		return ret
+	}
+	return *o.Key
+}
+
+// GetKeyOk returns a tuple with the Key field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StructuredTag) GetKeyOk() (*string, bool) {
+	if o == nil || o.Key == nil {
+		return nil, false
+	}
+	return o.Key, true
+}
+
+// HasKey returns a boolean if a field has been set.
+func (o *StructuredTag) HasKey() bool {
+	if o != nil && o.Key != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetKey gets a reference to the given string and assigns it to the Key field.
+func (o *StructuredTag) SetKey(v string) {
+	o.Key = &v
 }
 
 // GetValue returns the Value field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -156,11 +156,11 @@ func (o *StructuredTag) UnsetValue() {
 
 func (o StructuredTag) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Key != nil {
-		toSerialize["key"] = o.Key
-	}
 	if o.Namespace.IsSet() {
 		toSerialize["namespace"] = o.Namespace.Get()
+	}
+	if o.Key != nil {
+		toSerialize["key"] = o.Key
 	}
 	if o.Value.IsSet() {
 		toSerialize["value"] = o.Value.Get()

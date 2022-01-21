@@ -37,8 +37,14 @@ type ApiApiTagGetTagsRequest struct {
 	page *int32
 	staleness *[]string
 	search *string
+	displayName *string
+	fqdn *string
+	hostnameOrId *string
+	insightsId *string
+	providerId *string
+	providerType *string
 	registeredWith *string
-	filter *map[string]interface{}
+	filter *map[string]OneOfmapobject
 }
 
 func (r ApiApiTagGetTagsRequest) Tags(tags []string) ApiApiTagGetTagsRequest {
@@ -69,16 +75,40 @@ func (r ApiApiTagGetTagsRequest) Search(search string) ApiApiTagGetTagsRequest {
 	r.search = &search
 	return r
 }
+func (r ApiApiTagGetTagsRequest) DisplayName(displayName string) ApiApiTagGetTagsRequest {
+	r.displayName = &displayName
+	return r
+}
+func (r ApiApiTagGetTagsRequest) Fqdn(fqdn string) ApiApiTagGetTagsRequest {
+	r.fqdn = &fqdn
+	return r
+}
+func (r ApiApiTagGetTagsRequest) HostnameOrId(hostnameOrId string) ApiApiTagGetTagsRequest {
+	r.hostnameOrId = &hostnameOrId
+	return r
+}
+func (r ApiApiTagGetTagsRequest) InsightsId(insightsId string) ApiApiTagGetTagsRequest {
+	r.insightsId = &insightsId
+	return r
+}
+func (r ApiApiTagGetTagsRequest) ProviderId(providerId string) ApiApiTagGetTagsRequest {
+	r.providerId = &providerId
+	return r
+}
+func (r ApiApiTagGetTagsRequest) ProviderType(providerType string) ApiApiTagGetTagsRequest {
+	r.providerType = &providerType
+	return r
+}
 func (r ApiApiTagGetTagsRequest) RegisteredWith(registeredWith string) ApiApiTagGetTagsRequest {
 	r.registeredWith = &registeredWith
 	return r
 }
-func (r ApiApiTagGetTagsRequest) Filter(filter map[string]interface{}) ApiApiTagGetTagsRequest {
+func (r ApiApiTagGetTagsRequest) Filter(filter map[string]OneOfmapobject) ApiApiTagGetTagsRequest {
 	r.filter = &filter
 	return r
 }
 
-func (r ApiApiTagGetTagsRequest) Execute() (HostData1, *_nethttp.Response, error) {
+func (r ApiApiTagGetTagsRequest) Execute() (ActiveTags, *_nethttp.Response, error) {
 	return r.ApiService.ApiTagGetTagsExecute(r)
 }
 
@@ -97,16 +127,16 @@ func (a *TagsApiService) ApiTagGetTags(ctx _context.Context) ApiApiTagGetTagsReq
 
 /*
  * Execute executes the request
- * @return HostData1
+ * @return ActiveTags
  */
-func (a *TagsApiService) ApiTagGetTagsExecute(r ApiApiTagGetTagsRequest) (HostData1, *_nethttp.Response, error) {
+func (a *TagsApiService) ApiTagGetTagsExecute(r ApiApiTagGetTagsRequest) (ActiveTags, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  HostData1
+		localVarReturnValue  ActiveTags
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TagsApiService.ApiTagGetTags")
@@ -156,6 +186,24 @@ func (a *TagsApiService) ApiTagGetTagsExecute(r ApiApiTagGetTagsRequest) (HostDa
 	}
 	if r.search != nil {
 		localVarQueryParams.Add("search", parameterToString(*r.search, ""))
+	}
+	if r.displayName != nil {
+		localVarQueryParams.Add("display_name", parameterToString(*r.displayName, ""))
+	}
+	if r.fqdn != nil {
+		localVarQueryParams.Add("fqdn", parameterToString(*r.fqdn, ""))
+	}
+	if r.hostnameOrId != nil {
+		localVarQueryParams.Add("hostname_or_id", parameterToString(*r.hostnameOrId, ""))
+	}
+	if r.insightsId != nil {
+		localVarQueryParams.Add("insights_id", parameterToString(*r.insightsId, ""))
+	}
+	if r.providerId != nil {
+		localVarQueryParams.Add("provider_id", parameterToString(*r.providerId, ""))
+	}
+	if r.providerType != nil {
+		localVarQueryParams.Add("provider_type", parameterToString(*r.providerType, ""))
 	}
 	if r.registeredWith != nil {
 		localVarQueryParams.Add("registered_with", parameterToString(*r.registeredWith, ""))

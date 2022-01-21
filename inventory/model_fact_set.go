@@ -16,20 +16,20 @@ import (
 
 // FactSet A set of string facts belonging to a single namespace.
 type FactSet struct {
-	// The facts themselves.
-	Facts map[string]interface{} `json:"facts"`
 	// A namespace the facts belong to.
 	Namespace string `json:"namespace"`
+	// The facts themselves.
+	Facts map[string]interface{} `json:"facts"`
 }
 
 // NewFactSet instantiates a new FactSet object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFactSet(facts map[string]interface{}, namespace string, ) *FactSet {
+func NewFactSet(namespace string, facts map[string]interface{}, ) *FactSet {
 	this := FactSet{}
-	this.Facts = facts
 	this.Namespace = namespace
+	this.Facts = facts
 	return &this
 }
 
@@ -39,30 +39,6 @@ func NewFactSet(facts map[string]interface{}, namespace string, ) *FactSet {
 func NewFactSetWithDefaults() *FactSet {
 	this := FactSet{}
 	return &this
-}
-
-// GetFacts returns the Facts field value
-func (o *FactSet) GetFacts() map[string]interface{} {
-	if o == nil  {
-		var ret map[string]interface{}
-		return ret
-	}
-
-	return o.Facts
-}
-
-// GetFactsOk returns a tuple with the Facts field value
-// and a boolean to check if the value has been set.
-func (o *FactSet) GetFactsOk() (*map[string]interface{}, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Facts, true
-}
-
-// SetFacts sets field value
-func (o *FactSet) SetFacts(v map[string]interface{}) {
-	o.Facts = v
 }
 
 // GetNamespace returns the Namespace field value
@@ -89,13 +65,37 @@ func (o *FactSet) SetNamespace(v string) {
 	o.Namespace = v
 }
 
+// GetFacts returns the Facts field value
+func (o *FactSet) GetFacts() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+
+	return o.Facts
+}
+
+// GetFactsOk returns a tuple with the Facts field value
+// and a boolean to check if the value has been set.
+func (o *FactSet) GetFactsOk() (*map[string]interface{}, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Facts, true
+}
+
+// SetFacts sets field value
+func (o *FactSet) SetFacts(v map[string]interface{}) {
+	o.Facts = v
+}
+
 func (o FactSet) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["facts"] = o.Facts
+		toSerialize["namespace"] = o.Namespace
 	}
 	if true {
-		toSerialize["namespace"] = o.Namespace
+		toSerialize["facts"] = o.Facts
 	}
 	return json.Marshal(toSerialize)
 }

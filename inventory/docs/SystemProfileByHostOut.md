@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Count** | **int32** | A number of entries on the current page. | 
-**Page** | **int32** | A current page number. | 
-**PerPage** | **int32** | A page size – a number of entries per single page. | 
-**Results** | **[]map[string]interface{}** | Actual host search query result entries. | 
-**Total** | **int32** | A total count of the found entries. | 
+**Count** | **int32** | The number of items on the current page | 
+**Page** | **int32** | The page number | 
+**PerPage** | **int32** | The number of items to return per page | 
+**Total** | **int32** | Total number of items | 
+**Results** | [**[]HostSystemProfileOut**](HostSystemProfileOut.md) | Actual host search query result entries. | 
 
 ## Methods
 
 ### NewSystemProfileByHostOut
 
-`func NewSystemProfileByHostOut(count int32, page int32, perPage int32, results []map[string]interface{}, total int32, ) *SystemProfileByHostOut`
+`func NewSystemProfileByHostOut(count int32, page int32, perPage int32, total int32, results []HostSystemProfileOut, ) *SystemProfileByHostOut`
 
 NewSystemProfileByHostOut instantiates a new SystemProfileByHostOut object
 This constructor will assign default values to properties that have it defined,
@@ -89,26 +89,6 @@ and a boolean to check if the value has been set.
 SetPerPage sets PerPage field to given value.
 
 
-### GetResults
-
-`func (o *SystemProfileByHostOut) GetResults() []map[string]interface{}`
-
-GetResults returns the Results field if non-nil, zero value otherwise.
-
-### GetResultsOk
-
-`func (o *SystemProfileByHostOut) GetResultsOk() (*[]map[string]interface{}, bool)`
-
-GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResults
-
-`func (o *SystemProfileByHostOut) SetResults(v []map[string]interface{})`
-
-SetResults sets Results field to given value.
-
-
 ### GetTotal
 
 `func (o *SystemProfileByHostOut) GetTotal() int32`
@@ -127,6 +107,26 @@ and a boolean to check if the value has been set.
 `func (o *SystemProfileByHostOut) SetTotal(v int32)`
 
 SetTotal sets Total field to given value.
+
+
+### GetResults
+
+`func (o *SystemProfileByHostOut) GetResults() []HostSystemProfileOut`
+
+GetResults returns the Results field if non-nil, zero value otherwise.
+
+### GetResultsOk
+
+`func (o *SystemProfileByHostOut) GetResultsOk() (*[]HostSystemProfileOut, bool)`
+
+GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResults
+
+`func (o *SystemProfileByHostOut) SetResults(v []HostSystemProfileOut)`
+
+SetResults sets Results field to given value.
 
 
 

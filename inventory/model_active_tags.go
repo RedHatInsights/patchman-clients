@@ -22,22 +22,22 @@ type ActiveTags struct {
 	Page int32 `json:"page"`
 	// The number of items to return per page
 	PerPage int32 `json:"per_page"`
-	Results []ActiveTag `json:"results"`
 	// Total number of items
 	Total int32 `json:"total"`
+	Results []ActiveTag `json:"results"`
 }
 
 // NewActiveTags instantiates a new ActiveTags object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewActiveTags(count int32, page int32, perPage int32, results []ActiveTag, total int32, ) *ActiveTags {
+func NewActiveTags(count int32, page int32, perPage int32, total int32, results []ActiveTag, ) *ActiveTags {
 	this := ActiveTags{}
 	this.Count = count
 	this.Page = page
 	this.PerPage = perPage
-	this.Results = results
 	this.Total = total
+	this.Results = results
 	return &this
 }
 
@@ -121,30 +121,6 @@ func (o *ActiveTags) SetPerPage(v int32) {
 	o.PerPage = v
 }
 
-// GetResults returns the Results field value
-func (o *ActiveTags) GetResults() []ActiveTag {
-	if o == nil  {
-		var ret []ActiveTag
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *ActiveTags) GetResultsOk() (*[]ActiveTag, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Results, true
-}
-
-// SetResults sets field value
-func (o *ActiveTags) SetResults(v []ActiveTag) {
-	o.Results = v
-}
-
 // GetTotal returns the Total field value
 func (o *ActiveTags) GetTotal() int32 {
 	if o == nil  {
@@ -169,6 +145,30 @@ func (o *ActiveTags) SetTotal(v int32) {
 	o.Total = v
 }
 
+// GetResults returns the Results field value
+func (o *ActiveTags) GetResults() []ActiveTag {
+	if o == nil  {
+		var ret []ActiveTag
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *ActiveTags) GetResultsOk() (*[]ActiveTag, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Results, true
+}
+
+// SetResults sets field value
+func (o *ActiveTags) SetResults(v []ActiveTag) {
+	o.Results = v
+}
+
 func (o ActiveTags) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -181,10 +181,10 @@ func (o ActiveTags) MarshalJSON() ([]byte, error) {
 		toSerialize["per_page"] = o.PerPage
 	}
 	if true {
-		toSerialize["results"] = o.Results
+		toSerialize["total"] = o.Total
 	}
 	if true {
-		toSerialize["total"] = o.Total
+		toSerialize["results"] = o.Results
 	}
 	return json.Marshal(toSerialize)
 }

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | Pointer to **string** |  | [optional] 
 **Namespace** | Pointer to **NullableString** |  | [optional] 
+**Key** | Pointer to **string** |  | [optional] 
 **Value** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
@@ -26,31 +26,6 @@ will change when the set of required properties is changed
 NewStructuredTagWithDefaults instantiates a new StructuredTag object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetKey
-
-`func (o *StructuredTag) GetKey() string`
-
-GetKey returns the Key field if non-nil, zero value otherwise.
-
-### GetKeyOk
-
-`func (o *StructuredTag) GetKeyOk() (*string, bool)`
-
-GetKeyOk returns a tuple with the Key field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetKey
-
-`func (o *StructuredTag) SetKey(v string)`
-
-SetKey sets Key field to given value.
-
-### HasKey
-
-`func (o *StructuredTag) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetNamespace
 
@@ -87,6 +62,31 @@ HasNamespace returns a boolean if a field has been set.
 `func (o *StructuredTag) UnsetNamespace()`
 
 UnsetNamespace ensures that no value is present for Namespace, not even an explicit nil
+### GetKey
+
+`func (o *StructuredTag) GetKey() string`
+
+GetKey returns the Key field if non-nil, zero value otherwise.
+
+### GetKeyOk
+
+`func (o *StructuredTag) GetKeyOk() (*string, bool)`
+
+GetKeyOk returns a tuple with the Key field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKey
+
+`func (o *StructuredTag) SetKey(v string)`
+
+SetKey sets Key field to given value.
+
+### HasKey
+
+`func (o *StructuredTag) HasKey() bool`
+
+HasKey returns a boolean if a field has been set.
+
 ### GetValue
 
 `func (o *StructuredTag) GetValue() string`

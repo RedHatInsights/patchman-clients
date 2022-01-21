@@ -105,7 +105,7 @@ func NewConfiguration() *Configuration {
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{
-				URL: "/api/inventory/v1",
+				URL: "",
 				Description: "No description provided",
 			},
 		},
