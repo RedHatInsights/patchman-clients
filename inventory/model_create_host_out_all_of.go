@@ -27,9 +27,11 @@ type CreateHostOutAllOf struct {
 	// A host’s human-readable display name, e.g. in a form of a domain name.
 	DisplayName NullableString `json:"display_name,omitempty"`
 	// A set of facts belonging to the host.
-	Facts *[]map[string]interface{} `json:"facts,omitempty"`
+	Facts *[]FactSet `json:"facts,omitempty"`
 	// A durable and reliable platform-wide host identifier. Applications should use this identifier to reference hosts.
 	Id *string `json:"id,omitempty"`
+	// Reporting source of the last checkin status, stale_timestamp, and last_check_in.
+	PerReporterStaleness *map[string]PerReporterStaleness `json:"per_reporter_staleness,omitempty"`
 	// Reporting source of the host. Used when updating the stale_timestamp.
 	Reporter NullableString `json:"reporter,omitempty"`
 	// Timestamp from which the host is considered stale.
@@ -241,9 +243,9 @@ func (o *CreateHostOutAllOf) UnsetDisplayName() {
 }
 
 // GetFacts returns the Facts field value if set, zero value otherwise.
-func (o *CreateHostOutAllOf) GetFacts() []map[string]interface{} {
+func (o *CreateHostOutAllOf) GetFacts() []FactSet {
 	if o == nil || o.Facts == nil {
-		var ret []map[string]interface{}
+		var ret []FactSet
 		return ret
 	}
 	return *o.Facts
@@ -251,7 +253,7 @@ func (o *CreateHostOutAllOf) GetFacts() []map[string]interface{} {
 
 // GetFactsOk returns a tuple with the Facts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateHostOutAllOf) GetFactsOk() (*[]map[string]interface{}, bool) {
+func (o *CreateHostOutAllOf) GetFactsOk() (*[]FactSet, bool) {
 	if o == nil || o.Facts == nil {
 		return nil, false
 	}
@@ -267,8 +269,8 @@ func (o *CreateHostOutAllOf) HasFacts() bool {
 	return false
 }
 
-// SetFacts gets a reference to the given []map[string]interface{} and assigns it to the Facts field.
-func (o *CreateHostOutAllOf) SetFacts(v []map[string]interface{}) {
+// SetFacts gets a reference to the given []FactSet and assigns it to the Facts field.
+func (o *CreateHostOutAllOf) SetFacts(v []FactSet) {
 	o.Facts = &v
 }
 
@@ -302,6 +304,38 @@ func (o *CreateHostOutAllOf) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *CreateHostOutAllOf) SetId(v string) {
 	o.Id = &v
+}
+
+// GetPerReporterStaleness returns the PerReporterStaleness field value if set, zero value otherwise.
+func (o *CreateHostOutAllOf) GetPerReporterStaleness() map[string]PerReporterStaleness {
+	if o == nil || o.PerReporterStaleness == nil {
+		var ret map[string]PerReporterStaleness
+		return ret
+	}
+	return *o.PerReporterStaleness
+}
+
+// GetPerReporterStalenessOk returns a tuple with the PerReporterStaleness field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateHostOutAllOf) GetPerReporterStalenessOk() (*map[string]PerReporterStaleness, bool) {
+	if o == nil || o.PerReporterStaleness == nil {
+		return nil, false
+	}
+	return o.PerReporterStaleness, true
+}
+
+// HasPerReporterStaleness returns a boolean if a field has been set.
+func (o *CreateHostOutAllOf) HasPerReporterStaleness() bool {
+	if o != nil && o.PerReporterStaleness != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPerReporterStaleness gets a reference to the given map[string]PerReporterStaleness and assigns it to the PerReporterStaleness field.
+func (o *CreateHostOutAllOf) SetPerReporterStaleness(v map[string]PerReporterStaleness) {
+	o.PerReporterStaleness = &v
 }
 
 // GetReporter returns the Reporter field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -484,6 +518,9 @@ func (o CreateHostOutAllOf) MarshalJSON() ([]byte, error) {
 	}
 	if o.Id != nil {
 		toSerialize["id"] = o.Id
+	}
+	if o.PerReporterStaleness != nil {
+		toSerialize["per_reporter_staleness"] = o.PerReporterStaleness
 	}
 	if o.Reporter.IsSet() {
 		toSerialize["reporter"] = o.Reporter.Get()

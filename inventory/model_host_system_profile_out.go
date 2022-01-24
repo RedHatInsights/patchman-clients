@@ -17,7 +17,7 @@ import (
 // HostSystemProfileOut Individual host record that contains only the host id and system profile
 type HostSystemProfileOut struct {
 	Id *string `json:"id,omitempty"`
-	SystemProfile *SystemProfileSpecYamlSystemProfile `json:"system_profile,omitempty"`
+	SystemProfile *SystemProfile `json:"system_profile,omitempty"`
 }
 
 // NewHostSystemProfileOut instantiates a new HostSystemProfileOut object
@@ -70,9 +70,9 @@ func (o *HostSystemProfileOut) SetId(v string) {
 }
 
 // GetSystemProfile returns the SystemProfile field value if set, zero value otherwise.
-func (o *HostSystemProfileOut) GetSystemProfile() SystemProfileSpecYamlSystemProfile {
+func (o *HostSystemProfileOut) GetSystemProfile() SystemProfile {
 	if o == nil || o.SystemProfile == nil {
-		var ret SystemProfileSpecYamlSystemProfile
+		var ret SystemProfile
 		return ret
 	}
 	return *o.SystemProfile
@@ -80,7 +80,7 @@ func (o *HostSystemProfileOut) GetSystemProfile() SystemProfileSpecYamlSystemPro
 
 // GetSystemProfileOk returns a tuple with the SystemProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *HostSystemProfileOut) GetSystemProfileOk() (*SystemProfileSpecYamlSystemProfile, bool) {
+func (o *HostSystemProfileOut) GetSystemProfileOk() (*SystemProfile, bool) {
 	if o == nil || o.SystemProfile == nil {
 		return nil, false
 	}
@@ -96,8 +96,8 @@ func (o *HostSystemProfileOut) HasSystemProfile() bool {
 	return false
 }
 
-// SetSystemProfile gets a reference to the given SystemProfileSpecYamlSystemProfile and assigns it to the SystemProfile field.
-func (o *HostSystemProfileOut) SetSystemProfile(v SystemProfileSpecYamlSystemProfile) {
+// SetSystemProfile gets a reference to the given SystemProfile and assigns it to the SystemProfile field.
+func (o *HostSystemProfileOut) SetSystemProfile(v SystemProfile) {
 	o.SystemProfile = &v
 }
 

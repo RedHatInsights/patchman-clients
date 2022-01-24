@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## ApiSystemProfileGetSapSids
 
-> InlineResponse2002 ApiSystemProfileGetSapSids(ctx).Search(search).Tags(tags).PerPage(perPage).Page(page).Staleness(staleness).RegisteredWith(registeredWith).Filter(filter).Execute()
+> SystemProfileSapSystemOut ApiSystemProfileGetSapSids(ctx).Search(search).Tags(tags).PerPage(perPage).Page(page).Staleness(staleness).RegisteredWith(registeredWith).Filter(filter).Execute()
 
 get sap system values
 
@@ -36,7 +36,7 @@ func main() {
     page := int32(56) // int32 | A page number of the items to return. (optional) (default to 1)
     staleness := []string{"Staleness_example"} // []string | Culling states of the hosts. Default: fresh,stale,unknown (optional) (default to ["fresh","stale","unknown"])
     registeredWith := "registeredWith_example" // string | Filters out any host not registered with the specified service (optional)
-    filter := TODO // map[string]interface{} | Filters hosts based on system_profile fields (optional)
+    filter := map[string]map[string]interface{}{"key": map[string]interface{}(123)} // map[string]map[string]interface{} | Filters hosts based on system_profile fields (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -45,7 +45,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SapSystemApi.ApiSystemProfileGetSapSids``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ApiSystemProfileGetSapSids`: InlineResponse2002
+    // response from `ApiSystemProfileGetSapSids`: SystemProfileSapSystemOut
     fmt.Fprintf(os.Stdout, "Response from `SapSystemApi.ApiSystemProfileGetSapSids`: %v\n", resp)
 }
 ```
@@ -67,11 +67,11 @@ Name | Type | Description  | Notes
  **page** | **int32** | A page number of the items to return. | [default to 1]
  **staleness** | **[]string** | Culling states of the hosts. Default: fresh,stale,unknown | [default to [&quot;fresh&quot;,&quot;stale&quot;,&quot;unknown&quot;]]
  **registeredWith** | **string** | Filters out any host not registered with the specified service | 
- **filter** | [**map[string]interface{}**](map[string]interface{}.md) | Filters hosts based on system_profile fields | 
+ **filter** | **map[string]map[string]interface{}** | Filters hosts based on system_profile fields | 
 
 ### Return type
 
-[**InlineResponse2002**](inline_response_200_2.md)
+[**SystemProfileSapSystemOut**](SystemProfileSapSystemOut.md)
 
 ### Authorization
 
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 
 ## ApiSystemProfileGetSapSystem
 
-> InlineResponse2002 ApiSystemProfileGetSapSystem(ctx).Tags(tags).PerPage(perPage).Page(page).Staleness(staleness).RegisteredWith(registeredWith).Filter(filter).Execute()
+> SystemProfileSapSystemOut ApiSystemProfileGetSapSystem(ctx).Tags(tags).PerPage(perPage).Page(page).Staleness(staleness).RegisteredWith(registeredWith).Filter(filter).Execute()
 
 get sap system values
 
@@ -113,7 +113,7 @@ func main() {
     page := int32(56) // int32 | A page number of the items to return. (optional) (default to 1)
     staleness := []string{"Staleness_example"} // []string | Culling states of the hosts. Default: fresh,stale,unknown (optional) (default to ["fresh","stale","unknown"])
     registeredWith := "registeredWith_example" // string | Filters out any host not registered with the specified service (optional)
-    filter := TODO // map[string]interface{} | Filters hosts based on system_profile fields (optional)
+    filter := map[string]map[string]interface{}{"key": map[string]interface{}(123)} // map[string]map[string]interface{} | Filters hosts based on system_profile fields (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -122,7 +122,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SapSystemApi.ApiSystemProfileGetSapSystem``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ApiSystemProfileGetSapSystem`: InlineResponse2002
+    // response from `ApiSystemProfileGetSapSystem`: SystemProfileSapSystemOut
     fmt.Fprintf(os.Stdout, "Response from `SapSystemApi.ApiSystemProfileGetSapSystem`: %v\n", resp)
 }
 ```
@@ -143,11 +143,11 @@ Name | Type | Description  | Notes
  **page** | **int32** | A page number of the items to return. | [default to 1]
  **staleness** | **[]string** | Culling states of the hosts. Default: fresh,stale,unknown | [default to [&quot;fresh&quot;,&quot;stale&quot;,&quot;unknown&quot;]]
  **registeredWith** | **string** | Filters out any host not registered with the specified service | 
- **filter** | [**map[string]interface{}**](map[string]interface{}.md) | Filters hosts based on system_profile fields | 
+ **filter** | **map[string]map[string]interface{}** | Filters hosts based on system_profile fields | 
 
 ### Return type
 
-[**InlineResponse2002**](inline_response_200_2.md)
+[**SystemProfileSapSystemOut**](SystemProfileSapSystemOut.md)
 
 ### Authorization
 

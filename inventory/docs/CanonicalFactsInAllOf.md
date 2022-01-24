@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BiosUuid** | Pointer to **NullableString** | A UUID of the host machine BIOS.  This field is considered to be a canonical fact. | [optional] 
-**ExternalId** | Pointer to **NullableString** | Host’s reference in the external source e.g. AWS EC2, Azure, OpenStack, etc. This field is considered to be a canonical fact. | [optional] 
-**Fqdn** | Pointer to **NullableString** | A host’s Fully Qualified Domain Name.  This field is considered to be a canonical fact. | [optional] 
-**InsightsId** | Pointer to **NullableString** | An ID defined in /etc/insights-client/machine-id. This field is considered a canonical fact. | [optional] 
-**IpAddresses** | Pointer to **[]string** | Host’s network IP addresses.  This field is considered to be a canonical fact. | [optional] 
-**MacAddresses** | Pointer to **[]string** | Host’s network interfaces MAC addresses.  This field is considered to be a canonical fact. | [optional] 
-**RhelMachineId** | Pointer to **NullableString** | A Machine ID of a RHEL host.  This field is considered to be a canonical fact. | [optional] 
-**SatelliteId** | Pointer to **NullableString** | A Red Hat Satellite ID of a RHEL host.  This field is considered to be a canonical fact. | [optional] 
-**SubscriptionManagerId** | Pointer to **NullableString** | A Red Hat Subcription Manager ID of a RHEL host.  This field is considered to be a canonical fact. | [optional] 
+**BiosUuid** | Pointer to **string** |  | [optional] 
+**Fqdn** | Pointer to **string** |  | [optional] 
+**InsightsId** | Pointer to **string** |  | [optional] 
+**IpAddresses** | Pointer to **[]string** |  | [optional] 
+**MacAddresses** | Pointer to **[]string** |  | [optional] 
+**ProviderId** | Pointer to **string** |  | [optional] 
+**ProviderType** | Pointer to **string** |  | [optional] 
+**SatelliteId** | Pointer to **string** |  | [optional] 
+**SubscriptionManagerId** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -58,51 +58,6 @@ SetBiosUuid sets BiosUuid field to given value.
 
 HasBiosUuid returns a boolean if a field has been set.
 
-### SetBiosUuidNil
-
-`func (o *CanonicalFactsInAllOf) SetBiosUuidNil(b bool)`
-
- SetBiosUuidNil sets the value for BiosUuid to be an explicit nil
-
-### UnsetBiosUuid
-`func (o *CanonicalFactsInAllOf) UnsetBiosUuid()`
-
-UnsetBiosUuid ensures that no value is present for BiosUuid, not even an explicit nil
-### GetExternalId
-
-`func (o *CanonicalFactsInAllOf) GetExternalId() string`
-
-GetExternalId returns the ExternalId field if non-nil, zero value otherwise.
-
-### GetExternalIdOk
-
-`func (o *CanonicalFactsInAllOf) GetExternalIdOk() (*string, bool)`
-
-GetExternalIdOk returns a tuple with the ExternalId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetExternalId
-
-`func (o *CanonicalFactsInAllOf) SetExternalId(v string)`
-
-SetExternalId sets ExternalId field to given value.
-
-### HasExternalId
-
-`func (o *CanonicalFactsInAllOf) HasExternalId() bool`
-
-HasExternalId returns a boolean if a field has been set.
-
-### SetExternalIdNil
-
-`func (o *CanonicalFactsInAllOf) SetExternalIdNil(b bool)`
-
- SetExternalIdNil sets the value for ExternalId to be an explicit nil
-
-### UnsetExternalId
-`func (o *CanonicalFactsInAllOf) UnsetExternalId()`
-
-UnsetExternalId ensures that no value is present for ExternalId, not even an explicit nil
 ### GetFqdn
 
 `func (o *CanonicalFactsInAllOf) GetFqdn() string`
@@ -128,16 +83,6 @@ SetFqdn sets Fqdn field to given value.
 
 HasFqdn returns a boolean if a field has been set.
 
-### SetFqdnNil
-
-`func (o *CanonicalFactsInAllOf) SetFqdnNil(b bool)`
-
- SetFqdnNil sets the value for Fqdn to be an explicit nil
-
-### UnsetFqdn
-`func (o *CanonicalFactsInAllOf) UnsetFqdn()`
-
-UnsetFqdn ensures that no value is present for Fqdn, not even an explicit nil
 ### GetInsightsId
 
 `func (o *CanonicalFactsInAllOf) GetInsightsId() string`
@@ -163,16 +108,6 @@ SetInsightsId sets InsightsId field to given value.
 
 HasInsightsId returns a boolean if a field has been set.
 
-### SetInsightsIdNil
-
-`func (o *CanonicalFactsInAllOf) SetInsightsIdNil(b bool)`
-
- SetInsightsIdNil sets the value for InsightsId to be an explicit nil
-
-### UnsetInsightsId
-`func (o *CanonicalFactsInAllOf) UnsetInsightsId()`
-
-UnsetInsightsId ensures that no value is present for InsightsId, not even an explicit nil
 ### GetIpAddresses
 
 `func (o *CanonicalFactsInAllOf) GetIpAddresses() []string`
@@ -198,16 +133,6 @@ SetIpAddresses sets IpAddresses field to given value.
 
 HasIpAddresses returns a boolean if a field has been set.
 
-### SetIpAddressesNil
-
-`func (o *CanonicalFactsInAllOf) SetIpAddressesNil(b bool)`
-
- SetIpAddressesNil sets the value for IpAddresses to be an explicit nil
-
-### UnsetIpAddresses
-`func (o *CanonicalFactsInAllOf) UnsetIpAddresses()`
-
-UnsetIpAddresses ensures that no value is present for IpAddresses, not even an explicit nil
 ### GetMacAddresses
 
 `func (o *CanonicalFactsInAllOf) GetMacAddresses() []string`
@@ -233,51 +158,56 @@ SetMacAddresses sets MacAddresses field to given value.
 
 HasMacAddresses returns a boolean if a field has been set.
 
-### SetMacAddressesNil
+### GetProviderId
 
-`func (o *CanonicalFactsInAllOf) SetMacAddressesNil(b bool)`
+`func (o *CanonicalFactsInAllOf) GetProviderId() string`
 
- SetMacAddressesNil sets the value for MacAddresses to be an explicit nil
+GetProviderId returns the ProviderId field if non-nil, zero value otherwise.
 
-### UnsetMacAddresses
-`func (o *CanonicalFactsInAllOf) UnsetMacAddresses()`
+### GetProviderIdOk
 
-UnsetMacAddresses ensures that no value is present for MacAddresses, not even an explicit nil
-### GetRhelMachineId
+`func (o *CanonicalFactsInAllOf) GetProviderIdOk() (*string, bool)`
 
-`func (o *CanonicalFactsInAllOf) GetRhelMachineId() string`
-
-GetRhelMachineId returns the RhelMachineId field if non-nil, zero value otherwise.
-
-### GetRhelMachineIdOk
-
-`func (o *CanonicalFactsInAllOf) GetRhelMachineIdOk() (*string, bool)`
-
-GetRhelMachineIdOk returns a tuple with the RhelMachineId field if it's non-nil, zero value otherwise
+GetProviderIdOk returns a tuple with the ProviderId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRhelMachineId
+### SetProviderId
 
-`func (o *CanonicalFactsInAllOf) SetRhelMachineId(v string)`
+`func (o *CanonicalFactsInAllOf) SetProviderId(v string)`
 
-SetRhelMachineId sets RhelMachineId field to given value.
+SetProviderId sets ProviderId field to given value.
 
-### HasRhelMachineId
+### HasProviderId
 
-`func (o *CanonicalFactsInAllOf) HasRhelMachineId() bool`
+`func (o *CanonicalFactsInAllOf) HasProviderId() bool`
 
-HasRhelMachineId returns a boolean if a field has been set.
+HasProviderId returns a boolean if a field has been set.
 
-### SetRhelMachineIdNil
+### GetProviderType
 
-`func (o *CanonicalFactsInAllOf) SetRhelMachineIdNil(b bool)`
+`func (o *CanonicalFactsInAllOf) GetProviderType() string`
 
- SetRhelMachineIdNil sets the value for RhelMachineId to be an explicit nil
+GetProviderType returns the ProviderType field if non-nil, zero value otherwise.
 
-### UnsetRhelMachineId
-`func (o *CanonicalFactsInAllOf) UnsetRhelMachineId()`
+### GetProviderTypeOk
 
-UnsetRhelMachineId ensures that no value is present for RhelMachineId, not even an explicit nil
+`func (o *CanonicalFactsInAllOf) GetProviderTypeOk() (*string, bool)`
+
+GetProviderTypeOk returns a tuple with the ProviderType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProviderType
+
+`func (o *CanonicalFactsInAllOf) SetProviderType(v string)`
+
+SetProviderType sets ProviderType field to given value.
+
+### HasProviderType
+
+`func (o *CanonicalFactsInAllOf) HasProviderType() bool`
+
+HasProviderType returns a boolean if a field has been set.
+
 ### GetSatelliteId
 
 `func (o *CanonicalFactsInAllOf) GetSatelliteId() string`
@@ -303,16 +233,6 @@ SetSatelliteId sets SatelliteId field to given value.
 
 HasSatelliteId returns a boolean if a field has been set.
 
-### SetSatelliteIdNil
-
-`func (o *CanonicalFactsInAllOf) SetSatelliteIdNil(b bool)`
-
- SetSatelliteIdNil sets the value for SatelliteId to be an explicit nil
-
-### UnsetSatelliteId
-`func (o *CanonicalFactsInAllOf) UnsetSatelliteId()`
-
-UnsetSatelliteId ensures that no value is present for SatelliteId, not even an explicit nil
 ### GetSubscriptionManagerId
 
 `func (o *CanonicalFactsInAllOf) GetSubscriptionManagerId() string`
@@ -338,16 +258,6 @@ SetSubscriptionManagerId sets SubscriptionManagerId field to given value.
 
 HasSubscriptionManagerId returns a boolean if a field has been set.
 
-### SetSubscriptionManagerIdNil
-
-`func (o *CanonicalFactsInAllOf) SetSubscriptionManagerIdNil(b bool)`
-
- SetSubscriptionManagerIdNil sets the value for SubscriptionManagerId to be an explicit nil
-
-### UnsetSubscriptionManagerId
-`func (o *CanonicalFactsInAllOf) UnsetSubscriptionManagerId()`
-
-UnsetSubscriptionManagerId ensures that no value is present for SubscriptionManagerId, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -16,12 +16,8 @@ import (
 
 // HostOut A database entry representing a single host with its Inventory metadata.
 type HostOut struct {
-	// A set of facts belonging to the host.
-	Facts *[]map[string]interface{} `json:"facts,omitempty"`
 	// A UUID of the host machine BIOS.  This field is considered to be a canonical fact.
 	BiosUuid NullableString `json:"bios_uuid,omitempty"`
-	// Host’s reference in the external source e.g. AWS EC2, Azure, OpenStack, etc. This field is considered to be a canonical fact.
-	ExternalId NullableString `json:"external_id,omitempty"`
 	// A host’s Fully Qualified Domain Name.  This field is considered to be a canonical fact.
 	Fqdn NullableString `json:"fqdn,omitempty"`
 	// An ID defined in /etc/insights-client/machine-id. This field is considered a canonical fact.
@@ -30,8 +26,10 @@ type HostOut struct {
 	IpAddresses []string `json:"ip_addresses,omitempty"`
 	// Host’s network interfaces MAC addresses.  This field is considered to be a canonical fact.
 	MacAddresses []string `json:"mac_addresses,omitempty"`
-	// A Machine ID of a RHEL host.  This field is considered to be a canonical fact.
-	RhelMachineId NullableString `json:"rhel_machine_id,omitempty"`
+	// Host’s reference in the external source e.g. Alibaba, AWS EC2, Azure, GCP, IBM etc. This field is one of the canonical facts and does not work without provider_type.
+	ProviderId NullableString `json:"provider_id,omitempty"`
+	// Type of external source e.g. Alibaba, AWS EC2, Azure, GCP, IBM, etc. This field is one of the canonical facts and does not workout provider_id.
+	ProviderType NullableString `json:"provider_type,omitempty"`
 	// A Red Hat Satellite ID of a RHEL host.  This field is considered to be a canonical fact.
 	SatelliteId NullableString `json:"satellite_id,omitempty"`
 	// A Red Hat Subcription Manager ID of a RHEL host.  This field is considered to be a canonical fact.
@@ -46,8 +44,12 @@ type HostOut struct {
 	CulledTimestamp NullableString `json:"culled_timestamp,omitempty"`
 	// A host’s human-readable display name, e.g. in a form of a domain name.
 	DisplayName NullableString `json:"display_name,omitempty"`
+	// A set of facts belonging to the host.
+	Facts *[]FactSet `json:"facts,omitempty"`
 	// A durable and reliable platform-wide host identifier. Applications should use this identifier to reference hosts.
 	Id *string `json:"id,omitempty"`
+	// Reporting source of the last checkin status, stale_timestamp, and last_check_in.
+	PerReporterStaleness *map[string]PerReporterStaleness `json:"per_reporter_staleness,omitempty"`
 	// Reporting source of the host. Used when updating the stale_timestamp.
 	Reporter NullableString `json:"reporter,omitempty"`
 	// Timestamp from which the host is considered stale.
@@ -74,38 +76,6 @@ func NewHostOut(account string, ) *HostOut {
 func NewHostOutWithDefaults() *HostOut {
 	this := HostOut{}
 	return &this
-}
-
-// GetFacts returns the Facts field value if set, zero value otherwise.
-func (o *HostOut) GetFacts() []map[string]interface{} {
-	if o == nil || o.Facts == nil {
-		var ret []map[string]interface{}
-		return ret
-	}
-	return *o.Facts
-}
-
-// GetFactsOk returns a tuple with the Facts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HostOut) GetFactsOk() (*[]map[string]interface{}, bool) {
-	if o == nil || o.Facts == nil {
-		return nil, false
-	}
-	return o.Facts, true
-}
-
-// HasFacts returns a boolean if a field has been set.
-func (o *HostOut) HasFacts() bool {
-	if o != nil && o.Facts != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFacts gets a reference to the given []map[string]interface{} and assigns it to the Facts field.
-func (o *HostOut) SetFacts(v []map[string]interface{}) {
-	o.Facts = &v
 }
 
 // GetBiosUuid returns the BiosUuid field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -148,48 +118,6 @@ func (o *HostOut) SetBiosUuidNil() {
 // UnsetBiosUuid ensures that no value is present for BiosUuid, not even an explicit nil
 func (o *HostOut) UnsetBiosUuid() {
 	o.BiosUuid.Unset()
-}
-
-// GetExternalId returns the ExternalId field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *HostOut) GetExternalId() string {
-	if o == nil || o.ExternalId.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.ExternalId.Get()
-}
-
-// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *HostOut) GetExternalIdOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.ExternalId.Get(), o.ExternalId.IsSet()
-}
-
-// HasExternalId returns a boolean if a field has been set.
-func (o *HostOut) HasExternalId() bool {
-	if o != nil && o.ExternalId.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetExternalId gets a reference to the given NullableString and assigns it to the ExternalId field.
-func (o *HostOut) SetExternalId(v string) {
-	o.ExternalId.Set(&v)
-}
-// SetExternalIdNil sets the value for ExternalId to be an explicit nil
-func (o *HostOut) SetExternalIdNil() {
-	o.ExternalId.Set(nil)
-}
-
-// UnsetExternalId ensures that no value is present for ExternalId, not even an explicit nil
-func (o *HostOut) UnsetExternalId() {
-	o.ExternalId.Unset()
 }
 
 // GetFqdn returns the Fqdn field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -342,46 +270,88 @@ func (o *HostOut) SetMacAddresses(v []string) {
 	o.MacAddresses = v
 }
 
-// GetRhelMachineId returns the RhelMachineId field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *HostOut) GetRhelMachineId() string {
-	if o == nil || o.RhelMachineId.Get() == nil {
+// GetProviderId returns the ProviderId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *HostOut) GetProviderId() string {
+	if o == nil || o.ProviderId.Get() == nil {
 		var ret string
 		return ret
 	}
-	return *o.RhelMachineId.Get()
+	return *o.ProviderId.Get()
 }
 
-// GetRhelMachineIdOk returns a tuple with the RhelMachineId field value if set, nil otherwise
+// GetProviderIdOk returns a tuple with the ProviderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *HostOut) GetRhelMachineIdOk() (*string, bool) {
+func (o *HostOut) GetProviderIdOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.RhelMachineId.Get(), o.RhelMachineId.IsSet()
+	return o.ProviderId.Get(), o.ProviderId.IsSet()
 }
 
-// HasRhelMachineId returns a boolean if a field has been set.
-func (o *HostOut) HasRhelMachineId() bool {
-	if o != nil && o.RhelMachineId.IsSet() {
+// HasProviderId returns a boolean if a field has been set.
+func (o *HostOut) HasProviderId() bool {
+	if o != nil && o.ProviderId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetRhelMachineId gets a reference to the given NullableString and assigns it to the RhelMachineId field.
-func (o *HostOut) SetRhelMachineId(v string) {
-	o.RhelMachineId.Set(&v)
+// SetProviderId gets a reference to the given NullableString and assigns it to the ProviderId field.
+func (o *HostOut) SetProviderId(v string) {
+	o.ProviderId.Set(&v)
 }
-// SetRhelMachineIdNil sets the value for RhelMachineId to be an explicit nil
-func (o *HostOut) SetRhelMachineIdNil() {
-	o.RhelMachineId.Set(nil)
+// SetProviderIdNil sets the value for ProviderId to be an explicit nil
+func (o *HostOut) SetProviderIdNil() {
+	o.ProviderId.Set(nil)
 }
 
-// UnsetRhelMachineId ensures that no value is present for RhelMachineId, not even an explicit nil
-func (o *HostOut) UnsetRhelMachineId() {
-	o.RhelMachineId.Unset()
+// UnsetProviderId ensures that no value is present for ProviderId, not even an explicit nil
+func (o *HostOut) UnsetProviderId() {
+	o.ProviderId.Unset()
+}
+
+// GetProviderType returns the ProviderType field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *HostOut) GetProviderType() string {
+	if o == nil || o.ProviderType.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.ProviderType.Get()
+}
+
+// GetProviderTypeOk returns a tuple with the ProviderType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *HostOut) GetProviderTypeOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.ProviderType.Get(), o.ProviderType.IsSet()
+}
+
+// HasProviderType returns a boolean if a field has been set.
+func (o *HostOut) HasProviderType() bool {
+	if o != nil && o.ProviderType.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetProviderType gets a reference to the given NullableString and assigns it to the ProviderType field.
+func (o *HostOut) SetProviderType(v string) {
+	o.ProviderType.Set(&v)
+}
+// SetProviderTypeNil sets the value for ProviderType to be an explicit nil
+func (o *HostOut) SetProviderTypeNil() {
+	o.ProviderType.Set(nil)
+}
+
+// UnsetProviderType ensures that no value is present for ProviderType, not even an explicit nil
+func (o *HostOut) UnsetProviderType() {
+	o.ProviderType.Unset()
 }
 
 // GetSatelliteId returns the SatelliteId field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -650,6 +620,38 @@ func (o *HostOut) UnsetDisplayName() {
 	o.DisplayName.Unset()
 }
 
+// GetFacts returns the Facts field value if set, zero value otherwise.
+func (o *HostOut) GetFacts() []FactSet {
+	if o == nil || o.Facts == nil {
+		var ret []FactSet
+		return ret
+	}
+	return *o.Facts
+}
+
+// GetFactsOk returns a tuple with the Facts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HostOut) GetFactsOk() (*[]FactSet, bool) {
+	if o == nil || o.Facts == nil {
+		return nil, false
+	}
+	return o.Facts, true
+}
+
+// HasFacts returns a boolean if a field has been set.
+func (o *HostOut) HasFacts() bool {
+	if o != nil && o.Facts != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFacts gets a reference to the given []FactSet and assigns it to the Facts field.
+func (o *HostOut) SetFacts(v []FactSet) {
+	o.Facts = &v
+}
+
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *HostOut) GetId() string {
 	if o == nil || o.Id == nil {
@@ -680,6 +682,38 @@ func (o *HostOut) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *HostOut) SetId(v string) {
 	o.Id = &v
+}
+
+// GetPerReporterStaleness returns the PerReporterStaleness field value if set, zero value otherwise.
+func (o *HostOut) GetPerReporterStaleness() map[string]PerReporterStaleness {
+	if o == nil || o.PerReporterStaleness == nil {
+		var ret map[string]PerReporterStaleness
+		return ret
+	}
+	return *o.PerReporterStaleness
+}
+
+// GetPerReporterStalenessOk returns a tuple with the PerReporterStaleness field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HostOut) GetPerReporterStalenessOk() (*map[string]PerReporterStaleness, bool) {
+	if o == nil || o.PerReporterStaleness == nil {
+		return nil, false
+	}
+	return o.PerReporterStaleness, true
+}
+
+// HasPerReporterStaleness returns a boolean if a field has been set.
+func (o *HostOut) HasPerReporterStaleness() bool {
+	if o != nil && o.PerReporterStaleness != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPerReporterStaleness gets a reference to the given map[string]PerReporterStaleness and assigns it to the PerReporterStaleness field.
+func (o *HostOut) SetPerReporterStaleness(v map[string]PerReporterStaleness) {
+	o.PerReporterStaleness = &v
 }
 
 // GetReporter returns the Reporter field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -842,14 +876,8 @@ func (o *HostOut) SetUpdated(v string) {
 
 func (o HostOut) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Facts != nil {
-		toSerialize["facts"] = o.Facts
-	}
 	if o.BiosUuid.IsSet() {
 		toSerialize["bios_uuid"] = o.BiosUuid.Get()
-	}
-	if o.ExternalId.IsSet() {
-		toSerialize["external_id"] = o.ExternalId.Get()
 	}
 	if o.Fqdn.IsSet() {
 		toSerialize["fqdn"] = o.Fqdn.Get()
@@ -863,8 +891,11 @@ func (o HostOut) MarshalJSON() ([]byte, error) {
 	if o.MacAddresses != nil {
 		toSerialize["mac_addresses"] = o.MacAddresses
 	}
-	if o.RhelMachineId.IsSet() {
-		toSerialize["rhel_machine_id"] = o.RhelMachineId.Get()
+	if o.ProviderId.IsSet() {
+		toSerialize["provider_id"] = o.ProviderId.Get()
+	}
+	if o.ProviderType.IsSet() {
+		toSerialize["provider_type"] = o.ProviderType.Get()
 	}
 	if o.SatelliteId.IsSet() {
 		toSerialize["satellite_id"] = o.SatelliteId.Get()
@@ -887,8 +918,14 @@ func (o HostOut) MarshalJSON() ([]byte, error) {
 	if o.DisplayName.IsSet() {
 		toSerialize["display_name"] = o.DisplayName.Get()
 	}
+	if o.Facts != nil {
+		toSerialize["facts"] = o.Facts
+	}
 	if o.Id != nil {
 		toSerialize["id"] = o.Id
+	}
+	if o.PerReporterStaleness != nil {
+		toSerialize["per_reporter_staleness"] = o.PerReporterStaleness
 	}
 	if o.Reporter.IsSet() {
 		toSerialize["reporter"] = o.Reporter.Get()

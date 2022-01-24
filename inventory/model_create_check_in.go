@@ -16,32 +16,32 @@ import (
 
 // CreateCheckIn Data required to create a check-in record for a host.
 type CreateCheckIn struct {
-	// How long from now to expect another check-in (in minutes).
-	CheckinFrequency *int32 `json:"checkin_frequency,omitempty"`
 	BiosUuid string `json:"bios_uuid"`
-	ExternalId string `json:"external_id"`
 	Fqdn string `json:"fqdn"`
 	InsightsId string `json:"insights_id"`
 	IpAddresses []string `json:"ip_addresses"`
 	MacAddresses []string `json:"mac_addresses"`
-	RhelMachineId string `json:"rhel_machine_id"`
+	ProviderId string `json:"provider_id"`
+	ProviderType string `json:"provider_type"`
 	SatelliteId string `json:"satellite_id"`
 	SubscriptionManagerId string `json:"subscription_manager_id"`
+	// How long from now to expect another check-in (in minutes).
+	CheckinFrequency *int32 `json:"checkin_frequency,omitempty"`
 }
 
 // NewCreateCheckIn instantiates a new CreateCheckIn object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateCheckIn(biosUuid string, externalId string, fqdn string, insightsId string, ipAddresses []string, macAddresses []string, rhelMachineId string, satelliteId string, subscriptionManagerId string, ) *CreateCheckIn {
+func NewCreateCheckIn(biosUuid string, fqdn string, insightsId string, ipAddresses []string, macAddresses []string, providerId string, providerType string, satelliteId string, subscriptionManagerId string, ) *CreateCheckIn {
 	this := CreateCheckIn{}
 	this.BiosUuid = biosUuid
-	this.ExternalId = externalId
 	this.Fqdn = fqdn
 	this.InsightsId = insightsId
 	this.IpAddresses = ipAddresses
 	this.MacAddresses = macAddresses
-	this.RhelMachineId = rhelMachineId
+	this.ProviderId = providerId
+	this.ProviderType = providerType
 	this.SatelliteId = satelliteId
 	this.SubscriptionManagerId = subscriptionManagerId
 	return &this
@@ -53,38 +53,6 @@ func NewCreateCheckIn(biosUuid string, externalId string, fqdn string, insightsI
 func NewCreateCheckInWithDefaults() *CreateCheckIn {
 	this := CreateCheckIn{}
 	return &this
-}
-
-// GetCheckinFrequency returns the CheckinFrequency field value if set, zero value otherwise.
-func (o *CreateCheckIn) GetCheckinFrequency() int32 {
-	if o == nil || o.CheckinFrequency == nil {
-		var ret int32
-		return ret
-	}
-	return *o.CheckinFrequency
-}
-
-// GetCheckinFrequencyOk returns a tuple with the CheckinFrequency field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateCheckIn) GetCheckinFrequencyOk() (*int32, bool) {
-	if o == nil || o.CheckinFrequency == nil {
-		return nil, false
-	}
-	return o.CheckinFrequency, true
-}
-
-// HasCheckinFrequency returns a boolean if a field has been set.
-func (o *CreateCheckIn) HasCheckinFrequency() bool {
-	if o != nil && o.CheckinFrequency != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCheckinFrequency gets a reference to the given int32 and assigns it to the CheckinFrequency field.
-func (o *CreateCheckIn) SetCheckinFrequency(v int32) {
-	o.CheckinFrequency = &v
 }
 
 // GetBiosUuid returns the BiosUuid field value
@@ -109,30 +77,6 @@ func (o *CreateCheckIn) GetBiosUuidOk() (*string, bool) {
 // SetBiosUuid sets field value
 func (o *CreateCheckIn) SetBiosUuid(v string) {
 	o.BiosUuid = v
-}
-
-// GetExternalId returns the ExternalId field value
-func (o *CreateCheckIn) GetExternalId() string {
-	if o == nil  {
-		var ret string
-		return ret
-	}
-
-	return o.ExternalId
-}
-
-// GetExternalIdOk returns a tuple with the ExternalId field value
-// and a boolean to check if the value has been set.
-func (o *CreateCheckIn) GetExternalIdOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.ExternalId, true
-}
-
-// SetExternalId sets field value
-func (o *CreateCheckIn) SetExternalId(v string) {
-	o.ExternalId = v
 }
 
 // GetFqdn returns the Fqdn field value
@@ -231,28 +175,52 @@ func (o *CreateCheckIn) SetMacAddresses(v []string) {
 	o.MacAddresses = v
 }
 
-// GetRhelMachineId returns the RhelMachineId field value
-func (o *CreateCheckIn) GetRhelMachineId() string {
+// GetProviderId returns the ProviderId field value
+func (o *CreateCheckIn) GetProviderId() string {
 	if o == nil  {
 		var ret string
 		return ret
 	}
 
-	return o.RhelMachineId
+	return o.ProviderId
 }
 
-// GetRhelMachineIdOk returns a tuple with the RhelMachineId field value
+// GetProviderIdOk returns a tuple with the ProviderId field value
 // and a boolean to check if the value has been set.
-func (o *CreateCheckIn) GetRhelMachineIdOk() (*string, bool) {
+func (o *CreateCheckIn) GetProviderIdOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.RhelMachineId, true
+	return &o.ProviderId, true
 }
 
-// SetRhelMachineId sets field value
-func (o *CreateCheckIn) SetRhelMachineId(v string) {
-	o.RhelMachineId = v
+// SetProviderId sets field value
+func (o *CreateCheckIn) SetProviderId(v string) {
+	o.ProviderId = v
+}
+
+// GetProviderType returns the ProviderType field value
+func (o *CreateCheckIn) GetProviderType() string {
+	if o == nil  {
+		var ret string
+		return ret
+	}
+
+	return o.ProviderType
+}
+
+// GetProviderTypeOk returns a tuple with the ProviderType field value
+// and a boolean to check if the value has been set.
+func (o *CreateCheckIn) GetProviderTypeOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.ProviderType, true
+}
+
+// SetProviderType sets field value
+func (o *CreateCheckIn) SetProviderType(v string) {
+	o.ProviderType = v
 }
 
 // GetSatelliteId returns the SatelliteId field value
@@ -303,16 +271,42 @@ func (o *CreateCheckIn) SetSubscriptionManagerId(v string) {
 	o.SubscriptionManagerId = v
 }
 
+// GetCheckinFrequency returns the CheckinFrequency field value if set, zero value otherwise.
+func (o *CreateCheckIn) GetCheckinFrequency() int32 {
+	if o == nil || o.CheckinFrequency == nil {
+		var ret int32
+		return ret
+	}
+	return *o.CheckinFrequency
+}
+
+// GetCheckinFrequencyOk returns a tuple with the CheckinFrequency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCheckIn) GetCheckinFrequencyOk() (*int32, bool) {
+	if o == nil || o.CheckinFrequency == nil {
+		return nil, false
+	}
+	return o.CheckinFrequency, true
+}
+
+// HasCheckinFrequency returns a boolean if a field has been set.
+func (o *CreateCheckIn) HasCheckinFrequency() bool {
+	if o != nil && o.CheckinFrequency != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCheckinFrequency gets a reference to the given int32 and assigns it to the CheckinFrequency field.
+func (o *CreateCheckIn) SetCheckinFrequency(v int32) {
+	o.CheckinFrequency = &v
+}
+
 func (o CreateCheckIn) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CheckinFrequency != nil {
-		toSerialize["checkin_frequency"] = o.CheckinFrequency
-	}
 	if true {
 		toSerialize["bios_uuid"] = o.BiosUuid
-	}
-	if true {
-		toSerialize["external_id"] = o.ExternalId
 	}
 	if true {
 		toSerialize["fqdn"] = o.Fqdn
@@ -327,13 +321,19 @@ func (o CreateCheckIn) MarshalJSON() ([]byte, error) {
 		toSerialize["mac_addresses"] = o.MacAddresses
 	}
 	if true {
-		toSerialize["rhel_machine_id"] = o.RhelMachineId
+		toSerialize["provider_id"] = o.ProviderId
+	}
+	if true {
+		toSerialize["provider_type"] = o.ProviderType
 	}
 	if true {
 		toSerialize["satellite_id"] = o.SatelliteId
 	}
 	if true {
 		toSerialize["subscription_manager_id"] = o.SubscriptionManagerId
+	}
+	if o.CheckinFrequency != nil {
+		toSerialize["checkin_frequency"] = o.CheckinFrequency
 	}
 	return json.Marshal(toSerialize)
 }

@@ -18,14 +18,14 @@ import (
 type ActiveTag struct {
 	// The number of hosts with the given tag. If the value is null this indicates that the count is unknown.
 	Count NullableInt32 `json:"count"`
-	Tag HostData1Tag `json:"tag"`
+	Tag StructuredTag `json:"tag"`
 }
 
 // NewActiveTag instantiates a new ActiveTag object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewActiveTag(count NullableInt32, tag HostData1Tag, ) *ActiveTag {
+func NewActiveTag(count NullableInt32, tag StructuredTag, ) *ActiveTag {
 	this := ActiveTag{}
 	this.Count = count
 	this.Tag = tag
@@ -67,9 +67,9 @@ func (o *ActiveTag) SetCount(v int32) {
 }
 
 // GetTag returns the Tag field value
-func (o *ActiveTag) GetTag() HostData1Tag {
+func (o *ActiveTag) GetTag() StructuredTag {
 	if o == nil  {
-		var ret HostData1Tag
+		var ret StructuredTag
 		return ret
 	}
 
@@ -78,7 +78,7 @@ func (o *ActiveTag) GetTag() HostData1Tag {
 
 // GetTagOk returns a tuple with the Tag field value
 // and a boolean to check if the value has been set.
-func (o *ActiveTag) GetTagOk() (*HostData1Tag, bool) {
+func (o *ActiveTag) GetTagOk() (*StructuredTag, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -86,7 +86,7 @@ func (o *ActiveTag) GetTagOk() (*HostData1Tag, bool) {
 }
 
 // SetTag sets field value
-func (o *ActiveTag) SetTag(v HostData1Tag) {
+func (o *ActiveTag) SetTag(v StructuredTag) {
 	o.Tag = v
 }
 

@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Count** | **NullableInt32** | The number of hosts with the given tag. If the value is null this indicates that the count is unknown. | 
-**Tag** | [**HostData1Tag**](Host_data_1_tag.md) |  | 
+**Tag** | [**StructuredTag**](StructuredTag.md) |  | 
 
 ## Methods
 
 ### NewActiveTag
 
-`func NewActiveTag(count NullableInt32, tag HostData1Tag, ) *ActiveTag`
+`func NewActiveTag(count NullableInt32, tag StructuredTag, ) *ActiveTag`
 
 NewActiveTag instantiates a new ActiveTag object
 This constructor will assign default values to properties that have it defined,
@@ -58,20 +58,20 @@ SetCount sets Count field to given value.
 UnsetCount ensures that no value is present for Count, not even an explicit nil
 ### GetTag
 
-`func (o *ActiveTag) GetTag() HostData1Tag`
+`func (o *ActiveTag) GetTag() StructuredTag`
 
 GetTag returns the Tag field if non-nil, zero value otherwise.
 
 ### GetTagOk
 
-`func (o *ActiveTag) GetTagOk() (*HostData1Tag, bool)`
+`func (o *ActiveTag) GetTagOk() (*StructuredTag, bool)`
 
 GetTagOk returns a tuple with the Tag field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTag
 
-`func (o *ActiveTag) SetTag(v HostData1Tag)`
+`func (o *ActiveTag) SetTag(v StructuredTag)`
 
 SetTag sets Tag field to given value.
 

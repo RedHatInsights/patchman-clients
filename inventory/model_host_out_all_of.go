@@ -17,7 +17,7 @@ import (
 // HostOutAllOf struct for HostOutAllOf
 type HostOutAllOf struct {
 	// A set of facts belonging to the host.
-	Facts *[]map[string]interface{} `json:"facts,omitempty"`
+	Facts *[]FactSet `json:"facts,omitempty"`
 }
 
 // NewHostOutAllOf instantiates a new HostOutAllOf object
@@ -38,9 +38,9 @@ func NewHostOutAllOfWithDefaults() *HostOutAllOf {
 }
 
 // GetFacts returns the Facts field value if set, zero value otherwise.
-func (o *HostOutAllOf) GetFacts() []map[string]interface{} {
+func (o *HostOutAllOf) GetFacts() []FactSet {
 	if o == nil || o.Facts == nil {
-		var ret []map[string]interface{}
+		var ret []FactSet
 		return ret
 	}
 	return *o.Facts
@@ -48,7 +48,7 @@ func (o *HostOutAllOf) GetFacts() []map[string]interface{} {
 
 // GetFactsOk returns a tuple with the Facts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *HostOutAllOf) GetFactsOk() (*[]map[string]interface{}, bool) {
+func (o *HostOutAllOf) GetFactsOk() (*[]FactSet, bool) {
 	if o == nil || o.Facts == nil {
 		return nil, false
 	}
@@ -64,8 +64,8 @@ func (o *HostOutAllOf) HasFacts() bool {
 	return false
 }
 
-// SetFacts gets a reference to the given []map[string]interface{} and assigns it to the Facts field.
-func (o *HostOutAllOf) SetFacts(v []map[string]interface{}) {
+// SetFacts gets a reference to the given []FactSet and assigns it to the Facts field.
+func (o *HostOutAllOf) SetFacts(v []FactSet) {
 	o.Facts = &v
 }
 

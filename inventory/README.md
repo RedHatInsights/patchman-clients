@@ -80,6 +80,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**ApiSystemProfileValidateSchema**](docs/DefaultApi.md#apisystemprofilevalidateschema) | **Post** /system_profile/validate_schema | validate system profile schema
 *HostsApi* | [**ApiHostDeleteById**](docs/HostsApi.md#apihostdeletebyid) | **Delete** /hosts/{host_id_list} | Delete hosts by IDs
+*HostsApi* | [**ApiHostDeleteHostList**](docs/HostsApi.md#apihostdeletehostlist) | **Delete** /hosts | Delete the entire list of hosts filtered by the given parameters
 *HostsApi* | [**ApiHostGetHostById**](docs/HostsApi.md#apihostgethostbyid) | **Get** /hosts/{host_id_list} | Find hosts by their IDs
 *HostsApi* | [**ApiHostGetHostList**](docs/HostsApi.md#apihostgethostlist) | **Get** /hosts | Read the entire list of hosts
 *HostsApi* | [**ApiHostGetHostSystemProfileById**](docs/HostsApi.md#apihostgethostsystemprofilebyid) | **Get** /hosts/{host_id_list}/system_profile | Return one or more hosts system profile
@@ -96,44 +97,46 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [AHostInventoryQueryResult](docs/AHostInventoryQueryResult.md)
- - [AHostSystemProfileQueryResult](docs/AHostSystemProfileQueryResult.md)
  - [ActiveTag](docs/ActiveTag.md)
  - [ActiveTags](docs/ActiveTags.md)
+ - [ActiveTagsAllOf](docs/ActiveTagsAllOf.md)
  - [CanonicalFactsIn](docs/CanonicalFactsIn.md)
  - [CanonicalFactsInAllOf](docs/CanonicalFactsInAllOf.md)
- - [CanonicalFactsInAllOf1](docs/CanonicalFactsInAllOf1.md)
  - [CanonicalFactsOut](docs/CanonicalFactsOut.md)
  - [CreateCheckIn](docs/CreateCheckIn.md)
  - [CreateCheckInAllOf](docs/CreateCheckInAllOf.md)
  - [CreateHostOut](docs/CreateHostOut.md)
  - [CreateHostOutAllOf](docs/CreateHostOutAllOf.md)
  - [FactSet](docs/FactSet.md)
- - [HostData](docs/HostData.md)
- - [HostData1](docs/HostData1.md)
- - [HostData1Tag](docs/HostData1Tag.md)
  - [HostOut](docs/HostOut.md)
  - [HostOutAllOf](docs/HostOutAllOf.md)
  - [HostQueryOutput](docs/HostQueryOutput.md)
+ - [HostQueryOutputAllOf](docs/HostQueryOutputAllOf.md)
  - [HostSystemProfileOut](docs/HostSystemProfileOut.md)
- - [InlineResponse200](docs/InlineResponse200.md)
- - [InlineResponse2001](docs/InlineResponse2001.md)
- - [InlineResponse2002](docs/InlineResponse2002.md)
- - [InlineResponse2002Results](docs/InlineResponse2002Results.md)
+ - [PaginationOut](docs/PaginationOut.md)
  - [PatchHostIn](docs/PatchHostIn.md)
+ - [PerReporterStaleness](docs/PerReporterStaleness.md)
  - [StructuredTag](docs/StructuredTag.md)
+ - [SystemProfile](docs/SystemProfile.md)
+ - [SystemProfileAnsible](docs/SystemProfileAnsible.md)
  - [SystemProfileByHostOut](docs/SystemProfileByHostOut.md)
+ - [SystemProfileByHostOutAllOf](docs/SystemProfileByHostOutAllOf.md)
+ - [SystemProfileDiskDevice](docs/SystemProfileDiskDevice.md)
+ - [SystemProfileDnfModule](docs/SystemProfileDnfModule.md)
+ - [SystemProfileInstalledProduct](docs/SystemProfileInstalledProduct.md)
+ - [SystemProfileMssql](docs/SystemProfileMssql.md)
+ - [SystemProfileNetworkInterface](docs/SystemProfileNetworkInterface.md)
+ - [SystemProfileOperatingSystem](docs/SystemProfileOperatingSystem.md)
+ - [SystemProfileRhsm](docs/SystemProfileRhsm.md)
+ - [SystemProfileRpmOstreeDeployments](docs/SystemProfileRpmOstreeDeployments.md)
  - [SystemProfileSapSystemOut](docs/SystemProfileSapSystemOut.md)
- - [SystemProfileSpecYamlDiskDevice](docs/SystemProfileSpecYamlDiskDevice.md)
- - [SystemProfileSpecYamlDnfModule](docs/SystemProfileSpecYamlDnfModule.md)
- - [SystemProfileSpecYamlInstalledProduct](docs/SystemProfileSpecYamlInstalledProduct.md)
- - [SystemProfileSpecYamlNetworkInterface](docs/SystemProfileSpecYamlNetworkInterface.md)
- - [SystemProfileSpecYamlSystemProfile](docs/SystemProfileSpecYamlSystemProfile.md)
- - [SystemProfileSpecYamlSystemProfileOperatingSystem](docs/SystemProfileSpecYamlSystemProfileOperatingSystem.md)
- - [SystemProfileSpecYamlSystemProfileRhsm](docs/SystemProfileSpecYamlSystemProfileRhsm.md)
- - [SystemProfileSpecYamlYumRepo](docs/SystemProfileSpecYamlYumRepo.md)
+ - [SystemProfileSapSystemOutResults](docs/SystemProfileSapSystemOutResults.md)
+ - [SystemProfileSystemPurpose](docs/SystemProfileSystemPurpose.md)
+ - [SystemProfileYumRepo](docs/SystemProfileYumRepo.md)
  - [TagCountOut](docs/TagCountOut.md)
+ - [TagCountOutAllOf](docs/TagCountOutAllOf.md)
  - [TagsOut](docs/TagsOut.md)
+ - [TagsOutAllOf](docs/TagsOutAllOf.md)
 
 
 ## Documentation For Authorization

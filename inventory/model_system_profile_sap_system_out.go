@@ -19,7 +19,7 @@ type SystemProfileSapSystemOut struct {
 	// The number of items on the current page
 	Count *int32 `json:"count,omitempty"`
 	// The list of sap_system values on the account
-	Results *[]InlineResponse2002Results `json:"results,omitempty"`
+	Results *[]SystemProfileSapSystemOutResults `json:"results,omitempty"`
 	// Total number of items
 	Total *int32 `json:"total,omitempty"`
 }
@@ -74,9 +74,9 @@ func (o *SystemProfileSapSystemOut) SetCount(v int32) {
 }
 
 // GetResults returns the Results field value if set, zero value otherwise.
-func (o *SystemProfileSapSystemOut) GetResults() []InlineResponse2002Results {
+func (o *SystemProfileSapSystemOut) GetResults() []SystemProfileSapSystemOutResults {
 	if o == nil || o.Results == nil {
-		var ret []InlineResponse2002Results
+		var ret []SystemProfileSapSystemOutResults
 		return ret
 	}
 	return *o.Results
@@ -84,7 +84,7 @@ func (o *SystemProfileSapSystemOut) GetResults() []InlineResponse2002Results {
 
 // GetResultsOk returns a tuple with the Results field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SystemProfileSapSystemOut) GetResultsOk() (*[]InlineResponse2002Results, bool) {
+func (o *SystemProfileSapSystemOut) GetResultsOk() (*[]SystemProfileSapSystemOutResults, bool) {
 	if o == nil || o.Results == nil {
 		return nil, false
 	}
@@ -100,8 +100,8 @@ func (o *SystemProfileSapSystemOut) HasResults() bool {
 	return false
 }
 
-// SetResults gets a reference to the given []InlineResponse2002Results and assigns it to the Results field.
-func (o *SystemProfileSapSystemOut) SetResults(v []InlineResponse2002Results) {
+// SetResults gets a reference to the given []SystemProfileSapSystemOutResults and assigns it to the Results field.
+func (o *SystemProfileSapSystemOut) SetResults(v []SystemProfileSapSystemOutResults) {
 	o.Results = &v
 }
 
