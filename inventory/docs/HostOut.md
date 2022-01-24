@@ -4,14 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Facts** | Pointer to **[]map[string]interface{}** | A set of facts belonging to the host. | [optional] 
 **BiosUuid** | Pointer to **NullableString** | A UUID of the host machine BIOS.  This field is considered to be a canonical fact. | [optional] 
-**ExternalId** | Pointer to **NullableString** | Host’s reference in the external source e.g. AWS EC2, Azure, OpenStack, etc. This field is considered to be a canonical fact. | [optional] 
 **Fqdn** | Pointer to **NullableString** | A host’s Fully Qualified Domain Name.  This field is considered to be a canonical fact. | [optional] 
 **InsightsId** | Pointer to **NullableString** | An ID defined in /etc/insights-client/machine-id. This field is considered a canonical fact. | [optional] 
 **IpAddresses** | Pointer to **[]string** | Host’s network IP addresses.  This field is considered to be a canonical fact. | [optional] 
 **MacAddresses** | Pointer to **[]string** | Host’s network interfaces MAC addresses.  This field is considered to be a canonical fact. | [optional] 
-**RhelMachineId** | Pointer to **NullableString** | A Machine ID of a RHEL host.  This field is considered to be a canonical fact. | [optional] 
+**ProviderId** | Pointer to **NullableString** | Host’s reference in the external source e.g. Alibaba, AWS EC2, Azure, GCP, IBM etc. This field is one of the canonical facts and does not work without provider_type. | [optional] 
+**ProviderType** | Pointer to **NullableString** | Type of external source e.g. Alibaba, AWS EC2, Azure, GCP, IBM, etc. This field is one of the canonical facts and does not workout provider_id. | [optional] 
 **SatelliteId** | Pointer to **NullableString** | A Red Hat Satellite ID of a RHEL host.  This field is considered to be a canonical fact. | [optional] 
 **SubscriptionManagerId** | Pointer to **NullableString** | A Red Hat Subcription Manager ID of a RHEL host.  This field is considered to be a canonical fact. | [optional] 
 **Account** | **string** | A Red Hat Account number that owns the host. | 
@@ -19,7 +18,9 @@ Name | Type | Description | Notes
 **Created** | Pointer to **string** | A timestamp when the entry was created. | [optional] 
 **CulledTimestamp** | Pointer to **NullableString** | Timestamp from which the host is considered deleted. | [optional] 
 **DisplayName** | Pointer to **NullableString** | A host’s human-readable display name, e.g. in a form of a domain name. | [optional] 
+**Facts** | Pointer to [**[]FactSet**](FactSet.md) | A set of facts belonging to the host. | [optional] 
 **Id** | Pointer to **string** | A durable and reliable platform-wide host identifier. Applications should use this identifier to reference hosts. | [optional] 
+**PerReporterStaleness** | Pointer to [**map[string]PerReporterStaleness**](PerReporterStaleness.md) | Reporting source of the last checkin status, stale_timestamp, and last_check_in. | [optional] 
 **Reporter** | Pointer to **NullableString** | Reporting source of the host. Used when updating the stale_timestamp. | [optional] 
 **StaleTimestamp** | Pointer to **NullableString** | Timestamp from which the host is considered stale. | [optional] 
 **StaleWarningTimestamp** | Pointer to **NullableString** | Timestamp from which the host is considered too stale to be listed without an explicit toggle. | [optional] 
@@ -43,31 +44,6 @@ will change when the set of required properties is changed
 NewHostOutWithDefaults instantiates a new HostOut object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetFacts
-
-`func (o *HostOut) GetFacts() []map[string]interface{}`
-
-GetFacts returns the Facts field if non-nil, zero value otherwise.
-
-### GetFactsOk
-
-`func (o *HostOut) GetFactsOk() (*[]map[string]interface{}, bool)`
-
-GetFactsOk returns a tuple with the Facts field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFacts
-
-`func (o *HostOut) SetFacts(v []map[string]interface{})`
-
-SetFacts sets Facts field to given value.
-
-### HasFacts
-
-`func (o *HostOut) HasFacts() bool`
-
-HasFacts returns a boolean if a field has been set.
 
 ### GetBiosUuid
 
@@ -104,41 +80,6 @@ HasBiosUuid returns a boolean if a field has been set.
 `func (o *HostOut) UnsetBiosUuid()`
 
 UnsetBiosUuid ensures that no value is present for BiosUuid, not even an explicit nil
-### GetExternalId
-
-`func (o *HostOut) GetExternalId() string`
-
-GetExternalId returns the ExternalId field if non-nil, zero value otherwise.
-
-### GetExternalIdOk
-
-`func (o *HostOut) GetExternalIdOk() (*string, bool)`
-
-GetExternalIdOk returns a tuple with the ExternalId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetExternalId
-
-`func (o *HostOut) SetExternalId(v string)`
-
-SetExternalId sets ExternalId field to given value.
-
-### HasExternalId
-
-`func (o *HostOut) HasExternalId() bool`
-
-HasExternalId returns a boolean if a field has been set.
-
-### SetExternalIdNil
-
-`func (o *HostOut) SetExternalIdNil(b bool)`
-
- SetExternalIdNil sets the value for ExternalId to be an explicit nil
-
-### UnsetExternalId
-`func (o *HostOut) UnsetExternalId()`
-
-UnsetExternalId ensures that no value is present for ExternalId, not even an explicit nil
 ### GetFqdn
 
 `func (o *HostOut) GetFqdn() string`
@@ -279,41 +220,76 @@ HasMacAddresses returns a boolean if a field has been set.
 `func (o *HostOut) UnsetMacAddresses()`
 
 UnsetMacAddresses ensures that no value is present for MacAddresses, not even an explicit nil
-### GetRhelMachineId
+### GetProviderId
 
-`func (o *HostOut) GetRhelMachineId() string`
+`func (o *HostOut) GetProviderId() string`
 
-GetRhelMachineId returns the RhelMachineId field if non-nil, zero value otherwise.
+GetProviderId returns the ProviderId field if non-nil, zero value otherwise.
 
-### GetRhelMachineIdOk
+### GetProviderIdOk
 
-`func (o *HostOut) GetRhelMachineIdOk() (*string, bool)`
+`func (o *HostOut) GetProviderIdOk() (*string, bool)`
 
-GetRhelMachineIdOk returns a tuple with the RhelMachineId field if it's non-nil, zero value otherwise
+GetProviderIdOk returns a tuple with the ProviderId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRhelMachineId
+### SetProviderId
 
-`func (o *HostOut) SetRhelMachineId(v string)`
+`func (o *HostOut) SetProviderId(v string)`
 
-SetRhelMachineId sets RhelMachineId field to given value.
+SetProviderId sets ProviderId field to given value.
 
-### HasRhelMachineId
+### HasProviderId
 
-`func (o *HostOut) HasRhelMachineId() bool`
+`func (o *HostOut) HasProviderId() bool`
 
-HasRhelMachineId returns a boolean if a field has been set.
+HasProviderId returns a boolean if a field has been set.
 
-### SetRhelMachineIdNil
+### SetProviderIdNil
 
-`func (o *HostOut) SetRhelMachineIdNil(b bool)`
+`func (o *HostOut) SetProviderIdNil(b bool)`
 
- SetRhelMachineIdNil sets the value for RhelMachineId to be an explicit nil
+ SetProviderIdNil sets the value for ProviderId to be an explicit nil
 
-### UnsetRhelMachineId
-`func (o *HostOut) UnsetRhelMachineId()`
+### UnsetProviderId
+`func (o *HostOut) UnsetProviderId()`
 
-UnsetRhelMachineId ensures that no value is present for RhelMachineId, not even an explicit nil
+UnsetProviderId ensures that no value is present for ProviderId, not even an explicit nil
+### GetProviderType
+
+`func (o *HostOut) GetProviderType() string`
+
+GetProviderType returns the ProviderType field if non-nil, zero value otherwise.
+
+### GetProviderTypeOk
+
+`func (o *HostOut) GetProviderTypeOk() (*string, bool)`
+
+GetProviderTypeOk returns a tuple with the ProviderType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProviderType
+
+`func (o *HostOut) SetProviderType(v string)`
+
+SetProviderType sets ProviderType field to given value.
+
+### HasProviderType
+
+`func (o *HostOut) HasProviderType() bool`
+
+HasProviderType returns a boolean if a field has been set.
+
+### SetProviderTypeNil
+
+`func (o *HostOut) SetProviderTypeNil(b bool)`
+
+ SetProviderTypeNil sets the value for ProviderType to be an explicit nil
+
+### UnsetProviderType
+`func (o *HostOut) UnsetProviderType()`
+
+UnsetProviderType ensures that no value is present for ProviderType, not even an explicit nil
 ### GetSatelliteId
 
 `func (o *HostOut) GetSatelliteId() string`
@@ -534,6 +510,31 @@ HasDisplayName returns a boolean if a field has been set.
 `func (o *HostOut) UnsetDisplayName()`
 
 UnsetDisplayName ensures that no value is present for DisplayName, not even an explicit nil
+### GetFacts
+
+`func (o *HostOut) GetFacts() []FactSet`
+
+GetFacts returns the Facts field if non-nil, zero value otherwise.
+
+### GetFactsOk
+
+`func (o *HostOut) GetFactsOk() (*[]FactSet, bool)`
+
+GetFactsOk returns a tuple with the Facts field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFacts
+
+`func (o *HostOut) SetFacts(v []FactSet)`
+
+SetFacts sets Facts field to given value.
+
+### HasFacts
+
+`func (o *HostOut) HasFacts() bool`
+
+HasFacts returns a boolean if a field has been set.
+
 ### GetId
 
 `func (o *HostOut) GetId() string`
@@ -558,6 +559,31 @@ SetId sets Id field to given value.
 `func (o *HostOut) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetPerReporterStaleness
+
+`func (o *HostOut) GetPerReporterStaleness() map[string]PerReporterStaleness`
+
+GetPerReporterStaleness returns the PerReporterStaleness field if non-nil, zero value otherwise.
+
+### GetPerReporterStalenessOk
+
+`func (o *HostOut) GetPerReporterStalenessOk() (*map[string]PerReporterStaleness, bool)`
+
+GetPerReporterStalenessOk returns a tuple with the PerReporterStaleness field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPerReporterStaleness
+
+`func (o *HostOut) SetPerReporterStaleness(v map[string]PerReporterStaleness)`
+
+SetPerReporterStaleness sets PerReporterStaleness field to given value.
+
+### HasPerReporterStaleness
+
+`func (o *HostOut) HasPerReporterStaleness() bool`
+
+HasPerReporterStaleness returns a boolean if a field has been set.
 
 ### GetReporter
 

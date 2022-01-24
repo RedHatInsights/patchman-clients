@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CheckinFrequency** | Pointer to **int32** | How long from now to expect another check-in (in minutes). | [optional] 
 **BiosUuid** | **string** |  | 
-**ExternalId** | **string** |  | 
 **Fqdn** | **string** |  | 
 **InsightsId** | **string** |  | 
 **IpAddresses** | **[]string** |  | 
 **MacAddresses** | **[]string** |  | 
-**RhelMachineId** | **string** |  | 
+**ProviderId** | **string** |  | 
+**ProviderType** | **string** |  | 
 **SatelliteId** | **string** |  | 
 **SubscriptionManagerId** | **string** |  | 
+**CheckinFrequency** | Pointer to **int32** | How long from now to expect another check-in (in minutes). | [optional] 
 
 ## Methods
 
 ### NewCreateCheckIn
 
-`func NewCreateCheckIn(biosUuid string, externalId string, fqdn string, insightsId string, ipAddresses []string, macAddresses []string, rhelMachineId string, satelliteId string, subscriptionManagerId string, ) *CreateCheckIn`
+`func NewCreateCheckIn(biosUuid string, fqdn string, insightsId string, ipAddresses []string, macAddresses []string, providerId string, providerType string, satelliteId string, subscriptionManagerId string, ) *CreateCheckIn`
 
 NewCreateCheckIn instantiates a new CreateCheckIn object
 This constructor will assign default values to properties that have it defined,
@@ -33,31 +33,6 @@ will change when the set of required properties is changed
 NewCreateCheckInWithDefaults instantiates a new CreateCheckIn object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetCheckinFrequency
-
-`func (o *CreateCheckIn) GetCheckinFrequency() int32`
-
-GetCheckinFrequency returns the CheckinFrequency field if non-nil, zero value otherwise.
-
-### GetCheckinFrequencyOk
-
-`func (o *CreateCheckIn) GetCheckinFrequencyOk() (*int32, bool)`
-
-GetCheckinFrequencyOk returns a tuple with the CheckinFrequency field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCheckinFrequency
-
-`func (o *CreateCheckIn) SetCheckinFrequency(v int32)`
-
-SetCheckinFrequency sets CheckinFrequency field to given value.
-
-### HasCheckinFrequency
-
-`func (o *CreateCheckIn) HasCheckinFrequency() bool`
-
-HasCheckinFrequency returns a boolean if a field has been set.
 
 ### GetBiosUuid
 
@@ -77,26 +52,6 @@ and a boolean to check if the value has been set.
 `func (o *CreateCheckIn) SetBiosUuid(v string)`
 
 SetBiosUuid sets BiosUuid field to given value.
-
-
-### GetExternalId
-
-`func (o *CreateCheckIn) GetExternalId() string`
-
-GetExternalId returns the ExternalId field if non-nil, zero value otherwise.
-
-### GetExternalIdOk
-
-`func (o *CreateCheckIn) GetExternalIdOk() (*string, bool)`
-
-GetExternalIdOk returns a tuple with the ExternalId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetExternalId
-
-`func (o *CreateCheckIn) SetExternalId(v string)`
-
-SetExternalId sets ExternalId field to given value.
 
 
 ### GetFqdn
@@ -179,24 +134,44 @@ and a boolean to check if the value has been set.
 SetMacAddresses sets MacAddresses field to given value.
 
 
-### GetRhelMachineId
+### GetProviderId
 
-`func (o *CreateCheckIn) GetRhelMachineId() string`
+`func (o *CreateCheckIn) GetProviderId() string`
 
-GetRhelMachineId returns the RhelMachineId field if non-nil, zero value otherwise.
+GetProviderId returns the ProviderId field if non-nil, zero value otherwise.
 
-### GetRhelMachineIdOk
+### GetProviderIdOk
 
-`func (o *CreateCheckIn) GetRhelMachineIdOk() (*string, bool)`
+`func (o *CreateCheckIn) GetProviderIdOk() (*string, bool)`
 
-GetRhelMachineIdOk returns a tuple with the RhelMachineId field if it's non-nil, zero value otherwise
+GetProviderIdOk returns a tuple with the ProviderId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRhelMachineId
+### SetProviderId
 
-`func (o *CreateCheckIn) SetRhelMachineId(v string)`
+`func (o *CreateCheckIn) SetProviderId(v string)`
 
-SetRhelMachineId sets RhelMachineId field to given value.
+SetProviderId sets ProviderId field to given value.
+
+
+### GetProviderType
+
+`func (o *CreateCheckIn) GetProviderType() string`
+
+GetProviderType returns the ProviderType field if non-nil, zero value otherwise.
+
+### GetProviderTypeOk
+
+`func (o *CreateCheckIn) GetProviderTypeOk() (*string, bool)`
+
+GetProviderTypeOk returns a tuple with the ProviderType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProviderType
+
+`func (o *CreateCheckIn) SetProviderType(v string)`
+
+SetProviderType sets ProviderType field to given value.
 
 
 ### GetSatelliteId
@@ -238,6 +213,31 @@ and a boolean to check if the value has been set.
 
 SetSubscriptionManagerId sets SubscriptionManagerId field to given value.
 
+
+### GetCheckinFrequency
+
+`func (o *CreateCheckIn) GetCheckinFrequency() int32`
+
+GetCheckinFrequency returns the CheckinFrequency field if non-nil, zero value otherwise.
+
+### GetCheckinFrequencyOk
+
+`func (o *CreateCheckIn) GetCheckinFrequencyOk() (*int32, bool)`
+
+GetCheckinFrequencyOk returns a tuple with the CheckinFrequency field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCheckinFrequency
+
+`func (o *CreateCheckIn) SetCheckinFrequency(v int32)`
+
+SetCheckinFrequency sets CheckinFrequency field to given value.
+
+### HasCheckinFrequency
+
+`func (o *CreateCheckIn) HasCheckinFrequency() bool`
+
+HasCheckinFrequency returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
-**SystemProfile** | Pointer to [**SystemProfileSpecYamlSystemProfile**](system_profile.spec.yaml_SystemProfile.md) |  | [optional] 
+**SystemProfile** | Pointer to [**SystemProfile**](SystemProfile.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetSystemProfile
 
-`func (o *HostSystemProfileOut) GetSystemProfile() SystemProfileSpecYamlSystemProfile`
+`func (o *HostSystemProfileOut) GetSystemProfile() SystemProfile`
 
 GetSystemProfile returns the SystemProfile field if non-nil, zero value otherwise.
 
 ### GetSystemProfileOk
 
-`func (o *HostSystemProfileOut) GetSystemProfileOk() (*SystemProfileSpecYamlSystemProfile, bool)`
+`func (o *HostSystemProfileOut) GetSystemProfileOk() (*SystemProfile, bool)`
 
 GetSystemProfileOk returns a tuple with the SystemProfile field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSystemProfile
 
-`func (o *HostSystemProfileOut) SetSystemProfile(v SystemProfileSpecYamlSystemProfile)`
+`func (o *HostSystemProfileOut) SetSystemProfile(v SystemProfile)`
 
 SetSystemProfile sets SystemProfile field to given value.
 

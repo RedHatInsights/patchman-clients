@@ -9,8 +9,9 @@ Name | Type | Description | Notes
 **Created** | Pointer to **string** | A timestamp when the entry was created. | [optional] 
 **CulledTimestamp** | Pointer to **NullableString** | Timestamp from which the host is considered deleted. | [optional] 
 **DisplayName** | Pointer to **NullableString** | A host’s human-readable display name, e.g. in a form of a domain name. | [optional] 
-**Facts** | Pointer to **[]map[string]interface{}** | A set of facts belonging to the host. | [optional] 
+**Facts** | Pointer to [**[]FactSet**](FactSet.md) | A set of facts belonging to the host. | [optional] 
 **Id** | Pointer to **string** | A durable and reliable platform-wide host identifier. Applications should use this identifier to reference hosts. | [optional] 
+**PerReporterStaleness** | Pointer to [**map[string]PerReporterStaleness**](PerReporterStaleness.md) | Reporting source of the last checkin status, stale_timestamp, and last_check_in. | [optional] 
 **Reporter** | Pointer to **NullableString** | Reporting source of the host. Used when updating the stale_timestamp. | [optional] 
 **StaleTimestamp** | Pointer to **NullableString** | Timestamp from which the host is considered stale. | [optional] 
 **StaleWarningTimestamp** | Pointer to **NullableString** | Timestamp from which the host is considered too stale to be listed without an explicit toggle. | [optional] 
@@ -187,20 +188,20 @@ HasDisplayName returns a boolean if a field has been set.
 UnsetDisplayName ensures that no value is present for DisplayName, not even an explicit nil
 ### GetFacts
 
-`func (o *CreateHostOutAllOf) GetFacts() []map[string]interface{}`
+`func (o *CreateHostOutAllOf) GetFacts() []FactSet`
 
 GetFacts returns the Facts field if non-nil, zero value otherwise.
 
 ### GetFactsOk
 
-`func (o *CreateHostOutAllOf) GetFactsOk() (*[]map[string]interface{}, bool)`
+`func (o *CreateHostOutAllOf) GetFactsOk() (*[]FactSet, bool)`
 
 GetFactsOk returns a tuple with the Facts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFacts
 
-`func (o *CreateHostOutAllOf) SetFacts(v []map[string]interface{})`
+`func (o *CreateHostOutAllOf) SetFacts(v []FactSet)`
 
 SetFacts sets Facts field to given value.
 
@@ -234,6 +235,31 @@ SetId sets Id field to given value.
 `func (o *CreateHostOutAllOf) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetPerReporterStaleness
+
+`func (o *CreateHostOutAllOf) GetPerReporterStaleness() map[string]PerReporterStaleness`
+
+GetPerReporterStaleness returns the PerReporterStaleness field if non-nil, zero value otherwise.
+
+### GetPerReporterStalenessOk
+
+`func (o *CreateHostOutAllOf) GetPerReporterStalenessOk() (*map[string]PerReporterStaleness, bool)`
+
+GetPerReporterStalenessOk returns a tuple with the PerReporterStaleness field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPerReporterStaleness
+
+`func (o *CreateHostOutAllOf) SetPerReporterStaleness(v map[string]PerReporterStaleness)`
+
+SetPerReporterStaleness sets PerReporterStaleness field to given value.
+
+### HasPerReporterStaleness
+
+`func (o *CreateHostOutAllOf) HasPerReporterStaleness() bool`
+
+HasPerReporterStaleness returns a boolean if a field has been set.
 
 ### GetReporter
 

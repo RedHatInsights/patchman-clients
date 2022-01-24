@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Count** | **int32** | A number of entries on the current page. | 
-**Page** | **int32** | A current page number. | 
-**PerPage** | **int32** | A page size – a number of entries per single page. | 
-**Results** | **[]map[string]interface{}** | Actual host search query result entries. | 
-**Total** | **int32** | A total count of the found entries. | 
+**Count** | **int32** | The number of items on the current page | 
+**Page** | **int32** | The page number | 
+**PerPage** | **int32** | The number of items to return per page | 
+**Total** | **int32** | Total number of items | 
+**Results** | [**[]HostOut**](HostOut.md) | Actual host search query result entries. | 
 
 ## Methods
 
 ### NewHostQueryOutput
 
-`func NewHostQueryOutput(count int32, page int32, perPage int32, results []map[string]interface{}, total int32, ) *HostQueryOutput`
+`func NewHostQueryOutput(count int32, page int32, perPage int32, total int32, results []HostOut, ) *HostQueryOutput`
 
 NewHostQueryOutput instantiates a new HostQueryOutput object
 This constructor will assign default values to properties that have it defined,
@@ -89,26 +89,6 @@ and a boolean to check if the value has been set.
 SetPerPage sets PerPage field to given value.
 
 
-### GetResults
-
-`func (o *HostQueryOutput) GetResults() []map[string]interface{}`
-
-GetResults returns the Results field if non-nil, zero value otherwise.
-
-### GetResultsOk
-
-`func (o *HostQueryOutput) GetResultsOk() (*[]map[string]interface{}, bool)`
-
-GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResults
-
-`func (o *HostQueryOutput) SetResults(v []map[string]interface{})`
-
-SetResults sets Results field to given value.
-
-
 ### GetTotal
 
 `func (o *HostQueryOutput) GetTotal() int32`
@@ -127,6 +107,26 @@ and a boolean to check if the value has been set.
 `func (o *HostQueryOutput) SetTotal(v int32)`
 
 SetTotal sets Total field to given value.
+
+
+### GetResults
+
+`func (o *HostQueryOutput) GetResults() []HostOut`
+
+GetResults returns the Results field if non-nil, zero value otherwise.
+
+### GetResultsOk
+
+`func (o *HostQueryOutput) GetResultsOk() (*[]HostOut, bool)`
+
+GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResults
+
+`func (o *HostQueryOutput) SetResults(v []HostOut)`
+
+SetResults sets Results field to given value.
 
 
 

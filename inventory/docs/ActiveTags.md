@@ -7,14 +7,14 @@ Name | Type | Description | Notes
 **Count** | **int32** | The number of items on the current page | 
 **Page** | **int32** | The page number | 
 **PerPage** | **int32** | The number of items to return per page | 
-**Results** | [**[]ActiveTag**](ActiveTag.md) |  | 
 **Total** | **int32** | Total number of items | 
+**Results** | [**[]ActiveTag**](ActiveTag.md) |  | 
 
 ## Methods
 
 ### NewActiveTags
 
-`func NewActiveTags(count int32, page int32, perPage int32, results []ActiveTag, total int32, ) *ActiveTags`
+`func NewActiveTags(count int32, page int32, perPage int32, total int32, results []ActiveTag, ) *ActiveTags`
 
 NewActiveTags instantiates a new ActiveTags object
 This constructor will assign default values to properties that have it defined,
@@ -89,26 +89,6 @@ and a boolean to check if the value has been set.
 SetPerPage sets PerPage field to given value.
 
 
-### GetResults
-
-`func (o *ActiveTags) GetResults() []ActiveTag`
-
-GetResults returns the Results field if non-nil, zero value otherwise.
-
-### GetResultsOk
-
-`func (o *ActiveTags) GetResultsOk() (*[]ActiveTag, bool)`
-
-GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResults
-
-`func (o *ActiveTags) SetResults(v []ActiveTag)`
-
-SetResults sets Results field to given value.
-
-
 ### GetTotal
 
 `func (o *ActiveTags) GetTotal() int32`
@@ -127,6 +107,26 @@ and a boolean to check if the value has been set.
 `func (o *ActiveTags) SetTotal(v int32)`
 
 SetTotal sets Total field to given value.
+
+
+### GetResults
+
+`func (o *ActiveTags) GetResults() []ActiveTag`
+
+GetResults returns the Results field if non-nil, zero value otherwise.
+
+### GetResultsOk
+
+`func (o *ActiveTags) GetResultsOk() (*[]ActiveTag, bool)`
+
+GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResults
+
+`func (o *ActiveTags) SetResults(v []ActiveTag)`
+
+SetResults sets Results field to given value.
 
 
 

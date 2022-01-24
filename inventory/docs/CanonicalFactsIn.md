@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BiosUuid** | **string** |  | 
-**ExternalId** | **string** |  | 
 **Fqdn** | **string** |  | 
 **InsightsId** | **string** |  | 
 **IpAddresses** | **[]string** |  | 
 **MacAddresses** | **[]string** |  | 
-**RhelMachineId** | **string** |  | 
+**ProviderId** | **string** |  | 
+**ProviderType** | **string** |  | 
 **SatelliteId** | **string** |  | 
 **SubscriptionManagerId** | **string** |  | 
 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewCanonicalFactsIn
 
-`func NewCanonicalFactsIn(biosUuid string, externalId string, fqdn string, insightsId string, ipAddresses []string, macAddresses []string, rhelMachineId string, satelliteId string, subscriptionManagerId string, ) *CanonicalFactsIn`
+`func NewCanonicalFactsIn(biosUuid string, fqdn string, insightsId string, ipAddresses []string, macAddresses []string, providerId string, providerType string, satelliteId string, subscriptionManagerId string, ) *CanonicalFactsIn`
 
 NewCanonicalFactsIn instantiates a new CanonicalFactsIn object
 This constructor will assign default values to properties that have it defined,
@@ -51,26 +51,6 @@ and a boolean to check if the value has been set.
 `func (o *CanonicalFactsIn) SetBiosUuid(v string)`
 
 SetBiosUuid sets BiosUuid field to given value.
-
-
-### GetExternalId
-
-`func (o *CanonicalFactsIn) GetExternalId() string`
-
-GetExternalId returns the ExternalId field if non-nil, zero value otherwise.
-
-### GetExternalIdOk
-
-`func (o *CanonicalFactsIn) GetExternalIdOk() (*string, bool)`
-
-GetExternalIdOk returns a tuple with the ExternalId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetExternalId
-
-`func (o *CanonicalFactsIn) SetExternalId(v string)`
-
-SetExternalId sets ExternalId field to given value.
 
 
 ### GetFqdn
@@ -153,24 +133,44 @@ and a boolean to check if the value has been set.
 SetMacAddresses sets MacAddresses field to given value.
 
 
-### GetRhelMachineId
+### GetProviderId
 
-`func (o *CanonicalFactsIn) GetRhelMachineId() string`
+`func (o *CanonicalFactsIn) GetProviderId() string`
 
-GetRhelMachineId returns the RhelMachineId field if non-nil, zero value otherwise.
+GetProviderId returns the ProviderId field if non-nil, zero value otherwise.
 
-### GetRhelMachineIdOk
+### GetProviderIdOk
 
-`func (o *CanonicalFactsIn) GetRhelMachineIdOk() (*string, bool)`
+`func (o *CanonicalFactsIn) GetProviderIdOk() (*string, bool)`
 
-GetRhelMachineIdOk returns a tuple with the RhelMachineId field if it's non-nil, zero value otherwise
+GetProviderIdOk returns a tuple with the ProviderId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRhelMachineId
+### SetProviderId
 
-`func (o *CanonicalFactsIn) SetRhelMachineId(v string)`
+`func (o *CanonicalFactsIn) SetProviderId(v string)`
 
-SetRhelMachineId sets RhelMachineId field to given value.
+SetProviderId sets ProviderId field to given value.
+
+
+### GetProviderType
+
+`func (o *CanonicalFactsIn) GetProviderType() string`
+
+GetProviderType returns the ProviderType field if non-nil, zero value otherwise.
+
+### GetProviderTypeOk
+
+`func (o *CanonicalFactsIn) GetProviderTypeOk() (*string, bool)`
+
+GetProviderTypeOk returns a tuple with the ProviderType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProviderType
+
+`func (o *CanonicalFactsIn) SetProviderType(v string)`
+
+SetProviderType sets ProviderType field to given value.
 
 
 ### GetSatelliteId

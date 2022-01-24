@@ -16,29 +16,29 @@ import (
 
 // SystemProfileByHostOut Structure of the output of the host system profile query
 type SystemProfileByHostOut struct {
-	// A number of entries on the current page.
+	// The number of items on the current page
 	Count int32 `json:"count"`
-	// A current page number.
+	// The page number
 	Page int32 `json:"page"`
-	// A page size – a number of entries per single page.
+	// The number of items to return per page
 	PerPage int32 `json:"per_page"`
-	// Actual host search query result entries.
-	Results []map[string]interface{} `json:"results"`
-	// A total count of the found entries.
+	// Total number of items
 	Total int32 `json:"total"`
+	// Actual host search query result entries.
+	Results []HostSystemProfileOut `json:"results"`
 }
 
 // NewSystemProfileByHostOut instantiates a new SystemProfileByHostOut object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSystemProfileByHostOut(count int32, page int32, perPage int32, results []map[string]interface{}, total int32, ) *SystemProfileByHostOut {
+func NewSystemProfileByHostOut(count int32, page int32, perPage int32, total int32, results []HostSystemProfileOut, ) *SystemProfileByHostOut {
 	this := SystemProfileByHostOut{}
 	this.Count = count
 	this.Page = page
 	this.PerPage = perPage
-	this.Results = results
 	this.Total = total
+	this.Results = results
 	return &this
 }
 
@@ -122,30 +122,6 @@ func (o *SystemProfileByHostOut) SetPerPage(v int32) {
 	o.PerPage = v
 }
 
-// GetResults returns the Results field value
-func (o *SystemProfileByHostOut) GetResults() []map[string]interface{} {
-	if o == nil  {
-		var ret []map[string]interface{}
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *SystemProfileByHostOut) GetResultsOk() (*[]map[string]interface{}, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Results, true
-}
-
-// SetResults sets field value
-func (o *SystemProfileByHostOut) SetResults(v []map[string]interface{}) {
-	o.Results = v
-}
-
 // GetTotal returns the Total field value
 func (o *SystemProfileByHostOut) GetTotal() int32 {
 	if o == nil  {
@@ -170,6 +146,30 @@ func (o *SystemProfileByHostOut) SetTotal(v int32) {
 	o.Total = v
 }
 
+// GetResults returns the Results field value
+func (o *SystemProfileByHostOut) GetResults() []HostSystemProfileOut {
+	if o == nil  {
+		var ret []HostSystemProfileOut
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *SystemProfileByHostOut) GetResultsOk() (*[]HostSystemProfileOut, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Results, true
+}
+
+// SetResults sets field value
+func (o *SystemProfileByHostOut) SetResults(v []HostSystemProfileOut) {
+	o.Results = v
+}
+
 func (o SystemProfileByHostOut) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -182,10 +182,10 @@ func (o SystemProfileByHostOut) MarshalJSON() ([]byte, error) {
 		toSerialize["per_page"] = o.PerPage
 	}
 	if true {
-		toSerialize["results"] = o.Results
+		toSerialize["total"] = o.Total
 	}
 	if true {
-		toSerialize["total"] = o.Total
+		toSerialize["results"] = o.Results
 	}
 	return json.Marshal(toSerialize)
 }

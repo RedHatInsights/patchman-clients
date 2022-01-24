@@ -36,7 +36,7 @@ type ApiApiSystemProfileGetSapSidsRequest struct {
 	page *int32
 	staleness *[]string
 	registeredWith *string
-	filter *map[string]interface{}
+	filter *map[string]map[string]interface{}
 }
 
 func (r ApiApiSystemProfileGetSapSidsRequest) Search(search string) ApiApiSystemProfileGetSapSidsRequest {
@@ -63,12 +63,12 @@ func (r ApiApiSystemProfileGetSapSidsRequest) RegisteredWith(registeredWith stri
 	r.registeredWith = &registeredWith
 	return r
 }
-func (r ApiApiSystemProfileGetSapSidsRequest) Filter(filter map[string]interface{}) ApiApiSystemProfileGetSapSidsRequest {
+func (r ApiApiSystemProfileGetSapSidsRequest) Filter(filter map[string]map[string]interface{}) ApiApiSystemProfileGetSapSidsRequest {
 	r.filter = &filter
 	return r
 }
 
-func (r ApiApiSystemProfileGetSapSidsRequest) Execute() (InlineResponse2002, *_nethttp.Response, error) {
+func (r ApiApiSystemProfileGetSapSidsRequest) Execute() (SystemProfileSapSystemOut, *_nethttp.Response, error) {
 	return r.ApiService.ApiSystemProfileGetSapSidsExecute(r)
 }
 
@@ -87,16 +87,16 @@ func (a *SapSystemApiService) ApiSystemProfileGetSapSids(ctx _context.Context) A
 
 /*
  * Execute executes the request
- * @return InlineResponse2002
+ * @return SystemProfileSapSystemOut
  */
-func (a *SapSystemApiService) ApiSystemProfileGetSapSidsExecute(r ApiApiSystemProfileGetSapSidsRequest) (InlineResponse2002, *_nethttp.Response, error) {
+func (a *SapSystemApiService) ApiSystemProfileGetSapSidsExecute(r ApiApiSystemProfileGetSapSidsRequest) (SystemProfileSapSystemOut, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse2002
+		localVarReturnValue  SystemProfileSapSystemOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SapSystemApiService.ApiSystemProfileGetSapSids")
@@ -223,7 +223,7 @@ type ApiApiSystemProfileGetSapSystemRequest struct {
 	page *int32
 	staleness *[]string
 	registeredWith *string
-	filter *map[string]interface{}
+	filter *map[string]map[string]interface{}
 }
 
 func (r ApiApiSystemProfileGetSapSystemRequest) Tags(tags []string) ApiApiSystemProfileGetSapSystemRequest {
@@ -246,12 +246,12 @@ func (r ApiApiSystemProfileGetSapSystemRequest) RegisteredWith(registeredWith st
 	r.registeredWith = &registeredWith
 	return r
 }
-func (r ApiApiSystemProfileGetSapSystemRequest) Filter(filter map[string]interface{}) ApiApiSystemProfileGetSapSystemRequest {
+func (r ApiApiSystemProfileGetSapSystemRequest) Filter(filter map[string]map[string]interface{}) ApiApiSystemProfileGetSapSystemRequest {
 	r.filter = &filter
 	return r
 }
 
-func (r ApiApiSystemProfileGetSapSystemRequest) Execute() (InlineResponse2002, *_nethttp.Response, error) {
+func (r ApiApiSystemProfileGetSapSystemRequest) Execute() (SystemProfileSapSystemOut, *_nethttp.Response, error) {
 	return r.ApiService.ApiSystemProfileGetSapSystemExecute(r)
 }
 
@@ -270,16 +270,16 @@ func (a *SapSystemApiService) ApiSystemProfileGetSapSystem(ctx _context.Context)
 
 /*
  * Execute executes the request
- * @return InlineResponse2002
+ * @return SystemProfileSapSystemOut
  */
-func (a *SapSystemApiService) ApiSystemProfileGetSapSystemExecute(r ApiApiSystemProfileGetSapSystemRequest) (InlineResponse2002, *_nethttp.Response, error) {
+func (a *SapSystemApiService) ApiSystemProfileGetSapSystemExecute(r ApiApiSystemProfileGetSapSystemRequest) (SystemProfileSapSystemOut, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse2002
+		localVarReturnValue  SystemProfileSapSystemOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SapSystemApiService.ApiSystemProfileGetSapSystem")

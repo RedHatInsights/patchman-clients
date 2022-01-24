@@ -16,24 +16,28 @@ import (
 
 // TagsOut struct for TagsOut
 type TagsOut struct {
-	// A number of entries on the current page.
-	Count *int32 `json:"count,omitempty"`
-	// A current page number.
-	Page *int32 `json:"page,omitempty"`
-	// A page size – a number of entries per single page.
-	PerPage *int32 `json:"per_page,omitempty"`
+	// The number of items on the current page
+	Count int32 `json:"count"`
+	// The page number
+	Page int32 `json:"page"`
+	// The number of items to return per page
+	PerPage int32 `json:"per_page"`
+	// Total number of items
+	Total int32 `json:"total"`
 	// The list of tags on the systems
-	Results *map[string][]map[string]interface{} `json:"results,omitempty"`
-	// Total number of items in the \"data\" list.
-	Total *int32 `json:"total,omitempty"`
+	Results *map[string][]StructuredTag `json:"results,omitempty"`
 }
 
 // NewTagsOut instantiates a new TagsOut object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTagsOut() *TagsOut {
+func NewTagsOut(count int32, page int32, perPage int32, total int32, ) *TagsOut {
 	this := TagsOut{}
+	this.Count = count
+	this.Page = page
+	this.PerPage = perPage
+	this.Total = total
 	return &this
 }
 
@@ -45,106 +49,106 @@ func NewTagsOutWithDefaults() *TagsOut {
 	return &this
 }
 
-// GetCount returns the Count field value if set, zero value otherwise.
+// GetCount returns the Count field value
 func (o *TagsOut) GetCount() int32 {
-	if o == nil || o.Count == nil {
+	if o == nil  {
 		var ret int32
 		return ret
 	}
-	return *o.Count
+
+	return o.Count
 }
 
-// GetCountOk returns a tuple with the Count field value if set, nil otherwise
+// GetCountOk returns a tuple with the Count field value
 // and a boolean to check if the value has been set.
 func (o *TagsOut) GetCountOk() (*int32, bool) {
-	if o == nil || o.Count == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Count, true
+	return &o.Count, true
 }
 
-// HasCount returns a boolean if a field has been set.
-func (o *TagsOut) HasCount() bool {
-	if o != nil && o.Count != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
+// SetCount sets field value
 func (o *TagsOut) SetCount(v int32) {
-	o.Count = &v
+	o.Count = v
 }
 
-// GetPage returns the Page field value if set, zero value otherwise.
+// GetPage returns the Page field value
 func (o *TagsOut) GetPage() int32 {
-	if o == nil || o.Page == nil {
+	if o == nil  {
 		var ret int32
 		return ret
 	}
-	return *o.Page
+
+	return o.Page
 }
 
-// GetPageOk returns a tuple with the Page field value if set, nil otherwise
+// GetPageOk returns a tuple with the Page field value
 // and a boolean to check if the value has been set.
 func (o *TagsOut) GetPageOk() (*int32, bool) {
-	if o == nil || o.Page == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Page, true
+	return &o.Page, true
 }
 
-// HasPage returns a boolean if a field has been set.
-func (o *TagsOut) HasPage() bool {
-	if o != nil && o.Page != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPage gets a reference to the given int32 and assigns it to the Page field.
+// SetPage sets field value
 func (o *TagsOut) SetPage(v int32) {
-	o.Page = &v
+	o.Page = v
 }
 
-// GetPerPage returns the PerPage field value if set, zero value otherwise.
+// GetPerPage returns the PerPage field value
 func (o *TagsOut) GetPerPage() int32 {
-	if o == nil || o.PerPage == nil {
+	if o == nil  {
 		var ret int32
 		return ret
 	}
-	return *o.PerPage
+
+	return o.PerPage
 }
 
-// GetPerPageOk returns a tuple with the PerPage field value if set, nil otherwise
+// GetPerPageOk returns a tuple with the PerPage field value
 // and a boolean to check if the value has been set.
 func (o *TagsOut) GetPerPageOk() (*int32, bool) {
-	if o == nil || o.PerPage == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.PerPage, true
+	return &o.PerPage, true
 }
 
-// HasPerPage returns a boolean if a field has been set.
-func (o *TagsOut) HasPerPage() bool {
-	if o != nil && o.PerPage != nil {
-		return true
+// SetPerPage sets field value
+func (o *TagsOut) SetPerPage(v int32) {
+	o.PerPage = v
+}
+
+// GetTotal returns the Total field value
+func (o *TagsOut) GetTotal() int32 {
+	if o == nil  {
+		var ret int32
+		return ret
 	}
 
-	return false
+	return o.Total
 }
 
-// SetPerPage gets a reference to the given int32 and assigns it to the PerPage field.
-func (o *TagsOut) SetPerPage(v int32) {
-	o.PerPage = &v
+// GetTotalOk returns a tuple with the Total field value
+// and a boolean to check if the value has been set.
+func (o *TagsOut) GetTotalOk() (*int32, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Total, true
+}
+
+// SetTotal sets field value
+func (o *TagsOut) SetTotal(v int32) {
+	o.Total = v
 }
 
 // GetResults returns the Results field value if set, zero value otherwise.
-func (o *TagsOut) GetResults() map[string][]map[string]interface{} {
+func (o *TagsOut) GetResults() map[string][]StructuredTag {
 	if o == nil || o.Results == nil {
-		var ret map[string][]map[string]interface{}
+		var ret map[string][]StructuredTag
 		return ret
 	}
 	return *o.Results
@@ -152,7 +156,7 @@ func (o *TagsOut) GetResults() map[string][]map[string]interface{} {
 
 // GetResultsOk returns a tuple with the Results field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TagsOut) GetResultsOk() (*map[string][]map[string]interface{}, bool) {
+func (o *TagsOut) GetResultsOk() (*map[string][]StructuredTag, bool) {
 	if o == nil || o.Results == nil {
 		return nil, false
 	}
@@ -168,59 +172,27 @@ func (o *TagsOut) HasResults() bool {
 	return false
 }
 
-// SetResults gets a reference to the given map[string][]map[string]interface{} and assigns it to the Results field.
-func (o *TagsOut) SetResults(v map[string][]map[string]interface{}) {
+// SetResults gets a reference to the given map[string][]StructuredTag and assigns it to the Results field.
+func (o *TagsOut) SetResults(v map[string][]StructuredTag) {
 	o.Results = &v
-}
-
-// GetTotal returns the Total field value if set, zero value otherwise.
-func (o *TagsOut) GetTotal() int32 {
-	if o == nil || o.Total == nil {
-		var ret int32
-		return ret
-	}
-	return *o.Total
-}
-
-// GetTotalOk returns a tuple with the Total field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TagsOut) GetTotalOk() (*int32, bool) {
-	if o == nil || o.Total == nil {
-		return nil, false
-	}
-	return o.Total, true
-}
-
-// HasTotal returns a boolean if a field has been set.
-func (o *TagsOut) HasTotal() bool {
-	if o != nil && o.Total != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *TagsOut) SetTotal(v int32) {
-	o.Total = &v
 }
 
 func (o TagsOut) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Count != nil {
+	if true {
 		toSerialize["count"] = o.Count
 	}
-	if o.Page != nil {
+	if true {
 		toSerialize["page"] = o.Page
 	}
-	if o.PerPage != nil {
+	if true {
 		toSerialize["per_page"] = o.PerPage
+	}
+	if true {
+		toSerialize["total"] = o.Total
 	}
 	if o.Results != nil {
 		toSerialize["results"] = o.Results
-	}
-	if o.Total != nil {
-		toSerialize["total"] = o.Total
 	}
 	return json.Marshal(toSerialize)
 }

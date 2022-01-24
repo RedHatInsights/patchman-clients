@@ -7,12 +7,12 @@ servers:
 - url: /api/inventory/v1
 paths:
   /hosts:
-    get:
-      description: 'Read the entire list of all hosts available to the account. <br
-        /><br /> Required permissions: inventory:hosts:read'
-      operationId: api.host.get_host_list
+    delete:
+      description: 'Delete the entire list of hosts filtered by the given parameters.
+        <br /><br /> Required permissions: inventory:hosts:write'
+      operationId: api.host.delete_host_list
       parameters:
-      - description: A part of a searched host’s display name.
+      - description: Filter by display_name
         explode: true
         in: query
         name: display_name
@@ -20,7 +20,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: Filter by a host's FQDN
+      - description: Filter by FQDN
         explode: true
         in: query
         name: fqdn
@@ -28,7 +28,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: Search for a host by display_name, fqdn, id
+      - description: Filter by display_name, fqdn, id
         explode: true
         in: query
         name: hostname_or_id
@@ -36,13 +36,153 @@ paths:
         schema:
           type: string
         style: form
-      - description: Search for a host by insights_id
+      - description: Filter by insights_id
         explode: true
         in: query
         name: insights_id
         required: false
         schema:
           format: uuid
+          type: string
+        style: form
+      - description: Filter by provider_id
+        explode: true
+        in: query
+        name: provider_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by provider_type
+        explode: true
+        in: query
+        name: provider_type
+        required: false
+        schema:
+          enum:
+          - alibaba
+          - aws
+          - azure
+          - gcp
+          - ibm
+          type: string
+        style: form
+      - description: Filters out any host not registered with the specified service
+        explode: true
+        in: query
+        name: registered_with
+        required: false
+        schema:
+          enum:
+          - insights
+          type: string
+        style: form
+      - description: 'Culling states of the hosts. Default: fresh,stale,unknown'
+        explode: true
+        in: query
+        name: staleness
+        required: false
+        schema:
+          default:
+          - fresh
+          - stale
+          - unknown
+          items:
+            enum:
+            - fresh
+            - stale
+            - stale_warning
+            - unknown
+            type: string
+          type: array
+        style: form
+      - description: filters out hosts not tagged by the given tags
+        explode: true
+        in: query
+        name: tags
+        required: false
+        schema:
+          items:
+            pattern: ^([^=/]+/)?[^=/]+(=[^=/]+)?$
+            type: string
+          type: array
+        style: form
+      - description: Filters hosts based on system_profile fields
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          $ref: '#/components/schemas/SystemProfileNestedObject'
+        style: deepObject
+      responses:
+        "202":
+          description: Request for deletion of filtered hosts has been accepted.
+        "400":
+          description: Invalid request.
+      security:
+      - ApiKeyAuth: []
+      summary: Delete the entire list of hosts filtered by the given parameters
+      tags:
+      - hosts
+    get:
+      description: 'Read the entire list of all hosts available to the account. <br
+        /><br /> Required permissions: inventory:hosts:read'
+      operationId: api.host.get_host_list
+      parameters:
+      - description: Filter by display_name
+        explode: true
+        in: query
+        name: display_name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by FQDN
+        explode: true
+        in: query
+        name: fqdn
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by display_name, fqdn, id
+        explode: true
+        in: query
+        name: hostname_or_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by insights_id
+        explode: true
+        in: query
+        name: insights_id
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      - description: Filter by provider_id
+        explode: true
+        in: query
+        name: provider_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by provider_type
+        explode: true
+        in: query
+        name: provider_type
+        required: false
+        schema:
+          enum:
+          - alibaba
+          - aws
+          - azure
+          - gcp
+          - ibm
           type: string
         style: form
       - description: Filter by branch_id
@@ -62,7 +202,6 @@ paths:
           default: 50
           maximum: 100
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: A page number of the items to return.
@@ -73,7 +212,6 @@ paths:
         schema:
           default: 1
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: Ordering field name
@@ -85,10 +223,11 @@ paths:
           enum:
           - display_name
           - updated
+          - operating_system
           type: string
         style: form
-      - description: Direction of the ordering, defaults to ASC for display_name and
-          to DESC for updated
+      - description: Direction of the ordering; defaults to ASC for display_name,
+          and to DESC for updated and operating_system
         explode: true
         in: query
         name: order_how
@@ -115,9 +254,7 @@ paths:
             - stale
             - stale_warning
             - unknown
-            nullable: false
             type: string
-          nullable: false
           type: array
         style: form
       - description: filters out hosts not tagged by the given tags
@@ -147,8 +284,7 @@ paths:
         name: filter
         required: false
         schema:
-          description: System profile field values to filter with
-          type: object
+          $ref: '#/components/schemas/SystemProfileNestedObject'
         style: deepObject
       - description: Fetches only mentioned system_profile fields
         explode: true
@@ -156,15 +292,14 @@ paths:
         name: fields
         required: false
         schema:
-          description: System profile field values to fetch
-          type: object
+          $ref: '#/components/schemas/SystemProfileNestedObject'
         style: deepObject
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/A_Host_Inventory_query_result'
+                $ref: '#/components/schemas/HostQueryOutput'
           description: Successfully read the hosts list.
       security:
       - ApiKeyAuth: []
@@ -183,134 +318,7 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-              - allOf:
-                - properties:
-                    bios_uuid:
-                      description: A UUID of the host machine BIOS.  This field is
-                        considered to be a canonical fact.
-                      example: 3f01b55457674041b75e41829bcee1dc
-                      nullable: true
-                      type: string
-                    external_id:
-                      description: Host’s reference in the external source e.g. AWS
-                        EC2, Azure, OpenStack, etc. This field is considered to be
-                        a canonical fact.
-                      example: i-05d2313e6b9a42b16
-                      nullable: true
-                      type: string
-                    fqdn:
-                      description: A host’s Fully Qualified Domain Name.  This field
-                        is considered to be a canonical fact.
-                      example: my.host.example.com
-                      nullable: true
-                      type: string
-                    insights_id:
-                      description: An ID defined in /etc/insights-client/machine-id.
-                        This field is considered a canonical fact.
-                      example: 3f01b55457674041b75e41829bcee1dc
-                      nullable: true
-                      type: string
-                    ip_addresses:
-                      description: Host’s network IP addresses.  This field is considered
-                        to be a canonical fact.
-                      example:
-                      - 10.10.0.1
-                      - 10.0.0.2
-                      items:
-                        type: string
-                      nullable: true
-                      type: array
-                    mac_addresses:
-                      description: Host’s network interfaces MAC addresses.  This
-                        field is considered to be a canonical fact.
-                      example:
-                      - c2:00:d0:c8:61:01
-                      items:
-                        type: string
-                      nullable: true
-                      type: array
-                    rhel_machine_id:
-                      description: A Machine ID of a RHEL host.  This field is considered
-                        to be a canonical fact.
-                      example: 3f01b55457674041b75e41829bcee1dc
-                      nullable: true
-                      type: string
-                    satellite_id:
-                      description: A Red Hat Satellite ID of a RHEL host.  This field
-                        is considered to be a canonical fact.
-                      example: 3f01b55457674041b75e41829bcee1dc
-                      nullable: true
-                      type: string
-                    subscription_manager_id:
-                      description: A Red Hat Subcription Manager ID of a RHEL host.  This
-                        field is considered to be a canonical fact.
-                      example: 3f01b55457674041b75e41829bcee1dc
-                      nullable: true
-                      type: string
-                  type: object
-                - properties:
-                    bios_uuid:
-                      nullable: false
-                      type: string
-                    external_id:
-                      nullable: false
-                      type: string
-                    fqdn:
-                      nullable: false
-                      type: string
-                    insights_id:
-                      nullable: false
-                      type: string
-                    ip_addresses:
-                      items:
-                        type: string
-                      nullable: false
-                      type: array
-                    mac_addresses:
-                      items:
-                        type: string
-                      nullable: false
-                      type: array
-                    rhel_machine_id:
-                      nullable: false
-                      type: string
-                    satellite_id:
-                      nullable: false
-                      type: string
-                    subscription_manager_id:
-                      nullable: false
-                      type: string
-                - anyOf:
-                  - required:
-                    - insights_id
-                  - required:
-                    - rhel_machine_id
-                  - required:
-                    - subscription_manager_id
-                  - required:
-                    - satellite_id
-                  - required:
-                    - bios_uuid
-                  - required:
-                    - ip_addresses
-                  - required:
-                    - fqdn
-                  - required:
-                    - mac_addresses
-                  - required:
-                    - external_id
-              - properties:
-                  checkin_frequency:
-                    description: How long from now to expect another check-in (in
-                      minutes).
-                    example: 1440
-                    maximum: 2880
-                    minimum: 1
-                    type: integer
-              description: Data required to create a check-in record for a host.
-              title: Check-in data
-              type: object
+              $ref: '#/components/schemas/CreateCheckIn'
         description: Data required to create a check-in record for a host.
         required: true
       responses:
@@ -318,144 +326,7 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                - properties:
-                    bios_uuid:
-                      description: A UUID of the host machine BIOS.  This field is
-                        considered to be a canonical fact.
-                      example: 3f01b55457674041b75e41829bcee1dc
-                      nullable: true
-                      type: string
-                    external_id:
-                      description: Host’s reference in the external source e.g. AWS
-                        EC2, Azure, OpenStack, etc. This field is considered to be
-                        a canonical fact.
-                      example: i-05d2313e6b9a42b16
-                      nullable: true
-                      type: string
-                    fqdn:
-                      description: A host’s Fully Qualified Domain Name.  This field
-                        is considered to be a canonical fact.
-                      example: my.host.example.com
-                      nullable: true
-                      type: string
-                    insights_id:
-                      description: An ID defined in /etc/insights-client/machine-id.
-                        This field is considered a canonical fact.
-                      example: 3f01b55457674041b75e41829bcee1dc
-                      nullable: true
-                      type: string
-                    ip_addresses:
-                      description: Host’s network IP addresses.  This field is considered
-                        to be a canonical fact.
-                      example:
-                      - 10.10.0.1
-                      - 10.0.0.2
-                      items:
-                        type: string
-                      nullable: true
-                      type: array
-                    mac_addresses:
-                      description: Host’s network interfaces MAC addresses.  This
-                        field is considered to be a canonical fact.
-                      example:
-                      - c2:00:d0:c8:61:01
-                      items:
-                        type: string
-                      nullable: true
-                      type: array
-                    rhel_machine_id:
-                      description: A Machine ID of a RHEL host.  This field is considered
-                        to be a canonical fact.
-                      example: 3f01b55457674041b75e41829bcee1dc
-                      nullable: true
-                      type: string
-                    satellite_id:
-                      description: A Red Hat Satellite ID of a RHEL host.  This field
-                        is considered to be a canonical fact.
-                      example: 3f01b55457674041b75e41829bcee1dc
-                      nullable: true
-                      type: string
-                    subscription_manager_id:
-                      description: A Red Hat Subcription Manager ID of a RHEL host.  This
-                        field is considered to be a canonical fact.
-                      example: 3f01b55457674041b75e41829bcee1dc
-                      nullable: true
-                      type: string
-                  type: object
-                - properties:
-                    account:
-                      description: A Red Hat Account number that owns the host.
-                      example: "000102"
-                      type: string
-                    ansible_host:
-                      description: The ansible host name for remediations
-                      example: host1.mydomain.com
-                      nullable: true
-                      type: string
-                    created:
-                      description: A timestamp when the entry was created.
-                      format: date-time
-                      type: string
-                    culled_timestamp:
-                      description: Timestamp from which the host is considered deleted.
-                      nullable: true
-                      type: string
-                    display_name:
-                      description: A host’s human-readable display name, e.g. in a
-                        form of a domain name.
-                      example: host1.mydomain.com
-                      nullable: true
-                      type: string
-                    facts:
-                      description: A set of facts belonging to the host.
-                      items:
-                        description: A set of string facts belonging to a single namespace.
-                        properties:
-                          facts:
-                            description: The facts themselves.
-                            example:
-                              fact1: value1
-                              fact2: value2
-                            type: object
-                          namespace:
-                            description: A namespace the facts belong to.
-                            minLength: 1
-                            type: string
-                        required:
-                        - facts
-                        - namespace
-                        title: Host facts under a namespace
-                      type: array
-                    id:
-                      description: A durable and reliable platform-wide host identifier.
-                        Applications should use this identifier to reference hosts.
-                      example: 3f01b55457674041b75e41829bcee1dc
-                      type: string
-                    reporter:
-                      description: Reporting source of the host. Used when updating
-                        the stale_timestamp.
-                      nullable: true
-                      type: string
-                    stale_timestamp:
-                      description: Timestamp from which the host is considered stale.
-                      nullable: true
-                      type: string
-                    stale_warning_timestamp:
-                      description: Timestamp from which the host is considered too
-                        stale to be listed without an explicit toggle.
-                      nullable: true
-                      type: string
-                    updated:
-                      description: A timestamp when the entry was last updated.
-                      format: date-time
-                      type: string
-                  required:
-                  - account
-                description: Data of a single host belonging to an account. Represents
-                  the hosts without its Inventory metadata.
-                title: Create Host Out
-                type: object
+                $ref: '#/components/schemas/CreateHostOut'
           description: Successfully checked in Host.
         "404":
           description: Not Found.
@@ -536,7 +407,6 @@ paths:
           default: 50
           maximum: 100
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: A page number of the items to return.
@@ -547,7 +417,6 @@ paths:
         schema:
           default: 1
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: Ordering field name
@@ -559,10 +428,11 @@ paths:
           enum:
           - display_name
           - updated
+          - operating_system
           type: string
         style: form
-      - description: Direction of the ordering, defaults to ASC for display_name and
-          to DESC for updated
+      - description: Direction of the ordering; defaults to ASC for display_name,
+          and to DESC for updated and operating_system
         explode: true
         in: query
         name: order_how
@@ -578,7 +448,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/A_Host_Inventory_query_result'
+                $ref: '#/components/schemas/HostQueryOutput'
           description: Successfully searched for hosts.
         "400":
           description: Invalid request.
@@ -614,23 +484,10 @@ paths:
           type: string
         style: form
       requestBody:
-        $ref: '#/components/requestBodies/Host_data'
         content:
           application/json:
             schema:
-              description: Data of a single host to be updated.
-              properties:
-                ansible_host:
-                  description: The ansible host name for remediations
-                  example: host1.mydomain.com
-                  type: string
-                display_name:
-                  description: A host’s human-readable display name, e.g. in a form
-                    of a domain name.
-                  example: host1.mydomain.com
-                  type: string
-              title: Host data
-              type: object
+              $ref: '#/components/schemas/PatchHostIn'
         description: A group of fields to be updated on the host
         required: true
       responses:
@@ -683,12 +540,7 @@ paths:
         content:
           application/json:
             schema:
-              description: A set of string facts about a host.
-              example:
-                fact1: value1
-                fact2: value2
-              title: Host facts
-              type: object
+              $ref: '#/components/schemas/Facts'
         description: A dictionary with the new facts to merge with the original ones.
         required: true
       responses:
@@ -740,12 +592,7 @@ paths:
         content:
           application/json:
             schema:
-              description: A set of string facts about a host.
-              example:
-                fact1: value1
-                fact2: value2
-              title: Host facts
-              type: object
+              $ref: '#/components/schemas/Facts'
         description: A dictionary with the new facts to replace the original ones.
         required: true
       responses:
@@ -787,7 +634,6 @@ paths:
           default: 50
           maximum: 100
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: A page number of the items to return.
@@ -798,7 +644,6 @@ paths:
         schema:
           default: 1
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: Ordering field name
@@ -810,10 +655,11 @@ paths:
           enum:
           - display_name
           - updated
+          - operating_system
           type: string
         style: form
-      - description: Direction of the ordering, defaults to ASC for display_name and
-          to DESC for updated
+      - description: Direction of the ordering; defaults to ASC for display_name,
+          and to DESC for updated and operating_system
         explode: true
         in: query
         name: order_how
@@ -838,15 +684,14 @@ paths:
         name: fields
         required: false
         schema:
-          description: System profile field values to fetch
-          type: object
+          $ref: '#/components/schemas/SystemProfileNestedObject'
         style: deepObject
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/A_host_system_profile_query_result'
+                $ref: '#/components/schemas/SystemProfileByHostOut'
           description: Successfully searched for hosts.
         "400":
           description: Invalid request.
@@ -883,7 +728,6 @@ paths:
           default: 50
           maximum: 100
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: A page number of the items to return.
@@ -894,7 +738,6 @@ paths:
         schema:
           default: 1
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: Ordering field name
@@ -906,10 +749,11 @@ paths:
           enum:
           - display_name
           - updated
+          - operating_system
           type: string
         style: form
-      - description: Direction of the ordering, defaults to ASC for display_name and
-          to DESC for updated
+      - description: Direction of the ordering; defaults to ASC for display_name,
+          and to DESC for updated and operating_system
         explode: true
         in: query
         name: order_how
@@ -934,7 +778,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200'
+                $ref: '#/components/schemas/TagsOut'
           description: Successfully found tags.
         "400":
           description: Invalid request.
@@ -970,7 +814,6 @@ paths:
           default: 50
           maximum: 100
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: A page number of the items to return.
@@ -981,7 +824,6 @@ paths:
         schema:
           default: 1
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: Ordering field name
@@ -993,10 +835,11 @@ paths:
           enum:
           - display_name
           - updated
+          - operating_system
           type: string
         style: form
-      - description: Direction of the ordering, defaults to ASC for display_name and
-          to DESC for updated
+      - description: Direction of the ordering; defaults to ASC for display_name,
+          and to DESC for updated and operating_system
         explode: true
         in: query
         name: order_how
@@ -1012,7 +855,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_1'
+                $ref: '#/components/schemas/TagCountOut'
           description: Successfully found tag count.
         "400":
           description: Invalid request.
@@ -1055,7 +898,6 @@ paths:
           default: 50
           maximum: 100
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: A page number of the items to return.
@@ -1066,7 +908,6 @@ paths:
         schema:
           default: 1
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: 'Culling states of the hosts. Default: fresh,stale,unknown'
@@ -1085,9 +926,7 @@ paths:
             - stale
             - stale_warning
             - unknown
-            nullable: false
             type: string
-          nullable: false
           type: array
         style: form
       - description: Filters out any host not registered with the specified service
@@ -1106,15 +945,14 @@ paths:
         name: filter
         required: false
         schema:
-          description: System profile field values to filter with
-          type: object
+          $ref: '#/components/schemas/SystemProfileNestedObject'
         style: deepObject
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_2'
+                $ref: '#/components/schemas/SystemProfileSapSystemOut'
           description: sap_system values and counts for account
         "400":
           description: Invalid request.
@@ -1150,7 +988,6 @@ paths:
           default: 50
           maximum: 100
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: A page number of the items to return.
@@ -1161,7 +998,6 @@ paths:
         schema:
           default: 1
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: 'Culling states of the hosts. Default: fresh,stale,unknown'
@@ -1180,9 +1016,7 @@ paths:
             - stale
             - stale_warning
             - unknown
-            nullable: false
             type: string
-          nullable: false
           type: array
         style: form
       - description: Filters out any host not registered with the specified service
@@ -1201,15 +1035,14 @@ paths:
         name: filter
         required: false
         schema:
-          description: System profile field values to filter with
-          type: object
+          $ref: '#/components/schemas/SystemProfileNestedObject'
         style: deepObject
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_2'
+                $ref: '#/components/schemas/SystemProfileSapSystemOut'
           description: sap_system values and counts for account
         "400":
           description: Invalid request.
@@ -1260,7 +1093,6 @@ paths:
         schema:
           default: 10000
           minimum: 1
-          nullable: false
           type: integer
         style: form
       responses:
@@ -1297,7 +1129,6 @@ paths:
           enum:
           - tag
           - count
-          nullable: false
           type: string
         style: form
       - description: Direction of the ordering. Default to ASC
@@ -1310,7 +1141,6 @@ paths:
           enum:
           - ASC
           - DESC
-          nullable: false
           type: string
         style: form
       - description: A number of items to return per page.
@@ -1322,7 +1152,6 @@ paths:
           default: 50
           maximum: 100
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: A page number of the items to return.
@@ -1333,7 +1162,6 @@ paths:
         schema:
           default: 1
           minimum: 1
-          nullable: false
           type: integer
         style: form
       - description: 'Culling states of the hosts. Default: fresh,stale,unknown'
@@ -1352,9 +1180,7 @@ paths:
             - stale
             - stale_warning
             - unknown
-            nullable: false
             type: string
-          nullable: false
           type: array
         style: form
       - description: Only include tags that match the given search string. The value
@@ -1364,6 +1190,61 @@ paths:
         name: search
         required: false
         schema:
+          type: string
+        style: form
+      - description: Filter by display_name
+        explode: true
+        in: query
+        name: display_name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by FQDN
+        explode: true
+        in: query
+        name: fqdn
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by display_name, fqdn, id
+        explode: true
+        in: query
+        name: hostname_or_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by insights_id
+        explode: true
+        in: query
+        name: insights_id
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      - description: Filter by provider_id
+        explode: true
+        in: query
+        name: provider_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by provider_type
+        explode: true
+        in: query
+        name: provider_type
+        required: false
+        schema:
+          enum:
+          - alibaba
+          - aws
+          - azure
+          - gcp
+          - ibm
           type: string
         style: form
       - description: Filters out any host not registered with the specified service
@@ -1382,15 +1263,14 @@ paths:
         name: filter
         required: false
         schema:
-          description: System profile field values to filter with
-          type: object
+          $ref: '#/components/schemas/SystemProfileNestedObject'
         style: deepObject
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Host_data_1'
+                $ref: '#/components/schemas/ActiveTags'
           description: Tags
         "400":
           description: Invalid request.
@@ -1412,6 +1292,15 @@ components:
       schema:
         type: string
       style: form
+    displayName:
+      description: Filter by display_name
+      explode: true
+      in: query
+      name: display_name
+      required: false
+      schema:
+        type: string
+      style: form
     factsNamespace:
       description: A namespace of the merged facts.
       explode: false
@@ -1428,8 +1317,7 @@ components:
       name: fields
       required: false
       schema:
-        description: System profile field values to fetch
-        type: object
+        $ref: '#/components/schemas/SystemProfileNestedObject'
       style: deepObject
     filter_param:
       description: Filters hosts based on system_profile fields
@@ -1438,9 +1326,17 @@ components:
       name: filter
       required: false
       schema:
-        description: System profile field values to filter with
-        type: object
+        $ref: '#/components/schemas/SystemProfileNestedObject'
       style: deepObject
+    fqdn:
+      description: Filter by FQDN
+      explode: true
+      in: query
+      name: fqdn
+      required: false
+      schema:
+        type: string
+      style: form
     hostIdList:
       description: A comma separated list of host IDs.
       explode: false
@@ -1454,6 +1350,25 @@ components:
           type: string
         type: array
       style: simple
+    hostnameOrId:
+      description: Filter by display_name, fqdn, id
+      explode: true
+      in: query
+      name: hostname_or_id
+      required: false
+      schema:
+        type: string
+      style: form
+    insightsId:
+      description: Filter by insights_id
+      explode: true
+      in: query
+      name: insights_id
+      required: false
+      schema:
+        format: uuid
+        type: string
+      style: form
     orderByParam:
       description: Ordering field name
       explode: true
@@ -1464,11 +1379,12 @@ components:
         enum:
         - display_name
         - updated
+        - operating_system
         type: string
       style: form
     orderHowParam:
-      description: Direction of the ordering, defaults to ASC for display_name and
-        to DESC for updated
+      description: Direction of the ordering; defaults to ASC for display_name, and
+        to DESC for updated and operating_system
       explode: true
       in: query
       name: order_how
@@ -1501,6 +1417,30 @@ components:
         maximum: 100
         minimum: 1
         type: integer
+      style: form
+    providerId:
+      description: Filter by provider_id
+      explode: true
+      in: query
+      name: provider_id
+      required: false
+      schema:
+        type: string
+      style: form
+    providerType:
+      description: Filter by provider_type
+      explode: true
+      in: query
+      name: provider_type
+      required: false
+      schema:
+        enum:
+        - alibaba
+        - aws
+        - azure
+        - gcp
+        - ibm
+        type: string
       style: form
     registered_with:
       description: Filters out any host not registered with the specified service
@@ -1581,18 +1521,14 @@ components:
           type: string
         type: array
       style: form
-  requestBodies:
-    Host_data:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Host_data'
-      required: true
   responses:
     PageOutOfBounds:
       description: Requested page is outside of the range of available pages
   schemas:
     ActiveTags:
+      allOf:
+      - $ref: '#/components/schemas/PaginationOut'
+      - $ref: '#/components/schemas/ActiveTags_allOf'
       example:
         count: 3
         page: 1
@@ -1614,46 +1550,19 @@ components:
             namespace: insights-client
             value: null
         total: 3
-      properties:
-        count:
-          description: The number of items on the current page
-          type: integer
-        page:
-          description: The page number
-          type: integer
-        per_page:
-          description: The number of items to return per page
-          type: integer
-        results:
-          items:
-            $ref: '#/components/schemas/ActiveTag'
-          type: array
-        total:
-          description: Total number of items
-          type: integer
-      required:
-      - count
-      - page
-      - per_page
-      - results
-      - total
       title: Host data
-      type: object
     BiosUuid:
       description: A UUID of the host machine BIOS.  This field is considered to be
         a canonical fact.
-      example: 3f01b55457674041b75e41829bcee1dc
+      example: 22cd8e39-13bb-4d02-8316-84b850dc5136
       nullable: true
       type: string
     CanonicalFactsIn:
       allOf:
       - $ref: '#/components/schemas/CanonicalFactsIn_allOf'
-      - $ref: '#/components/schemas/CanonicalFactsIn_allOf_1'
       - anyOf:
         - required:
           - insights_id
-        - required:
-          - rhel_machine_id
         - required:
           - subscription_manager_id
         - required:
@@ -1667,19 +1576,14 @@ components:
         - required:
           - mac_addresses
         - required:
-          - external_id
+          - provider_id
+          - provider_type
     CanonicalFactsOut:
       properties:
         bios_uuid:
           description: A UUID of the host machine BIOS.  This field is considered
             to be a canonical fact.
-          example: 3f01b55457674041b75e41829bcee1dc
-          nullable: true
-          type: string
-        external_id:
-          description: Host’s reference in the external source e.g. AWS EC2, Azure,
-            OpenStack, etc. This field is considered to be a canonical fact.
-          example: i-05d2313e6b9a42b16
+          example: 22cd8e39-13bb-4d02-8316-84b850dc5136
           nullable: true
           type: string
         fqdn:
@@ -1713,22 +1617,30 @@ components:
             type: string
           nullable: true
           type: array
-        rhel_machine_id:
-          description: A Machine ID of a RHEL host.  This field is considered to be
-            a canonical fact.
-          example: 3f01b55457674041b75e41829bcee1dc
+        provider_id:
+          description: Host’s reference in the external source e.g. Alibaba, AWS EC2,
+            Azure, GCP, IBM etc. This field is one of the canonical facts and does
+            not work without provider_type.
+          example: i-05d2313e6b9a42b16
+          nullable: true
+          type: string
+        provider_type:
+          description: Type of external source e.g. Alibaba, AWS EC2, Azure, GCP,
+            IBM, etc. This field is one of the canonical facts and does not workout
+            provider_id.
+          example: aws
           nullable: true
           type: string
         satellite_id:
           description: A Red Hat Satellite ID of a RHEL host.  This field is considered
             to be a canonical fact.
-          example: 3f01b55457674041b75e41829bcee1dc
+          example: 22cd8e39-13bb-4d02-8316-84b850dc5136
           nullable: true
           type: string
         subscription_manager_id:
           description: A Red Hat Subcription Manager ID of a RHEL host.  This field
             is considered to be a canonical fact.
-          example: 3f01b55457674041b75e41829bcee1dc
+          example: 22cd8e39-13bb-4d02-8316-84b850dc5136
           nullable: true
           type: string
       type: object
@@ -1737,139 +1649,19 @@ components:
       type: integer
     CreateCheckIn:
       allOf:
-      - allOf:
-        - properties:
-            bios_uuid:
-              description: A UUID of the host machine BIOS.  This field is considered
-                to be a canonical fact.
-              example: 3f01b55457674041b75e41829bcee1dc
-              nullable: true
-              type: string
-            external_id:
-              description: Host’s reference in the external source e.g. AWS EC2, Azure,
-                OpenStack, etc. This field is considered to be a canonical fact.
-              example: i-05d2313e6b9a42b16
-              nullable: true
-              type: string
-            fqdn:
-              description: A host’s Fully Qualified Domain Name.  This field is considered
-                to be a canonical fact.
-              example: my.host.example.com
-              nullable: true
-              type: string
-            insights_id:
-              description: An ID defined in /etc/insights-client/machine-id. This
-                field is considered a canonical fact.
-              example: 3f01b55457674041b75e41829bcee1dc
-              nullable: true
-              type: string
-            ip_addresses:
-              description: Host’s network IP addresses.  This field is considered
-                to be a canonical fact.
-              example:
-              - 10.10.0.1
-              - 10.0.0.2
-              items:
-                type: string
-              nullable: true
-              type: array
-            mac_addresses:
-              description: Host’s network interfaces MAC addresses.  This field is
-                considered to be a canonical fact.
-              example:
-              - c2:00:d0:c8:61:01
-              items:
-                type: string
-              nullable: true
-              type: array
-            rhel_machine_id:
-              description: A Machine ID of a RHEL host.  This field is considered
-                to be a canonical fact.
-              example: 3f01b55457674041b75e41829bcee1dc
-              nullable: true
-              type: string
-            satellite_id:
-              description: A Red Hat Satellite ID of a RHEL host.  This field is considered
-                to be a canonical fact.
-              example: 3f01b55457674041b75e41829bcee1dc
-              nullable: true
-              type: string
-            subscription_manager_id:
-              description: A Red Hat Subcription Manager ID of a RHEL host.  This
-                field is considered to be a canonical fact.
-              example: 3f01b55457674041b75e41829bcee1dc
-              nullable: true
-              type: string
-          type: object
-        - properties:
-            bios_uuid:
-              nullable: false
-              type: string
-            external_id:
-              nullable: false
-              type: string
-            fqdn:
-              nullable: false
-              type: string
-            insights_id:
-              nullable: false
-              type: string
-            ip_addresses:
-              items:
-                type: string
-              nullable: false
-              type: array
-            mac_addresses:
-              items:
-                type: string
-              nullable: false
-              type: array
-            rhel_machine_id:
-              nullable: false
-              type: string
-            satellite_id:
-              nullable: false
-              type: string
-            subscription_manager_id:
-              nullable: false
-              type: string
-        - anyOf:
-          - required:
-            - insights_id
-          - required:
-            - rhel_machine_id
-          - required:
-            - subscription_manager_id
-          - required:
-            - satellite_id
-          - required:
-            - bios_uuid
-          - required:
-            - ip_addresses
-          - required:
-            - fqdn
-          - required:
-            - mac_addresses
-          - required:
-            - external_id
+      - $ref: '#/components/schemas/CanonicalFactsIn'
       - $ref: '#/components/schemas/CreateCheckIn_allOf'
       description: Data required to create a check-in record for a host.
       title: Check-in data
       type: object
     CreateHostOut:
       allOf:
-      - $ref: '#/components/schemas/CanonicalFactsIn_allOf'
+      - $ref: '#/components/schemas/CanonicalFactsOut'
       - $ref: '#/components/schemas/CreateHostOut_allOf'
       description: Data of a single host belonging to an account. Represents the hosts
         without its Inventory metadata.
       title: Create Host Out
       type: object
-    ExternalId:
-      description: Host’s reference in the external source e.g. AWS EC2, Azure, OpenStack,
-        etc. This field is considered to be a canonical fact.
-      example: i-05d2313e6b9a42b16
-      nullable: true
-      type: string
     FactSet:
       description: A set of string facts belonging to a single namespace.
       properties:
@@ -1902,338 +1694,18 @@ components:
       type: string
     HostOut:
       allOf:
-      - allOf:
-        - properties:
-            bios_uuid:
-              description: A UUID of the host machine BIOS.  This field is considered
-                to be a canonical fact.
-              example: 3f01b55457674041b75e41829bcee1dc
-              nullable: true
-              type: string
-            external_id:
-              description: Host’s reference in the external source e.g. AWS EC2, Azure,
-                OpenStack, etc. This field is considered to be a canonical fact.
-              example: i-05d2313e6b9a42b16
-              nullable: true
-              type: string
-            fqdn:
-              description: A host’s Fully Qualified Domain Name.  This field is considered
-                to be a canonical fact.
-              example: my.host.example.com
-              nullable: true
-              type: string
-            insights_id:
-              description: An ID defined in /etc/insights-client/machine-id. This
-                field is considered a canonical fact.
-              example: 3f01b55457674041b75e41829bcee1dc
-              nullable: true
-              type: string
-            ip_addresses:
-              description: Host’s network IP addresses.  This field is considered
-                to be a canonical fact.
-              example:
-              - 10.10.0.1
-              - 10.0.0.2
-              items:
-                type: string
-              nullable: true
-              type: array
-            mac_addresses:
-              description: Host’s network interfaces MAC addresses.  This field is
-                considered to be a canonical fact.
-              example:
-              - c2:00:d0:c8:61:01
-              items:
-                type: string
-              nullable: true
-              type: array
-            rhel_machine_id:
-              description: A Machine ID of a RHEL host.  This field is considered
-                to be a canonical fact.
-              example: 3f01b55457674041b75e41829bcee1dc
-              nullable: true
-              type: string
-            satellite_id:
-              description: A Red Hat Satellite ID of a RHEL host.  This field is considered
-                to be a canonical fact.
-              example: 3f01b55457674041b75e41829bcee1dc
-              nullable: true
-              type: string
-            subscription_manager_id:
-              description: A Red Hat Subcription Manager ID of a RHEL host.  This
-                field is considered to be a canonical fact.
-              example: 3f01b55457674041b75e41829bcee1dc
-              nullable: true
-              type: string
-          type: object
-        - properties:
-            account:
-              description: A Red Hat Account number that owns the host.
-              example: "000102"
-              type: string
-            ansible_host:
-              description: The ansible host name for remediations
-              example: host1.mydomain.com
-              nullable: true
-              type: string
-            created:
-              description: A timestamp when the entry was created.
-              format: date-time
-              type: string
-            culled_timestamp:
-              description: Timestamp from which the host is considered deleted.
-              nullable: true
-              type: string
-            display_name:
-              description: A host’s human-readable display name, e.g. in a form of
-                a domain name.
-              example: host1.mydomain.com
-              nullable: true
-              type: string
-            facts:
-              description: A set of facts belonging to the host.
-              items:
-                description: A set of string facts belonging to a single namespace.
-                properties:
-                  facts:
-                    description: The facts themselves.
-                    example:
-                      fact1: value1
-                      fact2: value2
-                    type: object
-                  namespace:
-                    description: A namespace the facts belong to.
-                    minLength: 1
-                    type: string
-                required:
-                - facts
-                - namespace
-                title: Host facts under a namespace
-              type: array
-            id:
-              description: A durable and reliable platform-wide host identifier. Applications
-                should use this identifier to reference hosts.
-              example: 3f01b55457674041b75e41829bcee1dc
-              type: string
-            reporter:
-              description: Reporting source of the host. Used when updating the stale_timestamp.
-              nullable: true
-              type: string
-            stale_timestamp:
-              description: Timestamp from which the host is considered stale.
-              nullable: true
-              type: string
-            stale_warning_timestamp:
-              description: Timestamp from which the host is considered too stale to
-                be listed without an explicit toggle.
-              nullable: true
-              type: string
-            updated:
-              description: A timestamp when the entry was last updated.
-              format: date-time
-              type: string
-          required:
-          - account
-        description: Data of a single host belonging to an account. Represents the
-          hosts without its Inventory metadata.
-        title: Create Host Out
-        type: object
+      - $ref: '#/components/schemas/CreateHostOut'
       - $ref: '#/components/schemas/HostOut_allOf'
       description: A database entry representing a single host with its Inventory
         metadata.
       title: A Host Inventory entry
     HostQueryOutput:
+      allOf:
+      - $ref: '#/components/schemas/PaginationOut'
+      - $ref: '#/components/schemas/HostQueryOutput_allOf'
       description: A paginated host search query result with host entries and their
         Inventory metadata.
-      properties:
-        count:
-          description: A number of entries on the current page.
-          type: integer
-        page:
-          description: A current page number.
-          type: integer
-        per_page:
-          description: A page size – a number of entries per single page.
-          type: integer
-        results:
-          description: Actual host search query result entries.
-          items:
-            allOf:
-            - allOf:
-              - properties:
-                  bios_uuid:
-                    description: A UUID of the host machine BIOS.  This field is considered
-                      to be a canonical fact.
-                    example: 3f01b55457674041b75e41829bcee1dc
-                    nullable: true
-                    type: string
-                  external_id:
-                    description: Host’s reference in the external source e.g. AWS
-                      EC2, Azure, OpenStack, etc. This field is considered to be a
-                      canonical fact.
-                    example: i-05d2313e6b9a42b16
-                    nullable: true
-                    type: string
-                  fqdn:
-                    description: A host’s Fully Qualified Domain Name.  This field
-                      is considered to be a canonical fact.
-                    example: my.host.example.com
-                    nullable: true
-                    type: string
-                  insights_id:
-                    description: An ID defined in /etc/insights-client/machine-id.
-                      This field is considered a canonical fact.
-                    example: 3f01b55457674041b75e41829bcee1dc
-                    nullable: true
-                    type: string
-                  ip_addresses:
-                    description: Host’s network IP addresses.  This field is considered
-                      to be a canonical fact.
-                    example:
-                    - 10.10.0.1
-                    - 10.0.0.2
-                    items:
-                      type: string
-                    nullable: true
-                    type: array
-                  mac_addresses:
-                    description: Host’s network interfaces MAC addresses.  This field
-                      is considered to be a canonical fact.
-                    example:
-                    - c2:00:d0:c8:61:01
-                    items:
-                      type: string
-                    nullable: true
-                    type: array
-                  rhel_machine_id:
-                    description: A Machine ID of a RHEL host.  This field is considered
-                      to be a canonical fact.
-                    example: 3f01b55457674041b75e41829bcee1dc
-                    nullable: true
-                    type: string
-                  satellite_id:
-                    description: A Red Hat Satellite ID of a RHEL host.  This field
-                      is considered to be a canonical fact.
-                    example: 3f01b55457674041b75e41829bcee1dc
-                    nullable: true
-                    type: string
-                  subscription_manager_id:
-                    description: A Red Hat Subcription Manager ID of a RHEL host.  This
-                      field is considered to be a canonical fact.
-                    example: 3f01b55457674041b75e41829bcee1dc
-                    nullable: true
-                    type: string
-                type: object
-              - properties:
-                  account:
-                    description: A Red Hat Account number that owns the host.
-                    example: "000102"
-                    type: string
-                  ansible_host:
-                    description: The ansible host name for remediations
-                    example: host1.mydomain.com
-                    nullable: true
-                    type: string
-                  created:
-                    description: A timestamp when the entry was created.
-                    format: date-time
-                    type: string
-                  culled_timestamp:
-                    description: Timestamp from which the host is considered deleted.
-                    nullable: true
-                    type: string
-                  display_name:
-                    description: A host’s human-readable display name, e.g. in a form
-                      of a domain name.
-                    example: host1.mydomain.com
-                    nullable: true
-                    type: string
-                  facts:
-                    description: A set of facts belonging to the host.
-                    items:
-                      description: A set of string facts belonging to a single namespace.
-                      properties:
-                        facts:
-                          description: The facts themselves.
-                          example:
-                            fact1: value1
-                            fact2: value2
-                          type: object
-                        namespace:
-                          description: A namespace the facts belong to.
-                          minLength: 1
-                          type: string
-                      required:
-                      - facts
-                      - namespace
-                      title: Host facts under a namespace
-                    type: array
-                  id:
-                    description: A durable and reliable platform-wide host identifier.
-                      Applications should use this identifier to reference hosts.
-                    example: 3f01b55457674041b75e41829bcee1dc
-                    type: string
-                  reporter:
-                    description: Reporting source of the host. Used when updating
-                      the stale_timestamp.
-                    nullable: true
-                    type: string
-                  stale_timestamp:
-                    description: Timestamp from which the host is considered stale.
-                    nullable: true
-                    type: string
-                  stale_warning_timestamp:
-                    description: Timestamp from which the host is considered too stale
-                      to be listed without an explicit toggle.
-                    nullable: true
-                    type: string
-                  updated:
-                    description: A timestamp when the entry was last updated.
-                    format: date-time
-                    type: string
-                required:
-                - account
-              description: Data of a single host belonging to an account. Represents
-                the hosts without its Inventory metadata.
-              title: Create Host Out
-              type: object
-            - properties:
-                facts:
-                  description: A set of facts belonging to the host.
-                  items:
-                    description: A set of string facts belonging to a single namespace.
-                    properties:
-                      facts:
-                        description: The facts themselves.
-                        example:
-                          fact1: value1
-                          fact2: value2
-                        type: object
-                      namespace:
-                        description: A namespace the facts belong to.
-                        minLength: 1
-                        type: string
-                    required:
-                    - facts
-                    - namespace
-                    title: Host facts under a namespace
-                  type: array
-              type: object
-            description: A database entry representing a single host with its Inventory
-              metadata.
-            title: A Host Inventory entry
-          type: array
-        total:
-          description: A total count of the found entries.
-          type: integer
-      required:
-      - count
-      - page
-      - per_page
-      - results
-      - total
       title: A Host Inventory query result
-      type: object
     HostSystemProfileOut:
       description: Individual host record that contains only the host id and system
         profile
@@ -2241,8 +1713,16 @@ components:
         id:
           type: string
         system_profile:
-          $ref: '#/components/schemas/system_profile.spec.yaml_SystemProfile'
+          $ref: '#/components/schemas/SystemProfile'
       title: Structure of an individual host system profile output
+      type: object
+    HyphenatedUuid:
+      example: 22cd8e39-13bb-4d02-8316-84b850dc5136
+      maxLength: 36
+      minLength: 36
+      nullable: true
+      pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+      type: string
     InsightsId:
       description: An ID defined in /etc/insights-client/machine-id. This field is
         considered a canonical fact.
@@ -2279,8 +1759,31 @@ components:
     Page:
       description: The page number
       type: integer
+    PaginationOut:
+      properties:
+        count:
+          description: The number of items on the current page
+          type: integer
+        page:
+          description: The page number
+          type: integer
+        per_page:
+          description: The number of items to return per page
+          type: integer
+        total:
+          description: Total number of items
+          type: integer
+      required:
+      - count
+      - page
+      - per_page
+      - total
+      type: object
     PatchHostIn:
       description: Data of a single host to be updated.
+      example:
+        ansible_host: host1.mydomain.com
+        display_name: host1.mydomain.com
       properties:
         ansible_host:
           description: The ansible host name for remediations
@@ -2296,16 +1799,36 @@ components:
     PerPage:
       description: The number of items to return per page
       type: integer
-    RhelMachineId:
-      description: A Machine ID of a RHEL host.  This field is considered to be a
-        canonical fact.
-      example: 3f01b55457674041b75e41829bcee1dc
+    PerReporterStaleness:
+      properties:
+        check_in_succeeded:
+          type: boolean
+        last_check_in:
+          example: 2020-02-10T08:07:03.354307Z
+          format: date-time
+          type: string
+        stale_timestamp:
+          example: 2020-02-17T08:07:03.354307Z
+          format: date-time
+          type: string
+      type: object
+    ProviderId:
+      description: Host’s reference in the external source e.g. Alibaba, AWS EC2,
+        Azure, GCP, IBM etc. This field is one of the canonical facts and does not
+        work without provider_type.
+      example: i-05d2313e6b9a42b16
+      nullable: true
+      type: string
+    ProviderType:
+      description: Type of external source e.g. Alibaba, AWS EC2, Azure, GCP, IBM,
+        etc. This field is one of the canonical facts and does not workout provider_id.
+      example: aws
       nullable: true
       type: string
     SatelliteId:
       description: A Red Hat Satellite ID of a RHEL host.  This field is considered
         to be a canonical fact.
-      example: 3f01b55457674041b75e41829bcee1dc
+      example: 22cd8e39-13bb-4d02-8316-84b850dc5136
       nullable: true
       type: string
     StructuredTag:
@@ -2322,230 +1845,21 @@ components:
     SubscriptionManagerId:
       description: A Red Hat Subcription Manager ID of a RHEL host.  This field is
         considered to be a canonical fact.
-      example: 3f01b55457674041b75e41829bcee1dc
+      example: 22cd8e39-13bb-4d02-8316-84b850dc5136
       nullable: true
       type: string
     SystemProfile:
-      $ref: '#/components/schemas/system_profile.spec.yaml_SystemProfile'
-    SystemProfileByHostOut:
-      description: Structure of the output of the host system profile query
-      properties:
-        count:
-          description: A number of entries on the current page.
-          type: integer
-        page:
-          description: A current page number.
-          type: integer
-        per_page:
-          description: A page size – a number of entries per single page.
-          type: integer
-        results:
-          description: Actual host search query result entries.
-          items:
-            description: Individual host record that contains only the host id and
-              system profile
-            properties:
-              id:
-                type: string
-              system_profile:
-                $ref: '#/components/schemas/system_profile.spec.yaml_SystemProfile'
-            title: Structure of an individual host system profile output
-          type: array
-        total:
-          description: A total count of the found entries.
-          type: integer
-      required:
-      - count
-      - page
-      - per_page
-      - results
-      - total
-      title: A host system profile query result
-      type: object
-    SystemProfileSapSystemOut:
-      properties:
-        count:
-          description: The number of items on the current page
-          type: integer
-        results:
-          description: The list of sap_system values on the account
-          items:
-            $ref: '#/components/schemas/inline_response_200_2_results'
-          type: array
-        total:
-          description: Total number of items
-          type: integer
-      type: object
-    TagCountOut:
-      properties:
-        count:
-          description: A number of entries on the current page.
-          type: integer
-        page:
-          description: A current page number.
-          type: integer
-        per_page:
-          description: A page size – a number of entries per single page.
-          type: integer
-        results:
-          additionalProperties:
-            type: integer
-          description: The list of tags on the systems
-          type: object
-        total:
-          description: Total number of items in the "data" list.
-          type: integer
-      type: object
-    TagsOut:
-      properties:
-        count:
-          description: A number of entries on the current page.
-          type: integer
-        page:
-          description: A current page number.
-          type: integer
-        per_page:
-          description: A page size – a number of entries per single page.
-          type: integer
-        results:
-          additionalProperties:
-            items:
-              properties:
-                key:
-                  type: string
-                namespace:
-                  nullable: true
-                  type: string
-                value:
-                  nullable: true
-                  type: string
-              type: object
-            type: array
-          description: The list of tags on the systems
-          type: object
-        total:
-          description: Total number of items in the "data" list.
-          type: integer
-      type: object
-    Total:
-      description: Total number of items
-      type: integer
-    system_profile.spec.yaml_DiskDevice:
-      description: Representation of one mounted device
-      properties:
-        device:
-          example: /dev/fdd0
-          maxLength: 2048
-          type: string
-        label:
-          description: User-defined mount label
-          maxLength: 1024
-          type: string
-        mount_point:
-          description: The mount point
-          example: /mnt/remote_nfs_shares
-          maxLength: 2048
-          type: string
-        options:
-          additionalProperties:
-            not:
-              type: object
-          description: An arbitrary object that does not allow empty string keys.
-          type: object
-          x-propertyNames:
-            minLength: 1
-        type:
-          description: The mount type
-          example: ext3
-          maxLength: 256
-          type: string
-      type: object
-    system_profile.spec.yaml_DnfModule:
-      description: Representation of one DNF module
-      properties:
-        name:
-          maxLength: 128
-          type: string
-        stream:
-          maxLength: 2048
-          type: string
-      type: object
-    system_profile.spec.yaml_InstalledProduct:
-      description: Representation of one installed product
-      properties:
-        id:
-          description: The product ID
-          example: "71"
-          maxLength: 64
-          type: string
-        name:
-          maxLength: 512
-          type: string
-        status:
-          description: Subscription status for product
-          example: Subscribed
-          maxLength: 256
-          type: string
-      type: object
-    system_profile.spec.yaml_NestedObject:
-      additionalProperties:
-        not:
-          type: object
-      description: An arbitrary object that does not allow empty string keys.
-      type: object
-      x-propertyNames:
-        minLength: 1
-    system_profile.spec.yaml_NetworkInterface:
-      description: Representation of one network interface
-      properties:
-        ipv4_addresses:
-          items:
-            description: The ipv4 address of the system
-            example: 123.456.789.012
-            format: ipv4
-            type: string
-          type: array
-        ipv6_addresses:
-          items:
-            description: The ipv6 address of the system
-            example: 0123:4567:89ab:cdef:0123:4567:89ab:cdef
-            format: ipv6
-            type: string
-          type: array
-        mac_address:
-          description: MAC address (with or without colons)
-          example: 00:00:00:00:00:00
-          maxLength: 59
-          type: string
-        mtu:
-          description: MTU (Maximum transmission unit)
-          type: integer
-        name:
-          description: Name of interface
-          example: eth0
-          maxLength: 50
-          minLength: 1
-          type: string
-        state:
-          description: Interface state (UP, DOWN, UNKNOWN)
-          example: UP
-          maxLength: 25
-          type: string
-        type:
-          description: Interface type (ether, loopback)
-          example: ether
-          maxLength: 18
-          type: string
-      type: object
-    system_profile.spec.yaml_SystemProfile:
       description: Representation of the system profile fields
       properties:
+        ansible:
+          $ref: '#/components/schemas/SystemProfile_ansible'
         arch:
           maxLength: 50
           type: string
         bios_release_date:
           maxLength: 50
           type: string
+          x-indexed: false
         bios_vendor:
           maxLength: 100
           type: string
@@ -2559,6 +1873,8 @@ components:
           maxLength: 100
           type: string
         cores_per_socket:
+          maximum: 4294967295
+          minimum: 0
           type: integer
         cpu_flags:
           items:
@@ -2572,11 +1888,11 @@ components:
           type: string
         disk_devices:
           items:
-            $ref: '#/components/schemas/system_profile.spec.yaml_DiskDevice'
+            $ref: '#/components/schemas/SystemProfileDiskDevice'
           type: array
         dnf_modules:
           items:
-            $ref: '#/components/schemas/system_profile.spec.yaml_DnfModule'
+            $ref: '#/components/schemas/SystemProfileDnfModule'
           type: array
         enabled_services:
           items:
@@ -2590,6 +1906,25 @@ components:
             maxLength: 512
             type: string
           type: array
+        greenboot_fallback_detected:
+          description: Indicates whether greenboot detected a rolled back update on
+            an edge device.
+          type: boolean
+        greenboot_status:
+          description: Indicates the greenboot status of an edge device.
+          enum:
+          - red
+          - green
+          example: red
+          maxLength: 5
+          type: string
+        host_type:
+          description: Indicates the type of host.
+          enum:
+          - edge
+          example: edge
+          maxLength: 4
+          type: string
         infrastructure_type:
           maxLength: 100
           type: string
@@ -2597,8 +1932,10 @@ components:
           maxLength: 100
           type: string
         insights_client_version:
+          description: The version number of insights client. supports wildcards
           maxLength: 50
           type: string
+          x-wildcard: true
         insights_egg_version:
           maxLength: 50
           type: string
@@ -2616,9 +1953,10 @@ components:
             maxLength: 512
             type: string
           type: array
+          x-indexed: false
         installed_products:
           items:
-            $ref: '#/components/schemas/system_profile.spec.yaml_InstalledProduct'
+            $ref: '#/components/schemas/SystemProfileInstalledProduct'
           type: array
         installed_services:
           items:
@@ -2640,16 +1978,22 @@ components:
           format: date-time
           maxLength: 50
           type: string
+        mssql:
+          $ref: '#/components/schemas/SystemProfile_mssql'
         network_interfaces:
           items:
-            $ref: '#/components/schemas/system_profile.spec.yaml_NetworkInterface'
+            $ref: '#/components/schemas/SystemProfileNetworkInterface'
           type: array
         number_of_cpus:
+          maximum: 4294967295
+          minimum: 0
           type: integer
         number_of_sockets:
+          maximum: 4294967295
+          minimum: 0
           type: integer
         operating_system:
-          $ref: '#/components/schemas/system_profile_spec_yaml_SystemProfile_operating_system'
+          $ref: '#/components/schemas/SystemProfile_operating_system'
         os_kernel_version:
           description: The kernel version represented with a three, optionally four,
             number scheme.
@@ -2679,7 +2023,13 @@ components:
           pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
           type: string
         rhsm:
-          $ref: '#/components/schemas/system_profile_spec_yaml_SystemProfile_rhsm'
+          $ref: '#/components/schemas/SystemProfile_rhsm'
+        rpm_ostree_deployments:
+          description: The list of deployments on the system as reported by rpm-ostree
+            status --json
+          items:
+            $ref: '#/components/schemas/SystemProfile_rpm_ostree_deployments'
+          type: array
         running_processes:
           items:
             description: A single running process. This will be truncated to 1000
@@ -2687,6 +2037,7 @@ components:
             maxLength: 1000
             type: string
           type: array
+          x-indexed: false
         sap_instance_number:
           description: The instance number of the SAP HANA system (a two-digit number
             between 00 and 99)
@@ -2710,7 +2061,7 @@ components:
           description: The version of the SAP HANA lifecycle management program
           example: 1.00.122.04.1478575636
           maxLength: 22
-          pattern: ^[0-9].[0-9]{2}.[0-9]{3}.[0-9]{2}.[0-9]{10}$
+          pattern: ^[0-9]\.[0-9]{2}\.[0-9]{3}\.[0-9]{2}\.[0-9]{10}$
           type: string
         satellite_managed:
           type: boolean
@@ -2737,7 +2088,11 @@ components:
           type: string
         system_memory_bytes:
           format: int64
+          maximum: 18446744073709552000
+          minimum: 0
           type: integer
+        system_purpose:
+          $ref: '#/components/schemas/SystemProfile_system_purpose'
         tuned_profile:
           description: Current profile resulting from command tuned-adm active
           example: desktop
@@ -2745,10 +2100,150 @@ components:
           type: string
         yum_repos:
           items:
-            $ref: '#/components/schemas/system_profile.spec.yaml_YumRepo'
+            $ref: '#/components/schemas/SystemProfileYumRepo'
           type: array
+          x-indexed: false
+      title: SystemProfile
       type: object
-    system_profile.spec.yaml_YumRepo:
+    SystemProfileByHostOut:
+      allOf:
+      - $ref: '#/components/schemas/PaginationOut'
+      - $ref: '#/components/schemas/SystemProfileByHostOut_allOf'
+      description: Structure of the output of the host system profile query
+      title: A host system profile query result
+    SystemProfileDiskDevice:
+      description: Representation of one mounted device
+      properties:
+        device:
+          example: /dev/fdd0
+          maxLength: 2048
+          type: string
+        label:
+          description: User-defined mount label
+          maxLength: 1024
+          type: string
+        mount_point:
+          description: The mount point
+          example: /mnt/remote_nfs_shares
+          maxLength: 2048
+          type: string
+        options:
+          additionalProperties:
+            not:
+              type: object
+          description: An arbitrary object that does not allow empty string keys.
+          type: object
+          x-propertyNames:
+            minLength: 1
+        type:
+          description: The mount type
+          example: ext3
+          maxLength: 256
+          type: string
+      type: object
+    SystemProfileDnfModule:
+      description: Representation of one DNF module
+      properties:
+        name:
+          maxLength: 128
+          type: string
+        stream:
+          maxLength: 2048
+          type: string
+      type: object
+    SystemProfileInstalledProduct:
+      description: Representation of one installed product
+      properties:
+        id:
+          description: The product ID
+          example: "71"
+          maxLength: 64
+          type: string
+        name:
+          maxLength: 512
+          type: string
+        status:
+          description: Subscription status for product
+          example: Subscribed
+          maxLength: 256
+          type: string
+      type: object
+    SystemProfileNestedObject:
+      additionalProperties:
+        not:
+          type: object
+      description: An arbitrary object that does not allow empty string keys.
+      type: object
+      x-propertyNames:
+        minLength: 1
+    SystemProfileNetworkInterface:
+      description: Representation of one network interface
+      properties:
+        ipv4_addresses:
+          items:
+            description: The ipv4 address of the system
+            example: 192.0.2.146
+            format: ipv4
+            type: string
+          type: array
+        ipv6_addresses:
+          items:
+            description: The ipv6 address of the system
+            example: 0123:4567:89ab:cdef:0123:4567:89ab:cdef
+            format: ipv6
+            type: string
+          type: array
+        mac_address:
+          description: MAC address (with or without colons)
+          example: 00:00:00:00:00:00
+          maxLength: 59
+          pattern: ^([A-Fa-f0-9]{2}[:-]){5}[A-Fa-f0-9]{2}$|^([A-Fa-f0-9]{4}[.]){2}[A-Fa-f0-9]{4}$|^[A-Fa-f0-9]{12}$|^([A-Fa-f0-9]{2}[:-]){19}[A-Fa-f0-9]{2}$|^[A-Fa-f0-9]{40}$
+          type: string
+        mtu:
+          description: MTU (Maximum transmission unit)
+          maximum: 18446744073709552000
+          minimum: 0
+          type: integer
+        name:
+          description: Name of interface
+          example: eth0
+          maxLength: 50
+          minLength: 1
+          type: string
+        state:
+          description: Interface state (UP, DOWN, UNKNOWN)
+          example: UP
+          maxLength: 25
+          type: string
+        type:
+          description: Interface type (ether, loopback)
+          example: ether
+          maxLength: 18
+          type: string
+      type: object
+    SystemProfileSapSystemOut:
+      example:
+        total: 1
+        count: 0
+        results:
+        - count: 6
+          value: value
+        - count: 6
+          value: value
+      properties:
+        count:
+          description: The number of items on the current page
+          type: integer
+        results:
+          description: The list of sap_system values on the account
+          items:
+            $ref: '#/components/schemas/SystemProfileSapSystemOut_results'
+          type: array
+        total:
+          description: Total number of items
+          type: integer
+      type: object
+    SystemProfileYumRepo:
       description: Representation of one yum repository
       properties:
         base_url:
@@ -2766,373 +2261,17 @@ components:
           maxLength: 1024
           type: string
       type: object
-    A_Host_Inventory_query_result:
-      description: A paginated host search query result with host entries and their
-        Inventory metadata.
-      example:
-        per_page: 1
-        total: 5
-        count: 0
-        page: 6
-        results:
-        - ""
-        - ""
-      properties:
-        count:
-          description: A number of entries on the current page.
-          type: integer
-        page:
-          description: A current page number.
-          type: integer
-        per_page:
-          description: A page size – a number of entries per single page.
-          type: integer
-        results:
-          description: Actual host search query result entries.
-          items:
-            allOf:
-            - allOf:
-              - properties:
-                  bios_uuid:
-                    description: A UUID of the host machine BIOS.  This field is considered
-                      to be a canonical fact.
-                    example: 3f01b55457674041b75e41829bcee1dc
-                    nullable: true
-                    type: string
-                  external_id:
-                    description: Host’s reference in the external source e.g. AWS
-                      EC2, Azure, OpenStack, etc. This field is considered to be a
-                      canonical fact.
-                    example: i-05d2313e6b9a42b16
-                    nullable: true
-                    type: string
-                  fqdn:
-                    description: A host’s Fully Qualified Domain Name.  This field
-                      is considered to be a canonical fact.
-                    example: my.host.example.com
-                    nullable: true
-                    type: string
-                  insights_id:
-                    description: An ID defined in /etc/insights-client/machine-id.
-                      This field is considered a canonical fact.
-                    example: 3f01b55457674041b75e41829bcee1dc
-                    nullable: true
-                    type: string
-                  ip_addresses:
-                    description: Host’s network IP addresses.  This field is considered
-                      to be a canonical fact.
-                    example:
-                    - 10.10.0.1
-                    - 10.0.0.2
-                    items:
-                      type: string
-                    nullable: true
-                    type: array
-                  mac_addresses:
-                    description: Host’s network interfaces MAC addresses.  This field
-                      is considered to be a canonical fact.
-                    example:
-                    - c2:00:d0:c8:61:01
-                    items:
-                      type: string
-                    nullable: true
-                    type: array
-                  rhel_machine_id:
-                    description: A Machine ID of a RHEL host.  This field is considered
-                      to be a canonical fact.
-                    example: 3f01b55457674041b75e41829bcee1dc
-                    nullable: true
-                    type: string
-                  satellite_id:
-                    description: A Red Hat Satellite ID of a RHEL host.  This field
-                      is considered to be a canonical fact.
-                    example: 3f01b55457674041b75e41829bcee1dc
-                    nullable: true
-                    type: string
-                  subscription_manager_id:
-                    description: A Red Hat Subcription Manager ID of a RHEL host.  This
-                      field is considered to be a canonical fact.
-                    example: 3f01b55457674041b75e41829bcee1dc
-                    nullable: true
-                    type: string
-                type: object
-              - properties:
-                  account:
-                    description: A Red Hat Account number that owns the host.
-                    example: "000102"
-                    type: string
-                  ansible_host:
-                    description: The ansible host name for remediations
-                    example: host1.mydomain.com
-                    nullable: true
-                    type: string
-                  created:
-                    description: A timestamp when the entry was created.
-                    format: date-time
-                    type: string
-                  culled_timestamp:
-                    description: Timestamp from which the host is considered deleted.
-                    nullable: true
-                    type: string
-                  display_name:
-                    description: A host’s human-readable display name, e.g. in a form
-                      of a domain name.
-                    example: host1.mydomain.com
-                    nullable: true
-                    type: string
-                  facts:
-                    description: A set of facts belonging to the host.
-                    items:
-                      description: A set of string facts belonging to a single namespace.
-                      properties:
-                        facts:
-                          description: The facts themselves.
-                          example:
-                            fact1: value1
-                            fact2: value2
-                          type: object
-                        namespace:
-                          description: A namespace the facts belong to.
-                          minLength: 1
-                          type: string
-                      required:
-                      - facts
-                      - namespace
-                      title: Host facts under a namespace
-                    type: array
-                  id:
-                    description: A durable and reliable platform-wide host identifier.
-                      Applications should use this identifier to reference hosts.
-                    example: 3f01b55457674041b75e41829bcee1dc
-                    type: string
-                  reporter:
-                    description: Reporting source of the host. Used when updating
-                      the stale_timestamp.
-                    nullable: true
-                    type: string
-                  stale_timestamp:
-                    description: Timestamp from which the host is considered stale.
-                    nullable: true
-                    type: string
-                  stale_warning_timestamp:
-                    description: Timestamp from which the host is considered too stale
-                      to be listed without an explicit toggle.
-                    nullable: true
-                    type: string
-                  updated:
-                    description: A timestamp when the entry was last updated.
-                    format: date-time
-                    type: string
-                required:
-                - account
-              description: Data of a single host belonging to an account. Represents
-                the hosts without its Inventory metadata.
-              title: Create Host Out
-              type: object
-            - properties:
-                facts:
-                  description: A set of facts belonging to the host.
-                  items:
-                    description: A set of string facts belonging to a single namespace.
-                    properties:
-                      facts:
-                        description: The facts themselves.
-                        example:
-                          fact1: value1
-                          fact2: value2
-                        type: object
-                      namespace:
-                        description: A namespace the facts belong to.
-                        minLength: 1
-                        type: string
-                    required:
-                    - facts
-                    - namespace
-                    title: Host facts under a namespace
-                  type: array
-              type: object
-            description: A database entry representing a single host with its Inventory
-              metadata.
-            title: A Host Inventory entry
-          type: array
-        total:
-          description: A total count of the found entries.
-          type: integer
-      required:
-      - count
-      - page
-      - per_page
-      - results
-      - total
-      title: A Host Inventory query result
-      type: object
-    Host_data:
-      description: Data of a single host to be updated.
-      properties:
-        ansible_host:
-          description: The ansible host name for remediations
-          example: host1.mydomain.com
-          type: string
-        display_name:
-          description: A host’s human-readable display name, e.g. in a form of a domain
-            name.
-          example: host1.mydomain.com
-          type: string
-      title: Host data
-      type: object
-    A_host_system_profile_query_result:
-      description: Structure of the output of the host system profile query
-      example:
-        per_page: 1
-        total: 5
-        count: 0
-        page: 6
-        results:
-        - '{}'
-        - '{}'
-      properties:
-        count:
-          description: A number of entries on the current page.
-          type: integer
-        page:
-          description: A current page number.
-          type: integer
-        per_page:
-          description: A page size – a number of entries per single page.
-          type: integer
-        results:
-          description: Actual host search query result entries.
-          items:
-            description: Individual host record that contains only the host id and
-              system profile
-            properties:
-              id:
-                type: string
-              system_profile:
-                $ref: '#/components/schemas/system_profile.spec.yaml_SystemProfile'
-            title: Structure of an individual host system profile output
-          type: array
-        total:
-          description: A total count of the found entries.
-          type: integer
-      required:
-      - count
-      - page
-      - per_page
-      - results
-      - total
-      title: A host system profile query result
-      type: object
-    inline_response_200:
-      example:
-        per_page: 1
-        total: 5
-        count: 0
-        page: 6
-        results:
-          key:
-          - '{}'
-          - '{}'
-      properties:
-        count:
-          description: A number of entries on the current page.
-          type: integer
-        page:
-          description: A current page number.
-          type: integer
-        per_page:
-          description: A page size – a number of entries per single page.
-          type: integer
-        results:
-          additionalProperties:
-            items:
-              properties:
-                key:
-                  type: string
-                namespace:
-                  nullable: true
-                  type: string
-                value:
-                  nullable: true
-                  type: string
-              type: object
-            type: array
-          description: The list of tags on the systems
-          type: object
-        total:
-          description: Total number of items in the "data" list.
-          type: integer
-      type: object
-    inline_response_200_1:
-      example:
-        per_page: 1
-        total: 5
-        count: 0
-        page: 6
-        results:
-          key: 5
-      properties:
-        count:
-          description: A number of entries on the current page.
-          type: integer
-        page:
-          description: A current page number.
-          type: integer
-        per_page:
-          description: A page size – a number of entries per single page.
-          type: integer
-        results:
-          additionalProperties:
-            type: integer
-          description: The list of tags on the systems
-          type: object
-        total:
-          description: Total number of items in the "data" list.
-          type: integer
-      type: object
-    inline_response_200_2_results:
-      example:
-        count: 6
-        value: value
-      properties:
-        count:
-          type: integer
-        value:
-          type: string
-      type: object
-    inline_response_200_2:
-      example:
-        total: 1
-        count: 0
-        results:
-        - count: 6
-          value: value
-        - count: 6
-          value: value
-      properties:
-        count:
-          description: The number of items on the current page
-          type: integer
-        results:
-          description: The list of sap_system values on the account
-          items:
-            $ref: '#/components/schemas/inline_response_200_2_results'
-          type: array
-        total:
-          description: Total number of items
-          type: integer
-      type: object
-    Host_data_1_tag:
-      properties:
-        key:
-          type: string
-        namespace:
-          nullable: true
-          type: string
-        value:
-          nullable: true
-          type: string
-      type: object
+    TagCountOut:
+      allOf:
+      - $ref: '#/components/schemas/PaginationOut'
+      - $ref: '#/components/schemas/TagCountOut_allOf'
+    TagsOut:
+      allOf:
+      - $ref: '#/components/schemas/PaginationOut'
+      - $ref: '#/components/schemas/TagsOut_allOf'
+    Total:
+      description: Total number of items
+      type: integer
     ActiveTag:
       description: Information about a host tag
       properties:
@@ -3142,137 +2281,34 @@ components:
           nullable: true
           type: integer
         tag:
-          $ref: '#/components/schemas/Host_data_1_tag'
+          $ref: '#/components/schemas/StructuredTag'
       required:
       - count
       - tag
       title: ActiveTag
       type: object
-    Host_data_1:
-      example:
-        count: 3
-        page: 1
-        per_page: 50
-        results:
-        - count: 3
-          tag:
-            key: env
-            namespace: Sat
-            value: prod
-        - count: 1
-          tag:
-            key: region
-            namespace: aws
-            value: us-east-1
-        - count: -1
-          tag:
-            key: web
-            namespace: insights-client
-            value: null
-        total: 3
+    ActiveTags_allOf:
       properties:
-        count:
-          description: The number of items on the current page
-          type: integer
-        page:
-          description: The page number
-          type: integer
-        per_page:
-          description: The number of items to return per page
-          type: integer
         results:
           items:
             $ref: '#/components/schemas/ActiveTag'
           type: array
-        total:
-          description: Total number of items
-          type: integer
       required:
-      - count
-      - page
-      - per_page
       - results
-      - total
-      title: Host data
       type: object
     CanonicalFactsIn_allOf:
       properties:
         bios_uuid:
-          description: A UUID of the host machine BIOS.  This field is considered
-            to be a canonical fact.
-          example: 3f01b55457674041b75e41829bcee1dc
-          nullable: true
-          type: string
-        external_id:
-          description: Host’s reference in the external source e.g. AWS EC2, Azure,
-            OpenStack, etc. This field is considered to be a canonical fact.
-          example: i-05d2313e6b9a42b16
-          nullable: true
-          type: string
-        fqdn:
-          description: A host’s Fully Qualified Domain Name.  This field is considered
-            to be a canonical fact.
-          example: my.host.example.com
-          nullable: true
-          type: string
-        insights_id:
-          description: An ID defined in /etc/insights-client/machine-id. This field
-            is considered a canonical fact.
-          example: 3f01b55457674041b75e41829bcee1dc
-          nullable: true
-          type: string
-        ip_addresses:
-          description: Host’s network IP addresses.  This field is considered to be
-            a canonical fact.
-          example:
-          - 10.10.0.1
-          - 10.0.0.2
-          items:
-            type: string
-          nullable: true
-          type: array
-        mac_addresses:
-          description: Host’s network interfaces MAC addresses.  This field is considered
-            to be a canonical fact.
-          example:
-          - c2:00:d0:c8:61:01
-          items:
-            type: string
-          nullable: true
-          type: array
-        rhel_machine_id:
-          description: A Machine ID of a RHEL host.  This field is considered to be
-            a canonical fact.
-          example: 3f01b55457674041b75e41829bcee1dc
-          nullable: true
-          type: string
-        satellite_id:
-          description: A Red Hat Satellite ID of a RHEL host.  This field is considered
-            to be a canonical fact.
-          example: 3f01b55457674041b75e41829bcee1dc
-          nullable: true
-          type: string
-        subscription_manager_id:
-          description: A Red Hat Subcription Manager ID of a RHEL host.  This field
-            is considered to be a canonical fact.
-          example: 3f01b55457674041b75e41829bcee1dc
-          nullable: true
-          type: string
-      type: object
-    CanonicalFactsIn_allOf_1:
-      properties:
-        bios_uuid:
-          nullable: false
-          type: string
-        external_id:
-          nullable: false
-          type: string
+          allOf:
+          - $ref: '#/components/schemas/BiosUuid'
+          - $ref: '#/components/schemas/HyphenatedUuid'
         fqdn:
           nullable: false
           type: string
         insights_id:
-          nullable: false
-          type: string
+          allOf:
+          - $ref: '#/components/schemas/InsightsId'
+          - $ref: '#/components/schemas/HyphenatedUuid'
         ip_addresses:
           items:
             type: string
@@ -3283,15 +2319,20 @@ components:
             type: string
           nullable: false
           type: array
-        rhel_machine_id:
+        provider_id:
+          nullable: false
+          type: string
+        provider_type:
           nullable: false
           type: string
         satellite_id:
-          nullable: false
-          type: string
+          allOf:
+          - $ref: '#/components/schemas/SatelliteId'
+          - $ref: '#/components/schemas/HyphenatedUuid'
         subscription_manager_id:
-          nullable: false
-          type: string
+          allOf:
+          - $ref: '#/components/schemas/SubscriptionManagerId'
+          - $ref: '#/components/schemas/HyphenatedUuid'
     CreateCheckIn_allOf:
       properties:
         checkin_frequency:
@@ -3328,28 +2369,19 @@ components:
         facts:
           description: A set of facts belonging to the host.
           items:
-            description: A set of string facts belonging to a single namespace.
-            properties:
-              facts:
-                description: The facts themselves.
-                example:
-                  fact1: value1
-                  fact2: value2
-                type: object
-              namespace:
-                description: A namespace the facts belong to.
-                minLength: 1
-                type: string
-            required:
-            - facts
-            - namespace
-            title: Host facts under a namespace
+            $ref: '#/components/schemas/FactSet'
           type: array
         id:
           description: A durable and reliable platform-wide host identifier. Applications
             should use this identifier to reference hosts.
           example: 3f01b55457674041b75e41829bcee1dc
           type: string
+        per_reporter_staleness:
+          additionalProperties:
+            $ref: '#/components/schemas/PerReporterStaleness'
+          description: Reporting source of the last checkin status, stale_timestamp,
+            and last_check_in.
+          type: object
         reporter:
           description: Reporting source of the host. Used when updating the stale_timestamp.
           nullable: true
@@ -3374,26 +2406,63 @@ components:
         facts:
           description: A set of facts belonging to the host.
           items:
-            description: A set of string facts belonging to a single namespace.
-            properties:
-              facts:
-                description: The facts themselves.
-                example:
-                  fact1: value1
-                  fact2: value2
-                type: object
-              namespace:
-                description: A namespace the facts belong to.
-                minLength: 1
-                type: string
-            required:
-            - facts
-            - namespace
-            title: Host facts under a namespace
+            $ref: '#/components/schemas/FactSet'
           type: array
       type: object
-    system_profile_spec_yaml_SystemProfile_operating_system:
-      description: Object for OS details
+    HostQueryOutput_allOf:
+      properties:
+        results:
+          description: Actual host search query result entries.
+          items:
+            $ref: '#/components/schemas/HostOut'
+          type: array
+      required:
+      - results
+      type: object
+    SystemProfile_ansible:
+      description: Object containing data specific to Ansible Automation Platform
+      properties:
+        catalog_worker_version:
+          description: The catalog-worker version on the host
+          example: 7.8.9
+          maxLength: 30
+          pattern: ^\d+(\.\d+)+$
+          type: string
+          x-wildcard: true
+        controller_version:
+          description: The ansible-tower or automation-controller version on the host
+          example: 1.2.3
+          maxLength: 30
+          pattern: ^\d+(\.\d+)+$
+          type: string
+          x-wildcard: true
+        hub_version:
+          description: The automation-hub version on the host
+          example: 4.5.6
+          maxLength: 30
+          pattern: ^\d+(\.\d+)+$
+          type: string
+          x-wildcard: true
+        sso_version:
+          description: The SSO version on the host
+          example: 10.11.12
+          maxLength: 30
+          pattern: ^\d+(\.\d+)+$
+          type: string
+          x-wildcard: true
+      type: object
+    SystemProfile_mssql:
+      description: Object containing data specific to the MS SQL workload
+      properties:
+        version:
+          description: MSSQL version number
+          example: 15.2.0
+          maxLength: 30
+          type: string
+          x-wildcard: true
+      type: object
+    SystemProfile_operating_system:
+      description: Object for OS details. Supports range operations
       properties:
         major:
           description: Major release of OS (aka the x version)
@@ -3411,11 +2480,12 @@ components:
           description: Name of the distro/os
           enum:
           - RHEL
+          - CentOS
           example: RHEL
-          maxLength: 4
+          maxLength: 6
           type: string
       type: object
-    system_profile_spec_yaml_SystemProfile_rhsm:
+    SystemProfile_rhsm:
       description: Object for subscription-manager details
       properties:
         version:
@@ -3423,6 +2493,125 @@ components:
           example: "8.1"
           maxLength: 255
           type: string
+      type: object
+    SystemProfile_rpm_ostree_deployments:
+      description: Limited deployment information from systems managed by rpm-ostree
+        as reported by rpm-ostree status --json
+      properties:
+        booted:
+          description: Whether the deployment is currently booted
+          example: true
+          type: boolean
+        checksum:
+          description: The checksum / commit of the deployment
+          example: 63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb
+          maxLength: 64
+          pattern: ^[a-fA-F0-9]{64}$
+          type: string
+        id:
+          description: ID of the deployment
+          example: fedora-silverblue-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0
+          maxLength: 255
+          minLength: 1
+          type: string
+        origin:
+          description: The origin repo from which the commit was installed
+          example: fedora/33/x86_64/silverblue
+          maxLength: 255
+          minLength: 1
+          type: string
+        osname:
+          description: The operating system name
+          example: fedora-silverblue
+          maxLength: 255
+          minLength: 1
+          type: string
+        pinned:
+          description: Whether the deployment is currently pinned
+          example: false
+          type: boolean
+        version:
+          description: The version of the deployment
+          example: "33.21"
+          maxLength: 255
+          minLength: 1
+          type: string
+      required:
+      - booted
+      - checksum
+      - id
+      - origin
+      - osname
+      - pinned
+      type: object
+    SystemProfile_system_purpose:
+      description: Object for system purpose information
+      properties:
+        role:
+          description: The intended role of the system
+          enum:
+          - Red Hat Enterprise Linux Server
+          - Red Hat Enterprise Linux Workstation
+          - Red Hat Enterprise Linux Compute Node
+          example: Red Hat Enterprise Linux Server
+          maxLength: 37
+          type: string
+        sla:
+          description: The intended SLA of the system
+          enum:
+          - Premium
+          - Standard
+          - Self-Support
+          example: Premium
+          maxLength: 12
+          type: string
+        usage:
+          description: The intended usage of the system
+          enum:
+          - Production
+          - Development/Test
+          - Disaster Recovery
+          example: Production
+          maxLength: 17
+          type: string
+      type: object
+    SystemProfileByHostOut_allOf:
+      properties:
+        results:
+          description: Actual host search query result entries.
+          items:
+            $ref: '#/components/schemas/HostSystemProfileOut'
+          type: array
+      required:
+      - results
+      type: object
+    SystemProfileSapSystemOut_results:
+      example:
+        count: 6
+        value: value
+      properties:
+        count:
+          type: integer
+        value:
+          type: string
+      type: object
+    TagCountOut_allOf:
+      properties:
+        results:
+          additionalProperties:
+            type: integer
+          description: The list of tags on the systems
+          type: object
+      type: object
+    TagsOut_allOf:
+      properties:
+        results:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/StructuredTag'
+            type: array
+          description: The list of tags on the systems
+          type: object
       type: object
   securitySchemes:
     ApiKeyAuth:
