@@ -1,3 +1,4 @@
+This repo is no longer used in [patchman-engine](https://github.com/RedHatInsights/patchman-engine/pulls) and will be removed!
 # patchman-clients
 This repo stores automatically generated Go clients for
 [Red Hat Insights](https://www.redhat.com/en/technologies/management/insights) projects:
